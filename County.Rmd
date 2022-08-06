@@ -1,7 +1,7 @@
 ---
 title: "County"
-author: "Tural Sadigov"
-# date: "8/30/2021"
+author: "Tural Sadigov" 
+date: "`r Sys.Date()`"
 output: github_document
 ---
 
@@ -9,13 +9,13 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Load R data
+### Load R data named county.
 
 ```{r}
 load("county.rda")
 ```
 
-# View only first few rows
+### View only first few rows
 
 ```{r}
 library(tidyverse)
@@ -23,9 +23,13 @@ county <- as.tibble(county)
 head(county)
 ```
 
+### Glimpse into the data.
+
 ```{r}
 glimpse(county)
 ```
+
+### Distributions of some categorical variables.
 
 ```{r}
 # summary in categorical variable
@@ -49,12 +53,16 @@ county %>%
   geom_col()
 ```
 
+### Examine the first ten cases for three specific variables.
+
 ```{r}
 # pull out variables/columns, but only first 10 elements
 county %>% 
   select(pop2000, poverty, smoking_ban) %>% 
   slice(1:10)
 ```
+
+### Dot-plot for the poverty data using ggplot. 
 
 ```{r}
 county %>% 
@@ -64,10 +72,17 @@ county %>%
                stackratio = 1.8, color = 'blue')
 ```
 
+Histogram of the poverty variable using ggplot.
+
 ```{r}
 county %>% 
   ggplot(aes(poverty, fill = 'green')) +
   geom_histogram(color = 'white')
+```
+
+Histogram of the poverty variable versus various levels of categorical variables.
+
+```{r}
 county %>% 
   ggplot(aes(poverty, fill = 'green')) +
   geom_histogram(color = 'white') +
@@ -78,6 +93,8 @@ county %>%
   facet_wrap(~smoking_ban)
 ```
 
+Scatterplot and smoothed splines for two numerical variables.
+
 ```{r}
 county %>% 
   ggplot(aes(unemployment_rate, poverty)) +
@@ -87,10 +104,7 @@ county %>%
   ylab('Poverty') 
 ```
 
-```{r}
-county %>% 
-  summarise()
-```
+Below are some summary statistics using base/native R.
 
 ```{r}
 # mean and median
@@ -112,11 +126,10 @@ var(poverty, na.rm = T)
 sd(poverty)
 sd(poverty, na.rm = T)
 
-```
-
-```{r}
 IQR(poverty, na.rm = T)
 ```
+
+Scatterplot using base R.
 
 ```{r}
 # scatterpot - understanding two variables
@@ -126,10 +139,4 @@ plot(unemployment_rate, poverty,
      ylab = 'Poverty Rate', col = 'red')
 grid(lwd = 3, col = 'blue')
 
-```
-
-```{r}
-# reading from CSV
-county2 = read.csv('county.csv')
-head(county2 == county)
 ```

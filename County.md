@@ -1,14 +1,15 @@
 County
 ================
 Tural Sadigov
+2022-08-05
 
-# Load R data
+### Load R data named county.
 
 ``` r
 load("county.rda")
 ```
 
-# View only first few rows
+### View only first few rows
 
 ``` r
 library(tidyverse)
@@ -52,6 +53,8 @@ head(county)
     ## #   ⁴​unemployment_rate
     ## # ℹ Use `colnames()` to see all variable names
 
+### Glimpse into the data.
+
 ``` r
 glimpse(county)
 ```
@@ -73,6 +76,8 @@ glimpse(county)
     ## $ per_capita_income <dbl> 27841.70, 27779.85, 17891.73, 20572.05, 21367.39, 15…
     ## $ median_hh_income  <int> 55317, 52562, 33368, 43404, 47412, 29655, 36326, 436…
     ## $ smoking_ban       <fct> none, none, partial, none, none, none, NA, NA, none,…
+
+### Distributions of some categorical variables.
 
 ``` r
 # summary in categorical variable
@@ -135,6 +140,8 @@ county %>%
 
 ![](County_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
+### Examine the first ten cases for three specific variables.
+
 ``` r
 # pull out variables/columns, but only first 10 elements
 county %>% 
@@ -156,6 +163,8 @@ county %>%
     ##  9   36583    18.8 none       
     ## 10   23988    16.1 none
 
+### Dot-plot for the poverty data using ggplot.
+
 ``` r
 county %>% 
   ggplot(aes(poverty)) +
@@ -167,6 +176,8 @@ county %>%
     ## Warning: Removed 2 rows containing non-finite values (stat_bindot).
 
 ![](County_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Histogram of the poverty variable using ggplot.
 
 ``` r
 county %>% 
@@ -180,6 +191,9 @@ county %>%
 
 ![](County_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
+Histogram of the poverty variable versus various levels of categorical
+variables.
+
 ``` r
 county %>% 
   ggplot(aes(poverty, fill = 'green')) +
@@ -191,7 +205,7 @@ county %>%
 
     ## Warning: Removed 2 rows containing non-finite values (stat_bin).
 
-![](County_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+![](County_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 county %>% 
@@ -204,7 +218,9 @@ county %>%
 
     ## Warning: Removed 2 rows containing non-finite values (stat_bin).
 
-![](County_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
+![](County_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
+
+Scatterplot and smoothed splines for two numerical variables.
 
 ``` r
 county %>% 
@@ -221,14 +237,9 @@ county %>%
 
     ## Warning: Removed 3 rows containing missing values (geom_point).
 
-![](County_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](County_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-``` r
-county %>% 
-  summarise()
-```
-
-    ## # A tibble: 1 × 0
+Below are some summary statistics using base/native R.
 
 ``` r
 # mean and median
@@ -295,6 +306,8 @@ IQR(poverty, na.rm = T)
 
     ## [1] 8.1
 
+Scatterplot using base R.
+
 ``` r
 # scatterpot - understanding two variables
 plot(unemployment_rate, poverty, 
@@ -304,32 +317,4 @@ plot(unemployment_rate, poverty,
 grid(lwd = 3, col = 'blue')
 ```
 
-![](County_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
-
-``` r
-# reading from CSV
-county2 = read.csv('county.csv')
-head(county2 == county)
-```
-
-    ##      name state pop2000 pop2010 pop2017 pop_change poverty homeownership
-    ## [1,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ## [2,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ## [3,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ## [4,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ## [5,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ## [6,] TRUE  TRUE    TRUE    TRUE    TRUE       TRUE    TRUE          TRUE
-    ##      multi_unit unemployment_rate metro median_edu per_capita_income
-    ## [1,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ## [2,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ## [3,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ## [4,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ## [5,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ## [6,]       TRUE              TRUE  TRUE       TRUE              TRUE
-    ##      median_hh_income smoking_ban
-    ## [1,]             TRUE        TRUE
-    ## [2,]             TRUE        TRUE
-    ## [3,]             TRUE        TRUE
-    ## [4,]             TRUE        TRUE
-    ## [5,]             TRUE        TRUE
-    ## [6,]             TRUE        TRUE
+![](County_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
