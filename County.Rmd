@@ -1,0 +1,135 @@
+---
+title: "County"
+author: "Tural Sadigov"
+# date: "8/30/2021"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load R data
+
+```{r}
+load("county.rda")
+```
+
+# View only first few rows
+
+```{r}
+library(tidyverse)
+county <- as.tibble(county)
+head(county)
+```
+
+```{r}
+glimpse(county)
+```
+
+```{r}
+# summary in categorical variable
+county %>% 
+  count(smoking_ban)
+county %>% 
+  count(smoking_ban) %>% 
+  ggplot(aes(smoking_ban, n)) +
+  geom_col()
+```
+
+```{r}
+# summary in categorical variable
+county %>% 
+  count(smoking_ban, metro)
+county %>% 
+  count(metro)
+county %>% 
+  count(metro) %>% 
+  ggplot(aes(metro, n)) +
+  geom_col()
+```
+
+```{r}
+# pull out variables/columns, but only first 10 elements
+county %>% 
+  select(pop2000, poverty, smoking_ban) %>% 
+  slice(1:10)
+```
+
+```{r}
+county %>% 
+  ggplot(aes(poverty)) +
+  geom_dotplot(dotsize = 1, 
+               binwidth = 1/5, 
+               stackratio = 1.8, color = 'blue')
+```
+
+```{r}
+county %>% 
+  ggplot(aes(poverty, fill = 'green')) +
+  geom_histogram(color = 'white')
+county %>% 
+  ggplot(aes(poverty, fill = 'green')) +
+  geom_histogram(color = 'white') +
+  facet_wrap(~metro)
+county %>% 
+  ggplot(aes(poverty, fill = 'green')) +
+  geom_histogram(color = 'white') +
+  facet_wrap(~smoking_ban)
+```
+
+```{r}
+county %>% 
+  ggplot(aes(unemployment_rate, poverty)) +
+  geom_point() +
+  geom_smooth() +
+  xlab('Unemployment rate') +
+  ylab('Poverty') 
+```
+
+```{r}
+county %>% 
+  summarise()
+```
+
+```{r}
+# mean and median
+mean(county$unemployment_rate, na.rm = T)
+mean(county$poverty, na.rm = T)
+median(county$unemployment_rate, na.rm = T)
+median(county$poverty, na.rm = T)
+```
+
+```{r}
+attach(county)
+# numerical summaries
+summary(poverty, na.rm = T)
+
+# spread - IQR, sd, var
+var(poverty)
+var(poverty, na.rm = T)
+
+sd(poverty)
+sd(poverty, na.rm = T)
+
+```
+
+```{r}
+IQR(poverty, na.rm = T)
+```
+
+```{r}
+# scatterpot - understanding two variables
+plot(unemployment_rate, poverty, 
+     main = 'Poverty rate vs Unemployment rate in each county',
+     xlab = 'Unemployment Rate',
+     ylab = 'Poverty Rate', col = 'red')
+grid(lwd = 3, col = 'blue')
+
+```
+
+```{r}
+# reading from CSV
+county2 = read.csv('county.csv')
+head(county2 == county)
+```
