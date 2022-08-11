@@ -1,0 +1,276 @@
+---
+title: "County data - EDA"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: superhero
+editor: visual
+---
+
+## Load libraries and R data
+
+```{r}
+# our new universe
+library(tidyverse)
+
+# load from R data file
+load("county.rda")
+
+# reading from CSV
+county2 = read_csv('county.csv')
+as_tibble(county2 == county)
+```
+
+## Change the data format to tibble (advanced data frame) and view portion of it.
+
+```{r}
+county <- as_tibble(county)
+county
+```
+
+## Select or pull out some variables to display them.
+
+```{r}
+# select a feture/variable and displayfirst 10 elements
+county %>% 
+  select(pop2000) %>% 
+  slice(1:10)
+
+# pull out the whole feature as vector/array
+county %>% 
+  pull(pop2000) %>% 
+  head(10)
+```
+
+## We can count frequencies (numerical summary) of each level in categorical variables.
+
+```{r}
+# how many counties has no smoking ban? some smoking ban?
+county %>%
+  count(smoking_ban)
+# how many counties has a metropolitan city in it?
+county %>%
+  count(metro)
+```
+
+## Display bar-plots for categorical variables above.
+
+```{r}
+# how many counties has no smoking ban? some smoking ban?
+county %>%
+  count(smoking_ban) %>% 
+  ggplot(aes(x = smoking_ban, y = n)) +
+  geom_col()
+```
+
+## We can fill it with any color, change coordinate labels and even opaqueness.
+
+```{r}
+# how many counties has no smoking ban? some smoking ban?
+county %>%
+  count(smoking_ban) %>% 
+  ggplot(aes(x = smoking_ban, y = n)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  xlab('Smokin ban levels') +
+  ylab('Counts')
+```
+
+## Let's do this again for metro feature, but this time, lets drop rows with NAs.
+
+```{r}
+county %>%
+  count(metro) %>% 
+  drop_na() %>% 
+  ggplot(aes(x = metro, y = n)) +
+  geom_col(fill = 'red', alpha = 0.5) +
+  xlab('Metro or not') +
+  ylab('Counts')
+```
+
+## What if we would like to understand relationship between two categorical variables? Numerical summary.
+
+```{r}
+county %>%
+  count(metro, smoking_ban)
+```
+
+## Drop NAs, and do it again.
+
+```{r}
+county %>%
+  drop_na() %>% 
+  count(metro, smoking_ban)
+```
+
+## What about numerical variables? First, numerical summaries.
+
+```{r}
+# quartiles and mean
+county %>% 
+  pull(poverty) %>% 
+  summary()
+
+# spread: var
+county %>% 
+  pull(poverty) %>% 
+  var(na.rm = T)
+
+# spread: sd
+county %>% 
+  pull(poverty) %>% 
+  sd(na.rm = T)
+
+# spread: QR
+county %>% 
+  pull(poverty) %>% 
+  IQR(na.rm = T)
+
+# spread: range
+county %>% 
+  pull(poverty) %>% 
+  range(na.rm = T)
+```
+
+## We can create distributions for numerical variables: dotplots, histograms, boxplots, smoothed histograms and more.
+
+```{r}
+# boxplot
+county %>% 
+  ggplot(aes(x = poverty)) +
+  geom_boxplot(fill = 'green', alpha = 0.5)
+```
+
+## Boxplots for poverty with each level of metro (NAs dropped).
+
+```{r}
+# boxplot - facet wrapped
+county %>% 
+  drop_na() %>% # drop nas
+  ggplot(aes(x = poverty)) +
+  geom_boxplot(fill = 'green', alpha = 0.5) +
+  facet_wrap(~metro) + # facet wrap with metro levels
+  coord_flip() # make them vertical
+```
+
+## We can facet wrap it with more than one categorical variable.
+
+```{r}
+# boxplot - facet wrapped - twice!
+county %>% 
+  drop_na() %>%
+  ggplot(aes(x = poverty)) +
+  geom_boxplot(fill = 'green', alpha = 0.5) +
+  facet_wrap(~metro + smoking_ban) # facet wrap twice
+```
+
+## We could look at histogram for numerical variables.
+
+```{r}
+# distribution - histogram
+county %>% 
+  ggplot(aes(x = poverty)) +
+  geom_histogram()
+```
+
+## Customize it.
+
+```{r}
+# distribution - histogram
+county %>% 
+  ggplot(aes(x = poverty)) +
+  geom_histogram(aes(y = ..density..),
+                 color = 'white', 
+                 fill = 'blue', 
+                 alpha = 0.5) +
+  geom_density(lwd = 2, color = 'red')
+```
+
+## Use only smoothed histogram (density) and fill it!
+
+```{r}
+# distribution - histogram
+county %>% 
+  ggplot(aes(x = poverty)) +
+  geom_density(fill="lightblue")
+```
+
+## Can we facet-wrap it?
+
+```{r}
+# distribution - histogram + facet wrap
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty)) +
+  geom_density(fill="lightblue") +
+  facet_wrap(~metro)
+```
+
+## We can do better.
+
+```{r}
+# distribution - histogram + facet wrap
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty, fill= metro)) +
+  geom_density(alpha = 0.4) 
+```
+
+## Now facet wrap it with smoking ban.
+
+```{r}
+# distribution - histogram + facet wrap
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty, fill= metro)) +
+  geom_density(alpha = 0.4) +
+  facet_wrap(~smoking_ban)
+```
+
+## What about relationship between two numerical variables? Scatterplots.
+
+```{r}
+county %>% 
+  ggplot(aes(x = unemployment_rate, y = poverty)) +
+  geom_point()
+```
+
+## Add opaqueness.
+
+```{r}
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = unemployment_rate, y = poverty)) +
+  geom_point(alpha = 0.5) 
+```
+
+## Add trend. 
+
+```{r}
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = unemployment_rate, y = poverty)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+## Color it according to metro.
+
+```{r}
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = unemployment_rate, y = poverty, color = smoking_ban)) +
+  geom_point(alpha = 0.5) + 
+  geom_smooth()
+```
+
+## Include smoking ban as color, and facet wrap it with metro.
+
+```{r}
+county %>% 
+  drop_na() %>% 
+  ggplot(aes(x = unemployment_rate, y = poverty, color= smoking_ban)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se = FALSE) +
+  facet_wrap(~metro)
+```
