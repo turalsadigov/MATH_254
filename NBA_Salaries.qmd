@@ -1,0 +1,201 @@
+---
+title: "NBA Salaries for 2019-2020"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme:
+        light: united
+        dark: superhero
+editor: visual
+---
+
+## Load libraries
+
+```{r}
+library(tidyverse)
+```
+
+Load data.
+
+```{r}
+nba = read_table(file = 'nba_salaries_text')
+```
+
+Extract the column as a vector/array.
+
+```{r}
+#| out.width: "100%"
+
+# pull it
+nba_salaries <- 
+  nba %>% 
+  pull(Salary)
+# display first 30 of them
+nba_salaries %>% 
+  head(30)
+```
+
+Distribution.
+
+```{r}
+#| out.width: "100%"
+nba %>% 
+  ggplot(aes(x = Salary)) +
+  geom_histogram(aes(y = ..density..),
+                 color = 'white', 
+                 fill = 'blue', 
+                 alpha = 0.5) +
+  geom_density(lwd = 2) +
+  xlab('NBA salaries (in million $)') +
+  ggtitle('Distribution of NBA salaries - 2019/20 season')
+```
+
+Numerical summaries.
+
+```{r}
+#| out.width: "100%"
+
+# summaries
+nba %>% 
+  summarise(mean = mean(Salary), 
+            median = median(Salary), 
+            sd = sd(Salary), 
+            var = var(Salary),
+            iqr = IQR(Salary))
+```
+
+We will treat this salary data as our population since it has all the salaries for all NBA players from 2019-2020 season. Now, what if we choose 10 players out of `r dim(nba)[1]` players, and find the sample mean. How good would that be an estimate of the true mean, `r mean(nba$Salary)`? Lets do an experiment. We choose a sample without replacement, and calculate the sample mean.Do it many many time.
+
+```{r}
+set.seed(2022)
+nba %>% 
+  sample_n(size = 10, 
+           replace = FALSE) %>% 
+  summarise(mean = mean(Salary))
+```
+
+Lets do this many many times and keep records of each sample mean. One can do this with a **for** loop, but we will use a package named **`infer`** to abstract away the process.
+
+```{r}
+library(infer)
+nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 2, # play with number of repetitions
+               replace = FALSE) 
+```
+
+Lets group them by replication, and then find average salary for each replication.
+
+```{r}
+set.seed(2022)
+nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 500,
+               replace = FALSE) %>% 
+  group_by(replicate) %>% 
+  summarise(mean = mean(Salary))
+```
+
+Now, we can get sampling distribution for 500 repeated samples.
+
+```{r}
+#| out.width: "100%"
+
+set.seed(2022)
+nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 500,
+               replace = FALSE) %>% 
+  group_by(replicate) %>% 
+  summarise(mean = mean(Salary)) %>% 
+  ggplot(aes(x = mean)) +
+  geom_histogram(aes(y = ..density..), 
+                 color = 'white',
+                 fill = 'blue', 
+                 alpha = 0.5) +
+  geom_density(lwd = 2)
+```
+
+Try the sampling distribution for 10,000 samples!
+
+```{r}
+#| out.width: "100%"
+
+set.seed(2022)
+nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 10000,
+               replace = FALSE) %>% 
+  group_by(replicate) %>% 
+  summarise(means = mean(Salary)) %>% 
+  ggplot(aes(x = means)) +
+  geom_histogram(aes(y = ..density..), 
+                 color = 'white',
+                 fill = 'blue', 
+                 alpha = 0.5) +
+  geom_density(lwd = 2)
+```
+
+Lets approximate mean and standard distribution of the sampling distribution.
+
+```{r}
+#| out.width: "100%"
+
+set.seed(2022)
+resampling_data <- 
+  nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 10000,
+               replace = FALSE) %>% 
+  group_by(replicate) %>% 
+  summarise(means = mean(Salary))
+resampling_data
+```
+
+Compare mean of the population and mean of means!
+
+```{r}
+mean(nba$Salary)
+mean(resampling_data$means)
+```
+
+Compare standard deviation of the population and standard deviation of means!
+
+```{r}
+sd(nba$Salary)
+sd(resampling_data$means)
+```
+
+It turns out that one could calculate the mean and the standard deviation of the sampling distribution via the following formulas:
+
+$$
+\mu_{\bar{X}} = \mu_X, \quad\quad \sigma_{\bar{X}} = \frac{\sigma_X}{\sqrt{n}}
+$$
+
+Lets check this.
+
+```{r}
+sd(nba$Salary)/sqrt(10)
+sd(resampling_data$means)
+```
+
+What if we would like to create/investigate/understand the sampling distribution of the sample maximum?
+
+```{r}
+#| out.width: "100%"
+
+set.seed(2023)
+nba %>% 
+  rep_sample_n(size = 10, 
+               reps = 10000,
+               replace = FALSE) %>% 
+  group_by(replicate) %>% 
+  summarise(max = max(Salary)) %>% 
+  ggplot(aes(x = max)) +
+  geom_histogram(aes(y = ..density..), 
+                 color = 'white',
+                 fill = 'blue', 
+                 alpha = 0.5) +
+  geom_density(lwd = 2)
+```
