@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+output: html_document
+date: "2022-08-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#| echo: false
+#| output: false
+library(DBI)
+# Create an ephemeral in-memory RSQLite database
+con <- dbConnect(RSQLite::SQLite(), ":memory:")
+dbWriteTable(con, "mtcars", mtcars)
+dbListTables(con)
+```
+
+```{sql, connection=con}
+SELECT mpg, hp
+FROM mtcars 
+WHERE cyl = 4
+ORDER BY hp ASC
+LIMIT 5;
+```
+
+
+```{r}
+#| echo: false
+#| output: false
+library(DBI)
+# Create an ephemeral in-memory RSQLite database
+con <- dbConnect(RSQLite::SQLite(), 'iris.sqlite')
+dbListTables(con)
+```
+
+```{sql, connection=con}
+SELECT *
+FROM iris
+LIMIT 5;
+```

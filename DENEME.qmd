@@ -1,0 +1,20 @@
+---
+title: "Untitled"
+format: html_document
+editor: visual
+---
+
+```{r}
+library(RSQLite)
+library(DBI)
+# Create an ephemeral in-memory RSQLite database
+con <- dbConnect(RSQLite::SQLite(), 'iris.sqlite')
+dbListTables(con)
+```
+
+```{sql, connection=con}
+-- sql code
+SELECT *
+FROM iris
+
+```

@@ -1,0 +1,112 @@
+---
+title: "Introduction to R"
+author: "Tural Sadigov"
+date: "`r Sys.Date()`"
+format: 
+    html:
+      theme: darkly
+editor: visual
+execute:
+  out.width: "100%"
+  echo: true
+---
+
+# R as calculator.
+
+```{r}
+3+4
+3*4
+3^4
+3/4
+sin(0)
+```
+
+# Variables
+
+```{r}
+x = 5
+print(x)
+x <- 7
+print(x)
+x
+```
+
+# Strings
+
+```{r}
+x = 'the best class ever'
+x
+```
+
+# Point-wise operations on arrays
+
+```{r}
+x = c(4,7,2,3)
+x
+x^2
+x*x
+sum(x)
+prod(x)
+length(x)
+mean(x)
+y = c(1, 2, -3, 0.5)
+x*y
+x+y
+x^y
+```
+
+# BJ data in R
+
+```{r}
+BJsales
+help("BJsales")
+help(BJsales)
+```
+
+# Choosing sample from set
+
+```{r}
+x
+set.seed(123)
+sample(x,2)
+sample(BJsales, 10)
+```
+
+# Time plot of the data using tidyverse
+
+```{r}
+#| out.width: "100%"
+library(tidyverse)
+BJsales_df <- as_tibble(BJsales)
+BJsales_df %>% 
+  ggplot(aes(1:150,x))+
+  geom_line()
+```
+
+# Dotplot using base R
+
+```{r}
+#| out.width: "100%"
+
+x = c(4,7,2,3, 3,3,3,4,2,1)
+# introduce the following plot step by step
+stripchart(x,  method = 'stack', 
+           at = 0.05, pch = 20, xlim = c(0,8),
+           col = 'blue', cex = 3, frame.plot = F,
+           main = 'Our Fist Dotplot', cex.main = 1)
+axis(1, at = seq(1, 8, by = 1))
+```
+
+# Dotplot using tidyverse/ggplot
+
+```{r}
+#| out.width: "100%"
+# ignore y-axis
+x = c(4,7,2,3, 3,3,3,4,2,1)
+df = as_tibble(x)
+df %>% 
+  ggplot(aes(x)) +
+  geom_dotplot(fill = 'blue', stackratio = 2) +
+  theme(axis.text.y=element_blank(),
+      axis.ticks.y=element_blank())
+```
