@@ -4,7 +4,7 @@ subtitle: "Statistical Modeling and Applications"
 author: "Tural Sadigov"
 date: today
 format: 
-    pdf:
+    html:
       theme: 
         light: united
         dark: darkly
@@ -177,7 +177,7 @@ iris %>%
   head()
 ```
 
-One can also write SQL queries within Quarto and even create web apps/dashboards with R (R Shiny) and embed them into a Quarto document. See an example of a web app created with R: [https://turalsadigov.shinyapps.io/my_new_ames_app/](https://turalsadigov.shinyapps.io/my_new_ames_app/){target="_blank"}.
+One can also write SQL queries within Quarto/R Markdown and even create web apps/dashboards with R (R Shiny) and embed them into a Quarto document. See an example of a web app created with R: [https://turalsadigov.shinyapps.io/my_new_ames_app/](https://turalsadigov.shinyapps.io/my_new_ames_app/){target="_blank"}.
 
 ## Topics
 
@@ -224,7 +224,7 @@ In this module, we start working with both inference and prediction.
 ## Schedule
 
 | Dates                | Topics/Events                                                   |
-|-------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 |                      | **`MODULE 1 - CLASSICAL STATISTICS`**                           |
 | August 26            | Introduction/Syllabus                                           |
 | August 29 - Sept. 2  | Statistics-1 Review, R, Sampling distributions                  |
