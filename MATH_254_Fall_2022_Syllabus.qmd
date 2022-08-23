@@ -9,7 +9,7 @@ format:
         light: united
         dark: darkly
       smooth-scroll: true
-
+always_allow_html: true
 editor: visual
 toc: true
 toc-location: right
@@ -18,7 +18,7 @@ number-sections: true
 #backgroundcolor: white
 cap-location: bottom
 fig-cap-location: bottom
-tbl-cap-location: bottom
+tbl-cap-location: top
 page-layout: article
 code-fold: show
 code-summary: "Collapse/show the code below"
@@ -39,7 +39,7 @@ fig-align: center
 
 ## Course Description
 
-MATH 254 is a second course in statistics with an emphasis on how statistics is used in the real world. Real data are messy, and large data sets have their own issues which are frequently misunderstood. Students will learn to form and test hypotheses and models using a wide class of statistical techniques, and special emphasis will be placed on situations where those techniques fail or are misunderstood. Students will learn to implement their ideas in the statistical programming language R. Topics include bootsrtap methods, randomization, permutation tests, tests, linear and multilinear regression, logistic regression, categorical data analysis, and selected topics in machine learning. Emphasis will be placed on applications of statistics in real world data sets and also interpretation & presentation of results.
+MATH 254 is a second course in statistics with an emphasis on how statistics is used in the real world. Students will learn to form and test hypotheses and models using a wide class of statistical techniques, and special emphasis will be placed on situations where those techniques fail or are misunderstood. Students will learn to implement their ideas in the statistical programming language R. Topics include bootsrtap methods, randomization, permutation tests, linear, multilinear, polynomial regression, logistic regression, and selected topics in machine learning. Emphasis will be placed on applications of statistics in real world data sets and also interpretation & presentation of results.
 
 ## Class info
 
@@ -105,7 +105,7 @@ MATH 254 is a second course in statistics with an emphasis on how statistics is 
 
 ## Demo on R/R Studio
 
-In R Studio, you will be writing your labs/reports/exams using Quarto (formerly known as R Markdown) files. These files lets you create report, article, book, blog, website and more and has the ability to combine text with code. Here is a scatterplot example.
+You will be writing your lab reports, project, homework solutions and possibly exam papers using Quarto (formerly known as R Markdown) within R Studio. Quarto is an open-source scientific and technical publishing system. It enables you to create reports, journal articles, books, blogs, websites and more, and has the ability to combine text with code. Here is an R code chunk that creates a scatterplot withing this very document.
 
 ```{r r_scatterplot_ex}
 #| out.width: "100%"
@@ -115,7 +115,9 @@ In R Studio, you will be writing your labs/reports/exams using Quarto (formerly 
 # the line below
 # install.packages("tidyverse")
 library(tidyverse)
-mtcars$am <- factor(mtcars$am, labels = c("Manual", "Auto"))
+mtcars$am <- factor(mtcars$am, 
+                    labels = c("Automatic Transmission", 
+                               "Manual Transmission"))
 mtcars %>% 
   ggplot(aes(x = hp, y = mpg)) +
   geom_point(alpha = 0.5) +
@@ -143,6 +145,26 @@ mpg %>%
        fill="# Cylinders")
 ```
 
+We can take the previous plot and make it interactive within the document.
+
+```{r}
+#| out.width: "100%"
+
+library(ggplot2)
+library(plotly)
+
+# Plot
+my_plot <- mpg %>% 
+  ggplot(aes(cty)) +
+  geom_density(aes(fill=factor(cyl)), alpha=0.8) + 
+  labs(title="Density plot", 
+       subtitle="City Mileage Grouped by Number of cylinders",
+       caption="Source: mpg",
+       x="City Mileage",
+       fill="# Cylinders")
+ggplotly(my_plot) 
+```
+
 We can also write Python chunks in Quarto.
 
 ```{python python_histpgram_ex}
@@ -156,13 +178,20 @@ We can also write Python chunks in Quarto.
 import matplotlib.pyplot as plt
 import numpy as np
 np.random.seed(2022)
-x = np.random.normal(170, 10, 250)
-
-plt.hist(x, 30, density=True, facecolor='g',  alpha = 0.5);
+x1 = np.random.normal(170, 10, 1000)
+x2 = np.random.normal(140, 50, 1000)
+plt.hist(x1, 30,
+         density=True,  
+         alpha = 0.5, 
+         histtype = 'stepfilled');
+plt.hist(x2, 30, 
+         density=True,  
+         alpha = 0.5, 
+         histtype = 'stepfilled');
 plt.show()
 ```
 
-One can even write SQL queries within Quarto.
+One can even write SQL queries within Quarto and even create web apps/dashboards with R (R Shiny) and embed them into a Quarto document. See an example of a web app created with R: [https://turalsadigov.shinyapps.io/my_new_ames_app/](https://turalsadigov.shinyapps.io/my_new_ames_app/){target="_blank"}.
 
 ## Topics
 
@@ -206,29 +235,58 @@ In this module, we start working with both inference and prediction.
 
 15. K nearest neighbor regression
 
+## Schedule
+
+| Dates                | Topics/Events                                                   |
+|-------------------|-----------------------------------------------------|
+|                      | **`MODULE 1 - CLASSICAL STATISTICS`**                           |
+| August 26            | Introduction/Syllabus                                           |
+| August 29 - Sept. 2  | Statistics-1 Review, R, Sampling distributions                  |
+| September 5 - 9      | Central Limit Theorem, Confidence Intervals                     |
+| September 12 - 16    | Hypothesis testing, Common statistical tests ($z, t$)           |
+| September 19 - 23    | Bootstrap and randomization                                     |
+| September 26 - 30    | Permutation tests                                               |
+| October 3 - 7        | Midterm Review, p-values, dicing and slicing,                   |
+| October 6            | [Midterm Test]{.underline}                                      |
+| October 10 - 14      | $\chi^2$ tests                                                  |
+|                      | **`MODULE 2 - MACHINE LEARNING`**                               |
+| October 17 - 21      | Linear and multiple linear regression                           |
+| October 24 - 28      | Linear, multiple, polynomial regression                         |
+| October 31 - Nov. 4  | Variable selection, forward/backward/mixed selections           |
+| November 7 - 11      | Classification, Logistic regression                             |
+| November 10          | [Project]{.underline}                                           |
+| November 14 - 18     | Multiple Logistic regression, K nearest neighbor classification |
+| November 19 - 27     | Thanksgiving recess                                             |
+| November 28 - Dec. 2 | K nearest neighbor regression                                   |
+| December 5 - 9       | Labs all week, k-means clustering, Final Review                 |
+
+: Tentative Schedule
+
 ## Grading Categories
 
 There are four main grading categories.
 
 #### Homework (10%)
 
-Weekly homework of around 5-7 problems will be assigned on each Monday, and it will be due on Sunday, 10 PM. You will have access to the homework through Blackboard, and you will submit your homework on Gradescope. We have two graders who will grade your work. Lowest HW grade will be dropped.
+Weekly homework of around 5-7 problems will be assigned on each Monday, and it will be due on Sunday, 10 PM of that week. You will have access to the homework through Blackboard, and you will submit your homework on Gradescope. We have two graders who will grade your work. Lowest HW grade will be dropped at the end of the semester.
 
 #### Labs/Mini Projects (10%)
 
-Weekly lab/mini projectss will be given at the end of Wednesday class (with questions based on the new material we cover in that week. You will be able to work on some of them right away, and you will continue working on it during Friday's class (the last 20 minutes). You will be working in a group of 2 people and you are allowed to use the book, your notes and R. Deadline for submitting the labs is Friday, 10 pm. No make-up lab will be given. Missed labs are counted as zeros. The lowest lab score will be dropped.
+Weekly labs (a.k.a mini projects) will be given at the end of each Wednesday class. These mini projects will have questions based on the new material we cover in that week. You will be able to work on some of them right away using what you have learned on Monday and Wednesday, and you will continue working on it during Friday's class (the last 20 minutes). Note that you will be working in a group of 2 people on each lab, and you are allowed to use the book, your notes and R. Deadline for submitting the labs is Friday, 10 pm. No make-up lab will be given. Missed labs are counted as zeros. The lowest lab score will be dropped at the end of the semester.
 
 #### Midterm Test (25%)
 
-There will be single midterm test during the semester. When grading tests, partial credits will be given for answers that are mostly, but not completely correct. These tests will test your understanding of the concepts covered in the class and your ability to solve problems. No make-up tests will be given unless there is a convincing reason which will need to be proved by necessary documentations and which I would be informed about at least one week in advance. You will need to use R during the midterm test.
+There will be single midterm test during the semester. When grading tests, partial credits will be given for answers that are mostly, but not completely correct. These tests will test your understanding of the concepts covered in the class and your ability to solve problems. You will need to use R during the midterm test.
+
+No make-up tests will be given unless there is a convincing reason which will need to be supported by necessary documentations and which I would be informed about at least one week in advance.
 
 #### Project (20%)
 
-At the begining Week of October 11th, you will be assigned to a random group of 2 students to work on a project that will last 4.5 weeks. You will have to choose the dataset yourself from many available resources (links), and start analyzing the data using descriptive statistics first and then applying the techniques you have been learning and that are appropriate your research question. It is essential that your project have a 'story'. The Consortium for the Advancement of Undergraduate Statistics Education (CAUSE) and the American Statistical Association conduct yearly competetion called Undergarduate Statistics Project Competition (USPROC). Guidelines on how to write a project report will be the same ones from USPROC. USPROC has two seperate competitions: The Undergraduate Class Project Competition (USCLAP) and The Undergraduate Research Project Competition (USRESP). You will focus on the guidelines for USCLAP. A report template is also provided to you at [https://www.causeweb.org/usproc/report-template](https://www.causeweb.org/usproc/report-template){target="_blank"}. Here is the list of Fall 2019 project winners and their projects: [https://www.causeweb.org/usproc/usclap/2019/fall/winners](https://www.causeweb.org/usproc/usclap/2019/fall/winners){target="_blank"}.Run the data set with me before you start working on the project. Note that you will be working on the project with your team, and I will serve as an advisor/consultant.
+At the beginning Week of October 10th, you will be assigned to a group of 2 students to work on a project that will last 4.5 weeks. You will choose a data set you would like investigate from many available resources (LINKS), and start analyzing the data using descriptive statistics first and then applying the techniques you have been learning and that are appropriate your research question(s). It is essential that your project have a story and flow. The Consortium for the Advancement of Undergraduate Statistics Education (CAUSE) and the American Statistical Association conduct yearly competition called Undergraduate Statistics Project Competition (USPROC). Guidelines on how to write a project report will be the same ones from USPROC. USPROC has two separate competitions: The Undergraduate Class Project Competition (USCLAP) and The Undergraduate Research Project Competition (USRESP). You will focus on the guidelines for USCLAP. A report template is also provided to you at [https://www.causeweb.org/usproc/report-template](https://www.causeweb.org/usproc/report-template){target="_blank"}. Here is the list of Fall 2019 project winners and their projects: [https://www.causeweb.org/usproc/usclap/2019/fall/winners](https://www.causeweb.org/usproc/usclap/2019/fall/winners){target="_blank"}. Run the data set with me before you start working on the project. Note that you will be working on the project with your team, and I will serve as a mentor.
 
 #### Project Checkpoints (5%)
 
-Starting with the week of October 11th, each week that project is not due on, you will submit a draft of your work as a checkpoint for your project during that week, and get some feedback. These are drafts of your project, and show your progress. In other words, the project has 4 checkpoints (October 13 -Wed, October 23-Sat, October 30-Sat, November 6- Sat) before it is finally due on November 10, Wednesday, 10 pm. Checkpoint 1 would have the data set, a draft with a reserach question and evidence of data read into R Studio. Checkpoint 2 would have a draft with the research question, some descriptive analysis and references section started. Checkpoint 3 would have a draft with detailed introduction/background, methods that would be applied and some results. Checkpoint 3 would have some main results, updated methods that applied and discussion. Checkpoint 4 would have everything up to now with detailed references, appendix. Final submission would have everything outlined in h[ttps://www.causeweb.org/usproc/report-template](Final%20submission%20would%20have%20everything%20outlined%20in%20https://www.causeweb.org/usproc/report-template){target="_blank"}
+Starting with the week of October 10th, each week that project is NOT due on, you will submit a draft of your work as a checkpoint for your project during that week, and get some feedback. These are drafts of your project, and show your progress. In other words, the project has 4 checkpoints (October 12 -Wed, October 19-Wed, October 26-Wed, November 2- Wed) before it is finally due on November 9, Wednesday, 10 pm. Checkpoint 1 would have the data set, a draft with a research question and evidence of data read into R Studio. Checkpoint 2 would have a draft with the research question, some descriptive analysis and references section started. Checkpoint 3 would have a draft with detailed introduction/background, methods that would be applied and some results. Checkpoint 4 would have some main results, updated methods that applied and discussion, and detailed references and appendix. Final submission would have everything outlined in [ttps://www.causeweb.org/usproc/report-template](Final%20submission%20would%20have%20everything%20outlined%20in%20https://www.causeweb.org/usproc/report-template){target="_blank"}.
 
 #### Final Test (30%)
 
@@ -236,13 +294,13 @@ There will be a cumulative final test at the end of the semester. Like midterm t
 
 ## Grade Scale
 
-Plus and minus grades will be given according to the following table in the inserted picture.
+Plus and minus grades will be given according to the following table in the inserted image.
 
 ![](grade_scale.png){fig-align="center"}
 
 ## QSR Center
 
-Assistance to students taking mathematics/stats courses at Hamilton College is provided by the Quantitative and Symbolic Reasoning Center, located in the CJ 303. QSR Center has generous drop-in hours and well-trained tutors. You can get a Peer Tutor to work with you one-on-one at the QSR Center. For more information see [https://www.hamilton.edu/academics/centers/qsr](https://www.hamilton.edu/academics/centers/qsr){target="_blank"}.
+Assistance to students taking mathematics and statistics courses at Hamilton College is provided by the Quantitative and Symbolic Reasoning Center, located in CJ 303. QSR Center has generous drop-in hours and well-trained tutors. You can get a Peer Tutor to work with you one-on-one at the QSR Center. For more information see [https://www.hamilton.edu/academics/centers/qsr](https://www.hamilton.edu/academics/centers/qsr){target="_blank"}.
 
 ## Honor code
 
