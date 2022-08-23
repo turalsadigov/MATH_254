@@ -1,7 +1,7 @@
 Introduction to R
 ================
 Tural Sadigov
-2022-08-05
+2022-08-09
 
 # R as calculator.
 

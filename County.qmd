@@ -6,6 +6,8 @@ format:
     html:
       theme: superhero
 editor: visual
+execute:
+  out.width: "100%"
 ---
 
 ## Load libraries and R data
@@ -56,7 +58,7 @@ county %>%
 
 ## Display bar-plots for categorical variables above.
 
-```{r}
+```{r out.width = "100%"}
 # how many counties has no smoking ban? some smoking ban?
 county %>%
   count(smoking_ban) %>% 
@@ -67,6 +69,7 @@ county %>%
 ## We can fill it with any color, change coordinate labels and even opaqueness.
 
 ```{r}
+#| out.width = "100%"
 # how many counties has no smoking ban? some smoking ban?
 county %>%
   count(smoking_ban) %>% 
@@ -79,6 +82,7 @@ county %>%
 ## Let's do this again for metro feature, but this time, lets drop rows with NAs.
 
 ```{r}
+#| out.width = "100%"
 county %>%
   count(metro) %>% 
   drop_na() %>% 
@@ -135,6 +139,7 @@ county %>%
 ## We can create distributions for numerical variables: dotplots, histograms, boxplots, smoothed histograms and more.
 
 ```{r}
+#| out.width = "100%"
 # boxplot
 county %>% 
   ggplot(aes(x = poverty)) +
@@ -144,6 +149,7 @@ county %>%
 ## Boxplots for poverty with each level of metro (NAs dropped).
 
 ```{r}
+#| out.width = "100%"
 # boxplot - facet wrapped
 county %>% 
   drop_na() %>% # drop nas
@@ -156,6 +162,7 @@ county %>%
 ## We can facet wrap it with more than one categorical variable.
 
 ```{r}
+#| out.width = "100%"
 # boxplot - facet wrapped - twice!
 county %>% 
   drop_na() %>%
@@ -167,6 +174,7 @@ county %>%
 ## We could look at histogram for numerical variables.
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram
 county %>% 
   ggplot(aes(x = poverty)) +
@@ -176,6 +184,7 @@ county %>%
 ## Customize it.
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram
 county %>% 
   ggplot(aes(x = poverty)) +
@@ -189,6 +198,7 @@ county %>%
 ## Use only smoothed histogram (density) and fill it!
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram
 county %>% 
   ggplot(aes(x = poverty)) +
@@ -198,6 +208,7 @@ county %>%
 ## Can we facet-wrap it?
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram + facet wrap
 county %>% 
   drop_na() %>% 
@@ -209,6 +220,7 @@ county %>%
 ## We can do better.
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram + facet wrap
 county %>% 
   drop_na() %>% 
@@ -219,6 +231,7 @@ county %>%
 ## Now facet wrap it with smoking ban.
 
 ```{r}
+#| out.width = "100%"
 # distribution - histogram + facet wrap
 county %>% 
   drop_na() %>% 
@@ -230,6 +243,7 @@ county %>%
 ## What about relationship between two numerical variables? Scatterplots.
 
 ```{r}
+#| out.width = "100%"
 county %>% 
   ggplot(aes(x = unemployment_rate, y = poverty)) +
   geom_point()
@@ -238,15 +252,17 @@ county %>%
 ## Add opaqueness.
 
 ```{r}
+#| out.width = "100%"
 county %>% 
   drop_na() %>% 
   ggplot(aes(x = unemployment_rate, y = poverty)) +
   geom_point(alpha = 0.5) 
 ```
 
-## Add trend. 
+## Add trend.
 
 ```{r}
+#| out.width = "100%"
 county %>% 
   drop_na() %>% 
   ggplot(aes(x = unemployment_rate, y = poverty)) +
@@ -257,6 +273,7 @@ county %>%
 ## Color it according to metro.
 
 ```{r}
+#| out.width = "100%"
 county %>% 
   drop_na() %>% 
   ggplot(aes(x = unemployment_rate, y = poverty, color = smoking_ban)) +
@@ -267,6 +284,7 @@ county %>%
 ## Include smoking ban as color, and facet wrap it with metro.
 
 ```{r}
+#| out.width = "100%"
 county %>% 
   drop_na() %>% 
   ggplot(aes(x = unemployment_rate, y = poverty, color= smoking_ban)) +

@@ -2,7 +2,7 @@
 title: "Introduction to R"
 author: "Tural Sadigov"
 date: "`r Sys.Date()`"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
