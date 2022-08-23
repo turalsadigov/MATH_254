@@ -1,0 +1,5 @@
+git status (green - changes, red - changes + add)
+git add (reds)
+git commit -m "mesaj"
+git push -u origin main
+
