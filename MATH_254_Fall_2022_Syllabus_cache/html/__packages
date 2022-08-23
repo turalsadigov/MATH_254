@@ -9,4 +9,7 @@ stringr
 forcats
 plotly
 DBI
+<<<<<<< HEAD
 RSQLite
+=======
+>>>>>>> 22f0e13dabc6144392ebc355f3e20805794cf86b
