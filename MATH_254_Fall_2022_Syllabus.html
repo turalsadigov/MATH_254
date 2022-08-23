@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tural Sadigov">
+<meta name="dcterms.date" content="2022-08-22">
+
+<title>MATH 254 - Syllabus - Fall 2022</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/quarto.js"></script>
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/popper.min.js"></script>
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="MATH_254_Fall_2022_Syllabus_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#course-description" id="toc-course-description" class="nav-link active" data-scroll-target="#course-description"> <span class="header-section-number">1</span> Course Description</a></li>
+  <li><a href="#class-info" id="toc-class-info" class="nav-link" data-scroll-target="#class-info"> <span class="header-section-number">2</span> Class info</a></li>
+  <li><a href="#textbooks" id="toc-textbooks" class="nav-link" data-scroll-target="#textbooks"> <span class="header-section-number">3</span> Textbooks</a></li>
+  <li><a href="#software-and-webpages" id="toc-software-and-webpages" class="nav-link" data-scroll-target="#software-and-webpages"> <span class="header-section-number">4</span> Software and webpages</a></li>
+  <li><a href="#demo-on-rr-studio" id="toc-demo-on-rr-studio" class="nav-link" data-scroll-target="#demo-on-rr-studio"> <span class="header-section-number">5</span> Demo on R/R Studio</a></li>
+  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics"> <span class="header-section-number">6</span> Topics</a>
+  <ul class="collapse">
+  <li><a href="#module---1---classical-statistics" id="toc-module---1---classical-statistics" class="nav-link" data-scroll-target="#module---1---classical-statistics"> <span class="header-section-number">6.1</span> Module - 1 - Classical Statistics</a></li>
+  <li><a href="#module---2---machine-learning" id="toc-module---2---machine-learning" class="nav-link" data-scroll-target="#module---2---machine-learning"> <span class="header-section-number">6.2</span> Module - 2 - Machine Learning</a></li>
+  </ul></li>
+  <li><a href="#grading-categories" id="toc-grading-categories" class="nav-link" data-scroll-target="#grading-categories"> <span class="header-section-number">7</span> Grading Categories</a></li>
+  <li><a href="#grade-scale" id="toc-grade-scale" class="nav-link" data-scroll-target="#grade-scale"> <span class="header-section-number">8</span> Grade Scale</a></li>
+  <li><a href="#qsr-center" id="toc-qsr-center" class="nav-link" data-scroll-target="#qsr-center"> <span class="header-section-number">9</span> QSR Center</a></li>
+  <li><a href="#honor-code" id="toc-honor-code" class="nav-link" data-scroll-target="#honor-code"> <span class="header-section-number">10</span> Honor code</a></li>
+  <li><a href="#accommodations-for-students-with-disabilities" id="toc-accommodations-for-students-with-disabilities" class="nav-link" data-scroll-target="#accommodations-for-students-with-disabilities"> <span class="header-section-number">11</span> Accommodations for Students with Disabilities</a></li>
+  <li><a href="#mental-health-support" id="toc-mental-health-support" class="nav-link" data-scroll-target="#mental-health-support"> <span class="header-section-number">12</span> Mental Health Support</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MATH 254 - Syllabus - Fall 2022</h1>
+<p class="subtitle lead">Statistical Modeling and Applications</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tural Sadigov </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 22, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="course-description" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="course-description"><span class="header-section-number">1</span> Course Description</h2>
+<p>MATH 254 is a second course in statistics with an emphasis on how statistics is used in the real world. Real data are messy, and large data sets have their own issues which are frequently misunderstood. Students will learn to form and test hypotheses and models using a wide class of statistical techniques, and special emphasis will be placed on situations where those techniques fail or are misunderstood. Students will learn to implement their ideas in the statistical programming language R. Topics include bootsrtap methods, randomization, permutation tests, tests, linear and multilinear regression, logistic regression, categorical data analysis, and selected topics in machine learning. Emphasis will be placed on applications of statistics in real world data sets and also interpretation &amp; presentation of results.</p>
+</section>
+<section id="class-info" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="class-info"><span class="header-section-number">2</span> Class info</h2>
+<ul>
+<li><p><strong>Instructor:</strong> Dr.&nbsp;Tural Sadigov</p></li>
+<li><p><strong>Office:</strong> CJ 107</p></li>
+<li><p><strong>Contact:</strong> <a href="mailto:tsadigov@hamilton.edu">tsadigov@hamilton.edu</a></p></li>
+<li><p><strong>Teaching Assistants:</strong> Courtney Shay and Emily Weinstein</p></li>
+<li><p><strong>Class times:</strong> MWF 11:00 – 11:50 am in Ben 201</p></li>
+<li><p><strong>Office hours:</strong> MWF 1:30 pm – 3:30 pm in CJ 107</p></li>
+</ul>
+</section>
+<section id="textbooks" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="textbooks"><span class="header-section-number">3</span> Textbooks</h2>
+<ul>
+<li><p><strong>Textbook - 1:</strong> OpenIntro Statistics</p>
+<p>4th Edition, by D. Diez, M. Cetinkaya-Rundel, C.D. Barr</p>
+<p><a href="https://www.openintro.org/book/os/" target="_blank">https://www.openintro.org/book/os/</a></p></li>
+<li><p><strong>Textbook - 2:</strong> Introductory Statistics with Randomization and Simulation</p>
+<p>1st Edition, by D. Diez, C.D. Barr, M .Cetinkaya-Rundel</p>
+<p><a href="https://www.openintro.org/book/isrs/" target="_blank">https://www.openintro.org/book/isrs/</a></p></li>
+<li><p><strong>Textbook - 3:</strong> Introduction to Modern Statistics</p>
+<p>1st Edition, by Mine Cetinkaya-Rundel and Johanna Hardin</p>
+<p><a href="https://openintro-ims.netlify.app/" target="_blank">https://openintro-ims.netlify.app/</a>, <a href="https://www.openintro.org/book/ims/" target="_blank">https://www.openintro.org/book/ims/</a></p></li>
+<li><p><strong>Textbook - 4:</strong> Statistics: A Critical Look</p>
+<p>1st Edition, by Chinthaka Kuruwita</p>
+<p><a href="https://stat2-critical-look.netlify.app/" target="_blank">https://stat2-critical-look.netlify.app/</a></p></li>
+<li><p><strong>Textbook - 5:</strong> An Introduction to Statistical Learning with Applications in R,</p>
+<p>2nd Edition, by G. James, D. Witten, T. Hastie, R. Tibshirani</p>
+<p><a href="https://www.statlearning.com/" target="_blank">https://www.statlearning.com/</a></p></li>
+</ul>
+</section>
+<section id="software-and-webpages" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="software-and-webpages"><span class="header-section-number">4</span> Software and webpages</h2>
+<ul>
+<li><p><strong>Software:</strong></p>
+<ul>
+<li><p>R, <a href="https://www.r-project.org/" target="_blank">https://www.r-project.org/</a></p></li>
+<li><p>R Studio, <a href="https://www.rstudio.com/" target="_blank">https://www.rstudio.com/</a></p></li>
+<li><p>R Studio Cloud, <a href="https://rstudio.cloud/" target="_blank">https://rstudio.cloud/</a></p></li>
+</ul></li>
+<li><p><a href="https://blackboard.hamilton.edu/webapps/blackboard/execute/modulepage/view?course_id=_33167_1&amp;cmp_tab_id=_113106_1&amp;editMode=true&amp;mode=cpview" target="_blank">Blackboard page</a> of the course</p></li>
+<li><p><a href="https://www.gradescope.com/" target="_blank">Gradescope page</a> of the course</p></li>
+<li><p><a href="https://turalsadigov.github.io/MATH_254/" target="_blank">GitHub page</a> of the course</p></li>
+</ul>
+</section>
+<section id="demo-on-rr-studio" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="demo-on-rr-studio"><span class="header-section-number">5</span> Demo on R/R Studio</h2>
+<p>In R Studio, you will be writing your labs/reports/exams using Quarto (formerly known as R Markdown) files. These files lets you create report, article, book, blog, website and more and has the ability to combine text with code. Here is a scatterplot example.</p>
+<div class="cell" data-hash="MATH_254_Fall_2022_Syllabus_cache/html/r_scatterplot_ex_b4548eae0ae52890f0a8e3ca4be1ce07">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># this is a R example: scatterplot</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># if you do not have tidyverse package, install it by uncommenting </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># the line below</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>mtcars<span class="sc">$</span>am <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Manual"</span>, <span class="st">"Auto"</span>))</span>
+<span id="cb1-7"><a href="#cb1-7"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hp, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>am, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="fu">xlab</span>(<span class="st">"Horsepower"</span>) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>  <span class="fu">ylab</span>(<span class="st">"Mile per gallon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="MATH_254_Fall_2022_Syllabus_files/figure-html/r_scatterplot_ex-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>Here is an example of smoothed histograms (densities).</p>
+<div class="cell" data-hash="MATH_254_Fall_2022_Syllabus_cache/html/r_density_ex_8aa333090c11b56f450ee88c3978a597">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Plot</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>mpg <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(cty)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">fill=</span><span class="fu">factor</span>(cyl)), <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Density plot"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>       <span class="at">subtitle=</span><span class="st">"City Mileage Grouped by Number of cylinders"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>       <span class="at">caption=</span><span class="st">"Source: mpg"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>       <span class="at">x=</span><span class="st">"City Mileage"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>       <span class="at">fill=</span><span class="st">"# Cylinders"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="MATH_254_Fall_2022_Syllabus_files/figure-html/r_density_ex-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>We can also write Python chunks in Quarto.</p>
+<div class="cell" data-hash="MATH_254_Fall_2022_Syllabus_cache/html/python_histpgram_ex_1c0cf6e676675bfa73309492d2bdf2c4">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># this is a Python example</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># if you do not have these python pacakges installed, then </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># turn off eval above</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># by making eval: false</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-7"><a href="#cb3-7"></a>np.random.seed(<span class="dv">2022</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>x <span class="op">=</span> np.random.normal(<span class="dv">170</span>, <span class="dv">10</span>, <span class="dv">250</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>plt.hist(x, <span class="dv">30</span>, density<span class="op">=</span><span class="va">True</span>, facecolor<span class="op">=</span><span class="st">'g'</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="MATH_254_Fall_2022_Syllabus_files/figure-html/python_histpgram_ex-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>One can even write SQL queries within Quarto.</p>
+</section>
+<section id="topics" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="topics"><span class="header-section-number">6</span> Topics</h2>
+<p>We have two modules in this class.</p>
+<section id="module---1---classical-statistics" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="module---1---classical-statistics"><span class="header-section-number">6.1</span> Module - 1 - Classical Statistics</h3>
+<p>This module covers fundamentals of classical statistics.</p>
+<ol type="1">
+<li><p>R/R Studio/Quarto</p></li>
+<li><p>Statistics: cases, variables, data-matrices, experiments, numerical and graphical summaries</p></li>
+<li><p>Sampling distributions, Central Limit Theorem (review)</p></li>
+<li><p>Hypothesis testing, decision errors, Common statistical tests (z, t) (review)</p></li>
+<li><p>Bootstrap and randomization</p></li>
+<li><p>Permutation tests</p></li>
+<li><p>p-values, dicing and slicing</p></li>
+<li><p><span class="math inline">\(\chi^2\)</span> tests</p></li>
+</ol>
+</section>
+<section id="module---2---machine-learning" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="module---2---machine-learning"><span class="header-section-number">6.2</span> Module - 2 - Machine Learning</h3>
+<p>In this module, we start working with both inference and prediction.</p>
+<ol start="9" type="1">
+<li><p>Linear, multiple, polynomial regression</p></li>
+<li><p>Model assessments, Diagnostics</p></li>
+<li><p>Variable selection (forward, backward, mixed selections)</p></li>
+<li><p>Bootstrap methods for regression</p></li>
+<li><p>Classification, Logistic regression</p></li>
+<li><p>K nearest neighbor classification</p></li>
+<li><p>K nearest neighbor regression</p></li>
+</ol>
+</section>
+</section>
+<section id="grading-categories" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="grading-categories"><span class="header-section-number">7</span> Grading Categories</h2>
+<p>There are four main grading categories.</p>
+<section id="homework-10" class="level4" data-number="7.0.1">
+<h4 data-number="7.0.1" class="anchored" data-anchor-id="homework-10"><span class="header-section-number">7.0.1</span> Homework (10%)</h4>
+<p>Weekly homework of around 5-7 problems will be assigned on each Monday, and it will be due on Sunday, 10 PM. You will have access to the homework through Blackboard, and you will submit your homework on Gradescope. We have two graders who will grade your work. Lowest HW grade will be dropped.</p>
+</section>
+<section id="labsmini-projects-10" class="level4" data-number="7.0.2">
+<h4 data-number="7.0.2" class="anchored" data-anchor-id="labsmini-projects-10"><span class="header-section-number">7.0.2</span> Labs/Mini Projects (10%)</h4>
+<p>Weekly lab/mini projectss will be given at the end of Wednesday class (with questions based on the new material we cover in that week. You will be able to work on some of them right away, and you will continue working on it during Friday’s class (the last 20 minutes). You will be working in a group of 2 people and you are allowed to use the book, your notes and R. Deadline for submitting the labs is Friday, 10 pm. No make-up lab will be given. Missed labs are counted as zeros. The lowest lab score will be dropped.</p>
+</section>
+<section id="midterm-test-25" class="level4" data-number="7.0.3">
+<h4 data-number="7.0.3" class="anchored" data-anchor-id="midterm-test-25"><span class="header-section-number">7.0.3</span> Midterm Test (25%)</h4>
+<p>There will be single midterm test during the semester. When grading tests, partial credits will be given for answers that are mostly, but not completely correct. These tests will test your understanding of the concepts covered in the class and your ability to solve problems. No make-up tests will be given unless there is a convincing reason which will need to be proved by necessary documentations and which I would be informed about at least one week in advance. You will need to use R during the midterm test.</p>
+</section>
+<section id="project-20" class="level4" data-number="7.0.4">
+<h4 data-number="7.0.4" class="anchored" data-anchor-id="project-20"><span class="header-section-number">7.0.4</span> Project (20%)</h4>
+<p>At the begining Week of October 11th, you will be assigned to a random group of 2 students to work on a project that will last 4.5 weeks. You will have to choose the dataset yourself from many available resources (links), and start analyzing the data using descriptive statistics first and then applying the techniques you have been learning and that are appropriate your research question. It is essential that your project have a ‘story’. The Consortium for the Advancement of Undergraduate Statistics Education (CAUSE) and the American Statistical Association conduct yearly competetion called Undergarduate Statistics Project Competition (USPROC). Guidelines on how to write a project report will be the same ones from USPROC. USPROC has two seperate competitions: The Undergraduate Class Project Competition (USCLAP) and The Undergraduate Research Project Competition (USRESP). You will focus on the guidelines for USCLAP. A report template is also provided to you at <a href="https://www.causeweb.org/usproc/report-template" target="_blank">https://www.causeweb.org/usproc/report-template</a>. Here is the list of Fall 2019 project winners and their projects: <a href="https://www.causeweb.org/usproc/usclap/2019/fall/winners" target="_blank">https://www.causeweb.org/usproc/usclap/2019/fall/winners</a>.Run the data set with me before you start working on the project. Note that you will be working on the project with your team, and I will serve as an advisor/consultant.</p>
+</section>
+<section id="project-checkpoints-5" class="level4" data-number="7.0.5">
+<h4 data-number="7.0.5" class="anchored" data-anchor-id="project-checkpoints-5"><span class="header-section-number">7.0.5</span> Project Checkpoints (5%)</h4>
+<p>Starting with the week of October 11th, each week that project is not due on, you will submit a draft of your work as a checkpoint for your project during that week, and get some feedback. These are drafts of your project, and show your progress. In other words, the project has 4 checkpoints (October 13 -Wed, October 23-Sat, October 30-Sat, November 6- Sat) before it is finally due on November 10, Wednesday, 10 pm. Checkpoint 1 would have the data set, a draft with a reserach question and evidence of data read into R Studio. Checkpoint 2 would have a draft with the research question, some descriptive analysis and references section started. Checkpoint 3 would have a draft with detailed introduction/background, methods that would be applied and some results. Checkpoint 3 would have some main results, updated methods that applied and discussion. Checkpoint 4 would have everything up to now with detailed references, appendix. Final submission would have everything outlined in h<a href="Final%20submission%20would%20have%20everything%20outlined%20in%20https://www.causeweb.org/usproc/report-template" target="_blank">ttps://www.causeweb.org/usproc/report-template</a></p>
+</section>
+<section id="final-test-30" class="level4" data-number="7.0.6">
+<h4 data-number="7.0.6" class="anchored" data-anchor-id="final-test-30"><span class="header-section-number">7.0.6</span> Final Test (30%)</h4>
+<p>There will be a cumulative final test at the end of the semester. Like midterm tests, when grading the final test, partial credits will be given for answers that are mostly, but not completely correct. These tests will test your understanding of the concepts covered in the class and your ability to solve problems. You will need to use R during the final test.</p>
+</section>
+</section>
+<section id="grade-scale" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="grade-scale"><span class="header-section-number">8</span> Grade Scale</h2>
+<p>Plus and minus grades will be given according to the following table in the inserted picture.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="grade_scale.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="qsr-center" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="qsr-center"><span class="header-section-number">9</span> QSR Center</h2>
+<p>Assistance to students taking mathematics/stats courses at Hamilton College is provided by the Quantitative and Symbolic Reasoning Center, located in the CJ 303. QSR Center has generous drop-in hours and well-trained tutors. You can get a Peer Tutor to work with you one-on-one at the QSR Center. For more information see <a href="https://www.hamilton.edu/academics/centers/qsr" target="_blank">https://www.hamilton.edu/academics/centers/qsr</a>.</p>
+</section>
+<section id="honor-code" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="honor-code"><span class="header-section-number">10</span> Honor code</h2>
+<p>All of your work (Homework, Labs, Tests) have to be done according to the honor code. The work you submit for homework, labs, and tests must be your own. For homework you will probably find it beneficial to consult with other students about the material and this kind of conversation and collaboration is encouraged. An examination, however, must be solely the student’s own work. See the website:<a href="https://www.hamilton.edu/student-handbook/studentconduct/honor-code" target="_blank">https://www.hamilton.edu/student-handbook/studentconduct/honor-code.</a></p>
+</section>
+<section id="accommodations-for-students-with-disabilities" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="accommodations-for-students-with-disabilities"><span class="header-section-number">11</span> Accommodations for Students with Disabilities</h2>
+<p>Hamilton College will make reasonable accommodations for students with properly documented disabilities. If you are eligible to receive an accommodation(s) and would like to make a formal request for this course, please discuss it with me as soon as possible. You will need to provide Allen Harrison, Assistant Dean for Accessibility Resources (<a href="mailto:aharriso@hamilton.edu" target="_blank">aharriso@hamilton.edu</a>) with appropriate documentation of your disability.</p>
+</section>
+<section id="mental-health-support" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="mental-health-support"><span class="header-section-number">12</span> Mental Health Support</h2>
+<p>There are times that each of us may feel overwhelmed, anxious, or depressed. There are many resources available on campus to help and support you:</p>
+<ul>
+<li><p>Counseling Center (www.hamilton.edu/offices/counselingcenter, 315-859-4340) located at 100 College Hill Road offers individual and group therapy, peer counselors, psychiatric treatment, and a 24-hour hotline. If you need immediate assistance, phoning the Counseling Center and selecting option 2 will connect you with a counselor, 24 hours a day, 7 days a week.</p></li>
+<li><p>Associate Dean of Students for Student Support, Sarah Solomon (315-859-4463; <a href="mailto:ssolomon@hamilton.edu">ssolomon@hamilton.edu</a>)</p></li>
+<li><p>Associate Dean of Students for Academics, Adam Van Wynsberghe (315-859-4600; <a href="mailto:avanwyns@hamilton.edu">avanwyns@hamilton.edu</a>)</p></li>
+<li><p>Your faculty adviser</p></li>
+<li><p>Your RA and Area Director in your residence hall</p></li>
+</ul>
+<p>If at any time you feel suicidal or in danger of harming yourself or others, please reach out for support! The Hamilton community cares and is available to help. Campus Safety is available 24/7 for urgent concerns at 315-859-4000.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="MATH_254_Fall_2022_Syllabus_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
