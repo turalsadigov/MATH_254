@@ -6,18 +6,21 @@ execute:
   echo: true
 ---
 
-## Download R  and R Studio
+## Download R and R Studio
 
 This homework is to ensure that you have R Studio running on your personal computer. If you do not have a personal computer, I believe, LITS can help you to get one.
 
-1.  To download and install R,
+1.  Download and install R.
 
--   For Windows: go to <https://cran.r-project.org/bin/windows/base/>
--   For Mac: <https://cran.r-project.org/bin/macosx/>
+    -   For Windows: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/){target="_blank"}
 
-<http://rmarkdown.rstudio.com>.
+    -   For Mac: [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/){target="_blank"}
 
-2.  To download and install R Studio, go to <https://www.rstudio.com/products/rstudio/download/>, and follow the intructions.
+```{=html}
+<!-- -->
+```
+2.  Download and install R Studio:
+    -   [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/){target="_blank"}
 
 ## Quarto and coding
 
@@ -37,7 +40,7 @@ This homework is to ensure that you have R Studio running on your personal compu
     AirPassengers
     ```
 
-6.  Run the following code, and comment on the display. Uncomment the first line to install the tidyverse package.
+6.  Run the following code, and comment on the display.
 
     ```{r}
     plot(AirPassengers)
