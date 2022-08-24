@@ -1,0 +1,44 @@
+---
+title: "MATH 254 - Statistical Modeling and Applications - HW0 "
+output: pdf
+execute: 
+  eval: false
+  echo: true
+---
+
+## Download R  and R Studio
+
+This homework is to ensure that you have R Studio running on your personal computer. If you do not have a personal computer, I believe, LITS can help you to get one.
+
+1.  To download and install R,
+
+-   For Windows: go to <https://cran.r-project.org/bin/windows/base/>
+-   For Mac: <https://cran.r-project.org/bin/macosx/>
+
+<http://rmarkdown.rstudio.com>.
+
+2.  To download and install R Studio, go to <https://www.rstudio.com/products/rstudio/download/>, and follow the intructions.
+
+## Quarto and coding
+
+3.  Now, open R Studio and create a new Quarto document with a title in the following format: "Firstname Lastname - HW0".
+
+4.  Erase everything except the YAML header. Insert an R chunk like following, and run the following code in it. Make sure you customize it with your own name.
+
+    ```{r}
+    lastname = "Studio" #fill it
+    firstname = "R" # fill it
+    paste("My name is ", firstname, lastname)
+    ```
+
+5.  Also run the following code to see Air passengers data.
+
+    ```{r}
+    AirPassengers
+    ```
+
+6.  Run the following code, and comment on the display. Uncomment the first line to install the tidyverse package.
+
+    ```{r}
+    plot(AirPassengers)
+    ```
