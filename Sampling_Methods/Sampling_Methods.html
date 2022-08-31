@@ -166,31 +166,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   ⁴​unemployment_rate
 # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>county_df <span class="ot">&lt;-</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  county <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simple-random-sampling" class="level2">
 <h2 class="anchored" data-anchor-id="simple-random-sampling">Simple Random Sampling</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat many times</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># repeat many times</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 15
    name    state pop2000 pop2010 pop2017 pop_c…¹ poverty homeo…² multi…³ unemp…⁴
    &lt;fct&gt;   &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 Mitche… Geor…   23932   23498   22292   -3.08    27.1    65.4    11.3    6.36
- 2 Todd C… Minn…   24426   24895   24515    0.08    13      82.8     6.3    3.99
- 3 St. Fr… Arka…   29329   28258   25930   -5.68    27.5    58.7    15.2    5.08
- 4 Kendal… Illi…   54544  114736  126218    5.53     5.6    85.8     8.8    4.48
- 5 Cassia… Idaho   21416   22952   23664    1.59    14.7    68.6     8.8    2.47
- 6 Jackso… Minn…   11268   10266    9946   -3.24     7.7    78.6    10.8    3.65
- 7 San Be… Cali… 1709434 2035210 2157404    3.39    18.2    65.1    18.8    4.9 
- 8 Simpso… Kent…   16405   17327   18108    2.37    17.4    70.2    11.8    4.55
- 9 Carter… Kent…   26889   27720   27144   -1.61    21.5    77.9     5.5    9.57
-10 Alfalf… Okla…    6105    5642    5907    0.97    11.2    80.6     1.7    2.68
+ 1 Halifa… Nort…   57370   54691   51310   -3.58    26.8    64       9.2    7.38
+ 2 Hitchc… Nebr…    3111    2908    2834   -0.74    14.2    76.5     3.7    3.43
+ 3 Yavapa… Ariz…  167517  211033  228168    6.52    14.7    72.5    11      4.5 
+ 4 Washin… Minn…  201130  238136  256348    4.16     5      84.4    13.1    2.99
+ 5 Lancas… Sout…   61351   76652   92550   14.7     15.5    74.3     7.5    4.65
+ 6 Frankl… Virg…   47286   56159   56445    0.29    14.8    78.5     7.8    3.97
+ 7 Noble … Ohio    14058   14645   14406   -1.76    12.9    78.2     4.5    7.2 
+ 8 Brewst… Texas    8866    9232    9337    0.51    10.9    60.6    11.7    3.49
+ 9 Le Sue… Minn…   25426   27703   28111    1.48     8.8    83.8    11.2    4.66
+10 Ellis … Texas  111360  149610  173620   11.3     10.5    76.3    10.5    3.43
 # … with 5 more variables: metro &lt;fct&gt;, median_edu &lt;fct&gt;,
 #   per_capita_income &lt;dbl&gt;, median_hh_income &lt;int&gt;, smoking_ban &lt;fct&gt;, and
 #   abbreviated variable names ¹​pop_change, ²​homeownership, ³​multi_unit,
@@ -202,8 +199,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="group-by" class="level2">
 <h2 class="anchored" data-anchor-id="group-by">Group by</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,142 × 15
 # Groups:   metro [3]
@@ -227,9 +224,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
 # Groups:   metro [3]
@@ -241,9 +238,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">my_ave_home =</span> <span class="fu">mean</span>(homeownership), <span class="at">my_median_home =</span> <span class="fu">median</span>(homeownership))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">my_ave_home =</span> <span class="fu">mean</span>(homeownership), <span class="at">my_median_home =</span> <span class="fu">median</span>(homeownership))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   metro my_ave_home my_median_home
@@ -257,25 +254,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="stratified-sampling" class="level2">
 <h2 class="anchored" data-anchor-id="stratified-sampling">Stratified Sampling</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(metro) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 15
 # Groups:   metro [2]
    name    state pop2000 pop2010 pop2017 pop_c…¹ poverty homeo…² multi…³ unemp…⁴
    &lt;fct&gt;   &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 Coos C… New …   33111   33055   31634   -0.98    13.3    71.5    22.2    3.43
- 2 Dougla… Neva…   41259   46997   48309    2.85     9.8    76.2    11.4    4.8 
- 3 Clark … Miss…    7416    7139    6723   -2.54    15.3    76       8.2    5.66
- 4 Monroe… Miss…    9311    8840    8612   -1.76    13      76.4     7      4.37
- 5 Clark … Kans…    2390    2215    2004   -8.03     8.9    73.6     4.8    2.54
- 6 Johnst… Nort…  121965  168878  196708   10.9     14.5    73.2     6.6    4.17
- 7 Spotsy… Virg…   90395  122397  133033    4.38     8      79.9     6.4    3.73
- 8 St. Jo… Flor…  123135  190039  243812   16.4      9.1    77.1    20      3.31
- 9 Critte… Arka…   50866   50902   48750   -1.97    23.5    58.2    23.1    4.29
-10 Marin … Cali…  247289  252409  260955    0.81     8.1    64      27      2.86
+ 1 Hale C… Texas   36602   36273   34134   -4.39    19.8    65.3    12.1    5.13
+ 2 Accoma… Virg…   38305   33164   32545   -1.27    19.8    74.1     5.6    4.82
+ 3 Frankl… Virg…    8346    8582    8176   -4.27    16.6    46.3    31.2    5.54
+ 4 Hart C… Geor…   22997   25213   25794    1.22    18.8    76.5     4.2    4.45
+ 5 Scotla… Nort…   35998   36157   35093   -2.27    29.8    64.7    12.1    7.85
+ 6 Callah… Texas   12905   13544   13946    3.33    15.6    82.8     2.3    3.68
+ 7 Norfol… Virg…  234403  242803  244703   -0.37    21      46.6    42.9    4.65
+ 8 McLenn… Texas  213517  234906  251259    4.08    19.3    60.1    24.3    3.85
+ 9 Browar… Flor… 1623018 1748066 1935878    5.18    14      69.3    48.5    3.87
+10 Buckin… Virg…   15623   17146   17065   -0.53    16.6    74.7     4.4    5.4 
 # … with 5 more variables: metro &lt;fct&gt;, median_edu &lt;fct&gt;,
 #   per_capita_income &lt;dbl&gt;, median_hh_income &lt;int&gt;, smoking_ban &lt;fct&gt;, and
 #   abbreviated variable names ¹​pop_change, ²​homeownership, ³​multi_unit,
@@ -287,10 +284,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="nesting" class="level2">
 <h2 class="anchored" data-anchor-id="nesting">Nesting</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">51</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n=</span><span class="dv">51</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 51 × 2
 # Groups:   state [51]
@@ -353,20 +350,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="cluster-sampling" class="level2">
 <h2 class="anchored" data-anchor-id="cluster-sampling">Cluster Sampling</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
-  state      data               
-  &lt;fct&gt;      &lt;list&gt;             
-1 Idaho      &lt;tibble [44 × 14]&gt; 
-2 California &lt;tibble [58 × 14]&gt; 
-3 Maine      &lt;tibble [16 × 14]&gt; 
-4 New Jersey &lt;tibble [21 × 14]&gt; 
-5 Georgia    &lt;tibble [159 × 14]&gt;</code></pre>
+  state         data               
+  &lt;fct&gt;         &lt;list&gt;             
+1 Massachusetts &lt;tibble [14 × 14]&gt; 
+2 California    &lt;tibble [58 × 14]&gt; 
+3 Illinois      &lt;tibble [102 × 14]&gt;
+4 Oregon        &lt;tibble [36 × 14]&gt; 
+5 Idaho         &lt;tibble [44 × 14]&gt; </code></pre>
+</div>
+</div>
+</section>
+<section id="systematic-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="systematic-sampling"><strong>Systematic sampling</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>population_size <span class="ot">=</span> <span class="fu">nrow</span>(county)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>interval <span class="ot">=</span> <span class="fu">as.integer</span>(population_size<span class="sc">/</span>sample_size)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span>, population_size, interval)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(rows)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21 × 15
+   name    state pop2000 pop2010 pop2017 pop_c…¹ poverty homeo…² multi…³ unemp…⁴
+   &lt;fct&gt;   &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Autaug… Alab…   43671   54571   55504    1.48    13.7    77.5     7.2    3.86
+ 2 Missis… Arka…   51979   46480   42159   -5.63    25.6    59.9    16.8    5.94
+ 3 Tollan… Conn…  136364  152691  151461   -0.29     6.5    76.4    24.3    4   
+ 4 Lamar … Geor…   15912   18317   18599    3.8     20.8    66.6    11.1    5.67
+ 5 Hancoc… Illi…   20121   19104   18020   -2.82    11.2    79.9     8.7    5.09
+ 6 Wayne … Indi…   71097   68917   66185   -2.36    18.2    68.6    17.9    3.76
+ 7 Logan … Kans…    3046    2756    2821    1.8      8.9    76.3     6.9    2.14
+ 8 Simpso… Kent…   16405   17327   18108    2.37    17.4    70.2    11.8    4.55
+ 9 Gladwi… Mich…   26023   25692   25234   -1.24    20.2    85.4     3.8    6.67
+10 Clay C… Miss…   21979   20634   19640   -3.47    26.6    71.5     8.7    6.75
+# … with 11 more rows, 5 more variables: metro &lt;fct&gt;, median_edu &lt;fct&gt;,
+#   per_capita_income &lt;dbl&gt;, median_hh_income &lt;int&gt;, smoking_ban &lt;fct&gt;, and
+#   abbreviated variable names ¹​pop_change, ²​homeownership, ³​multi_unit,
+#   ⁴​unemployment_rate
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+</section>
+<section id="convenience-sampling" class="level2">
+<h2 class="anchored" data-anchor-id="convenience-sampling">Convenience Sampling</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">'New York'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62 × 15
+   name    state pop2000 pop2010 pop2017 pop_c…¹ poverty homeo…² multi…³ unemp…⁴
+   &lt;fct&gt;   &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Albany… New …  294565  304204  309612    0.71    12.4    58.9    43.7    4.26
+ 2 Allega… New …   49927   48946   46894   -2.17    16.5    75.6    11.7    6.7 
+ 3 Bronx … New … 1332650 1385108 1471160    2.67    29.7    20.7    89.1    6.2 
+ 4 Broome… New …  200536  200600  193639   -2.31    17.1    66.6    31.8    5.61
+ 5 Cattar… New …   83955   80317   77348   -2.13    16.9    73.4    16.8    6.25
+ 6 Cayuga… New …   81963   80026   77603   -1.91    11.6    71.8    22.2    5.1 
+ 7 Chauta… New …  139750  134905  129046   -2.9     18.5    69.8    25.2    6.08
+ 8 Chemun… New …   91070   88830   85557   -3.19    15.8    68.1    25.8    5.59
+ 9 Chenan… New …   51401   50477   47863   -3.29    14.5    77.2    14.5    5.4 
+10 Clinto… New …   79894   82128   80980   -0.74    15.7    70.3    20.9    5.37
+# … with 52 more rows, 5 more variables: metro &lt;fct&gt;, median_edu &lt;fct&gt;,
+#   per_capita_income &lt;dbl&gt;, median_hh_income &lt;int&gt;, smoking_ban &lt;fct&gt;, and
+#   abbreviated variable names ¹​pop_change, ²​homeownership, ³​multi_unit,
+#   ⁴​unemployment_rate
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
 </div>
 </div>
 </section>

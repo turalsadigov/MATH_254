@@ -22,10 +22,6 @@ load("county.rda")
 ```{r}
 county %>% 
   as_tibble()
-
-county_df <- 
-  county %>% 
-  as_tibble()
 ```
 
 ## Simple Random Sampling
@@ -81,4 +77,22 @@ county %>%
   nest() %>% 
   ungroup() %>% 
   slice_sample(n = 5)
+```
+
+## **Systematic sampling**
+
+```{r}
+sample_size = 20
+population_size = nrow(county)
+interval = as.integer(population_size/sample_size)
+rows = seq(1, population_size, interval)
+county %>% 
+  slice(rows)
+```
+
+## Convenience Sampling
+
+```{r}
+county %>% 
+  filter(state == 'New York')
 ```
