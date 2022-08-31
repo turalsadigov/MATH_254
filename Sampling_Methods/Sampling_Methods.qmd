@@ -1,0 +1,84 @@
+---
+title: "Sampling methods in tidyverse"
+author: "Tural Sadigov"
+format: 
+    html:
+      theme: superhero
+editor: visual
+execute: 
+  eval: true
+  echo: true
+---
+
+## Libraries and data
+
+```{r}
+library(tidyverse)
+load("county.rda")
+```
+
+## Data
+
+```{r}
+county %>% 
+  as_tibble()
+
+county_df <- 
+  county %>% 
+  as_tibble()
+```
+
+## Simple Random Sampling
+
+```{r}
+# repeat many times
+county %>% 
+  slice_sample(n = 10)
+```
+
+## Group by
+
+```{r}
+county %>%
+  group_by(metro) 
+```
+
+```{r}
+county %>%
+  group_by(metro) %>% 
+  count()
+```
+
+```{r}
+county %>%
+  group_by(metro) %>% 
+  summarise(my_ave_home = mean(homeownership), my_median_home = median(homeownership))
+```
+
+## Stratified Sampling
+
+```{r}
+county %>%
+  drop_na() %>% 
+  group_by(metro) %>%
+  slice_sample(n = 5)
+```
+
+## Nesting
+
+```{r}
+county %>%
+  group_by(state) %>%
+  nest() %>% 
+  print(n=51)
+```
+
+## Cluster Sampling
+
+```{r}
+county %>%
+  group_by(state) %>%
+  nest() %>% 
+  ungroup() %>% 
+  slice_sample(n = 5)
+```
