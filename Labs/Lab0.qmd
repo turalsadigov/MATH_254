@@ -1,0 +1,160 @@
+---
+title: "MATH 254 - Statistical Modeling and Applications - Lab 0"
+subtitle: 'Introduction to Data using R'
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+      smooth-scroll: true
+always_allow_html: true
+editor: visual
+toc: true
+toc-location: right
+number-sections: true
+cap-location: bottom
+fig-cap-location: bottom
+tbl-cap-location: top
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  cache: true
+  freeze: true
+  out.width: "100%"
+fig-align: center
+---
+
+# NAME: \_\_\_\_\_\_\_\_\_\_\_
+
+**Who are you working with? \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_**
+
+In the mini-project, you are asked to carry out analysis that requires R, and parts of the R codes are provided to you. Wherever you see three dots within a code chunk, you will need to fill it with your own code.
+
+Source code for the Quarto file, PDF/HTML of this lab and the datas you need (County) are on Blackboard. When you finish editing an R chunk in the Quarto file, turn on `eval` for each chunk by saying '`#| eval: true`', like below:
+
+```{r library}
+#| eval: true
+library(tidyverse)
+print("This is an r chunk")
+```
+
+# Data
+
+1.  Download County data (.rda) to your local machine, load it to R Studio, and view the first 3 rows of the data by filling the code below:
+
+    ```{r data}
+    #| eval: false
+    load(...)
+    county %>% 
+      head(...)
+    ```
+
+2.  What does each row represent?
+
+3.  Characterize each variable (column/feature) in the data as discrete numerical variable, continuous numerical variable, regular categorical variable or ordinal categorical variable. Two variables are provided.
+
+    -   State: A categorical variable with 51 levels
+    -   pop2000: A discrete numerical variable with range 0 to infinity.
+
+# Analysis of a numerical variable
+
+4.  Select the variable, 'homeownership', and obtain the numerical summaries and the range of the variable. Comment on the range of the variable. Compare the sample mean and the sample median, and use the comparison between the sample mean and the sample median to decide if the distribution is skewed.
+
+    ```{r numerical_summaries}
+    #| eval: false
+    county %>% 
+      select(...) %>% 
+      summary()
+
+    county %>% 
+      select(...) %>% 
+      range()
+    ```
+
+5.  Display the distribution of the home ownership in a histogram (with density, not frequency) along with a smoothed histogram. Make sure you have title, labels etc. Insert your name into the title.
+
+    ```{r histogram}
+    #| eval: false
+    county ...
+      ggplot(aes(x = ..., 
+                 y=..density..)) +
+      geom_histogram(color = 'white', 
+                     fill = 'green') +
+      geom_density(lwd = 2, 
+                   col = 'red')
+    ```
+
+6.  Comment on the distribution above.
+
+7.  Create a boxplot of the home ownership, and comment on it.
+
+    -   are there outliers?
+
+    -   do we have evidence of skewness,
+
+    -   is there symmetry in the middle 50%
+
+    ```{r boxplot}
+    #| eval: false
+    ...
+    ```
+
+# Analysis of a categorical variable
+
+8.  Group by the data by the variable named `median_edu`, and count number of counties in each level of the `median_edu`. What are the levels? Create the barplot, and comment on the distribution and anything you find interesting. Feel free to fill the bars with your favorite color (of dark green).
+
+    ```{r cat_var}
+    #| eval: false
+    county %>% 
+      group_by(...) %>% 
+      count()
+
+    county %>% 
+      ggplot(...) +
+      geom_bar()
+    ```
+
+9.  Obtain proportions of each level of `median_edu.` Display the distribution with the proportions. Code is written for you, just turn on eval, and run it. Make sure you understand the code.
+
+    ```{r proportions}
+    #| eval: false
+
+
+    # proportions
+    county %>%
+      group_by(median_edu) %>%  # groups the data by the median education level
+      count() %>%  # counts number of counties in each level
+      mutate(perc = n / nrow(county)) # creates/mutates a new variable
+
+    # barplot
+    county %>%
+      group_by(median_edu) %>%
+      count() %>% 
+      mutate(perc = n / nrow(county)) %>%  
+      ggplot(aes(x = median_edu, 
+                 y = perc)) + # defines ggplot
+      geom_bar(stat = "identity") # defines the barplot
+    ```
+
+# Numerical variable vs Categorical variable
+
+10. Display the distribution of the home ownership for each education level variable via boxplots. Comment on the comparison and anything you find interesting. Do you see anything surprising? Elaborate.
+
+    ```{r many_boxplots}
+    #| eval: false
+    county %>% 
+      ... %>% # drop all rows that has at least one NA
+      ggplot(aes(x = median_edu, # levels on x axis
+                 y = homeownership, # variable on y
+                 group=median_edu)) + # many vboxplots
+      geom_boxplot(aes(fill = median_edu)) # show levels with colors
+    ```
