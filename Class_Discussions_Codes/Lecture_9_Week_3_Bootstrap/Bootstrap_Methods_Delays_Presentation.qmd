@@ -1,0 +1,210 @@
+---
+title: "Bootstrap methods: Delays dataset"
+author: "Tural Sadigov"
+format: revealjs
+editor: visual
+---
+
+## Quarto
+
+This is a Quarto presentation. See <https://quarto.org/docs/presentations/>.
+
+## Load libraries, read data and view the few random rows.
+
+```{r}
+library(tidyverse)
+library(infer)
+delays <- read_csv(file = "https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/Detailed_Statistics_Departures.csv")
+delays %>% 
+  sample_n(5)
+```
+
+## Code: Distribution of delay minutes
+
+```{r}
+#| echo: true
+#| eval: false
+delay_mins = delays$`Departure Delay Minutes`
+hist(delay_mins, 50, freq = F, 
+     main = 'Distribution of delay minutes',
+     xlab = 'Flight departure delays (in minutes)',
+     ylim = c(0, 0.1), 
+     col = 'green')
+lines(density(delay_mins), 
+      col = 'blue', 
+      lwd = 3)
+grid()
+```
+
+## Population Distribution
+
+```{r eval=T, echo=F}
+delay_mins = delays$`Departure Delay Minutes`
+hist(delay_mins, 50, freq = F, 
+     main = 'Distribution of delay minutes',
+     xlab = 'Flight departure delays (in minutes)',
+     ylim = c(0, 0.1), 
+     col = 'green')
+lines(density(delay_mins), 
+      col = 'blue', 
+      lwd = 3)
+grid()
+```
+
+## Sample
+
+Sample 50 flights as my original sample
+
+```{r}
+set.seed(254)
+original_sample = sample(x = delay_mins, 
+                         size = 50, 
+                         replace = F)
+original_sample
+```
+
+## Distribution of the original sample ('surrogate' population)
+
+```{r echo=F}
+hist(original_sample, 
+     freq = F, 
+     main = 'Original sample - Surragate Population: delay minutes',
+     xlab = 'Flight departure delays (in minutes)',
+     ylim = c(0, 0.15), 
+     col = 'green', breaks = 30)
+lines(density(original_sample), 
+      col = 'blue', 
+      lwd = 3)
+grid()
+```
+
+## A bootstrap sample
+
+```{r}
+# bootstrap samples
+set.seed(356)
+bootstrap_sample = sample(x = original_sample, 
+                          size = 50, 
+                          replace = T)
+bootstrap_sample
+```
+
+## Code: Bootstrap Distribution of Sample Mean
+
+```{r eval = F}
+num_of_sims = 3000
+bootstrap_sample_means = rep(0, num_of_sims)
+set.seed(352)
+for(i in 1:num_of_sims){
+  bootstrap_sample = sample(x = original_sample, 
+                            size = 50, 
+                            replace = T)
+  bootstrap_sample_means[i] = mean(bootstrap_sample)
+}
+
+hist(bootstrap_sample_means, 50, freq = F, 
+     main = 'Bootstrap distribution',
+     xlab = 'Sample means of boostrap samples (in minutes)',
+     col = 'green')
+lines(density(bootstrap_sample_means), col = 'blue', lwd = 3)
+grid()
+```
+
+## Bootstrap Distribution of Sample Mean
+
+```{r eval =T, echo=F}
+num_of_sims = 3000
+bootstrap_sample_means = rep(0, num_of_sims)
+for(i in 1:num_of_sims){
+  bootstrap_sample = sample(x = original_sample, 
+                            size = 50, 
+                            replace = T)
+  bootstrap_sample_means[i] = mean(bootstrap_sample)
+}
+
+hist(bootstrap_sample_means, 50, freq = F, 
+     main = 'Bootstrap distribution',
+     xlab = 'Sample means of boostrap samples (in minutes)',
+     col = 'green')
+lines(density(bootstrap_sample_means), col = 'blue', lwd = 3)
+grid()
+```
+
+## Comparisons - 1
+
+```{r}
+cat(mean(delay_mins), 
+    mean(original_sample), 
+    mean(bootstrap_sample_means), '\n')
+cat(sd(bootstrap_sample_means), sd(original_sample)/sqrt(50), '\n')
+
+```
+
+## Comparisons - 2
+
+```{r}
+# bootstrap confidence interval
+quantile(x = bootstrap_sample_means, 
+         probs = c(0.025, 0.975))
+
+# classical confidence interval
+L = mean(original_sample) - qt(0.975, 49)*sd(original_sample)/sqrt(50)
+R = mean(original_sample) + qt(0.975, 49)*sd(original_sample)/sqrt(50)
+cat(L, R)
+```
+
+## What about confidence interval for median?
+
+```{r, echo=F}
+num_of_sims = 3000
+bootstrap_sample_meds = rep(0, num_of_sims)
+set.seed(351)
+for(i in 1:num_of_sims){
+  bootstrap_sample = sample(x = original_sample, size = 50, replace = T)
+  bootstrap_sample_meds[i] = median(bootstrap_sample)
+}
+
+hist(bootstrap_sample_meds, 30, freq = F, main = 'Bootstrap distribution of sample medians',
+     xlab = 'Sample medians of boostrap samples (in minutes)',
+     col = 'green')
+lines(density(bootstrap_sample_meds), col = 'blue', lwd = 3)
+grid()
+
+```
+
+## Bootstrap CI for $\tilde{\mu}$
+
+```{r}
+median(delay_mins)
+median(original_sample)
+mean(bootstrap_sample_meds)
+quantile(x = bootstrap_sample_meds, probs = c(0.025, 0.975))
+```
+
+## What about confidence interval for IQR?
+
+```{r, echo=F}
+num_of_sims = 3000
+bootstrap_sample_IQRs = rep(0, num_of_sims)
+set.seed(503)
+for(i in 1:num_of_sims){
+  bootstrap_sample = sample(x = original_sample, size = 50, replace = T)
+  bootstrap_sample_IQRs[i] = IQR(bootstrap_sample)
+}
+
+hist(bootstrap_sample_IQRs, 30, freq = F, main = 'Bootstrap distribution of sample IQRs',
+     xlab = 'Sample IQRs of boostrap samples (in minutes)',
+     col = 'green')
+lines(density(bootstrap_sample_IQRs), col = 'blue', lwd = 3)
+grid()
+
+```
+
+## Bootstrap CI for IQR
+
+```{r}
+IQR(delay_mins)
+IQR(original_sample)
+mean(bootstrap_sample_IQRs)
+quantile(x = bootstrap_sample_IQRs, probs = c(0.025, 0.975))
+```
