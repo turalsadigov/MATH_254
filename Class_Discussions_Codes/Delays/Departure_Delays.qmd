@@ -1,0 +1,160 @@
+---
+title: "When a rule of thumb fails: CLT and Departure Delays dataset"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme:
+        light: united
+        dark: darkly
+editor: visual
+---
+
+In this example, we will examine the rule of thumb, $n\geq 30$, for the Central Limit Theorem. Theorem says that the sampling distribution of the sample mean approaches to the Gaussian (Normal) distribution as the sample size increases (under the condition that mean and variance of the underlying distribution exists), and in practice, more than 30 data points is claimed to be sufficient to assume normality for the sampling distribution.
+
+Consider the data consists of departure delays from Syracuse Airport in 2019 by three major airlines (United, Delta, American). Data is downloaded from Bureau of Transportation Statistics, and cleaned up.
+
+# Load libraries
+
+```{r}
+library(tidyverse)
+library(infer)
+library(cowplot)
+```
+
+# Read data from GitHub
+
+```{r}
+delays <- read_csv(file = "https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/Detailed_Statistics_Departures.csv")
+delays %>% 
+  head()
+```
+
+# Summary of categorical variables
+
+```{r}
+# base R counts
+table(delays$Carrier)
+table(delays$Destination)
+
+# tidyverse/dplyr counts
+delays %>% 
+  count(Carrier)
+
+delays %>% 
+  count(Destination)
+```
+
+# Extract delay minutes, look at numerical summary
+
+```{r}
+# base R
+delay_mins = delays$`Departure Delay Minutes`
+summary(delay_mins)
+
+# tidyverse/dplyr
+delays %>% 
+  pull(`Departure Delay Minutes`) %>% 
+  summary()
+
+# or
+delays %>% 
+  select(`Departure Delay Minutes`) %>% 
+  summary()
+```
+
+# Population distribution
+
+```{r}
+plot1 <- 
+  delays %>%
+  ggplot(aes(x = `Departure Delay Minutes`)) +
+  geom_density(fill = 'blue', alpha = 0.3)
+
+plot2 <-   
+  delays %>%
+  ggplot(aes(x = `Departure Delay Minutes`)) +
+  geom_boxplot(fill = 'blue', alpha = 0.3)
+
+plot_grid(plot1, plot2, labels = "AUTO")
+```
+
+Now, we will be sampling from this population 1000 samples with various sizes: $20, 30, 50, 100, 300, 600, 1000, 1500, 2000$. For each size, we will construct the sampling distribution of the sample mean of the sampled delay minutes, and look at the distribution. As sample size increase, the sampling distribution will tend to look more Gaussian, but we will also pay attention to the rule of thumb, $n\geq 30$.
+
+# Initialize the number of simulated samples and sample sizes
+
+```{r}
+sample_sizes = c(20, 30, 50, 100, 300, 600, 1000, 1500, 2000)
+replicate_size = 1000  # number of samples
+df <- tibble(replicate = 1:replicate_size)
+df
+```
+
+# Create the sampling distributions of sample means for various sizes
+
+```{r}
+#| out.width: "100%"
+
+set.seed(2022)
+for(sample_size in sample_sizes){
+  
+  new_df <- 
+    delays %>% 
+    rep_sample_n(size = sample_size, 
+               reps = 1000,
+               replace = FALSE) %>% 
+    group_by(replicate) %>% 
+    summarise(mean = mean(`Departure Delay Minutes`))
+  
+  df <- 
+    df %>% 
+    inner_join(new_df, by = 'replicate')
+}
+colnames(df) <- c('replicate', sample_sizes)
+df
+```
+
+Pivot longer
+
+```{r}
+df %>% 
+  pivot_longer(cols = !replicate,
+               names_to = 'sample_sizes', 
+               values_to = 'X_bar') %>% 
+  head(20)
+```
+
+```{r}
+df %>% 
+  pivot_longer(cols = !replicate,
+               names_to = 'sample_sizes', 
+               values_to = 'X_bar') %>% 
+  mutate(sample_sizes = as.integer(sample_sizes))
+```
+
+```{r}
+#| out.width: "100%"
+
+df %>% 
+  pivot_longer(cols = !replicate,
+               names_to = 'sample_sizes', 
+               values_to = 'X_bar') %>% 
+  mutate(sample_sizes = as.integer(sample_sizes)) %>% 
+  ggplot(aes(x = X_bar, fill = sample_sizes)) +
+  geom_density(alpha = 0.3) +
+  facet_wrap(~sample_sizes)
+```
+
+# Check normality via QQ-plots
+
+```{r}
+df %>% 
+  pivot_longer(cols = !replicate,
+               names_to = 'sample_sizes', 
+               values_to = 'X_bar') %>% 
+  mutate(sample_sizes = as.integer(sample_sizes)) %>% 
+  ggplot(aes(sample = X_bar, fill = sample_sizes)) +
+  stat_qq() +
+  stat_qq_line() +
+  facet_wrap(~sample_sizes)
+```
