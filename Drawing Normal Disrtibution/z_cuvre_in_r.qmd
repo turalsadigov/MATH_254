@@ -1,0 +1,74 @@
+---
+title: "Drawing normal distribution in R"
+author: "Tural Sadigov"
+format: html
+editor: visual
+---
+
+## Normal distribution
+
+Here is the probability density function of normal distribution with mean $\mu$ and the standard deviation of $\sigma$ is
+
+$$
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
+
+## Standard normal distribution ($Z$ curve)
+
+Standard normal distribution is just the normal distribution with $\mu=0$ and $\sigma=1$.
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}
+$$
+
+## Drawings in R
+
+```{r}
+#| message: false
+library(tidyverse)
+x <- seq(-4, 4, length = 100)
+y <- (1/sqrt(2*pi))*exp(-x^2/2)
+df <- tibble(x, y)
+df %>% 
+  ggplot(aes(x, y)) +
+  geom_line(lwd = 3) +
+  labs(x = '', y = 'z')
+```
+
+OR
+
+```{r}
+ggplot(NULL, aes(c(-3,3))) +
+  geom_line(stat = "function", 
+            fun = dnorm, 
+            xlim = c(-4, 4), 
+            lwd = 3) +
+  labs(x = '', y = 'z')
+```
+
+## Shade regions 
+
+```{r}
+ggplot(NULL, aes(c(-3,3))) +
+  geom_area(stat = "function", fun = dnorm, 
+            fill = "#00998a", xlim = c(-3, 0)) +
+  geom_area(stat = "function", fun = dnorm, 
+            fill = "grey80", xlim = c(0, 3))
+```
+
+OR
+
+```{r}
+ggplot(NULL, aes(c(-3,3))) +
+  geom_area(stat = "function", 
+            fun = dnorm, 
+            fill = "#00998a", 
+            xlim = c(-3, 1)) +
+  geom_area(stat = "function", 
+            fun = dnorm, 
+            fill = "grey80", 
+            xlim = c(1, 3)) +
+  labs(x = "z", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = 1)
+```
