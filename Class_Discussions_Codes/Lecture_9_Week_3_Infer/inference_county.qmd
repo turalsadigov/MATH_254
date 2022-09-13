@@ -75,7 +75,7 @@ county_small %>%
   facet_wrap(~metro)
 ```
 
-## We can do better.
+## We can put densities on same plot. 
 
 ```{r}
 #| out.width = "100%"
@@ -133,15 +133,15 @@ county_small %>%
 
 -   Null Hypothesis vs Alternative Hypothesis, Significance level
 
-    $H_0:$ The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them is 0 (i.e., poverty level of a county is independent of whether there is a metropolitan city in it or not).
+    $H_0:$ The difference of true means of poverty percentages between counties that have no metropolitan city in them and the counties that have the metropolitan city in them is 0 (i.e., poverty level of a county is independent of whether there is a metropolitan city in it or not).
 
-    $H_a:$ The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them positive (i.e., poverty level of a county DOES depend on whether there is a metropolitan city in it or not).
+    $H_a:$ The difference of true means of poverty percentages between counties that have no metropolitan city in them and the counties that have the metropolitan city in them positive (i.e., poverty level of a county DOES depend on whether there is a metropolitan city in it or not).
 
     $\alpha = 0.01$
 
 -   Sampling Distribution under the null hypothesis with checked assumptions. Under the null hypothesis of no difference,
 
-    $\frac{\bar{x}-\bar{y}}{\sigma_{\bar{x}-\bar{y}}}$ has approximately t-distribution with some degrees of freedom.
+    $\frac{\bar{x}-\bar{y}}{s_{\bar{x}-\bar{y}}}$ has approximately t-distribution with the APPROXIMATE degrees of freedom of $df \approx n+m-2$.
 
     ```{r}
     t_dist <- 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tural Sadigov">
-<meta name="dcterms.date" content="2022-09-12">
+<meta name="dcterms.date" content="2022-09-13">
 
 <title>County data - Statistical Inference using infer package</title>
 <style>
@@ -125,7 +125,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2022</p>
+      <p class="date">September 13, 2022</p>
     </div>
   </div>
     
@@ -250,8 +250,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="we-can-do-better." class="level2">
-<h2 class="anchored" data-anchor-id="we-can-do-better.">We can do better.</h2>
+<section id="we-can-put-densities-on-same-plot." class="level2">
+<h2 class="anchored" data-anchor-id="we-can-put-densities-on-same-plot.">We can put densities on same plot.</h2>
 <div class="cell" data-hash="inference_county_cache/html/unnamed-chunk-6_187daba75ad73b8b171dfb2ea0813b7d">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution - histogram + facet wrap</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>county_small <span class="sc">%&gt;%</span> </span>
@@ -348,11 +348,11 @@ Null Hypothesis: independence
 <h2 class="anchored" data-anchor-id="application-of-hypothesis-testing">Application of hypothesis testing</h2>
 <ul>
 <li><p>Null Hypothesis vs Alternative Hypothesis, Significance level</p>
-<p><span class="math inline">\(H_0:\)</span> The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them is 0 (i.e., poverty level of a county is independent of whether there is a metropolitan city in it or not).</p>
-<p><span class="math inline">\(H_a:\)</span> The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them positive (i.e., poverty level of a county DOES depend on whether there is a metropolitan city in it or not).</p>
+<p><span class="math inline">\(H_0:\)</span> The difference of true means of poverty percentages between counties that have no metropolitan city in them and the counties that have the metropolitan city in them is 0 (i.e., poverty level of a county is independent of whether there is a metropolitan city in it or not).</p>
+<p><span class="math inline">\(H_a:\)</span> The difference of true means of poverty percentages between counties that have no metropolitan city in them and the counties that have the metropolitan city in them positive (i.e., poverty level of a county DOES depend on whether there is a metropolitan city in it or not).</p>
 <p><span class="math inline">\(\alpha = 0.01\)</span></p></li>
 <li><p>Sampling Distribution under the null hypothesis with checked assumptions. Under the null hypothesis of no difference,</p>
-<p><span class="math inline">\(\frac{\bar{x}-\bar{y}}{\sigma_{\bar{x}-\bar{y}}}\)</span> has approximately t-distribution with some degrees of freedom.</p>
+<p><span class="math inline">\(\frac{\bar{x}-\bar{y}}{s_{\bar{x}-\bar{y}}}\)</span> has approximately t-distribution with the APPROXIMATE degrees of freedom of <span class="math inline">\(df \approx n+m-2\)</span>.</p>
 <div class="cell" data-hash="inference_county_cache/html/unnamed-chunk-11_b73eb00b5d1bc9c911f0f6a0fc07a33b">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>t_dist <span class="ot">&lt;-</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  county_small <span class="sc">%&gt;%</span> </span>
