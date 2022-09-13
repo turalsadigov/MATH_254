@@ -75,7 +75,7 @@ county_small %>%
   facet_wrap(~metro)
 ```
 
-## We can put densities on same plot. 
+## We can put densities on same plot.
 
 ```{r}
 #| out.width = "100%"
@@ -112,15 +112,6 @@ observed_diff
 
 So can the observed mean difference, `r observed_diff`, be attributed to chance alone, or is there a relationship between these two variables that could account for the difference in mean poverty percentages?
 
-## Sanity check
-
-```{r}
-county_small %>% 
-  specify(response = poverty, explanatory = metro) %>% 
-  hypothesize(null = 'independence') %>% 
-  calculate(stat = 'diff in means')
-```
-
 ## Check the assumptions of difference of means test
 
 1.  Simple random samples: counties are randomly selected from all 2560 US counties.
@@ -150,6 +141,9 @@ county_small %>%
               explanatory = metro) %>% 
       hypothesize(null = 'independence') %>% 
       assume(distribution = 't') 
+
+    t_dist
+
     t_dist %>% 
       visualize()
     ```
