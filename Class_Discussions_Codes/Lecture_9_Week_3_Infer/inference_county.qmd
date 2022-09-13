@@ -1,0 +1,189 @@
+---
+title: "County data - Statistical Inference using infer package"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+execute:
+  out.width: "100%"
+  cache: true
+---
+
+## Load libraries and R data
+
+```{r}
+#| message: false
+
+# our new universe
+library(tidyverse)
+
+# reading from CSV
+remote <- 'https://raw.githubusercontent.com/'
+my_github <- 'turalsadigov/'
+path <- 'MATH_254/main/data/county.csv'
+url <- paste0(remote, my_github, path)
+county = read_csv(url)
+
+county %>% 
+  head(3)
+```
+
+## Change the data format to tibble (advanced data frame) and view portion of it.
+
+```{r}
+county <- as_tibble(county)
+county
+```
+
+## Sample from the population!
+
+```{r}
+set.seed(123)
+county_small <- 
+  county %>% 
+  slice_sample(n = 100)
+county_small
+```
+
+## Boxplots for poverty with each level of metro (NAs dropped).
+
+```{r}
+#| out.width = "100%"
+# boxplot - facet wrapped
+county_small %>% 
+  drop_na() %>% # drop nas
+  ggplot(aes(x = poverty)) +
+  geom_boxplot(fill = 'green', alpha = 0.5) +
+  facet_wrap(~metro) + # facet wrap with metro levels
+  coord_flip() # make them vertical
+```
+
+## Can we facet-wrap it?
+
+```{r}
+#| out.width = "100%"
+# distribution - histogram + facet wrap
+county_small %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty)) +
+  geom_density(fill="lightblue") +
+  facet_wrap(~metro)
+```
+
+## We can do better.
+
+```{r}
+#| out.width = "100%"
+# distribution - histogram + facet wrap
+county_small %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty, fill= metro)) +
+  geom_density(alpha = 0.4) 
+```
+
+```{r}
+county_small %>% 
+  drop_na() %>% 
+  group_by(metro) %>% 
+  summarise(means = mean(poverty))
+```
+
+## Hypothesis testing with `infer`
+
+```{r}
+county_small <- 
+  county_small %>% 
+  drop_na()
+```
+
+```{r}
+library(infer)
+observed_diff <- 
+  county_small %>% 
+  specify(response = poverty, explanatory = metro) %>% 
+  calculate(stat = 'diff in means')
+observed_diff
+```
+
+So can the observed mean difference, `r observed_diff`, be attributed to chance alone, or is there a relationship between these two variables that could account for the difference in mean poverty percentages?
+
+## Sanity check
+
+```{r}
+county_small %>% 
+  specify(response = poverty, explanatory = metro) %>% 
+  hypothesize(null = 'independence') %>% 
+  calculate(stat = 'diff in means')
+```
+
+## Check the assumptions of difference of means test
+
+1.  Simple random samples: counties are randomly selected from all 2560 US counties.
+
+2.  $\frac{n}{N} = \frac{100}{2560} = 0.0391<<0.1$
+
+3.  $n = 100>40$
+
+## Application of hypothesis testing
+
+-   Null Hypothesis vs Alternative Hypothesis, Significance level
+
+    $H_0:$ The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them is 0 (i.e., poverty level of a county is independent of whether there is a metropolitan city in it or not).
+
+    $H_a:$ The difference of true means poverty percentage between counties that has no metropolitan city in them and the counties that has the metropolitan city in them positive (i.e., poverty level of a county DOES depend on whether there is a metropolitan city in it or not).
+
+    $\alpha = 0.01$
+
+-   Sampling Distribution under the null hypothesis with checked assumptions. Under the null hypothesis of no difference,
+
+    $\frac{\bar{x}-\bar{y}}{\sigma_{\bar{x}-\bar{y}}}$ has approximately t-distribution with some degrees of freedom.
+
+    ```{r}
+    t_dist <- 
+      county_small %>% 
+      specify(response = poverty, 
+              explanatory = metro) %>% 
+      hypothesize(null = 'independence') %>% 
+      assume(distribution = 't') 
+    t_dist %>% 
+      visualize()
+    ```
+
+-   Observed statistic, test statistic, p-value
+
+    ```{r}
+    observed_diff
+    t_stat <- 
+      county_small %>% 
+      specify(response = poverty, 
+              explanatory = metro) %>% 
+      hypothesize(null = 'independence') %>% 
+      calculate(stat = 't')
+    t_stat
+    p_value <- 
+      t_dist %>% 
+      get_p_value(obs_stat = t_stat, 
+                  direction = 'right')
+    p_value
+    ```
+
+### Visualization
+
+```{r}
+t_dist %>% 
+  visualize() +
+  shade_p_value(t_stat, direction = "right")
+```
+
+## Decision
+
+With the p-value of `r p_value` that is not small enough (less than our pre-determined significance level of 0.01),
+
+-   we FAIL to reject the Null hypothesis that the difference between true averages poverty percentages between counties that have no metropolitan city in them and the counties that have the metropolitan city in them is 0 (i.e., we FAIL to reject that poverty level of a county is independent of whether there is a metropolitan city in it or not).
+
+-   observed statistic of the difference of 3.15% can be attributed to chance alone, and there is no strong evidence against it.

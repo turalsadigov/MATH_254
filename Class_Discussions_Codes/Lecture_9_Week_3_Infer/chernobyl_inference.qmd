@@ -1,0 +1,145 @@
+---
+title: "Chernobyl data - Statistical Inference using infer package"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+execute:
+  out.width: "100%"
+  cache: true
+---
+
+## Libraries
+
+```{r}
+#| message: false
+library(tidyverse)
+library(infer)
+```
+
+Example from class says that out of 244 birds, 16% had white feather. Lets simulate such data.
+
+```{r}
+n = 0.16*244
+feather <- rep('white_feather', n)
+no_feather <- rep('no_white_feather', 244-n)
+set.seed(2022)
+chernobyl <- sample(c(feather, no_feather))
+chernobyl[1:10]
+
+chernobyl_df <- tibble(chernobyl)
+chernobyl_df
+```
+
+## Sanity check - 1
+
+```{r}
+chernobyl_df %>% 
+  count(chernobyl)
+```
+
+## Sanity check - 2
+
+```{r}
+p_hat <-   
+  chernobyl_df %>% 
+  specify(response = chernobyl, 
+          success = 'white_feather') %>% 
+  calculate(stat = 'prop')
+p_hat
+```
+
+## Observed test statistics (z)
+
+```{r}
+z_stat<- 
+  chernobyl_df %>% 
+  specify(response = chernobyl, 
+          success = 'white_feather') %>% 
+  hypothesize(null = 'point', 
+              p = .02) %>% 
+  calculate(stat = 'z')
+z_stat
+```
+
+## Sanity check - 3
+
+$$
+z = \frac{\hat{p}- p}{\sqrt{\frac{p(1-p)}{n}}}
+$$
+
+```{r}
+(p_hat - 0.02)/(sqrt(0.02*0.98/244))
+```
+
+## Check the assumptions of proportion test
+
+1.  Simple random sample: birds are caught independently from each other from Chernobyl area.
+
+2.  $\frac{n}{N} = \frac{244}{1000000} = 0.000244<<0.1$
+
+3.  $n = 244 > 40$
+
+## Application of hypothesis testing
+
+-   Null Hypothesis vs Alternative Hypothesis, Significance level
+
+    $H_0:$ True proportion of the birds with white feather in Chernobyl region is 0.02, i.e., $p = 0.02$.
+
+    $H_a:$ True proportion of the birds with white feather in Chernobyl region is larger than 0.02, i.e., $p > 0.02$.
+
+    $\alpha = 0.001$
+
+-   Sampling Distribution under the null hypothesis with checked assumptions.
+
+    $\hat{p}_n$ is approximately normal with $\mu = p$ and $\sigma = \sqrt{\frac{p(1-p)}{n}}$.
+
+```{r}
+# approximated sampling distribution of p-hat under the checked assumptions
+z_dist <- 
+  chernobyl_df %>% 
+  specify(response = chernobyl, 
+          success = 'white_feather') %>% 
+  hypothesize(null = 'point', 
+              p = 0.02) %>% 
+  assume(distribution = 'z') 
+z_dist %>% 
+  visualize()
+```
+
+-   Observed statistic, test statistic , p-value
+
+### Observed statistic, test statistic, p-value
+
+```{r}
+p_hat
+z_stat
+z_dist %>% 
+  get_p_value(obs_stat = z_stat, 
+              direction = 'right')
+```
+
+### Visualization
+
+```{r}
+z_dist %>% 
+  visualize() +
+  shade_p_value(z_stat, direction = "right")
+```
+
+-   Decision:
+
+With the p-value that is nearly 0 (thus, lower than $\alpha = 0.005$),
+
+-   we reject the Null hypothesis that true proportion of birds with white feather is 0,02
+
+-   observed statistic of 16% cannot be attributed to chance alone.
+
+We are NOT claiming that nuclear reactor disaster is the CAUSE of the observed statistic. We are just saying that observed effect cannot be reasonably attributed to chance alone.
+
+
