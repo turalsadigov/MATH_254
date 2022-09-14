@@ -9,6 +9,18 @@ nc %>%
   select(weeks) %>% 
   summary()
 
+
+# distribution
+nc %>% 
+  ggplot(aes(weeks)) +
+  geom_density(fill = 'darkgreen', alpha = 0.7)
+
+nc %>% 
+  ggplot(aes(x = weeks, y = ..density..)) +
+  geom_histogram(fill = 'red', 
+                 bins = 20, alpha = 0.5) +
+  geom_density(fill = 'darkgreen', alpha = 0.7)
+
 # cleaning
 nc <- 
   nc %>% 
@@ -23,7 +35,8 @@ obs_mean
 # observed test statistic
 obs_test_stat <- nc %>% 
   specify(response = weeks) %>% 
-  hypothesize(null = 'point', mu = 38) %>% 
+  hypothesize(null = 'point', 
+              mu = 39) %>% 
   calculate(stat = 't')
 
 obs_test_stat
@@ -32,7 +45,8 @@ obs_test_stat
 dist <- 
   nc %>% 
   specify(response = weeks) %>% 
-  hypothesize(null = 'point', mu = 38) %>% 
+  hypothesize(null = 'point', 
+              mu = 39) %>% 
   assume(distribution = 't')
 
 dist
