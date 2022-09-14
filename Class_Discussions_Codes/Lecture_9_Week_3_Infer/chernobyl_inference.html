@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-0.9.649">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tural Sadigov">
-<meta name="dcterms.date" content="2022-09-12">
+<meta name="dcterms.date" content="2022-09-14">
 
 <title>Chernobyl data - Statistical Inference using infer package</title>
 <style>
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="chernobyl_inference_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="chernobyl_inference_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="chernobyl_inference_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="chernobyl_inference_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="chernobyl_inference_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="chernobyl_inference_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="chernobyl_inference_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -125,7 +125,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2022</p>
+      <p class="date">September 14, 2022</p>
     </div>
   </div>
     
@@ -141,22 +141,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Example from class says that out of 244 birds, 16% had white feather. Lets simulate such data.</p>
-<div class="cell" data-hash="chernobyl_inference_cache/html/unnamed-chunk-2_3621aff1bc1acb565ad1862538f9da24">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fl">0.16</span><span class="sc">*</span><span class="dv">244</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>feather <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'white_feather'</span>, n)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>no_feather <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'no_white_feather'</span>, <span class="dv">244</span><span class="sc">-</span>n)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>chernobyl <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(feather, no_feather))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>chernobyl[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="chernobyl_inference_cache/html/unnamed-chunk-2_b453f3bc280ffc70b60d9dec1b6900ee">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>feather <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'white_feather'</span>, <span class="dv">43</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>no_feather <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'no_white_feather'</span>, <span class="dv">223</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>chernobyl <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(feather, no_feather))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>chernobyl[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "no_white_feather" "no_white_feather" "no_white_feather" "no_white_feather"
- [5] "no_white_feather" "no_white_feather" "white_feather"    "no_white_feather"
- [9] "no_white_feather" "no_white_feather"</code></pre>
+ [5] "no_white_feather" "no_white_feather" "no_white_feather" "no_white_feather"
+ [9] "no_white_feather" "white_feather"   </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>chernobyl_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(chernobyl)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>chernobyl_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 243 × 1
+<pre><code># A tibble: 266 × 1
    chernobyl       
    &lt;chr&gt;           
  1 no_white_feather
@@ -165,11 +164,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  4 no_white_feather
  5 no_white_feather
  6 no_white_feather
- 7 white_feather   
+ 7 no_white_feather
  8 no_white_feather
  9 no_white_feather
-10 no_white_feather
-# … with 233 more rows
+10 white_feather   
+# … with 256 more rows
 # ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
 </div>
@@ -232,11 +231,11 @@ Null Hypothesis: point
 <p><span class="math display">\[
 z = \frac{\hat{p}- p}{\sqrt{\frac{p(1-p)}{n}}}
 \]</span></p>
-<div class="cell" data-hash="chernobyl_inference_cache/html/unnamed-chunk-6_520006c91de37d4f0a0d07927f048136">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(p_hat <span class="sc">-</span> <span class="fl">0.02</span>)<span class="sc">/</span>(<span class="fu">sqrt</span>(<span class="fl">0.02</span><span class="sc">*</span><span class="fl">0.98</span><span class="sc">/</span><span class="dv">244</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="chernobyl_inference_cache/html/unnamed-chunk-6_fdc431bad53d214a8f2225aa2b7003ec">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(p_hat <span class="sc">-</span> <span class="fl">0.02</span>)<span class="sc">/</span>(<span class="fu">sqrt</span>(<span class="fl">0.02</span><span class="sc">*</span><span class="fl">0.98</span><span class="sc">/</span><span class="dv">266</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     stat
-1 15.6756</code></pre>
+<pre><code>      stat
+1 16.36704</code></pre>
 </div>
 </div>
 </section>
@@ -246,6 +245,7 @@ z = \frac{\hat{p}- p}{\sqrt{\frac{p(1-p)}{n}}}
 <li><p>Simple random sample: birds are caught independently from each other from Chernobyl area.</p></li>
 <li><p><span class="math inline">\(\frac{n}{N} = \frac{244}{1000000} = 0.000244&lt;&lt;0.1\)</span></p></li>
 <li><p><span class="math inline">\(n = 244 &gt; 40\)</span></p></li>
+<li><p><span class="math inline">\(np = 266*0.02 = 5.32&gt;5\)</span> and <span class="math inline">\(nq = 266*0.98 = 260.68&gt;5\)</span></p></li>
 </ol>
 </section>
 <section id="application-of-hypothesis-testing" class="level2">
@@ -320,9 +320,9 @@ Null Hypothesis: point
 <ul>
 <li>Decision:</li>
 </ul>
-<p>With the p-value that is nearly 0 (thus, lower than <span class="math inline">\(\alpha = 0.005\)</span>),</p>
+<p>With the p-value that is nearly 0 (thus, lower than <span class="math inline">\(\alpha = 0.001\)</span>),</p>
 <ul>
-<li><p>we reject the Null hypothesis that true proportion of birds with white feather is 0,02</p></li>
+<li><p>we reject the Null hypothesis that true proportion of birds with white feather is 0.02</p></li>
 <li><p>observed statistic of 16% cannot be attributed to chance alone.</p></li>
 </ul>
 <p>We are NOT claiming that nuclear reactor disaster is the CAUSE of the observed statistic. We are just saying that observed effect cannot be reasonably attributed to chance alone.</p>
@@ -333,24 +333,6 @@ Null Hypothesis: point
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
   const disableStylesheet = (stylesheets) => {
     for (let i=0; i < stylesheets.length; i++) {
       const stylesheet = stylesheets[i];
@@ -380,14 +362,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     manageTransitions('#quarto-margin-sidebar .nav-link', false);
     if (alternate) {
       enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
     } else {
       disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
     }
     manageTransitions('#quarto-margin-sidebar .nav-link', true);
     // Switch the toggles

@@ -25,9 +25,8 @@ library(infer)
 Example from class says that out of 244 birds, 16% had white feather. Lets simulate such data.
 
 ```{r}
-n = 0.16*244
-feather <- rep('white_feather', n)
-no_feather <- rep('no_white_feather', 244-n)
+feather <- rep('white_feather', 43)
+no_feather <- rep('no_white_feather', 223)
 set.seed(2022)
 chernobyl <- sample(c(feather, no_feather))
 chernobyl[1:10]
@@ -74,7 +73,7 @@ z = \frac{\hat{p}- p}{\sqrt{\frac{p(1-p)}{n}}}
 $$
 
 ```{r}
-(p_hat - 0.02)/(sqrt(0.02*0.98/244))
+(p_hat - 0.02)/(sqrt(0.02*0.98/266))
 ```
 
 ## Check the assumptions of proportion test
@@ -84,6 +83,8 @@ $$
 2.  $\frac{n}{N} = \frac{244}{1000000} = 0.000244<<0.1$
 
 3.  $n = 244 > 40$
+
+4.  $np = 266*0.02 = 5.32>5$ and $nq = 266*0.98 = 260.68>5$
 
 ## Application of hypothesis testing
 
@@ -134,12 +135,10 @@ z_dist %>%
 
 -   Decision:
 
-With the p-value that is nearly 0 (thus, lower than $\alpha = 0.005$),
+With the p-value that is nearly 0 (thus, lower than $\alpha = 0.001$),
 
--   we reject the Null hypothesis that true proportion of birds with white feather is 0,02
+-   we reject the Null hypothesis that true proportion of birds with white feather is 0.02
 
 -   observed statistic of 16% cannot be attributed to chance alone.
 
 We are NOT claiming that nuclear reactor disaster is the CAUSE of the observed statistic. We are just saying that observed effect cannot be reasonably attributed to chance alone.
-
-
