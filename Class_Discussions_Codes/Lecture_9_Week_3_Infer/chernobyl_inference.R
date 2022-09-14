@@ -1,9 +1,9 @@
 library(tidymodels)
 library(tidyverse)
 
-n = 0.16*244
-feather <- rep('white_feather', n)
-no_feather <- rep('no_white_feather', 244-n)
+n = 43
+feather <- rep('white_feather', 43)
+no_feather <- rep('no_white_feather', 223)
 set.seed(2022)
 chernobyl <- sample(c(feather, no_feather))
 chernobyl
@@ -31,7 +31,7 @@ z_stat
 
 # double check!
 
-(p_hat - 0.02)/(sqrt(0.02*0.98/244))
+(p_hat - 0.02)/(sqrt(0.02*0.98/266))
 
 # infer and prop test
 
@@ -49,4 +49,3 @@ z_dist %>%
 z_dist %>% 
   visualize() +
   shade_p_value(z_stat, direction = "right")
-
