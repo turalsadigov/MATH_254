@@ -69,4 +69,14 @@ dist %>%
 
 
 
+# get - 99% confidence intervals
+
+dist %>% 
+  get_confidence_interval(
+    point_estimate = obs_mean,
+    level = 0.99,
+    type = "se"
+  )
+
+
 
