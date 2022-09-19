@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.649">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tural Sadigov">
+<meta name="dcterms.date" content="2022-09-19">
+
+<title>Bootstrap Distribution - delays data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Bootstrap_distribution_delays_data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Bootstrap_distribution_delays_data_files/libs/quarto-html/quarto.js"></script>
+<script src="Bootstrap_distribution_delays_data_files/libs/quarto-html/popper.min.js"></script>
+<script src="Bootstrap_distribution_delays_data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Bootstrap_distribution_delays_data_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Bootstrap_distribution_delays_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Bootstrap_distribution_delays_data_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="Bootstrap_distribution_delays_data_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="Bootstrap_distribution_delays_data_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Bootstrap_distribution_delays_data_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Bootstrap_distribution_delays_data_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="Bootstrap_distribution_delays_data_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#libraries-and-data" id="toc-libraries-and-data" class="nav-link active" data-scroll-target="#libraries-and-data"> <span class="header-section-number">1</span> Libraries and data</a></li>
+  <li><a href="#population-distribution" id="toc-population-distribution" class="nav-link" data-scroll-target="#population-distribution"> <span class="header-section-number">2</span> Population distribution</a></li>
+  <li><a href="#choose-sample" id="toc-choose-sample" class="nav-link" data-scroll-target="#choose-sample"> <span class="header-section-number">3</span> Choose sample</a></li>
+  <li><a href="#can-sample-be-regarded-as-surragate-population" id="toc-can-sample-be-regarded-as-surragate-population" class="nav-link" data-scroll-target="#can-sample-be-regarded-as-surragate-population"> <span class="header-section-number">4</span> Can sample be regarded as surragate population?</a></li>
+  <li><a href="#bootstrap-distribution-of-sample-median" id="toc-bootstrap-distribution-of-sample-median" class="nav-link" data-scroll-target="#bootstrap-distribution-of-sample-median"> <span class="header-section-number">5</span> Bootstrap distribution of sample median</a></li>
+  <li><a href="#bootstrap-percentile-confidence-interval" id="toc-bootstrap-percentile-confidence-interval" class="nav-link" data-scroll-target="#bootstrap-percentile-confidence-interval"> <span class="header-section-number">6</span> 99% Bootstrap Percentile Confidence Interval</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bootstrap Distribution - delays data</h1>
+<p class="subtitle lead">Modern approach to statistical inference</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tural Sadigov </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 19, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="libraries-and-data" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="libraries-and-data"><span class="header-section-number">1</span> Libraries and data</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-1_1c2f6a44bf256de3253e76115463ff1f">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>delays <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/delays.csv'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>delays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,161 × 6
+   Carrier Date      `Flight #` `Tail #` Destination `Departure Delay Minutes`
+   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;                           &lt;dbl&gt;
+ 1 UA      1/8/2019         714 N810UA   ORD                                32
+ 2 UA      1/9/2019         714 N4888U   ORD                                -2
+ 3 UA      1/10/2019        714 N816UA   ORD                                 0
+ 4 UA      1/11/2019        714 N4888U   ORD                                28
+ 5 UA      1/12/2019        714 N897UA   ORD                                -1
+ 6 UA      1/13/2019        714 N832UA   ORD                                 4
+ 7 UA      1/14/2019        714 N837UA   ORD                                 0
+ 8 UA      1/15/2019        714 N820UA   ORD                                -3
+ 9 UA      1/16/2019        714 N852UA   ORD                                -4
+10 UA      1/17/2019        714 N807UA   ORD                               -11
+# … with 3,151 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="population-distribution" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="population-distribution"><span class="header-section-number">2</span> Population distribution</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-2_bb42d790ea93a94e36fecf3b18a83eb7">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>delays <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">Departure Delay Minutes</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Bootstrap_distribution_delays_data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="choose-sample" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="choose-sample"><span class="header-section-number">3</span> Choose sample</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-3_a3db386cc17f3107bea83ec65aa68fd7">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>delays_sample <span class="ot">&lt;-</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  delays <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="can-sample-be-regarded-as-surragate-population" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="can-sample-be-regarded-as-surragate-population"><span class="header-section-number">4</span> Can sample be regarded as surragate population?</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-4_1f34f9a408307ad06c13a4f1f38d2fad">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>delays_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">Departure Delay Minutes</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Bootstrap_distribution_delays_data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="bootstrap-distribution-of-sample-median" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="bootstrap-distribution-of-sample-median"><span class="header-section-number">5</span> Bootstrap distribution of sample median</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-5_85c2b6d90e1a8da0383d8222067844b1">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>delays_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">rep_sample_n</span>(<span class="at">size =</span> <span class="dv">100</span>, </span>
+<span id="cb6-4"><a href="#cb6-4"></a>               <span class="at">replace =</span> T, </span>
+<span id="cb6-5"><a href="#cb6-5"></a>               <span class="at">reps =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">group_by</span>(replicate) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">summarise</span>(<span class="at">meds =</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Departure Delay Minutes</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(meds)) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="Bootstrap_distribution_delays_data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="bootstrap-percentile-confidence-interval" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="bootstrap-percentile-confidence-interval"><span class="header-section-number">6</span> 99% Bootstrap Percentile Confidence Interval</h2>
+<div class="cell" data-hash="Bootstrap_distribution_delays_data_cache/html/unnamed-chunk-6_a5a127f9d77c3c7925ae62f5defb6403">
+<details open="">
+<summary>Collapse/show the code below</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>delays_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">rep_sample_n</span>(<span class="at">size =</span> <span class="dv">100</span>, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>               <span class="at">replace =</span> T, </span>
+<span id="cb7-5"><a href="#cb7-5"></a>               <span class="at">reps =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">group_by</span>(replicate) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">summarise</span>(<span class="at">meds =</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Departure Delay Minutes</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">summarise</span>(<span class="at">ave_medians =</span> <span class="fu">mean</span>(meds), </span>
+<span id="cb7-9"><a href="#cb7-9"></a>            <span class="at">left =</span> <span class="fu">quantile</span>(meds, <span class="fl">0.005</span>),</span>
+<span id="cb7-10"><a href="#cb7-10"></a>            <span class="at">right =</span> <span class="fu">quantile</span>(meds, <span class="fl">0.995</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  ave_medians  left right
+        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       -3.43  -5.5    -1</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="Bootstrap_distribution_delays_data_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

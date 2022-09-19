@@ -1,0 +1,104 @@
+---
+title: "Bootstrap Distribution - delays data"
+subtitle: "Modern approach to statistical inference"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+      smooth-scroll: true
+always_allow_html: true
+editor: visual
+toc: true
+toc-location: right
+number-sections: true
+cap-location: bottom
+fig-cap-location: bottom
+tbl-cap-location: top
+page-layout: article
+code-fold: show
+code-summary: "Collapse/show the code below"
+code-overflow: scroll
+code-line-numbers: true
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  cache: true
+  freeze: true
+  out.width: "100%"
+fig-align: center
+---
+
+## Libraries and data
+
+```{r}
+library(tidyverse)
+library(infer)
+
+delays <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/delays.csv')
+delays
+```
+
+
+## Population distribution
+
+```{r}
+delays %>% 
+  ggplot(aes(`Departure Delay Minutes`)) +
+  geom_density(fill = 'blue', alpha = 0.4)
+```
+
+
+## Choose sample
+
+```{r}
+set.seed(2023)
+delays_sample <- 
+  delays %>% 
+  slice_sample(n = 100)
+```
+
+
+## Can sample be regarded as surragate population?
+
+```{r}
+delays_sample %>% 
+  ggplot(aes(`Departure Delay Minutes`)) +
+  geom_density(fill = 'blue', alpha = 0.4)
+```
+
+## Bootstrap distribution of sample median
+
+```{r}
+set.seed(1234)
+delays_sample %>% 
+  rep_sample_n(size = 100, 
+               replace = T, 
+               reps = 1000) %>% 
+  group_by(replicate) %>% 
+  summarise(meds = median(`Departure Delay Minutes`)) %>% 
+  ggplot(aes(meds)) +
+  geom_density(fill = 'blue', alpha = 0.4)
+```
+
+## 99% Bootstrap Percentile Confidence Interval
+
+```{r}
+set.seed(1234)
+delays_sample %>% 
+  rep_sample_n(size = 100, 
+               replace = T, 
+               reps = 1000) %>% 
+  group_by(replicate) %>% 
+  summarise(meds = median(`Departure Delay Minutes`)) %>% 
+  summarise(ave_medians = mean(meds), 
+            left = quantile(meds, 0.005),
+            right = quantile(meds, 0.995))
+```
+
