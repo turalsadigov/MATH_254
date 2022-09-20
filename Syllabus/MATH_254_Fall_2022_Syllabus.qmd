@@ -224,7 +224,7 @@ In this module, we start working with both inference and prediction.
 ## Schedule
 
 | Dates                | Topics/Events                                                   |
-|--------------------|----------------------------------------------------|
+|----------------------|-----------------------------------------------------------------|
 |                      | **`MODULE 1 - CLASSICAL STATISTICS`**                           |
 | August 26            | Introduction/Syllabus                                           |
 | August 29 - Sept. 2  | Statistics-1 Review, R, Sampling distributions                  |
