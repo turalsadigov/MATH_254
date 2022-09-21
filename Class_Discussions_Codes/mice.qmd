@@ -1,0 +1,116 @@
+---
+title: "Mice data - Bootstrap Distributions"
+author: "MATH 254 - Fall 2022 - Students"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+## Mice data
+
+```{r}
+library(tidyverse)
+library(infer)
+x <- c(94, 197, 16, 38, 99, 141, 23)
+x
+treatment <- tibble(x)
+treatment
+
+y <- c(52, 104, 146, 10, 51, 30, 40, 27, 46)
+y
+control <- tibble(y)
+control
+```
+
+Calculate observed difference
+
+```{r}
+x_bar <- mean(x)
+x_bar
+y_bar <- mean(control$y)
+y_bar
+
+control$y
+
+control %>% 
+  pull(y)
+
+pull(control, y)
+```
+
+## Bootstrap samples
+
+```{r}
+set.seed(49)
+treatment_boot <- 
+  treatment %>% 
+  rep_sample_n(size = 7, 
+               replace = TRUE, 
+               reps = 1000) %>% 
+  summarise(x_bars = mean(x))
+
+set.seed(314)
+control_boot <- 
+  control %>% 
+  rep_sample_n(size = 9, 
+               replace = TRUE, 
+               reps = 1000) %>% 
+  summarise(y_bars = mean(y))
+```
+
+
+## Join dataframes
+
+```{r}
+bind_cols(treatment_boot, control_boot)
+```
+
+```{r}
+treatment_boot %>% 
+  bind_cols(control_boot) %>% 
+  select(-replicate...3) %>% 
+  rename(replicate = replicate...1)
+```
+
+```{r}
+treatment_boot %>% 
+  inner_join(control_boot) %>% 
+  mutate(diff_sample_means = x_bars - y_bars) %>% 
+  ggplot(aes(diff_sample_means)) +
+  geom_density(fill = 'darkgreen', alpha = 0.5)
+```
+
+
+## 99% Bootstrap Percentile Confidence Interval
+
+
+```{r}
+treatment_boot %>% 
+  inner_join(control_boot) %>% 
+  mutate(diff_sample_means = x_bars - y_bars) %>% 
+  summarise(left = quantile(diff_sample_means, 0.005),
+            right = quantile(diff_sample_means, 0.995))
+```
+
+```{r}
+treatment_boot %>% 
+  inner_join(control_boot) %>% 
+  mutate(ratio_sample_means = x_bars/y_bars) %>% 
+  summarise(left = quantile(ratio_sample_means, 0.005),
+            right = quantile(ratio_sample_means, 0.995))
+```
+
+
+```{r}
+treatment_boot %>% 
+  inner_join(control_boot) %>% 
+  mutate(ratio_sample_means = x_bars/y_bars) %>% 
+   ggplot(aes(ratio_sample_means)) +
+  geom_density(fill = 'blue', alpha = 0.5)
+```
+
+
+
+
+
+
