@@ -1,0 +1,100 @@
+---
+title: "Bootstrap distribution of sample correlation - County data "
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+      smooth-scroll: true
+editor: visual
+chunk_output_type: console
+execute:
+  out.width: "100%"
+  cache: true
+---
+
+## Load libraries and R data
+
+```{r}
+#| message: false
+
+# our new universe
+library(tidyverse)
+library(infer)
+
+# reading from CSV
+remote <- 'https://raw.githubusercontent.com/'
+my_github <- 'turalsadigov/'
+path <- 'MATH_254/main/data/county.csv'
+url <- paste0(remote, my_github, path)
+county = read_csv(url)
+
+county %>% 
+  head(3)
+```
+
+## Change the data format to tibble (advanced data frame) and view portion of it.
+
+```{r}
+county <- 
+  county %>% 
+  drop_na() %>% 
+  as_tibble(county)
+county
+```
+
+## Scatterplot for unemployment vs poverty.
+
+```{r}
+#| out.width = "100%"
+county %>% 
+  ggplot(aes(x = poverty, y = unemployment_rate)) +
+  geom_point(fill = 'green', alpha = 0.5) +
+  geom_smooth(method = 'lm')
+```
+
+
+## Polulation Correlation
+
+```{r}
+county %>% 
+  summarise(r = cor(poverty, unemployment_rate))
+```
+
+## Sample
+
+```{r}
+set.seed(2345)
+county_sample <- 
+  county %>% 
+  slice_sample(n = 100)
+
+county_sample %>% 
+  summarise(r = cor(poverty, unemployment_rate))
+```
+
+## Bootstrap distribution of sample correlation coefficient
+
+```{r}
+set.seed(5678)
+county_sample %>% 
+  rep_sample_n(size = 100, reps = 1000, replace = TRUE) %>% 
+  summarise(r = cor(poverty, unemployment_rate)) %>% 
+  ggplot(aes(r)) +
+  geom_density(fill = 'blue', alpha = 0.5) 
+```
+
+## 90% Bootstrap Percentila Confidence Interval
+
+```{r}
+set.seed(5678)
+county_sample %>% 
+  rep_sample_n(size = 100, reps = 1000, replace = TRUE) %>% 
+  summarise(r = cor(poverty, unemployment_rate)) %>% 
+  summarise(ave_rs = mean(r), 
+            left = quantile(r, 0.05),
+            right = quantile(r, 0.95))
+```
+
