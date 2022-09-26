@@ -1,0 +1,148 @@
+---
+title: "Mice data - Permutation Test"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+---
+
+# packages
+
+```{r}
+library(tidyverse)
+library(infer)
+```
+
+# Mice data from Efron and Tibshirani
+
+```{r}
+x <- c(94, 197, 16, 38, 99, 141, 23)
+x
+treatment <- tibble(survival_days = x, 
+                    group = rep('T'))
+treatment
+y <- c(52, 104, 146, 10, 51, 30, 40, 27, 46)
+y
+control <- tibble(survival_days = y, 
+                  group = rep('C'))
+control
+```
+
+Bind data together
+
+```{r}
+mice <- 
+  treatment %>% 
+  bind_rows(control)
+
+mice
+```
+
+# summary checks
+
+```{r}
+mice %>% 
+  group_by(group) %>% 
+  summarise(ave = mean(survival_days))
+```
+
+# normality check
+
+```{r}
+mice %>% 
+  ggplot(aes(sample = survival_days, color = group)) +
+  stat_qq(size = 3) +
+  stat_qq_line(lwd = 1)
+```
+
+```{r}
+mice %>% 
+  ggplot(aes(sample = survival_days, color = group)) +
+  stat_qq(size = 3) +
+  stat_qq_line(lwd = 1) +
+  facet_wrap(~group)
+```
+
+```{r}
+mice %>% 
+  ggplot(aes(x = survival_days, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~group)
+```
+
+```{r}
+mice %>% 
+  ggplot(aes(x = survival_days, fill = group)) +
+  geom_density() +
+  facet_wrap(~group)
+```
+
+# not normal, what to do?
+
+Permutation Test!
+
+```{r}
+set.seed(987)
+perm_dist <- 
+  mice %>% 
+  specify(survival_days~group) %>% 
+  hypothesize(null = 'independence') %>% 
+  generate(reps = 1000, type = 'permute') %>% 
+  calculate(stat = 'diff in means', 
+            order = c("T", "C")) 
+
+perm_dist %>% 
+  visualize()
+
+```
+
+```{r}
+
+obs_stat <- 
+  mice %>% 
+  specify(survival_days~group) %>% 
+  calculate(stat = 'diff in means',
+            order = c("T", "C"))
+  
+obs_stat
+
+set.seed(987)
+p_value <- 
+  perm_dist %>% 
+  get_p_value(obs_stat = obs_stat, 
+              direction = 'right')
+
+p_value
+```
+
+Shade the p-value
+
+```{r}
+perm_dist %>% 
+  visualise() + 
+  shade_p_value(obs_stat = obs_stat, 
+                direction = 'right')
+```
