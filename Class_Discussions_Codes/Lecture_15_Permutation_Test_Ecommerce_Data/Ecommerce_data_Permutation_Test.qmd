@@ -1,0 +1,122 @@
+---
+title: "A/B testing - Two Sample Proportions - Permutation Test"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+---
+
+## Problem description
+
+An e-commerce website is testing two different designs for a checkout page. Customers who visit the checkout page are randomly presented with one of the two designs. Since there are two groups of customers, their groups are usually denoted as A and B (and thus the name "A/B testing"). Company measures `sales uplift` which is the proportion of customers that finalized the sale for each design.
+
+Out of randomly selected 435 customers that were presented with the first design of the checkout page, 201 of them finalized the purchase (that is $\frac{201}{435}$ = `r 201/435`). On the other hand, out of randomly selected 352 customers that were presented with the design of the checkout page, 178 of them finalized the purchase (that is $\frac{183}{352}$ = `r 183/352`). Does the company have evidence that one of these designs is financially better?
+
+Simulate the data
+
+```{r}
+library(tidyverse)
+library(infer)
+
+a <- c(rep('sale', 201), rep('no-sale', 435 - 201))
+b <- c(rep('sale', 183), rep('no-sale', 352 - 183))
+df1 <- tibble(sale_indicator = a, group = rep('A'))
+df2 <- tibble(sale_indicator = b, group = rep('B'))
+ecommerce <- 
+  df1 %>% 
+  bind_rows(df2)
+ecommerce
+
+
+# OR load stats2data
+stats2data::ecommerce %>% 
+  slice_sample(n = 10)
+
+ecommerce %>% 
+  group_by(group) %>% 
+  count()
+
+ecommerce %>% 
+  count(group, sale_indicator)
+
+ecommerce %>% 
+  group_by(group) %>% 
+  mutate(sale_yes = if_else(sale_indicator == 'sale', 1, 0)) %>% 
+  summarise(sales_uplift = mean(sale_yes))
+  
+
+
+ecommerce %>% 
+  specify(sale_indicator ~ group, success = 'sale') %>% 
+  calculate(stat = 'diff in props') %>% 
+  rename(diff_in_props = stat)
+```
+
+Permutation Test
+
+```{r}
+obs_stat <- 
+  ecommerce %>% 
+  specify(sale_indicator ~ group, success = 'sale') %>% 
+  calculate(stat = 'diff in props')
+
+set.seed(2022)
+null_dist <- 
+  ecommerce %>% 
+  specify(sale_indicator ~ group, success = 'sale') %>% 
+  hypothesize(null = 'independence') %>% 
+  generate(reps = 1000, type = 'permute') %>% 
+  calculate(stat = 'diff in props')
+
+null_dist
+
+null_dist %>% 
+  visualize()
+
+p_value <- 
+  null_dist %>% 
+  get_p_value(obs_stat = obs_stat, direction = 'both')
+
+p_value
+
+null_dist %>% 
+  visualize() +
+  theme_dark() +
+  shade_p_value(obs_stat = obs_stat, direction = 'both')
+
+
+null_dist %>% 
+  ggplot(aes(stat)) +
+  geom_density(fill = 'blue', alpha = 0.5)  +
+  geom_vline(xintercept = obs_stat$stat, 
+             color = "red", 
+             size=1.5) +
+  geom_vline(xintercept = - obs_stat$stat, 
+             color = "red", 
+             size=1.5) +
+  theme_dark() 
+  
+```
