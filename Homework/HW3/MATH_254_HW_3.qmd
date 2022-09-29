@@ -1,0 +1,26 @@
+---
+title: "MATH 254 - Statistical Modeling and Applications - HW3"
+author: "Tural Sadigov"
+format: pdf
+editor: visual
+---
+
+# From Textbook 2
+
+Introductory Statistics with Randomization and Simulation 1st Edition, by D. Diez, C.D. Barr, M. Cetinkaya-Rundel,
+
+<https://www.openintro.org/book/isrs/>
+
+## PROBLEMS
+
+1.  Problem 3.2 -- page 150
+
+2.  Problem 3.6 -- page 151
+
+3.  Problem 3.10 -- page 152
+
+4.  Problem 3.14 -- page 153
+
+5.  Problem 3.16 -- page 154
+
+6.  Problem 4.4 -- page 200

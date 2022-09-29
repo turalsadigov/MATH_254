@@ -1,0 +1,94 @@
+---
+title: "MATH 254 - Statistical Modeling and Applications - HW5"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+---
+
+## Non-textbook problems
+
+1.  Review the Mice data example we worked on from Efron & Tibshirani. R codes are on GitHub. Let's say that we are interested in understanding if there is difference between true variances of two populations that these two groups sampled from. Data is part of `stats2data` package.
+
+One way to check this is to test $\frac{\sigma_T^2}{\sigma_C^2}=1$.
+
+-   What is $\frac{s_T^2}{s_C^2}$?
+
+-   Define true parameters, $\sigma_T^2, \sigma_C^2$, in the context of the problem.
+
+-   State the Null and Alternative hypothesis, and the significance level.
+
+-   Create permutation distribution of $\frac{s_T^2}{s_C^2}$.
+
+    ```{r}
+    # libraries
+    library(tidyverse)
+    library(stats2data)
+    # your codes
+
+    ```
+
+    -   What is the p-value? What is your conclusion?
+
+2.  Consider the data set contains information about a random sample of commuters from Atlanta. Data is part of `stats2data` package.
+
+    ```{r}
+    # your codes
+
+    ```
+
+    We are interested in true correlation coefficient, $\rho$, between all Atlanta commuters' ages and the distance they travel daily. We have a sample of 500 such commuters.
+
+    -   Find sample correlation coefficient that approximates $\rho$.
+
+    ```{r}
+    # your codes  
+
+    ```
+
+        Can this be attributed to chance alone?
+
+    -   Test if $\rho \neq 0$ using Permutation Test. Make sure you follow out step by step guide from class.
+
+    ```{r}
+    # your codes  
+
+    ```
+
+    -   Is your decision consistent with your 99% Bootstrap confidence interval from Homework 4, Problem 2? Explain.
+
+## From Textbook 2: <https://www.openintro.org/book/isrs/>
+
+3.  Problem 2.6 -- page 113. In addition to parts (a), (b), (c), carry out your own permutations to create Permutation distribution for difference of sample proportions.
+
+    ```{r}
+    # your codes  
+
+    ```
+
+4.  Problem 2.8 -- page 114
+
+5.  Problem 2.10 -- page 114-115
