@@ -1,0 +1,171 @@
+---
+title: "Linear Regression - Permutation Test"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+---
+
+
+# libraries and data
+
+```{r}
+# our new universe
+library(tidyverse)
+library(infer)
+
+# reading from CSV
+remote <- 'https://raw.githubusercontent.com/'
+my_github <- 'turalsadigov/'
+path <- 'MATH_254/main/data/county.csv'
+url <- paste0(remote, my_github, path)
+county = read_csv(url)
+
+county %>% 
+  head(3)
+```
+
+# data selection
+
+```{r}
+county_new <- 
+  county %>% 
+  select(homeownership, unemployment_rate) %>% 
+  drop_na()
+
+county_new
+
+county_new %>% 
+  summary()
+```
+
+# scatterplot
+
+```{r}
+county_new %>% 
+  ggplot(aes(unemployment_rate, homeownership)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth()
+```
+
+
+# fit a simple linear regression model using least squares (observed coefficients)
+
+```{r}
+model <- lm(formula = homeownership ~ unemployment_rate, data = county_new)
+model
+```
+
+
+# get observed statistics using infer
+
+```{r}
+obs_stat <- 
+  county_new %>% 
+  specify(homeownership ~ unemployment_rate) %>% 
+  fit()
+
+obs_stat
+```
+
+# permute one variable and fit/learn
+
+```{r}
+set.seed(123)
+learned_coefficients <- 
+  county_new %>% 
+  specify(homeownership ~ unemployment_rate) %>% 
+  hypothesise(null = 'independence') %>% 
+  generate(reps = 1000, type = 'permute') %>% 
+  fit() 
+```
+
+# summarize permutation dstribution 1
+
+```{r}
+learned_coefficients %>% 
+  pivot_wider(names_from = term, 
+              values_from = estimate) %>% 
+  ungroup() %>% 
+  select(-replicate) %>% 
+  rename(beta_0_hat = intercept, beta_1_hat = unemployment_rate) %>% 
+  summarise(s_beta_0_hat = sd(beta_0_hat), 
+            s_beta_1_hat = sd(beta_1_hat)) %>% 
+  pivot_longer(cols = c(s_beta_0_hat, s_beta_1_hat),
+               names_to = 'term', 
+               values_to = 'std.error')
+```
+
+# summarize permutation dstribution 2
+
+```{r}
+learned_coefficients %>% 
+  pivot_wider(names_from = term, 
+              values_from = estimate) %>% 
+  ungroup() %>% 
+  select(-replicate) %>% 
+  summarise(intercept= sd(intercept), 
+            unemployment_rate = sd(unemployment_rate)) %>% 
+  pivot_longer(cols = c(intercept, unemployment_rate),
+               names_to = 'term', 
+               values_to = 'std.error')
+```
+
+
+# visualize permutation distributions
+
+```{r}
+learned_coefficients %>%
+  visualise()
+```
+
+
+# p-values
+
+```{r}
+learned_coefficients %>%
+  visualise() +
+  shade_p_value(obs_stat = obs_stat, direction = 'both')
+
+learned_coefficients %>% 
+  get_p_value(obs_stat = obs_stat, direction = 'both')
+
+```
+
+# using built-in theoretical fitting function
+
+```{r}
+county_new <-
+  county %>% 
+  select(homeownership, unemployment_rate) %>% 
+  drop_na()
+
+model <- lm(formula = homeownership ~ unemployment_rate, data = county_new)
+summary(model)
+
+broom::tidy(model)
+```
+

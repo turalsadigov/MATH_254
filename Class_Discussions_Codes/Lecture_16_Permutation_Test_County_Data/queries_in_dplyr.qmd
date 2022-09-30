@@ -1,0 +1,165 @@
+---
+title: "Queries in dplyr and Permutation Test for slopes in the Simple Linear Regression"
+author: "Tural Sadigov"
+date: today
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+---
+
+## libraries
+
+```{r}
+library(tidyverse)
+library(infer)
+library(stats2data)
+```
+
+## dplyr verbs
+
+-   select
+
+-   mutate
+
+-   group_by
+
+-   summarise
+
+-   filter
+
+-   arrange
+
+## queries
+
+### query 1
+
+Extract/list/obtain state name, homeownership and unemployment rates for counties from the state of indiana or Illionois with unemployment rate below 3%. Arrange them by descending order of homeownership. 
+
+```{r}
+stats2data::county %>% 
+  select(state, homeownership, unemployment_rate) %>% 
+  filter(state == "Indiana" | state == 'Illinois') %>% 
+  filter(unemployment_rate < 3) %>% 
+  arrange(desc(homeownership))
+```
+
+### query 2
+
+Extract/list/obtain state name,  unemployment rates and metro variable for counties from the state of indiana or Illionois with unemployment rate below 3%. arrange them by metro variable where homeownership is descending within levels of metro.
+
+```{r}
+stats2data::county %>% 
+  filter(unemployment_rate < 3) %>% 
+  select(state, homeownership, metro) %>% 
+  filter(state == "Indiana" | state == 'Illinois') %>% 
+  arrange(metro, desc(homeownership))
+```
+
+### query 3
+
+Extract all NY counties where there is a NO metropolitan city within the county.Print all rows with four columns: state, metro, poverty, homeownership.
+
+```{r}
+stats2data::county %>% 
+  filter(state == 'New York' & metro == 'no') %>% 
+  select(state, metro, poverty, homeownership) %>% 
+  print(n = 24)
+```
+
+## inference on a subgroup
+
+Extract all NY counties where there is a NO metropolitan city within the county, and test if slope of the simple linear regression between homeownership versus poverty is not 0 for these counties (i.e., check if there is a dependency).
+
+### parameter of interest
+
+True slope below: $\beta_1$.
+
+
+$$
+H = \beta_0 + \beta_1 p + Z
+$$
+
+
+### hypothesis and significance level.
+
+$H_0$: True slope in the simple linear regression model above, $\beta_1$, is 0 (i.e., homeownership does not depend on poverty for NY counties that have no metropolitan city within them).
+
+$H_a$: True slope in the simple linear regression model above, $\beta_1$, is NOT 0 (i.e., homeownership depends on poverty for NY counties that have no metropolitan city within them).
+
+$\alpha = 0.001$
+
+### permutation Test
+
+Null hypothesis suggest independence between two numerical variables. We shuffle/permute one and  keep the other fixed to obtain a permutation distribution for $\hat{beta_1}$, and this permutation distribution will approximate true sampling distribution of $\hat{beta_1}$ under Null hypothesis of independence.
+
+### observed slope, null distribution and p-value
+
+```{r} 
+df <- 
+  stats2data::county %>% 
+  filter(state == 'New York' & metro == 'no') %>% 
+  select(state, metro, poverty, homeownership)
+
+obs_stat <- 
+  df %>% 
+  specify(poverty ~ homeownership) %>% 
+  calculate(stat = 'slope')
+
+obs_stat
+
+
+set.seed(123)
+null_dist <- 
+  df %>% 
+  specify(poverty ~ homeownership) %>% 
+  hypothesise(null = 'independence') %>% 
+  generate(reps = 1000, type = 'permute') %>% 
+  calculate(stat = 'slope')
+
+null_dist %>% 
+  visualise()
+
+null_dist %>% 
+  get_p_value(obs_stat = obs_stat, direction = 'both')
+
+null_dist %>% 
+  visualise() +
+  shade_p_value(obs_stat = obs_stat, direction = 'both')
+```
+
+Scatterplot
+
+```{r}
+df %>% 
+  ggplot(aes(x = poverty, y = homeownership)) +
+  geom_point(size = 3) +
+  geom_jitter() +
+  geom_smooth(method = "lm", lwd = 2)
+```
+
+
+### Decision
+
+Since p-value of $0.034$ > $\alpha = 0.001$, we conclude that there is no strong evdience against the assumption of indepdence between poverty and homeownership in rural counties of NY, i.e., it could very well be the case that $\beta_1 = 0$, and observed slope of `r obs_stat` could be due to random chance and is not statistically significant. 
