@@ -1,0 +1,53 @@
+---
+title: "MATH 254 - Statistical Modeling and Applications - HW6"
+author: "Tural Sadigov"
+format: 
+    pdf:
+      theme: 
+        light: united
+        dark: darkly
+editor: visual
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: false
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: false
+---
+
+**Read an illuminating article titled "Statistics in The Courtroom" by G. Cobb and S. Gehlbach. It is about a case regarding the use of hypotheses testing and p-values in the courtroom. You will find some discussions in the article familiar. Article is provided to you on Blackboard. Once you read the article, answer/discuss the following questions.**
+
+1.  Explain why Figure 1 (along with the shift pattern of Ms. Gilbert) suggests that Ms. Gilbert may be guilty of excess deaths on the medical ward.
+
+2.  In the Kristin Gilbert case, Dr. Gehlbach was the expert witness for the Grand Jury case. What did Dr. Gehlbach conclude? What did the Grand Jury decide based on Dr. Gehlbach's conclusion?
+
+3.  Why was the evidence from Figure 1 (along with the shift pattern of Ms. Gilbert) not conclusive evidence that Ms. Gilbert was guilty of the excess deaths? Suggest an explanation that could have caused the association without the unusual activity of Ms. Gilbert.
+
+4.  What is the relevance of the coin-tossing story to the trial of Ms. Gilbert? How did Dr. Gehlbach explain low p-value in a hypothesis testing?
+
+5.  What was the 'single most important contribution to statistics', according to Dr. Cobb and many statisticians? Explain. What is randomization in studies and why do we need it?
+
+6.  Read the Buzzfeed story regarding Cornell professor's research on dicing and slicing data: [\textcolor{red}{https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking}](https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking). Then answer/discuss the following questions.
+
+    a)  What were the two variables in the pizza data that the professor thought had a relationship?
+
+    b)  Which subgroups did the professor suggest to look into? Why is that suspicious? Why is that not how science should work?
+
+    c)  What evidence do you have, from the story, that suggest that they indeed 'diced and sliced' the data?
+
+    d)  What is so called replication crisis mentioned in the article?
+
+7.  Problem 3.38 -- page 160 - Textbook 2 -- Introductory Statistics with Randomization and Simulation
