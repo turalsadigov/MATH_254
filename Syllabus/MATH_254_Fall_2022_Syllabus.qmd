@@ -51,7 +51,7 @@ MATH 254 is the second course in statistics with an emphasis on how statistics a
 
 -   **Class times:** MWF 11:00 -- 11:50 am in Ben 201
 
--   **Office hours:** MWF 1:30 pm -- 3:30 pm in CJ 107
+-   **Office hours:** MW 1:30 pm -- 3:30 pm, F 2 - 4 pm
 
 ## Textbooks
 
@@ -203,48 +203,50 @@ This module covers fundamentals of classical statistics.
 
 8.  $\chi^2$ tests
 
+9.  Power Analysis, Multiple Testing, QQ-plots, Normality Test
+
 ### Module - 2 - Machine Learning
 
 In this module, we start working with both inference and prediction.
 
-9.  Linear, multiple, polynomial regression
+10. Linear, multiple, polynomial regression
 
-10. Model assessments, Diagnostics
+11. Model assessments, Diagnostics
 
-11. Variable selection (forward, backward, mixed selections)
+12. Variable selection (forward, backward, mixed selections)
 
-12. Bootstrap methods for regression
+13. Bootstrap methods for regression
 
-13. Classification, Logistic regression
+14. Classification, Logistic regression
 
-14. K nearest neighbor classification
+15. K nearest neighbor classification
 
-15. K nearest neighbor regression
+16. K nearest neighbor regression
 
 ## Schedule
 
-| Dates                | Topics/Events                                                   |
-|----------------------|-----------------------------------------------------------------|
-|                      | **`MODULE 1 - CLASSICAL STATISTICS`**                           |
-| August 26            | Introduction/Syllabus                                           |
-| August 29 - Sept. 2  | Statistics-1 Review, R, Sampling distributions                  |
-| September 5 - 9      | Central Limit Theorem, Confidence Intervals                     |
-| September 12 - 16    | Hypothesis testing, Common statistical tests ($z, t$)           |
-| September 19 - 23    | Bootstrap and randomization                                     |
-| September 26 - 30    | Permutation tests                                               |
-| October 3 - 7        | Midterm Review, p-values, dicing and slicing,                   |
-| October 6            | [Midterm Test]{.underline}                                      |
-| October 10 - 14      | $\chi^2$ tests                                                  |
-|                      | **`MODULE 2 - MACHINE LEARNING`**                               |
-| October 17 - 21      | Linear and multiple linear regression                           |
-| October 24 - 28      | Linear, multiple, polynomial regression                         |
-| October 31 - Nov. 4  | Variable selection, forward/backward/mixed selections           |
-| November 7 - 11      | Classification, Logistic regression                             |
-| November 10          | [Project]{.underline}                                           |
-| November 14 - 18     | Multiple Logistic regression, K nearest neighbor classification |
-| November 19 - 27     | Thanksgiving recess                                             |
-| November 28 - Dec. 2 | K nearest neighbor regression                                   |
-| December 5 - 9       | Labs all week, k-means clustering, Final Review                 |
+| Dates                | Topics/Events                                                    |
+|---------------------|---------------------------------------------------|
+|                      | **`MODULE 1 - CLASSICAL STATISTICS`**                            |
+| August 26            | Introduction/Syllabus                                            |
+| August 29 - Sept. 2  | Statistics-1 Review, R, Sampling distributions                   |
+| September 5 - 9      | Central Limit Theorem, Confidence Intervals                      |
+| September 12 - 16    | Hypothesis testing, Common statistical tests ($z, t$)            |
+| September 19 - 23    | Bootstrap and randomization                                      |
+| September 26 - 30    | Permutation tests                                                |
+| October 3 - 7        | Midterm Review, p-values, dicing and slicing,                    |
+| October 6            | [Midterm Test]{.underline}                                       |
+| October 10 - 12      | $\chi^2$ tests                                                   |
+| October 17 - 21      | Power Analysis, Multiple Testing, QQ-plots, Normality Test       |
+|                      | **`MODULE 2 - MACHINE LEARNING`**                                |
+| October 24 - 28      | Linear and multiple linear regression                            |
+| October 31 - Nov. 4  | Linear, multiple, polynomial regression                          |
+| November 7 - 11      | Train-Validation-Test splits, Model selection, Model evaluation  |
+| November 14 - 18     | Classification, Logistic regression                              |
+| November 16          | [Project]{.underline}                                            |
+| November 19 - 27     | Thanksgiving recess                                              |
+| November 28 - Dec. 2 | Multiple Logistic regression, K nearest neighbor classification  |
+| December 5 - 9       | K nearest neighbor regression , k-means clustering, Final Review |
 
 : Tentative Schedule
 
@@ -274,15 +276,15 @@ At the beginning Week of October 10th, you will be assigned to a group of 2 stud
 
 Starting with the week of October 10th, each week that project is NOT due on, you will submit a draft of your work as a checkpoint for your project during that week, and get some feedback. These are drafts of your project, and show your progress. In other words, the project has 4 checkpoints and final subsmission:
 
--   **October 12 - Wed - 5 pm:** Checkpoint 1 would have the data set, a draft with a research question and evidence of data read into R Studio.
+-   **October 19 - Wed - 5 pm:** Checkpoint 1 would have the data set, a draft with a research question and evidence of data read into R Studio.
 
--   **October 19 - Wed - 5 pm:** Checkpoint 2 would have a draft with the research question, some descriptive analysis and references section started.
+-   **October 26 - Wed - 5 pm:** Checkpoint 2 would have a draft with the research question, some descriptive analysis and references section started.
 
--   **October 26 - Wed - 5 pm:** Checkpoint 3 would have a draft with detailed introduction/background, methods that would be applied and some results.
+-   **November 2 - Wed - 5 pm:** Checkpoint 3 would have a draft with detailed introduction/background, methods that would be applied and some results.
 
--   **November 2 - Wed - 5pm:** Checkpoint 4 would have some main results, updated methods that applied and discussion, and detailed references and appendix.
+-   **November 9 - Wed - 5pm:** Checkpoint 4 would have some main results, updated methods that applied and discussion, and detailed references and appendix.
 
--   **November 9 - Wed - 5 pm:** Final submission would have everything outlined in [ttps://www.causeweb.org/usproc/report-template](Final%20submission%20would%20have%20everything%20outlined%20in%20https://www.causeweb.org/usproc/report-template){target="_blank"}.
+-   **November 16 - Wed - 5 pm:** Final submission would have everything outlined in [ttps://www.causeweb.org/usproc/report-template](Final%20submission%20would%20have%20everything%20outlined%20in%20https://www.causeweb.org/usproc/report-template){target="_blank"}.
 
 #### Final Test (30%)
 
