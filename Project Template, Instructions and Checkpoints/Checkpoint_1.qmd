@@ -1,0 +1,12 @@
+---
+title: "Checkpoint 1"
+format: html
+---
+
+1.  `Section 6:` Submit evidence of that the data is read into R Studio (show some interesting descriptive statistics). Get to know your data (missing values, incorrect formats of variables, ranges of variables etc). Provide numerical and visual summaries as part of Appendix section. As the project progresses, you will be updating this section by adding or removing parts.
+
+2.  `Section 1` **:** Talk about the potential research questions in Background and Significance section. This section will be completed fully in the next submission.
+
+    See Spring 2021 winners\' projects for guidance:
+
+    <https://www.causeweb.org/usproc/usclap/2021/spring/winners>

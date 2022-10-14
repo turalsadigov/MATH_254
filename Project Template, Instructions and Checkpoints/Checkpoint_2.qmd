@@ -1,0 +1,10 @@
+---
+title: "Checkpoint 2"
+format: html
+---
+
+1.  Fully implement feedback you got from Checkpoint 1.
+2.  `Section 1` **:** Finish up background and significance section.
+3.  `Section 2` **:** Finish up data collection subsection in the methods section
+4.  `Section 2:` Finish up variable creation subsection in the methods section
+5.  `Section 5:` Include all resources you used in the reference section (R, R Studio, Quarto, used R packages, USCLAP template, data source, any paper/book referred in the background and significance section, etc.). You will update this section at every checkpoint as you use more resources.

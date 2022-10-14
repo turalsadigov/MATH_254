@@ -100,9 +100,9 @@ lm(observed_deaths ~ expected_deaths,
 
 Can this be attributed to the chance alone? Conduct a Permutation test with clearly defined steps below:
 
-2. Define the population parameter of interest in the context of the problem. State Null and Alternative Hypothesis, and the significance level.
+2.  Define the population parameter of interest in the context of the problem. State Null and Alternative Hypothesis, and the significance level.
 
-3. Create Permutation distribution of the fitted slope, $\hat{\beta}_1$. Calculate p-value using the permutation distribution.
+3.  Create Permutation distribution of the fitted slope, $\hat{\beta}_1$. Calculate p-value using the permutation distribution.
 
 ```{r}
 #| eval: false
@@ -132,14 +132,13 @@ null_dist %>%
               direction = "two-sided")
 ```
 
-4. Make a decision with your choice of significance level in the context of the problem.
+4.  Make a decision with your choice of significance level in the context of the problem.
 
-
-5. Could it be the case that you made a wrong decision? Explain. 
+5.  Could it be the case that you made a wrong decision? Explain.
 
 ## True Correlation coefficient
 
-6.	What is the sample correlation coefficient between expected deaths and observed deaths? Do you think the correlation is weak, medium or strong? 
+6.  What is the sample correlation coefficient between expected deaths and observed deaths? Do you think the correlation is weak, medium or strong?
 
 ```{r}
 #| eval: false
@@ -150,10 +149,9 @@ hospital_df %>%
 
 Can this sample correlation coefficient be attributed to chance alone? Conduct a Permutation test with clearly defined steps below:
 
-7.	Define the parameter of interest in the context of the problem. State Null and Alternative Hypothesis, and the significance level.
+7.  Define the parameter of interest in the context of the problem. State Null and Alternative Hypothesis, and the significance level.
 
-
-8. Create Permutation distribution of observed sample correlation, $\hat{p}$. Calculate p-value using the permutation distribution.
+8.  Create Permutation distribution of observed sample correlation, $\hat{p}$. Calculate p-value using the permutation distribution.
 
 ```{r}
 #| eval: false
@@ -183,8 +181,6 @@ null_dist %>%
               direction = "two-sided")
 ```
 
-9.	Make a decision with your choice of significance level in the context of the problem.
+9.  Make a decision with your choice of significance level in the context of the problem.
 
-
-10.	Could it be the case that you made a wrong decision? Explain. 
-
+10. Could it be the case that you made a wrong decision? Explain.

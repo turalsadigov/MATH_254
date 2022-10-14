@@ -1,0 +1,8 @@
+---
+title: "Final submisson"
+format: html
+---
+
+1.  Fully implement the feedback you got from Checkpoint 4.
+2.  Finish the abstract of your paper.  
+2.  Update/clean up all sections. 

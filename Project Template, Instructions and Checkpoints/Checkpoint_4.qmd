@@ -1,0 +1,12 @@
+---
+title: "Checkpoint 4"
+format: html
+---
+
+1.  Fully implement the feedback you got from Checkpoint 3.
+2.  Write the abstract of your paper.
+3.  `Section 2c:` Update this section by including new methods you have used.
+4.  `Section 3:` Have all of your results here. You will update this again in the next/final submission.
+5.  `Section 4:` Start the discussion section on your results. Include some of your conclusions.
+6.  `Section 5:` Update the reference section as you use more resources.
+7.  `Section 6:` You may want to update the appendix section if you have more to be included here.

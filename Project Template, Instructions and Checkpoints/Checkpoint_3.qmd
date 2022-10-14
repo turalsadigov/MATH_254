@@ -1,0 +1,18 @@
+---
+title: "Checkpoint 3"
+format: html
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+1.  Fully implement the feedback you got from Checkpoint 2.
+2.  `Section 2c:` Start describing the methods you will be using in your
+    project. Make the methods as clear as possible so that the reader
+    can reproduce exactly what you describe. You might update this
+    section as research progress.
+3.  `Section 3:` Have some preliminary results. This section will be
+    updated in the next checkpoint.
+4.  `Section 5:` Update the reference section as you use more resources.
+5.  `Section 6:` You may want to update the appendix section if you have
+    more to be included here.
