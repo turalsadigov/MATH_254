@@ -30,7 +30,7 @@ abstract: The abstract provides a brief summary of the entire paper (background,
   Assessment; Are the main points of the paper described clearly and succinctly?
 
 format: 
-    html:
+    pdf:
       theme: 
         light: united
         dark: darkly
