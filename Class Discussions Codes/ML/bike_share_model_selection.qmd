@@ -1,0 +1,80 @@
+---
+title: "bike_share_model_selection"
+format: html
+editor: visual
+execute: 
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+## libraries
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(vip)
+library(skimr)
+```
+
+## data
+
+Data is from Fanaee and Gama [@fanaee-t2013]
+
+
+```{r}
+remote <-  'https://raw.githubusercontent.com/'
+account <-  'turalsadigov/MATH_254/main/'
+folder <-  'data/Bike-Sharing-Dataset/'
+file <-  'hour.csv'
+url <- str_c(remote, account, folder, file)
+url
+bike <- read_csv(url)
+bike
+```
+
+## data wrangling
+
+```{r}
+df <- bike %>% 
+  select(-dteday, -casual, -registered, -instant, -workingday)
+hist(df$cnt)
+sum(df$cnt == 1)
+
+
+df <- df %>% 
+  mutate(log_cnt_plus_1 = log(cnt + 1), 
+         weathersit_fct = factor(weathersit))
+df <- 
+  df %>% 
+  relocate(log_cnt_plus_1, .after = cnt) %>% 
+  relocate(weathersit_fct, .after = weathersit)
+
+df <- df %>% 
+  mutate(across(1:6, as.factor))
+```
+
+
+## skim data
+
+```{r}
+df %>% 
+  skimr::skim()
+```
+
+## look at responses
+
+```{r}
+hist(df$log_cnt_plus_1)
+```
+
+
+
+
+
+
+
+
+
