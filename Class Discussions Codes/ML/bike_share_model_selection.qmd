@@ -65,7 +65,6 @@ skim(df)
 hist(df$log_cnt_plus_1)
 ```
 
-
 ## relationhsip between numerical variables and response
 
 ```{r}
@@ -81,7 +80,6 @@ df %>%
   select(where(is.numeric)) %>% 
   GGally::ggpairs()
 ```
-
 
 ## split the data
 
@@ -101,7 +99,6 @@ df_validation_resample <- validation_split(data = df_training,
                                            strata = cnt)
 ```
 
-
 ## model specifications
 
 ```{r}
@@ -111,9 +108,7 @@ lm_specs <-
   set_mode('regression')
 ```
 
-
 ## fit various models to training data, evaluate them for validation data
-
 
 ```{r}
 model_1 <- 
@@ -152,15 +147,12 @@ model_5 <-
 
 ```
 
-
-
 ## put models together
 
 ```{r}
 fitted_models <- list(model_1, model_2, model_3, model_4, model_5)
 fitted_models
 ```
-
 
 ## pull out metrics for comparison
 
@@ -171,10 +163,7 @@ validation_results <-
 validation_results
 ```
 
-
-
 ## more wrangling
-
 
 ```{r}
 validation_results %>% 
@@ -185,8 +174,68 @@ validation_results %>%
 ```
 
 
+## choose a model
+
+```{r}
+chosen_model <- 
+  lm_specs %>% 
+  last_fit(log_cnt_plus_1 ~. - cnt - weathersit,
+           df_split, 
+           metrics = metric_set(rsq, rmse, mae))
+```
+
+```{r}
+chosen_model
+chosen_model$.metrics[[1]]
+collect_metrics(chosen_model)
+collect_predictions(chosen_model) %>% 
+  rsq(truth = log_cnt_plus_1, estimate = .pred)
+
+collect_predictions(chosen_model) %>% 
+  ggplot(aes(x = log_cnt_plus_1, y = .pred)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
 
 
+collect_predictions(chosen_model) %>% 
+  ggplot(aes(x = exp(log_cnt_plus_1)-1, y = exp(.pred)-1)) +
+  geom_point(aes(alpha = 0.3)) +
+  geom_abline(slope = 1, intercept = 0, lwd  = 2, color = 'red')
+```
+
+
+
+## investigate model
+
+```{r}
+a = 0.05/53
+a
+
+extract_workflow(chosen_model) %>% 
+  tidy() %>% 
+  mutate(sgnfc = if_else(p.value < a, 'Yes', 'No')) %>% 
+  arrange(p.value) %>%
+  ggplot(aes(x = term, y = p.value)) +
+  geom_point() +
+  geom_hline(yintercept = a) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1))
+
+```
+
+
+## variable importance
+
+```{r}
+model <- extract_fit_engine(chosen_model$.workflow[[1]])
+vip(model)
+```
+
+
+## save the chosen one, and then version, deploy and monitor (vetiver)
+
+```{r}
+save(chosen_model, file = 'bike_chosen_model.Rdata')
+```
 
 
 
