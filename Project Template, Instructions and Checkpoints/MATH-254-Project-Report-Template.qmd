@@ -30,7 +30,7 @@ abstract: The abstract provides a brief summary of the entire paper (background,
   Assessment; Are the main points of the paper described clearly and succinctly?
 
 format: 
-    pdf:
+    html:
       theme: 
         light: united
         dark: darkly
@@ -48,7 +48,7 @@ code-overflow: scroll
 code-line-numbers: false
 code-copy: true
 execute:
-  echo: true
+  echo: fenced
   warning: false
   eval: true
   output: true
@@ -56,6 +56,7 @@ execute:
   freeze: true
   out.width: "100%"
   cache: true
+code-fold: show
 ---
 
 # Background and Significance
@@ -95,6 +96,13 @@ c. *Analytic Methods*. Explain the statistical procedures that will be used to
 # Results
 
 Typically, results sections start with descriptive statistics, e.g. what percent of the sample is male/female, what is the mean GPA overall, in the different groups, etc. Figures can be nice to illustrate these differences! However, information presented must be relevant in helping to answer the research question(s) of interest. Typically, inferential (i.e. hypothesis tests) statistics come next. Tables can often be helpful for results from multiple regression. Do not give computer output here! This should look like a peer-reviewed journal article results section. Tables and figures should be labeled, embedded in the text, and referenced appropriately. The results section typically makes for fairly dry reading. It does not explain the impact of findings, it merely highlights and reports statistical information.
+
+An example R chunk will show like below.
+
+```{r}
+print("Data Science is cool! ")
+```
+
 
 *Assessment:*
 
