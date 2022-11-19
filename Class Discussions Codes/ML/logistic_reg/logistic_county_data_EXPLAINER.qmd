@@ -107,7 +107,7 @@ explainer_logistic <-
     extract_fit_parsnip(chosen_model), 
     data = df_training %>% select(-metro, -`name/state`), 
     y = metro_dummy_num,
-    label = "logsitic regression",
+    label = "Logistic Regression Model (County data)",
     verbose = FALSE
   )
 explainer_logistic
