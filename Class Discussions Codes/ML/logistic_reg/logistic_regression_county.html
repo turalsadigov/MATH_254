@@ -84,6 +84,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -144,7 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="libraries-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="libraries-and-data">libraries and data</h2>
-<p>We use tidyverse (<span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref"><strong>tidyverse?</strong></a>)</span>) for data wrangling, tidymodels (<span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref"><strong>tidymodels?</strong></a>)</span>) for modeling and stats2data (<span class="citation" data-cites="stats2data">(<a href="#ref-stats2data" role="doc-biblioref"><strong>stats2data?</strong></a>)</span>) for the data.</p>
+<p>We use tidyverse (<span class="citation" data-cites="tidyverse">Wickham et al. (<a href="#ref-tidyverse" role="doc-biblioref">2019</a>)</span>) for data wrangling, tidymodels (<span class="citation" data-cites="tidymodels">Kuhn and Wickham (<a href="#ref-tidymodels" role="doc-biblioref">2020</a>)</span>) for modeling and stats2data (<span class="citation" data-cites="stats2data">Sadigov (<a href="#ref-stats2data" role="doc-biblioref">2022</a>)</span>) for the data.</p>
 <div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-1_f1a307599cc8b1c8b269ffeb7075af78">
 <details open="">
 <summary>Code</summary>
@@ -863,7 +882,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="modeling-via-parallel-programming" class="level2">
 <h2 class="anchored" data-anchor-id="modeling-via-parallel-programming">modeling via PARALLEL PROGRAMMING</h2>
-<p>For parallel programming we use parallel (<span class="citation" data-cites="parallel">(<a href="#ref-parallel" role="doc-biblioref"><strong>parallel?</strong></a>)</span>) and doParallel (<span class="citation" data-cites="doParallel">(<a href="#ref-doParallel" role="doc-biblioref"><strong>doParallel?</strong></a>)</span>).</p>
+<p>For parallel programming we use parallel (<span class="citation" data-cites="parallel"> (<a href="#ref-parallel" role="doc-biblioref">2022</a>)</span>) and doParallel (<span class="citation" data-cites="doParallel">Corporation and Weston (<a href="#ref-doParallel" role="doc-biblioref">2022</a>)</span>).</p>
 <div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-6_6e82b73399897d4d476a167b5c36a73e">
 <details open="">
 <summary>Code</summary>
@@ -947,8 +966,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="chosen-one" class="level2">
 <h2 class="anchored" data-anchor-id="chosen-one">CHOSEN ONE!</h2>
-<p><code>model_3</code> is a simpler model with similar accuracy, so we choose the simpler model using the principle of parsimony (<span class="citation" data-cites="parsimon2002">(<a href="#ref-parsimon2002" role="doc-biblioref"><strong>parsimon2002?</strong></a>)</span>).</p>
-<p>Remember the famous quota attributed to Einstein<strong>: “Models should be simple enough but not too simple”</strong> ( or, “Everything should be made as simple as possible, but no simpler”, <span class="citation" data-cites="robinson2018">(<a href="#ref-robinson2018" role="doc-biblioref"><strong>robinson2018?</strong></a>)</span>).</p>
+<p><code>model_3</code> is a simpler model with similar accuracy, so we choose the simpler model using the principle of parsimony (<span class="citation" data-cites="parsimon2002"><span>“PARSIMONY AND EFFICIENCY”</span> (<a href="#ref-parsimon2002" role="doc-biblioref">2002</a>)</span>).</p>
+<p>Remember the famous quota attributed to Einstein<strong>: “Models should be simple enough but not too simple”</strong> ( or, “Everything should be made as simple as possible, but no simpler”, <span class="citation" data-cites="robinson2018">Robinson (<a href="#ref-robinson2018" role="doc-biblioref">2018</a>)</span>).</p>
 <div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-8_b1fbd763aad700c180404e91a1ad73f6">
 <details open="">
 <summary>Code</summary>
@@ -1135,7 +1154,7 @@ Prediction  no yes
 </section>
 <section id="scatterplot-in-3d-point-cloud" class="level2">
 <h2 class="anchored" data-anchor-id="scatterplot-in-3d-point-cloud">scatterplot in 3D (point cloud)</h2>
-<p><code>plotly</code> (<span class="citation" data-cites="plotly">(<a href="#ref-plotly" role="doc-biblioref"><strong>plotly?</strong></a>)</span>) is a great library for 3D sketches both in R, Python and Java.</p>
+<p><code>plotly</code> (<span class="citation" data-cites="plotly">Sievert (<a href="#ref-plotly" role="doc-biblioref">2020</a>)</span>) is a great library for 3D sketches both in R, Python and Java.</p>
 <div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-12_ede5714bf7d26fb4f58dab3dc16e9dba">
 <details open="">
 <summary>Code</summary>
@@ -1213,9 +1232,35 @@ Prediction  no yes
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-doParallel" class="csl-entry" role="doc-biblioentry">
+Corporation, Microsoft, and Steve Weston. 2022. <span>“doParallel: Foreach Parallel Adaptor for the ’Parallel’ Package.”</span> <a href="https://CRAN.R-project.org/package=doParallel">https://CRAN.R-project.org/package=doParallel</a>.
+</div>
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+Kuhn, Max, and Hadley Wickham. 2020. <span>“Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles.”</span> <a href="https://www.tidymodels.org">https://www.tidymodels.org</a>.
+</div>
+<div id="ref-parsimon2002" class="csl-entry" role="doc-biblioentry">
+<span>“PARSIMONY AND EFFICIENCY.”</span> 2002. In, 269–326. Cambridge University Press. <a href="https://doi.org/10.1017/cbo9780511815034.010">https://doi.org/10.1017/cbo9780511815034.010</a>.
+</div>
+<div id="ref-parallel" class="csl-entry" role="doc-biblioentry">
+R Core Team. 2022. <span>“R: A Language and Environment for Statistical Computing.”</span> <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-robinson2018" class="csl-entry" role="doc-biblioentry">
+Robinson, Andrew. 2018. <span>“Did Einstein Really Say That?”</span> <em>Nature</em> 557 (7703): 30–30. <a href="https://doi.org/10.1038/d41586-018-05004-4">https://doi.org/10.1038/d41586-018-05004-4</a>.
+</div>
+<div id="ref-stats2data" class="csl-entry" role="doc-biblioentry">
+Sadigov, Tural. 2022. <span>“Stats2data: Data Package for MATH 254, Statistical Modeling and Applications, at Hamilton College.”</span>
+</div>
+<div id="ref-plotly" class="csl-entry" role="doc-biblioentry">
+Sievert, Carson. 2020. <span>“Interactive Web-Based Data Visualization with r, Plotly, and Shiny.”</span> <a href="https://plotly-r.com">https://plotly-r.com</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

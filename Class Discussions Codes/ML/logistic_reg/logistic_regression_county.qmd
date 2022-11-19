@@ -401,4 +401,3 @@ df_testing %>%
 ```{r}
 save(chosen_model, file = 'county_logistic_model.Rdata')
 ```
-

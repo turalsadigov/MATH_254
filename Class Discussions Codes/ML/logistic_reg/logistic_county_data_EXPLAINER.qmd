@@ -21,7 +21,7 @@ execute:
   out.width: "100%"
   cache: true
 code-fold: show
-bibliography: references.bib
+bibliography: references2.bib
 ---
 
 ## libraries and data
@@ -70,9 +70,9 @@ See Tidy Modeling with R (@tmwr) chapter 18 (<https://www.tmwr.org/explain.html>
 
 -   vip (@vip)
 
--   DALEX (@DALEX)
+-   DALEX (@dalex)
 
--   DALEXtra (@DALEXtra)
+-   DALEXtra (@dalextra)
 
 -   modelStudio (@modelStudio)
 
@@ -105,7 +105,7 @@ metro_dummy_num <-
 explainer_logistic <- 
   explain_tidymodels(
     extract_fit_parsnip(chosen_model), 
-    data = df_training %>% select(-metro), 
+    data = df_training %>% select(-metro, -`name/state`), 
     y = metro_dummy_num,
     label = "logsitic regression",
     verbose = FALSE
