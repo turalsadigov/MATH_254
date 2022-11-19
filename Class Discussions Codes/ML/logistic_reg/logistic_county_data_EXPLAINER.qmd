@@ -1,0 +1,123 @@
+---
+title: Logistic Regression - County data - Model explainer
+author: Tural Sadigov
+format: 
+    html:
+      theme: 
+        dark: darkly
+        light: united
+      fig-width: 8
+      fig-height: 6
+title-block-banner: true
+execute:
+  echo: fenced
+  warning: false
+  message: false
+  tidy: true
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+code-fold: show
+bibliography: references.bib
+---
+
+## libraries and data
+
+We use tidyverse (@tidyverse) for data wrangling, tidymodels (@tidymodels) for modeling and stats2data (@stats2data) for the data.
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(stats2data)
+# one <- 'https://raw.githubusercontent.com/'
+# two <- 'turalsadigov/'
+# three <- 'MATH_254/main/data/'
+# four <- 'county.csv'
+# url <- str_c(one, two, three, four)
+# county <- read_csv(url)
+
+df <- stats2data::county %>% 
+  select(name, state, pop2017, median_hh_income, metro) %>% 
+  unite('name/state', name:state, sep = '/') %>% 
+  mutate(metro = factor(metro)) %>% 
+  drop_na()
+
+df <- 
+  df %>% 
+  mutate(pop2017 = log(pop2017))
+
+set.seed(2022)
+df_split <- initial_split(data = df, 
+                          prop = 0.80, 
+                          strata = metro)
+df_training <- training(df_split)
+df_testing <- testing(df_split)
+```
+
+
+## load the fitted model
+
+```{r}
+load(file = 'county_logistic_model.Rdata')
+```
+
+## explain your model to others
+
+See Tidy Modeling with R (@tmwr) chapter 18 (<https://www.tmwr.org/explain.html>). We use new packages:
+
+-   vip (@vip)
+
+-   DALEX (@DALEX)
+
+-   DALEXtra (@DALEXtra)
+
+-   modelStudio (@modelStudio)
+
+
+```{r}
+library(vip)
+library(DALEX)
+library(DALEXtra)
+library(modelStudio)
+```
+
+
+### variable importance
+
+```{r}
+vip(extract_fit_engine(chosen_model))
+```
+
+### explainer
+
+
+```{r}
+# modelStudio likes numeric response, so we create one
+metro_dummy_num <- 
+  df_training %>% 
+  transmute(metro = if_else(metro == 'yes', 1, 0)) %>% 
+  pull(metro)
+
+# create explainer
+explainer_logistic <- 
+  explain_tidymodels(
+    extract_fit_parsnip(chosen_model), 
+    data = df_training %>% select(-metro), 
+    y = metro_dummy_num,
+    label = "logsitic regression",
+    verbose = FALSE
+  )
+explainer_logistic
+```
+
+
+### create interactive explainer
+
+```{r}
+modelStudio::modelStudio(explainer = explainer_logistic)
+```
+
+

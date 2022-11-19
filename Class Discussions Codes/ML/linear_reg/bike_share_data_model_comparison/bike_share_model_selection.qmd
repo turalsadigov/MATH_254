@@ -1,0 +1,245 @@
+---
+title: "Bike share data - model selection via validation set approach"
+format: html
+editor: visual
+execute: 
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+## libraries
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(vip)
+library(skimr)
+# install.packages(c('vip', 'skimr'))
+```
+
+## data
+
+Data is from Fanaee and Gama [@fanaee-t2013]
+
+```{r}
+remote <-  'https://raw.githubusercontent.com/'
+account <-  'turalsadigov/MATH_254/main/'
+folder <-  'data/Bike-Sharing-Dataset/'
+file <-  'hour.csv'
+url <- str_c(remote, account, folder, file)
+url
+bike <- read_csv(url)
+bike
+```
+
+## data wrangling
+
+```{r}
+df <- bike %>% 
+  select(-dteday, -casual, -registered, -instant, -workingday)
+hist(df$cnt)
+sum(df$cnt == 1)
+
+
+df <- df %>% 
+  mutate(log_cnt_plus_1 = log(cnt + 1), 
+         weathersit_fct = factor(weathersit)) %>% 
+  relocate(log_cnt_plus_1, .after = cnt) %>% 
+  relocate(weathersit_fct, .after = weathersit) %>% 
+  mutate(across(1:6, as.factor))
+df
+```
+
+## skim data
+
+```{r}
+skim(df)
+```
+
+## look at responses
+
+```{r}
+hist(df$log_cnt_plus_1)
+```
+
+## relationhsip between numerical variables and response
+
+```{r}
+df %>% 
+  ggplot(aes(x = temp, y = log_cnt_plus_1)) +
+  geom_point()
+```
+
+## pairwise scaterplots
+
+```{r}
+df %>% 
+  select(where(is.numeric)) %>% 
+  GGally::ggpairs()
+```
+
+## split the data
+
+```{r}
+set.seed(254)
+df_split <- initial_split(data = df, prop = .80, strata = cnt)
+df_split
+class(df_split)
+
+df_training <- training(df_split)
+df_testing <- testing(df_split)
+
+
+set.seed(356)
+df_validation_resample <- validation_split(data = df_training,
+                                           prop = .75, 
+                                           strata = cnt)
+```
+
+## model specifications
+
+```{r}
+lm_specs <- 
+  linear_reg() %>% 
+  set_engine('lm') %>% 
+  set_mode('regression')
+```
+
+## fit various models to training data, evaluate them for validation data
+
+```{r}
+model_1 <- 
+  lm_specs %>% 
+  fit_resamples(cnt ~. -log_cnt_plus_1 - weathersit_fct, 
+                df_validation_resample, 
+                metrics = metric_set(rsq, rmse, mae))
+
+
+model_2 <- 
+  lm_specs %>% 
+  fit_resamples(log_cnt_plus_1 ~. - cnt - weathersit_fct, 
+                df_validation_resample, 
+                metrics = metric_set(rsq, rmse, mae))
+
+
+model_3 <- 
+  lm_specs %>% 
+  fit_resamples(cnt ~. - log_cnt_plus_1 - weathersit, 
+                df_validation_resample, 
+                metrics = metric_set(rsq, rmse, mae))
+
+
+model_4 <- 
+  lm_specs %>% 
+  fit_resamples(log_cnt_plus_1 ~. - cnt - weathersit, 
+                df_validation_resample, 
+                metrics = metric_set(rsq, rmse, mae))
+
+
+model_5 <- 
+  lm_specs %>% 
+  fit_resamples(log_cnt_plus_1 ~. -cnt - weathersit_fct - temp, 
+                df_validation_resample, 
+                metrics = metric_set(rsq, rmse, mae))
+
+```
+
+## put models together
+
+```{r}
+fitted_models <- list(model_1, model_2, model_3, model_4, model_5)
+fitted_models
+```
+
+## pull out metrics for comparison
+
+```{r}
+validation_results <- 
+  bind_rows(fitted_models) %>% 
+  mutate(model_name = row_number())
+validation_results
+```
+
+## more wrangling
+
+```{r}
+validation_results %>% 
+  select(.metrics, model_name) %>% 
+  unnest(.metrics) %>% 
+  select(.metric, .estimate, model_name) %>% 
+  pivot_wider(names_from = .metric, values_from = .estimate)
+```
+
+
+## choose a model
+
+```{r}
+chosen_model <- 
+  lm_specs %>% 
+  last_fit(log_cnt_plus_1 ~. - cnt - weathersit,
+           df_split, 
+           metrics = metric_set(rsq, rmse, mae))
+```
+
+```{r}
+chosen_model
+chosen_model$.metrics[[1]]
+collect_metrics(chosen_model)
+collect_predictions(chosen_model) %>% 
+  rsq(truth = log_cnt_plus_1, estimate = .pred)
+
+collect_predictions(chosen_model) %>% 
+  ggplot(aes(x = log_cnt_plus_1, y = .pred)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0)
+
+
+collect_predictions(chosen_model) %>% 
+  ggplot(aes(x = exp(log_cnt_plus_1)-1, y = exp(.pred)-1)) +
+  geom_point(aes(alpha = 0.3)) +
+  geom_abline(slope = 1, intercept = 0, lwd  = 2, color = 'red')
+```
+
+
+
+## investigate model
+
+```{r}
+a = 0.05/53
+a
+
+extract_workflow(chosen_model) %>% 
+  tidy() %>% 
+  mutate(sgnfc = if_else(p.value < a, 'Yes', 'No')) %>% 
+  arrange(p.value) %>%
+  ggplot(aes(x = term, y = p.value)) +
+  geom_point() +
+  geom_hline(yintercept = a) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust = 1))
+
+```
+
+
+## variable importance
+
+```{r}
+model <- extract_fit_engine(chosen_model$.workflow[[1]])
+vip(model)
+```
+
+
+## save the chosen one, and then version, deploy and monitor (vetiver)
+
+```{r}
+save(chosen_model, file = 'bike_chosen_model.Rdata')
+```
+
+
+
+
+
+
+

@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tural Sadigov">
+
+<title>Logistic Regression - County data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="logistic_regression_county_files/libs/clipboard/clipboard.min.js"></script>
+<script src="logistic_regression_county_files/libs/quarto-html/quarto.js"></script>
+<script src="logistic_regression_county_files/libs/quarto-html/popper.min.js"></script>
+<script src="logistic_regression_county_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="logistic_regression_county_files/libs/quarto-html/anchor.min.js"></script>
+<link href="logistic_regression_county_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="logistic_regression_county_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="logistic_regression_county_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="logistic_regression_county_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="logistic_regression_county_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="logistic_regression_county_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="logistic_regression_county_files/libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="logistic_regression_county_files/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="logistic_regression_county_files/libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="logistic_regression_county_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="logistic_regression_county_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="logistic_regression_county_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="logistic_regression_county_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="logistic_regression_county_files/libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="logistic_regression_county_files/libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Logistic Regression - County data</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Tural Sadigov </p>
+            </div>
+    </div>
+      
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="libraries-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="libraries-and-data">libraries and data</h2>
+<p>We use tidyverse (<span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref"><strong>tidyverse?</strong></a>)</span>) for data wrangling, tidymodels (<span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref"><strong>tidymodels?</strong></a>)</span>) for modeling and stats2data (<span class="citation" data-cites="stats2data">(<a href="#ref-stats2data" role="doc-biblioref"><strong>stats2data?</strong></a>)</span>) for the data.</p>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-1_f1a307599cc8b1c8b269ffeb7075af78">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># one &lt;- 'https://raw.githubusercontent.com/'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># two &lt;- 'turalsadigov/'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># three &lt;- 'MATH_254/main/data/'</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># four &lt;- 'county.csv'</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># url &lt;- str_c(one, two, three, four)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># county &lt;- read_csv(url)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="county-wrangling-and-eda" class="level2">
+<h2 class="anchored" data-anchor-id="county-wrangling-and-eda">county wrangling and EDA</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-2_1d78d7119ec46779e728e1dc45d94660">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(metro, pop2017) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_dummy =</span> <span class="fu">if_else</span>(pop2017<span class="sc">&gt;</span><span class="fu">median</span>(pop2017), </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                             <span class="st">'above'</span>, <span class="st">'below'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pop_dummy, metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pop_dummy) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(metro, median_hh_income) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income_dummy =</span> <span class="fu">if_else</span>(median_hh_income <span class="sc">&gt;</span> <span class="fu">median</span>(median_hh_income), </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'above'</span>, <span class="st">'below'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(income_dummy, metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(income_dummy) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(metro, median_hh_income, pop2017) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income_dummy =</span> <span class="fu">if_else</span>(median_hh_income <span class="sc">&gt;</span> <span class="fu">median</span>(median_hh_income), </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'above'</span>, <span class="st">'below'</span>),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">pop_dummy =</span> <span class="fu">if_else</span>(pop2017<span class="sc">&gt;</span><span class="fu">median</span>(pop2017), </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                             <span class="st">'above'</span>, <span class="st">'below'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pop_dummy, income_dummy, metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pop_dummy, income_dummy) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  metro     n percent
+  &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
+1 no     1974   0.629
+2 yes    1165   0.371
+# A tibble: 4 × 4
+# Groups:   pop_dummy [2]
+  pop_dummy metro     n percent
+  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
+1 above     no      646   0.412
+2 above     yes     922   0.588
+3 below     no     1325   0.845
+4 below     yes     243   0.155
+# A tibble: 4 × 4
+# Groups:   income_dummy [2]
+  income_dummy metro     n percent
+  &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
+1 above        no      745   0.475
+2 above        yes     824   0.525
+3 below        no     1229   0.783
+4 below        yes     341   0.217
+# A tibble: 8 × 5
+# Groups:   pop_dummy, income_dummy [4]
+  pop_dummy income_dummy metro     n percent
+  &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;
+1 above     above        no      255   0.269
+2 above     above        yes     694   0.731
+3 above     below        no      391   0.632
+4 above     below        yes     228   0.368
+5 below     above        no      489   0.790
+6 below     above        yes     130   0.210
+7 below     below        no      836   0.881
+8 below     below        yes     113   0.119</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-3_ebbcd3218359a95e23758ce139ac5158">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(county)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> stats2data<span class="sc">::</span>county <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, state, pop2017, median_hh_income, metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">'name/state'</span>, name<span class="sc">:</span>state, <span class="at">sep =</span> <span class="st">'/'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">factor</span>(metro)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(df)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(metro) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> <span class="fu">log</span>(pop2017), <span class="at">fill =</span> metro)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> <span class="fu">log</span>(median_hh_income), <span class="at">fill =</span> metro)) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">+</span>p2</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>p11 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> <span class="fu">log</span>(pop2017), <span class="at">fill =</span> metro)) <span class="sc">+</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>p22 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metro, <span class="at">y =</span> <span class="fu">log</span>(median_hh_income), <span class="at">fill =</span> metro)) <span class="sc">+</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>p11<span class="sc">+</span>p22</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">`</span><span class="at">name/state</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">fill =</span> metro))</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro_dummy =</span> <span class="fu">if_else</span>(metro <span class="sc">==</span> <span class="st">'yes'</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop2017, metro_dummy)) <span class="sc">+</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro_dummy =</span> <span class="fu">if_else</span>(metro <span class="sc">==</span> <span class="st">'yes'</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(pop2017), metro_dummy)) <span class="sc">+</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro_dummy =</span> <span class="fu">if_else</span>(metro <span class="sc">==</span> <span class="st">'yes'</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> median_hh_income, metro_dummy)) <span class="sc">+</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> p4 <span class="sc">+</span> p5</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">county</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">3142</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">name</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1877</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">state</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">metro</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">median_edu</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">smoking_ban</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped">
+<caption>Data summary</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pop2000</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">89649.99</td>
+<td style="text-align: right;">292547.67</td>
+<td style="text-align: right;">67.00</td>
+<td style="text-align: right;">11223.50</td>
+<td style="text-align: right;">24621.00</td>
+<td style="text-align: right;">61775.00</td>
+<td style="text-align: right;">9519338.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop2010</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">98262.04</td>
+<td style="text-align: right;">312946.70</td>
+<td style="text-align: right;">82.00</td>
+<td style="text-align: right;">11114.50</td>
+<td style="text-align: right;">25872.00</td>
+<td style="text-align: right;">66780.00</td>
+<td style="text-align: right;">9818605.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop2017</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">103763.41</td>
+<td style="text-align: right;">333194.52</td>
+<td style="text-align: right;">88.00</td>
+<td style="text-align: right;">10975.50</td>
+<td style="text-align: right;">25857.00</td>
+<td style="text-align: right;">67756.00</td>
+<td style="text-align: right;">10163507.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop_change</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;">4.08</td>
+<td style="text-align: right;">-33.63</td>
+<td style="text-align: right;">-1.97</td>
+<td style="text-align: right;">-0.06</td>
+<td style="text-align: right;">2.38</td>
+<td style="text-align: right;">37.19</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">poverty</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15.97</td>
+<td style="text-align: right;">6.52</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">11.30</td>
+<td style="text-align: right;">15.20</td>
+<td style="text-align: right;">19.40</td>
+<td style="text-align: right;">52.00</td>
+<td style="text-align: left;">▅▇▂▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">homeownership</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">73.27</td>
+<td style="text-align: right;">7.83</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">69.50</td>
+<td style="text-align: right;">74.60</td>
+<td style="text-align: right;">78.40</td>
+<td style="text-align: right;">91.30</td>
+<td style="text-align: left;">▁▁▁▆▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">multi_unit</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12.32</td>
+<td style="text-align: right;">9.29</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">6.10</td>
+<td style="text-align: right;">9.70</td>
+<td style="text-align: right;">15.90</td>
+<td style="text-align: right;">98.50</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unemployment_rate</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.61</td>
+<td style="text-align: right;">1.65</td>
+<td style="text-align: right;">1.62</td>
+<td style="text-align: right;">3.52</td>
+<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">5.36</td>
+<td style="text-align: right;">19.07</td>
+<td style="text-align: left;">▇▃▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">per_capita_income</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">26093.12</td>
+<td style="text-align: right;">6280.30</td>
+<td style="text-align: right;">10466.84</td>
+<td style="text-align: right;">21771.82</td>
+<td style="text-align: right;">25445.28</td>
+<td style="text-align: right;">29275.65</td>
+<td style="text-align: right;">69532.86</td>
+<td style="text-align: left;">▃▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">median_hh_income</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">49765.39</td>
+<td style="text-align: right;">13150.64</td>
+<td style="text-align: right;">19264.00</td>
+<td style="text-align: right;">41126.00</td>
+<td style="text-align: right;">48072.50</td>
+<td style="text-align: right;">55771.25</td>
+<td style="text-align: right;">129588.00</td>
+<td style="text-align: left;">▃▇▁▁▁</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-sm table-striped">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">df</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">3136</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">name/state</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3136</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">metro</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">no: 1971, yes: 1165</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pop2017</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">103855.46</td>
+<td style="text-align: right;">333340.56</td>
+<td style="text-align: right;">134</td>
+<td style="text-align: right;">11016.25</td>
+<td style="text-align: right;">25867.0</td>
+<td style="text-align: right;">67782.5</td>
+<td style="text-align: right;">10163507</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">median_hh_income</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">49750.29</td>
+<td style="text-align: right;">13150.69</td>
+<td style="text-align: right;">19264</td>
+<td style="text-align: right;">41125.00</td>
+<td style="text-align: right;">48048.5</td>
+<td style="text-align: right;">55756.5</td>
+<td style="text-align: right;">129588</td>
+<td style="text-align: left;">▃▇▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  metro     n `n/sum(n)`
+  &lt;fct&gt; &lt;int&gt;      &lt;dbl&gt;
+1 no     1971      0.629
+2 yes    1165      0.371</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="data-split" class="level2">
+<h2 class="anchored" data-anchor-id="data-split">data split</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-4_be78f16e9b66e8ecc19516bb89dbfa9f">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop2017 =</span> <span class="fu">log</span>(pop2017))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">prop =</span> <span class="fl">0.80</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata =</span> metro)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df_training <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df_testing <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 bootstrap samples</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>num_boot_samples <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>df_boot_resamples <span class="ot">&lt;-</span>  <span class="fu">bootstraps</span>(<span class="at">data =</span> df_training, </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">times =</span> num_boot_samples, </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">strata =</span> metro)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>df_boot_resamples</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Bootstrap sampling using stratification 
+# A tibble: 20 × 2
+   splits             id         
+   &lt;list&gt;             &lt;chr&gt;      
+ 1 &lt;split [2508/902]&gt; Bootstrap01
+ 2 &lt;split [2508/894]&gt; Bootstrap02
+ 3 &lt;split [2508/928]&gt; Bootstrap03
+ 4 &lt;split [2508/911]&gt; Bootstrap04
+ 5 &lt;split [2508/946]&gt; Bootstrap05
+ 6 &lt;split [2508/905]&gt; Bootstrap06
+ 7 &lt;split [2508/919]&gt; Bootstrap07
+ 8 &lt;split [2508/909]&gt; Bootstrap08
+ 9 &lt;split [2508/899]&gt; Bootstrap09
+10 &lt;split [2508/906]&gt; Bootstrap10
+11 &lt;split [2508/934]&gt; Bootstrap11
+12 &lt;split [2508/912]&gt; Bootstrap12
+13 &lt;split [2508/943]&gt; Bootstrap13
+14 &lt;split [2508/945]&gt; Bootstrap14
+15 &lt;split [2508/905]&gt; Bootstrap15
+16 &lt;split [2508/930]&gt; Bootstrap16
+17 &lt;split [2508/939]&gt; Bootstrap17
+18 &lt;split [2508/925]&gt; Bootstrap18
+19 &lt;split [2508/917]&gt; Bootstrap19
+20 &lt;split [2508/894]&gt; Bootstrap20</code></pre>
+</div>
+</div>
+</section>
+<section id="create-model-specifications-and-recipes-for-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="create-model-specifications-and-recipes-for-modeling">create model specifications and recipes for modeling</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-5_ad3f99a0ef9ed7c5ce093f75617d87cf">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>logistic_spec <span class="ot">&lt;-</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'glm'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'classification'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>rec_null <span class="ot">&lt;-</span> <span class="fu">recipe</span>(metro <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> df_training)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>rec_1 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(metro <span class="sc">~</span> pop2017, <span class="at">data =</span> df_training) </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>rec_2 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(metro <span class="sc">~</span> median_hh_income, <span class="at">data =</span> df_training)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>rec_3 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(metro <span class="sc">~</span> pop2017 <span class="sc">+</span> median_hh_income, <span class="at">data =</span> df_training)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>rec_4 <span class="ot">&lt;-</span> <span class="fu">recipe</span>(metro <span class="sc">~</span> pop2017 <span class="sc">+</span> median_hh_income, <span class="at">data =</span> df_training) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_interact</span>(<span class="at">terms =</span> <span class="sc">~</span> pop2017<span class="sc">:</span>median_hh_income) </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="modeling-via-parallel-programming" class="level2">
+<h2 class="anchored" data-anchor-id="modeling-via-parallel-programming">modeling via PARALLEL PROGRAMMING</h2>
+<p>For parallel programming we use parallel (<span class="citation" data-cites="parallel">(<a href="#ref-parallel" role="doc-biblioref"><strong>parallel?</strong></a>)</span>) and doParallel (<span class="citation" data-cites="doParallel">(<a href="#ref-doParallel" role="doc-biblioref"><strong>doParallel?</strong></a>)</span>).</p>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-6_6e82b73399897d4d476a167b5c36a73e">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># detect number of cores in your local machine</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># call it all_cores</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>all_cores <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>(<span class="at">logical =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># start parallel programming</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doParallel)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">makePSOCKcluster</span>(all_cores)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>model_null <span class="ot">&lt;-</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_null) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(df_boot_resamples)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(df_boot_resamples)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_2) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(df_boot_resamples)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(df_boot_resamples)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span> </span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_4) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(df_boot_resamples)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+</section>
+<section id="model-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison">model comparison</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-7_af430308b90747b300cf9f0d20c12c82">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fitted_models <span class="ot">&lt;-</span> <span class="fu">list</span>(model_null, model_1, model_2, model_3, model_4)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>all_models <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(model <span class="cf">in</span> fitted_models){</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  all_models <span class="ot">&lt;-</span> all_models <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(<span class="fu">collect_metrics</span>(model))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>all_models <span class="sc">%&gt;%</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">'accuracy'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model_name =</span> <span class="fu">c</span>(<span class="st">'Null'</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean))</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  .metric  .estimator  mean     n std_err .config              model_name
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;     
+1 accuracy binary     0.827    20 0.00235 Preprocessor1_Model1 4         
+2 accuracy binary     0.825    20 0.00229 Preprocessor1_Model1 3         
+3 accuracy binary     0.809    20 0.00214 Preprocessor1_Model1 1         
+4 accuracy binary     0.720    20 0.00210 Preprocessor1_Model1 2         
+5 accuracy binary     0.631    20 0.00195 Preprocessor1_Model1 Null      </code></pre>
+</div>
+</div>
+</section>
+<section id="chosen-one" class="level2">
+<h2 class="anchored" data-anchor-id="chosen-one">CHOSEN ONE!</h2>
+<p><code>model_3</code> is a simpler model with similar accuracy, so we choose the simpler model using the principle of parsimony (<span class="citation" data-cites="parsimon2002">(<a href="#ref-parsimon2002" role="doc-biblioref"><strong>parsimon2002?</strong></a>)</span>).</p>
+<p>Remember the famous quota attributed to Einstein<strong>: “Models should be simple enough but not too simple”</strong> ( or, “Everything should be made as simple as possible, but no simpler”, <span class="citation" data-cites="robinson2018">(<a href="#ref-robinson2018" role="doc-biblioref"><strong>robinson2018?</strong></a>)</span>).</p>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-8_b1fbd763aad700c180404e91a1ad73f6">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># chosen model</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>chosen_model <span class="ot">&lt;-</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">last_fit</span>(df_split)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>chosen_model</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># create a demo model for sketching sigmoid</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>demo_model <span class="ot">&lt;-</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(logistic_spec) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">last_fit</span>(df_split)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Resampling results
+# Manual resampling 
+# A tibble: 1 × 6
+  splits             id               .metrics .notes   .predictions .workflow 
+  &lt;list&gt;             &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    
+1 &lt;split [2508/628]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="mathematical-model" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-model">mathematical model</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-9_d81b361405e27111c62ef2591353ebf4">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term                estimate  std.error statistic   p.value
+  &lt;chr&gt;                  &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)      -16.6       0.664          -24.9 3.33e-137
+2 pop2017            1.20      0.0574          20.9 6.83e- 97
+3 median_hh_income   0.0000702 0.00000567      12.4 3.16e- 35</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+p = \frac{1}{1 + e^{-\left[-32.6 + 12.2 \log(x_1) + 0.0000717 x_2\right]}},
+\]</span></p>
+<p>where <span class="math inline">\(x_1\)</span> is the population of the county in 2017 , <span class="math inline">\(x_2\)</span> is the median household income in that county and <span class="math inline">\(p\)</span> is the conditional probability that a county has a metropolitan city in it given its population in 2017 and its median household income.</p>
+</section>
+<section id="model-metrics-and-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="model-metrics-and-predictions">model metrics and predictions</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-10_5b0df38864a24607bf8e125df38849c3">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(chosen_model) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> metro, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">accuracy</span>(<span class="at">truth =</span> metro, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sensitivity</span>(<span class="at">truth =</span> metro, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specificity</span>(<span class="at">truth =</span> metro, <span class="at">estimate =</span> .pred_class)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> metro, <span class="at">estimate =</span> .pred_no) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="do">## demo model</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_fit_engine</span>(demo_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(demo_model) </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  .metric  .estimator .estimate .config             
+  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy binary         0.806 Preprocessor1_Model1
+2 roc_auc  binary         0.859 Preprocessor1_Model1
+# A tibble: 628 × 7
+   id               .pred_no .pred_yes  .row .pred_class metro .config          
+   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt; &lt;chr&gt;            
+ 1 train/test split   0.135     0.865      2 yes         yes   Preprocessor1_Mo…
+ 2 train/test split   0.521     0.479     22 no          no    Preprocessor1_Mo…
+ 3 train/test split   0.794     0.206     30 no          no    Preprocessor1_Mo…
+ 4 train/test split   0.930     0.0697    33 no          yes   Preprocessor1_Mo…
+ 5 train/test split   0.682     0.318     36 no          no    Preprocessor1_Mo…
+ 6 train/test split   0.0478    0.952     37 yes         yes   Preprocessor1_Mo…
+ 7 train/test split   0.420     0.580     39 yes         yes   Preprocessor1_Mo…
+ 8 train/test split   0.288     0.712     42 yes         yes   Preprocessor1_Mo…
+ 9 train/test split   0.968     0.0324    43 no          yes   Preprocessor1_Mo…
+10 train/test split   0.843     0.157     47 no          no    Preprocessor1_Mo…
+# … with 618 more rows
+          Truth
+Prediction  no yes
+       no  350  77
+       yes  45 156
+# A tibble: 1 × 3
+  .metric  .estimator .estimate
+  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+1 accuracy binary         0.806
+# A tibble: 1 × 3
+  .metric     .estimator .estimate
+  &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;
+1 sensitivity binary         0.886
+# A tibble: 1 × 3
+  .metric     .estimator .estimate
+  &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;
+1 specificity binary         0.670
+# A tibble: 2 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   -14.6     0.599      -24.3 5.87e-131
+2 pop2017         1.34    0.0568      23.7 4.24e-124
+# A tibble: 2 × 4
+  .metric  .estimator .estimate .config             
+  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy binary         0.811 Preprocessor1_Model1
+2 roc_auc  binary         0.850 Preprocessor1_Model1</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="sketch-2d-curves" class="level2">
+<h2 class="anchored" data-anchor-id="sketch-2d-curves">sketch 2D curves</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-11_e43baa45d099a658fc72ad3e5ad441e3">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># chosen model testing results</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>df_testing_results <span class="ot">&lt;-</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">metro_dummy =</span> <span class="fu">if_else</span>(metro <span class="sc">==</span> <span class="st">'yes'</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            .pred_yes) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(df_testing)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> df_testing_results <span class="sc">%&gt;%</span> </span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">log</span>(pop2017))) <span class="sc">+</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> metro_dummy)) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .pred_yes))</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span> df_testing_results <span class="sc">%&gt;%</span> </span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(median_hh_income)) <span class="sc">+</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> metro_dummy)) <span class="sc">+</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .pred_yes))</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>p6 <span class="sc">+</span> p7</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="do">## demo model results</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>demo_testing_results <span class="ot">&lt;-</span> </span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(demo_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">metro_dummy =</span> <span class="fu">if_else</span>(metro <span class="sc">==</span> <span class="st">'yes'</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            .pred_yes) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(df_testing)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>demo_testing_results <span class="sc">%&gt;%</span> </span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">log</span>(pop2017))) <span class="sc">+</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> metro_dummy)) <span class="sc">+</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .pred_yes))</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="scatterplot-in-3d-point-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplot-in-3d-point-cloud">scatterplot in 3D (point cloud)</h2>
+<p><code>plotly</code> (<span class="citation" data-cites="plotly">(<a href="#ref-plotly" role="doc-biblioref"><strong>plotly?</strong></a>)</span>) is a great library for 3D sketches both in R, Python and Java.</p>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-12_ede5714bf7d26fb4f58dab3dc16e9dba">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>fig <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(df_testing_results, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="sc">~</span>pop2017, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> <span class="sc">~</span>median_hh_income, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">z =</span> <span class="sc">~</span>.pred_yes)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>fig <span class="ot">&lt;-</span> fig <span class="sc">%&gt;%</span> <span class="fu">add_markers</span>()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>fig</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-795573128cc34be6cd73" style="width:100%;height:487px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-795573128cc34be6cd73">{"x":{"visdat":{"cec54705420b":["function () ","plotlyVisDat"]},"cur_data":"cec54705420b","attrs":{"cec54705420b":{"x":{},"y":{},"z":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"pop2017"},"yaxis":{"title":"median_hh_income"},"zaxis":{"title":".pred_yes"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[12.2672994389461,11.3236397143746,10.357584082056,9.6031929420335,10.8572474645248,13.3987777065962,11.4353746499517,11.4553175383498,9.2179116374725,10.3033704423481,10.0287977435016,9.4483331261406,12.2443842917611,7.63723438878947,11.509951045768,9.50658567508845,9.06981313683921,8.5876516550648,9.15429898109256,9.93309489728879,12.2430504606517,9.27199975236291,9.94826969530802,11.5816583026513,8.9082888855571,9.37279929967389,9.99245950633839,10.1868603533998,9.98608085083998,9.82941034913981,9.77320800976921,11.6895893807866,9.25387867399067,9.43643955111603,9.97687740976418,14.3242480030019,13.804707413569,10.2433113093909,11.0704747440101,12.4721032576468,14.9756568587497,14.2411801733883,13.0128832767855,13.1307620099466,13.0487017671548,12.2973565489328,11.2519632172178,13.3739808708675,8.68912765532371,8.23642052726539,8.66733584984596,8.49167023418515,10.7697263245113,9.73737393458638,9.56366972566382,8.62083222617572,10.1712219871782,9.33264649636015,10.1353926095189,10.3282649716767,12.4947941775566,13.2864564672613,12.111943268304,11.8889411648531,12.6555929158345,9.69029433207509,9.55986984775404,12.1364706599995,10.7858077648391,9.04204005654448,9.01699831189876,11.982447728378,11.323228778644,13.1968992579922,10.1091593579383,9.02905827475689,8.07090608878782,9.45954145760968,10.022247888257,10.0882644259051,8.77261030328074,10.8788770367975,11.1057088238233,9.2440652413778,11.752446175515,7.99361999482774,9.23951074927596,9.28498391497195,12.3369561606191,11.3537186912823,9.75736291105399,10.7047489538255,10.2838399598292,9.36990494164752,9.14952823257943,9.54423786822493,10.2911280757317,9.85293082891897,11.6569305663133,9.97571518653301,9.49657139216065,10.2854110520613,10.2077685966433,11.5906084676516,9.60757167515724,11.9794543141541,8.86432272251144,8.55891078476811,9.00479112906292,9.35062391742324,9.00871366412422,10.3028339796361,12.2079758333188,11.1866272965474,11.3535662442134,9.99988804682244,8.8942588250027,7.86403565907245,12.2862645728391,6.7719355558396,9.47990938900104,10.2557628321302,11.968050200425,10.5798191401675,8.57885257180297,10.6062137078764,11.3518642959526,9.2223677521889,9.73790511174645,8.81224801819743,10.4115994976044,10.4073489825005,11.5591695334443,10.4379906396565,8.53306654057253,9.48600046920064,8.82394232658524,9.46498259034976,10.8324575615674,9.98594273247232,10.7156170493279,9.74096862303835,9.75074421527093,11.1173314766573,10.4076812335041,10.1938036528886,9.9064332098247,10.5940814763084,10.7888241090884,11.2798073325088,10.7471645798978,8.6704291673151,9.42262517995552,10.1501522988917,9.43620023078462,10.2556222049326,9.92299601892417,12.1578640622098,11.0434017205613,11.1002091301479,8.861350110796,9.53849237698168,9.33397293242146,9.89323517607178,9.16576132857822,9.22552450730122,9.07566546864958,10.6661607957447,9.63062840897599,10.459095319074,11.4876281695961,8.77585831479753,10.5079401220807,9.91348738711446,9.43500276925966,9.17378011666438,7.89469085042562,7.89469085042562,10.2642690530177,10.4452593651921,8.62873456614915,7.81802793853073,7.35179986905778,9.39149458101813,8.60428789826717,9.22207129485188,9.68128106204326,8.45340105832846,8.84144824409886,8.50936261230105,7.32909373624659,9.87740021777281,8.99205997632796,10.1996584923838,10.778518694159,9.45961939689502,10.5692378422391,10.2089113064641,10.4925511795528,8.81075792702617,10.8294315414384,8.73101341526956,9.77126958270842,9.31154225248515,9.50532074690907,9.56134929428829,9.13443077787583,9.87277057987407,9.34591966621801,8.77261030328074,9.97678448159759,9.27415988468914,9.28405540979846,8.39728289474368,9.5869257805337,9.80410910855585,9.57803438239735,11.0443607999187,10.5167253498678,11.7569220720795,12.2182235236992,10.2161061102779,8.87150534616578,12.9923366932509,12.3986951317764,11.4970602757806,11.9568032675648,11.7878869730126,10.8733000938126,11.3325659820498,10.899900988884,10.1759925333881,9.30392178559771,9.56878375131088,10.9059009332647,10.8322205573002,12.2268111093046,11.179059828214,13.2590510337838,11.6321918443726,13.5737001091686,13.0601006646492,9.32625499657254,13.5897874324074,13.6244904784783,11.0118191222651,11.5544416185064,11.2701275253719,9.54014758947861,10.4100942893005,10.3507341946592,10.1330901989111,7.65207074611648,9.39374467572138,12.1529408199742,8.99330313909373,11.1120448320782,11.0732415134754,9.53126377820777,14.0402719997875,9.20492573927468,10.2439162377965,8.64435433703292,9.99624903261744,11.9507286809903,10.9741289442402,9.56366972566382,10.282026722705,9.15799389160397,10.5156144644321,8.75210719832936,10.8370876099328,9.19695113485717,10.3418392529785,9.22414465295258,9.88532358190846,10.2582206122375,12.230896956765,7.19967834569117,11.1262330421853,9.19857138837618,11.2405260160496,10.4806344823339,9.22749243079375,10.2876949752644,8.39728289474368,9.58183496051319,10.7411895192499,9.08296144264635,9.77309408860253,10.1519479118341,9.38008314656328,9.85608143013886,11.3971217192266,9.08205235167465,8.72729202920964,8.91998807096852,11.2477612843934,9.77815106122483,8.93432333105491,9.03133331615006,9.4404992581843,9.64730414714372,9.49551931420985,9.15641202995063,8.39231000926955,10.0357431316566,9.41270962407392,10.2623501019203,10.1357097677835,8.47866024169945,9.51517450324553,11.1080351916129,8.50976567558744,9.01784725986073,8.70300863746445,9.92510226250854,9.33176122718052,7.4489161025442,9.00883599576545,8.6928257600594,8.21365270303,7.6685611080159,11.9765336871271,6.12468339089421,8.01102337918644,8.66871183905515,9.26719318356897,9.29624280097689,9.09268232850795,10.5107227515497,11.0271013491709,8.87877607170755,10.4672091856556,8.84635304331433,8.36053938137086,8.58073121222023,9.57782666212657,10.5013070531386,9.7503946464023,8.52615293278771,8.88502565805085,9.93890295775708,9.73068058811076,8.64699262895108,13.0402570419148,10.7802887351238,11.400719349346,10.6707444909625,13.1435748157816,13.6026699980835,13.6444825878671,13.301250710664,12.2810827106756,10.9507539138526,10.2287182679337,6.53958595561767,9.0247334241907,10.2309190445052,11.9100223234079,11.2376988337858,11.3019574895862,10.7744879885505,14.7896063168013,12.2611667078397,12.8537673356854,10.6209126255556,13.0804115782284,11.9548189296919,9.7981270368783,14.2162665957847,10.5263732000554,9.77201118974774,12.4591904467562,11.3996783763341,9.26681521890416,10.1785022312602,12.0165210146275,10.8732621776831,9.05263337594615,10.845640943936,11.796253070477,9.16920582861763,10.4554167311805,9.98718511155769,10.2195748494931,11.8725699953195,9.56759514777992,12.3517561512262,11.7294229802313,9.78380270959015,7.7484600238997,8.36380888451688,7.48941208350872,7.72223474470961,7.55903825544338,9.45124525286903,9.1783335758411,9.23649532945303,7.57044325205737,9.70204433653459,8.38389034410182,7.55851674304564,8.2995345703326,10.4147830658867,10.8898265987215,11.1276893638337,12.2269237425976,11.5432315607339,12.2083899584853,10.6522822839349,10.573698701813,11.235246527258,10.9766794638573,11.0062412537048,12.0636331216309,12.6376082782604,10.612926301873,11.7001433485017,10.9885923578457,11.2375539720955,12.2079708428133,11.4327669172542,9.47975663562107,9.53870842969938,8.57828829077605,10.7972872465748,11.0281086603853,10.2367044964367,8.38822281011928,9.45430563898269,9.25061821847475,9.2137346050442,10.6193986576946,11.1431073843082,10.5695204406045,10.5512188695656,8.22040309993373,10.627454875436,10.6766466710655,9.9475044379529,8.91368482472529,11.2728519064332,12.9304083675461,8.88044645071509,7.47193207824512,7.21303165983487,11.5685682864356,10.7889066207432,11.0162163987616,12.1394412692316,11.9994174117208,12.5228558912555,11.7867925483883,10.1069996619011,12.6677384868263,10.7447960840766,12.6228238256553,10.6209614250871,12.241912650524,12.7731661200358,13.0082491036035,12.0061572203352,11.7452269540692,9.96857279919206,10.9526469574847,10.1921566377305,10.0260148718158,11.0285307794291,13.1359447318676,9.88338688082912,9.16377273615985,10.3511497093441,11.7238263801058,9.54609806765953,9.88857693980037,8.349011198176,9.77939716730508,8.47720418319987,7.9976631270201,8.6202911494198,9.67946861818596,10.875269754115,10.5311090582159,10.8018383212776,10.3874557221322,9.36537637407572,10.8931030928285,10.0890953703212,11.4313140274832,10.8787262072346,9.99829760729877,10.4144231702526,12.3294268003101,10.1492532818866,7.53849499941346,11.3475908103306,6.51174532964473,10.5467352038086,10.7537239483388,10.6534403069175,12.9568399388863,8.70483390968779,8.96737669321267,10.8636037639503,7.95542508891267,9.0395520509959,8.68253812400308,8.88294679928817,13.6366350566946,7.57712193087668,10.644686529501,9.76634966431749,7.10824413973154,9.88328484521861,8.93089098445088,8.60282027738367,15.3530184325154,8.65625923953924,11.4496874311656,12.4541000106668,10.8535998328858,8.22817689595132,10.3445771716172,8.93379604393486,6.65672652417839,10.5143394903692,10.8210974139762,10.1287488598213,9.04404963225476,11.0910260503986,10.7934548427408,10.0537592904144,10.8028762463349,11.6990564234381,9.3726292750199,8.14002395246292,9.74390548271166,8.02845516411425,11.0737070700567,9.97762052437736,10.8037505233331,11.4304564829388,10.8455824740918,9.3476645628394,12.5237770050308,11.7905572015685,9.45438398739813,13.2131999290761,9.388319179336,11.7315628788798,7.25841215059531,7.77946696745832,10.3101186472843,13.3153363393734,10.3767982075394,10.1400210569691,10.986766213039,10.8450950923941,9.30819277214369,11.3677147047124,9.88389690277112,7.70165236264223,10.4873777471591,9.08011778492621,9.61199824174139,9.09817900508785,9.78414079490356,8.78569244445124,10.2709738426865,10.779352044902,10.6244930612245,8.86869477658097,9.71661565864336,9.48356848745781,9.39706887058834,11.4571167281416,9.61787001413323,12.196885573321,10.3492625240478,14.5987950164575,10.7408432963221,9.99016970867185,9.7240617988542,11.7410087954608,13.59440617613,12.5446426802335,12.3077443659408,10.0187340405405,9.3647767252806,10.0635208955215,12.118841244337,10.9391067918763,10.9979746777383,10.0910868243254,11.5620013026168,9.04263152755007,10.4246297767041,11.225536682838,9.54987932996818,8.84144824409886,9.64452250418184,10.7199800483314,12.4762982363325,11.0637122103318,10.6755383306915,8.38274709486331,11.5380862606287,12.0348156500891,9.92549363279874,11.2794158714068,10.6043548561112,8.43706714693695,10.5335085474763,10.6793661306935,9.50613941252991,11.9972572048303,11.0663414432657,11.6556742466444,10.1010671117191,12.0459860496268,11.1999392596543,10.5540403354637,10.741643755006,9.53307583248535,8.45446636150793,11.4960539378,8.99516499031115],"y":[52562,40997,39501,34679,39281,49321,44888,52831,29785,35719,39485,21663,50513,83295,76250,74167,70765,37819,56298,36479,43253,32412,39638,45672,35794,27036,38701,35758,37982,26652,35930,58985,37396,33091,39696,85743,48730,46260,40446,104703,81851,60239,68023,71769,44871,61621,51776,69553,32500,29000,35292,41330,44712,52651,40586,44725,45645,38534,67472,73538,45478,51536,46511,40574,47361,44647,36209,44324,36944,41512,36741,55588,64294,43838,36989,33063,43867,40688,38707,39655,29617,53687,54537,46096,34557,23315,29493,38736,96445,47546,45069,44474,43663,44897,34677,42067,65018,53083,39911,40469,30851,47653,50666,52784,43938,63669,30640,41267,29875,41182,30629,41534,56395,72330,47390,58835,49964,43207,46426,31927,51806,58055,53189,43310,46383,51804,49118,37521,54393,56289,54271,50668,58343,54655,42450,44502,47428,45743,41972,49807,46427,46716,47278,48600,48355,52270,47108,53897,46131,57190,51869,58359,50196,60992,47633,53698,55280,50486,66080,41813,49477,47895,53998,48412,48847,48399,41598,56398,46708,66022,52671,42434,42148,60788,43031,46964,42772,47167,49562,49890,48059,48226,51765,50212,50338,53368,44402,43489,48427,62198,60000,36575,42988,23558,45543,39362,39269,35095,51547,35449,53539,28274,47906,37388,32055,41720,43472,40005,29239,39688,47574,35665,44031,22736,49706,44989,47259,40492,47350,52145,48219,41443,20795,50868,53950,52705,40081,42655,64707,32163,47279,60902,37304,29472,51438,41549,62618,42771,94502,86508,73533,52205,91942,61242,69313,57312,45983,64903,42666,51475,45191,41414,41118,32309,78430,37428,53752,53121,50847,71154,55122,65500,51102,53267,72337,55181,53893,47285,56753,58882,52917,53975,54645,30359,43068,34118,38046,44684,25609,38656,27016,41340,41134,34983,36755,30033,31077,29387,23340,56658,44056,41184,35097,48652,43583,37875,43186,54216,46547,38880,45707,46517,38829,33003,34746,43981,41207,37484,44098,41461,37028,33849,42873,42939,31202,42593,41479,47110,46193,47900,44597,49761,37222,57955,41250,42773,53226,54876,48836,46146,51748,53807,46576,49865,55536,42055,63667,50932,47975,63095,48151,44701,66485,69324,79865,58595,58139,61036,59419,65037,57365,83133,65771,39114,60703,40470,35096,26663,29168,57945,43428,52759,52451,52782,51656,75146,49223,76244,61315,47810,92838,44523,37109,48464,40854,68327,65758,45806,32929,36030,33573,50323,37256,40659,40563,38254,43598,35271,70858,41766,37610,54700,68594,44018,50272,57379,79316,63926,69622,71500,60551,40795,65437,54464,89874,50893,46484,64183,45498,100229,57774,42744,52831,49710,45466,59747,54987,56193,44138,50370,38978,45380,49460,41541,37106,52571,39187,50724,42567,54460,38017,40539,49409,45302,41329,39567,46689,51286,37455,44805,49469,40728,59210,72408,44826,42074,33563,58392,48703,50900,66037,56466,48192,41632,50571,49290,46286,65390,52014,59309,56702,61707,69047,77862,34035,35286,47500,35551,46967,53739,32147,40622,31129,45332,41773,48665,42679,59741,60948,50450,46623,33702,47398,44386,41315,40415,33933,45641,35533,52080,45407,31875,36550,103543,44601,68750,59185,77708,43062,57173,51346,36095,67010,44643,44294,37500,40804,38674,45580,80290,48462,47013,38834,50000,37382,56737,40678,57791,43529,49319,46315,48698,34926,41700,44601,71389,44896,59305,41768,52194,41482,45103,49704,43267,41852,48308,36493,54565,54961,27133,44396,44609,55740,53506,63333,40442,45776,43913,79123,25988,53812,41750,52917,50928,67042,74552,54899,52635,69693,50629,71037,62952,45094,56946,63622,53834,47341,53681,54656,46119,54739,34951,37309,79131,33545,88328,48727,54606,63001,51842,83571,53163,51258,60271,59263,78020,66113,56419,48835,40093,36575,46859,48158,37763,31227,49624,37111,46673,42386,37931,43294,40694,49257,56775,55240,50730,47827,57798,57269,60320,51053,44958,38080,55762,53551,45680,53410,54447,56114,48412,55128,51603,45816,80178,62776,48403,62879,51362],"z":[0.865404162320623,0.479058057452896,0.206182045654613,0.069652513364079,0.317779535904065,0.952162420946589,0.580199585546174,0.712079780109418,0.0323536135854908,0.15725093652296,0.148839168309343,0.0243110488255314,0.844156377157918,0.177143224130299,0.931897707609798,0.516497356392922,0.332463801327888,0.0268564977663864,0.166315012632352,0.112073182951853,0.764566400333229,0.0411426536307422,0.138284299413346,0.635108491735458,0.0339758416923963,0.032127067479425,0.136766223391825,0.139927882819449,0.130043408406565,0.0529260151672708,0.0911101582051285,0.834646481739015,0.0562358360896153,0.0519717421455702,0.142924142321639,0.99872049625489,0.968825649214446,0.266901044276869,0.395010069097481,0.996888380604474,0.999229909130662,0.991580168915928,0.978993041446198,0.985884508988141,0.905360334534665,0.926448149610502,0.642765180739303,0.987659335592386,0.0210019801374531,0.00965102315519112,0.0247968934279828,0.0305148735876156,0.38048424217124,0.237121329619073,0.0975713304580941,0.0445711463798543,0.242300766091637,0.0662443578592837,0.586669806201588,0.732584213811629,0.837024620461737,0.953102070916975,0.777201512151451,0.637558418054378,0.876692747146316,0.143405573013834,0.0733357405359109,0.754957401427083,0.266219757370366,0.0581200099312456,0.041068764179191,0.849628959376913,0.825241318421363,0.914002433457183,0.139116454309571,0.0324685932316479,0.0222000131044718,0.087680892744287,0.141092271896106,0.159703278359187,0.0189975084772177,0.568064524935913,0.646993376692263,0.0978861812034096,0.494578885091352,0.0048607176254235,0.0325232417938095,0.0636335893551325,0.993485687876325,0.601647153524933,0.157471075311423,0.358431144092452,0.241548765233526,0.1039425534022,0.0416249425925627,0.104913468217466,0.590176501214083,0.269035594889658,0.55966793349259,0.149528374094335,0.0479304243839146,0.296915318563954,0.322231391706117,0.743557696848962,0.126048927704829,0.908526962207421,0.0227016208068391,0.0328534421102088,0.0253933792198361,0.0803002143190855,0.0268604814005367,0.219090397325932,0.886853797941659,0.875759956044013,0.59897384809726,0.396728490245814,0.0855710667070956,0.0166295688955474,0.810403143988819,0.00206072267308274,0.176997591631174,0.458376381931816,0.824319598045998,0.307069722215061,0.0474722625656596,0.453759413886437,0.627273685516105,0.0547148480674761,0.260086933089709,0.116805345573516,0.438879672403047,0.376620893615611,0.804919514533648,0.453369032180092,0.0345495431098175,0.114801295419375,0.0671399027933301,0.121249493467938,0.353268673997327,0.255393188649372,0.393662270532103,0.170634278876547,0.178004057981392,0.550509627484322,0.339392659134376,0.343527374301359,0.20504475134039,0.48674812913562,0.40977514719208,0.73127916364023,0.497050796177111,0.114275562725901,0.152043924697625,0.478192689695439,0.132111452764375,0.383877524185568,0.318404734781577,0.829737908297901,0.792812823930428,0.426880029030061,0.0799776112186331,0.149151660339527,0.173941032347711,0.217671098622934,0.107011270715516,0.110917799929585,0.0607121123526514,0.552100397238346,0.152632721515178,0.654023231870612,0.717690985048458,0.0456514066873393,0.272548222580569,0.404778538692387,0.0991113298588091,0.0958426277817502,0.016731682677379,0.0226466631478911,0.320103852112571,0.374471824265004,0.0561795628825934,0.0222604528017589,0.0164109903631098,0.14743154714504,0.0635290938365077,0.149760719673802,0.139997127340082,0.0338034576832859,0.0730813372367318,0.122241221836371,0.0281403800361849,0.106231857229076,0.0605597937142523,0.0655243171575279,0.396859765611585,0.0805171021016272,0.247791573862698,0.13752451419124,0.415826046092138,0.0296324793521894,0.550881154515561,0.0164875667900896,0.188286254046997,0.0599911289621648,0.0524604095077131,0.104553043357666,0.07331696071591,0.130740742490415,0.0361625800164928,0.0378043237846631,0.224800668178835,0.0512910141145292,0.0896420273420933,0.00755464950331069,0.17423084393255,0.164283678123716,0.149503409069751,0.38831426347735,0.353027500962691,0.77192560297651,0.817118218056639,0.200778824750435,0.0115971178915842,0.931623738601235,0.892457132171162,0.720459700356188,0.648300895007721,0.643299331528108,0.739121123155543,0.33321462342121,0.462329840914861,0.484354894483151,0.0591483149313651,0.0474660264187833,0.537031144342589,0.346445236528349,0.925446311993479,0.466878643046685,0.997520367009649,0.970214636533933,0.992620726694908,0.941976743580647,0.749941255959525,0.983002617290694,0.990679445937,0.66555059992131,0.632599574260055,0.822201420470131,0.108455671217315,0.390804674738165,0.277559468136676,0.184962177465468,0.0111965170091849,0.0469829160080889,0.971829032567278,0.0418567978748602,0.636060683729607,0.614772752468241,0.176161932116428,0.995005443360448,0.163305499323579,0.58465309699042,0.0698578970718778,0.30690571306601,0.946354826836799,0.620861019779206,0.21590208000283,0.290709078316463,0.171423040176506,0.550580169999413,0.0885008306571365,0.560710615460011,0.157504573655948,0.118240456008932,0.0788881199941791,0.0917113912122233,0.172282816817219,0.779683409845056,0.00220854536452232,0.381039101846758,0.0261893044898254,0.46022147865381,0.252423457806568,0.0464642791533549,0.16453595708445,0.0125499984384156,0.0536210009189172,0.168220233175466,0.0177611389830963,0.300655148986728,0.21842662298348,0.0829605045946661,0.0945562356183848,0.632302622385949,0.0696633751044041,0.0317212545934322,0.0565603584457991,0.679995376132004,0.175318222634916,0.0431273465600105,0.0756116064964033,0.123937908208059,0.0955585633414533,0.0552540065460163,0.0421509690519309,0.0325607182580825,0.165974065296355,0.0676376745009012,0.242424100485623,0.18593573367688,0.0223927462216447,0.0597509095444631,0.447509614390246,0.0347634038558941,0.0282320441669388,0.0424423761621753,0.150832672440771,0.114611797151541,0.0125160274694485,0.0849852529503563,0.047985600877448,0.039170107623511,0.00870776673057089,0.868855353555728,0.00182498415856066,0.019191337633787,0.0823800947163716,0.171305687593629,0.122835804182016,0.0832436612650488,0.424578117361519,0.613072394102795,0.0675131586926941,0.380247447509575,0.115575747081531,0.0275191888220476,0.143989277781345,0.185317536562074,0.358851332466658,0.396701550008961,0.0503062891238897,0.0601007987964774,0.511275317873417,0.498673753910482,0.362356588803478,0.961291333804147,0.615006755539822,0.804770654571445,0.605128783169996,0.977876168182426,0.978132784236138,0.996532998997504,0.98252729148299,0.71763426015285,0.701210463038286,0.192374873296884,0.00194835759204369,0.0208515579475071,0.0974433698958327,0.859406007112838,0.4959589526537,0.671820259192025,0.515463440259744,0.992629942478587,0.85691700496367,0.984497424847227,0.41358459910681,0.989015362583708,0.890986242199046,0.192211883088729,0.999114831703491,0.311573397922452,0.0980777595237742,0.858549548942156,0.499344425564094,0.347070219137751,0.569923089164661,0.747516032784252,0.233080623152429,0.0407866333246803,0.235249965875435,0.757388955879578,0.050605831975912,0.240606755182896,0.152136879594086,0.167800822027515,0.680825939122066,0.0695795012705994,0.962584183160558,0.612328443396536,0.10252999270886,0.0319497874986355,0.154894359907186,0.0112915038189517,0.0228956391060856,0.0307625091973984,0.589359716671237,0.259748378009064,0.359542131115504,0.0798381136185497,0.341648547614668,0.0259457107742049,0.0529112821521858,0.0591641083443241,0.905438406921026,0.522690155881522,0.516622059572213,0.932694182169419,0.621486780655569,0.994169295727009,0.571792851034037,0.297138973988358,0.655078832986204,0.527954616422863,0.462389221608555,0.892953688736534,0.922414381353966,0.53267409760523,0.643045394433069,0.54304163031871,0.41849752289399,0.78333463942347,0.655124072144762,0.0946524353050863,0.0759337686455431,0.0714283362081731,0.300998917573157,0.560915385976815,0.217932082914458,0.0653560182772104,0.0733589231167721,0.0689171445825596,0.116644569142985,0.348321055868768,0.431160473856612,0.251777933630024,0.351876100551454,0.0437446948937694,0.237216554722737,0.356027494424736,0.242335273972016,0.0476768596398813,0.756701228094292,0.982888543725019,0.0602867117374202,0.00966160766501114,0.00391728832297368,0.807220523435411,0.454100391368995,0.560445908638539,0.93426322884047,0.859812591851017,0.865364598926436,0.626337346218237,0.295020482385252,0.892021722595176,0.399670931307853,0.96040558792891,0.461813465567457,0.909242841402336,0.940405438005608,0.9674668169835,0.937357341368629,0.953102774589387,0.0998534381786696,0.282890955498922,0.271964969146222,0.116764615540185,0.495365323156006,0.951933259452091,0.0806387901791665,0.0628660480814354,0.125216087760581,0.668387525065874,0.103196162940381,0.219752946419249,0.0283335880543826,0.349772194380821,0.10931340685379,0.031964225736806,0.0505753840735529,0.0711506083572858,0.457065356429271,0.310728611506164,0.334568097191929,0.223038907501369,0.0506997196197564,0.431878578790724,0.124661914444044,0.695073680756217,0.423632315569979,0.0898945126383587,0.184342984200651,0.995997427518126,0.224469618355391,0.0644004298092963,0.772521221062755,0.0363058561196233,0.295051642606346,0.591138017131892,0.459837159166243,0.822229891367193,0.19800812643378,0.0656809188556292,0.400300743520769,0.0124802128479369,0.0553002769881599,0.031795903682955,0.0635365289809914,0.99572998756349,0.0170414209410208,0.383223382415179,0.108671609380896,0.0108842771754335,0.112438566633057,0.135966407046005,0.0332147552813705,0.997350826063335,0.0428365950657765,0.657469592404545,0.838379890323169,0.473314983854494,0.0144203092637636,0.229838139406104,0.0630764641885195,0.0279570669856407,0.314102136929307,0.645492534904436,0.187944125986992,0.115826299797921,0.418517238939173,0.393755320402351,0.269745648727719,0.366044154094353,0.605088818871026,0.128837176519244,0.0144815966613759,0.263814857400089,0.0449242558734829,0.204624044735528,0.188443969477101,0.388433248167217,0.746499333541689,0.55509861274223,0.291987428779013,0.788725445022936,0.692570201556374,0.106984221334496,0.992322792504369,0.0304602240600201,0.786824869980075,0.0073268684531436,0.0293359758556497,0.353813225430212,0.98425985384774,0.75717280198962,0.371108220958998,0.581641451916527,0.795405331228281,0.138769116766857,0.888878359140149,0.433132535175977,0.0156410621327187,0.508282307964477,0.233888526235114,0.225156838311858,0.0904191994540428,0.261139429184383,0.102512257639606,0.271482288547747,0.556862577462437,0.206286443857525,0.0359635828979771,0.660774031108402,0.0565061403834944,0.71695183972203,0.650074226536634,0.236027056930819,0.924822764549932,0.379624367143475,0.998927678397318,0.517872286418644,0.276268065874962,0.343168303274484,0.845554407553425,0.994736722249944,0.958736839276096,0.898475492419129,0.24992979283203,0.0760130119543578,0.129375348500997,0.782816453384347,0.489457919520112,0.331419613213616,0.0954266644242473,0.691732443734839,0.0433628176384738,0.317816812474847,0.474034115196495,0.0810948775880832,0.0521101565262679,0.10717739763256,0.443269030954899,0.917409421959389,0.6467631860596,0.455677760523608,0.0417725810921489,0.794741454153133,0.871313068433365,0.400336492052959,0.638656415765911,0.338800495785989,0.0229240517246167,0.501327778580714,0.506251818060623,0.126121946087419,0.831523426033934,0.634666563409923,0.798435333560773,0.263101732233481,0.855155212982042,0.625464678499823,0.338778095641283,0.877637293809489,0.331280002874333,0.0471409611155591,0.840270740680563,0.104362425504103],"type":"scatter3d","mode":"markers","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="scatterplot-in-3d-with-labels-colored" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplot-in-3d-with-labels-colored">scatterplot in 3D with labels colored</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-13_754df18f16c2023dc0e1a51e111c5761">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(df_testing_results, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="sc">~</span>pop2017, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> <span class="sc">~</span>median_hh_income, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">z =</span> <span class="sc">~</span>.pred_yes, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="sc">~</span>metro, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">'#BF382A'</span>, <span class="st">'#0C4B8E'</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>fig2 <span class="ot">&lt;-</span> fig2 <span class="sc">%&gt;%</span> <span class="fu">add_markers</span>()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>fig2</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-328d465bc8586b703fde" style="width:100%;height:487px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-328d465bc8586b703fde">{"x":{"visdat":{"cec57b73301a":["function () ","plotlyVisDat"]},"cur_data":"cec57b73301a","attrs":{"cec57b73301a":{"x":{},"y":{},"z":{},"color":{},"colors":["#BF382A","#0C4B8E"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"pop2017"},"yaxis":{"title":"median_hh_income"},"zaxis":{"title":".pred_yes"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[11.3236397143746,10.357584082056,10.8572474645248,10.3033704423481,10.0287977435016,9.4483331261406,7.63723438878947,9.50658567508845,9.06981313683921,8.5876516550648,9.15429898109256,9.93309489728879,9.27199975236291,9.94826969530802,8.9082888855571,9.37279929967389,9.99245950633839,10.1868603533998,9.98608085083998,9.82941034913981,9.77320800976921,9.25387867399067,9.43643955111603,9.97687740976418,10.2433113093909,11.0704747440101,8.68912765532371,8.23642052726539,8.66733584984596,8.49167023418515,10.7697263245113,9.73737393458638,9.56366972566382,8.62083222617572,10.1712219871782,9.33264649636015,10.1353926095189,10.3282649716767,9.55986984775404,10.7858077648391,9.04204005654448,9.01699831189876,10.1091593579383,9.02905827475689,9.45954145760968,8.77261030328074,10.8788770367975,7.99361999482774,9.23951074927596,9.28498391497195,9.75736291105399,10.7047489538255,9.14952823257943,9.49657139216065,8.86432272251144,8.55891078476811,9.00479112906292,9.35062391742324,10.3028339796361,12.2079758333188,11.1866272965474,9.99988804682244,6.7719355558396,9.47990938900104,10.5798191401675,8.57885257180297,11.3518642959526,9.2223677521889,8.81224801819743,10.4115994976044,10.4073489825005,10.4379906396565,8.53306654057253,9.48600046920064,8.82394232658524,9.46498259034976,10.8324575615674,9.98594273247232,10.7156170493279,9.74096862303835,9.75074421527093,10.4076812335041,10.1938036528886,9.9064332098247,10.7888241090884,11.2798073325088,10.7471645798978,9.42262517995552,9.43620023078462,10.2556222049326,9.92299601892417,11.1002091301479,8.861350110796,9.53849237698168,9.33397293242146,9.89323517607178,9.16576132857822,9.22552450730122,9.07566546864958,10.6661607957447,9.63062840897599,10.459095319074,8.77585831479753,10.5079401220807,9.91348738711446,9.43500276925966,9.17378011666438,7.89469085042562,7.89469085042562,10.2642690530177,10.4452593651921,8.62873456614915,7.81802793853073,7.35179986905778,9.39149458101813,8.60428789826717,9.22207129485188,9.68128106204326,8.45340105832846,8.84144824409886,8.50936261230105,7.32909373624659,9.87740021777281,8.99205997632796,10.1996584923838,10.5692378422391,10.2089113064641,8.81075792702617,10.8294315414384,8.73101341526956,9.77126958270842,9.31154225248515,9.50532074690907,9.13443077787583,9.87277057987407,9.34591966621801,8.77261030328074,9.97678448159759,9.27415988468914,9.28405540979846,8.39728289474368,9.80410910855585,10.5167253498678,8.87150534616578,11.3325659820498,9.30392178559771,9.56878375131088,10.9059009332647,10.8322205573002,9.32625499657254,9.54014758947861,10.4100942893005,10.3507341946592,10.1330901989111,7.65207074611648,9.39374467572138,8.99330313909373,11.0732415134754,9.53126377820777,9.20492573927468,8.64435433703292,9.99624903261744,10.9741289442402,9.56366972566382,10.282026722705,9.15799389160397,10.5156144644321,8.75210719832936,10.8370876099328,9.19695113485717,10.3418392529785,9.22414465295258,9.88532358190846,7.19967834569117,11.1262330421853,9.19857138837618,11.2405260160496,9.22749243079375,10.2876949752644,8.39728289474368,9.58183496051319,10.7411895192499,9.08296144264635,10.1519479118341,9.38008314656328,9.85608143013886,9.08205235167465,8.72729202920964,8.91998807096852,9.77815106122483,8.93432333105491,9.03133331615006,9.64730414714372,9.49551931420985,9.15641202995063,8.39231000926955,9.41270962407392,10.2623501019203,10.1357097677835,8.47866024169945,9.51517450324553,11.1080351916129,8.50976567558744,9.01784725986073,8.70300863746445,9.92510226250854,9.33176122718052,7.4489161025442,9.00883599576545,8.6928257600594,8.21365270303,7.6685611080159,6.12468339089421,8.01102337918644,8.66871183905515,9.26719318356897,9.29624280097689,9.09268232850795,10.5107227515497,8.87877607170755,10.4672091856556,8.84635304331433,8.36053938137086,8.58073121222023,9.57782666212657,10.5013070531386,8.52615293278771,8.88502565805085,9.73068058811076,8.64699262895108,10.7802887351238,11.400719349346,10.6707444909625,10.9507539138526,10.2287182679337,6.53958595561767,9.0247334241907,10.2309190445052,11.3019574895862,10.7744879885505,9.7981270368783,9.77201118974774,9.26681521890416,9.05263337594615,10.845640943936,11.796253070477,10.4554167311805,10.2195748494931,9.56759514777992,9.78380270959015,7.7484600238997,8.36380888451688,7.48941208350872,7.72223474470961,7.55903825544338,9.45124525286903,9.1783335758411,9.23649532945303,9.70204433653459,7.55851674304564,8.2995345703326,10.4147830658867,10.8898265987215,11.5432315607339,10.573698701813,11.235246527258,10.9766794638573,10.612926301873,10.9885923578457,11.2375539720955,11.4327669172542,9.47975663562107,9.53870842969938,8.57828829077605,10.7972872465748,11.0281086603853,10.2367044964367,8.38822281011928,9.45430563898269,9.25061821847475,9.2137346050442,10.6193986576946,11.1431073843082,10.5512188695656,8.22040309993373,10.6766466710655,9.9475044379529,8.91368482472529,8.88044645071509,7.47193207824512,7.21303165983487,10.7889066207432,11.0162163987616,10.1069996619011,10.7447960840766,10.6209614250871,9.96857279919206,10.9526469574847,11.0285307794291,9.88338688082912,9.16377273615985,10.3511497093441,9.54609806765953,9.88857693980037,8.349011198176,9.77939716730508,8.47720418319987,7.9976631270201,8.6202911494198,9.67946861818596,10.5311090582159,10.8018383212776,10.3874557221322,9.36537637407572,9.99829760729877,10.4144231702526,6.51174532964473,10.5467352038086,10.7537239483388,8.96737669321267,10.8636037639503,7.95542508891267,9.0395520509959,8.88294679928817,7.57712193087668,10.644686529501,7.10824413973154,9.88328484521861,8.60282027738367,8.65625923953924,10.8535998328858,8.22817689595132,10.3445771716172,8.93379604393486,6.65672652417839,10.5143394903692,10.1287488598213,9.04404963225476,11.0910260503986,10.7934548427408,10.0537592904144,10.8028762463349,9.3726292750199,8.14002395246292,9.74390548271166,8.02845516411425,11.0737070700567,9.97762052437736,10.8037505233331,9.3476645628394,9.45438398739813,9.388319179336,7.25841215059531,7.77946696745832,10.3101186472843,10.3767982075394,10.1400210569691,10.986766213039,9.30819277214369,7.70165236264223,10.4873777471591,9.09817900508785,9.78414079490356,8.78569244445124,10.2709738426865,10.6244930612245,8.86869477658097,9.48356848745781,10.3492625240478,10.7408432963221,9.99016970867185,9.7240617988542,9.3647767252806,10.9391067918763,10.9979746777383,10.0910868243254,9.04263152755007,9.54987932996818,8.84144824409886,9.64452250418184,10.7199800483314,8.38274709486331,11.2794158714068,10.6043548561112,8.43706714693695,10.6793661306935,9.50613941252991,11.0663414432657,10.1010671117191,11.1999392596543,10.5540403354637,10.741643755006,9.53307583248535,8.45446636150793,8.99516499031115],"y":[40997,39501,39281,35719,39485,21663,83295,74167,70765,37819,56298,36479,32412,39638,35794,27036,38701,35758,37982,26652,35930,37396,33091,39696,46260,40446,32500,29000,35292,41330,44712,52651,40586,44725,45645,38534,67472,73538,36209,36944,41512,36741,36989,33063,40688,29617,53687,23315,29493,38736,45069,44474,34677,30851,30640,41267,29875,41182,41534,56395,72330,58835,31927,51806,43310,46383,49118,37521,56289,54271,50668,54655,42450,44502,47428,45743,41972,49807,46427,46716,47278,48355,52270,47108,46131,57190,51869,50196,47633,53698,55280,41813,49477,47895,53998,48412,48847,48399,41598,56398,46708,66022,42434,42148,60788,43031,46964,42772,47167,49562,49890,48059,48226,51765,50212,50338,53368,44402,43489,48427,62198,60000,36575,42988,23558,39269,35095,35449,53539,28274,47906,37388,32055,43472,40005,29239,39688,47574,35665,44031,22736,44989,47350,20795,32163,37304,29472,51438,41549,91942,42666,51475,45191,41414,41118,32309,37428,53121,50847,55122,51102,53267,55181,53893,47285,56753,58882,52917,53975,54645,30359,43068,34118,25609,38656,27016,41340,34983,36755,30033,31077,29387,23340,44056,41184,35097,43583,37875,43186,46547,38880,45707,38829,33003,34746,43981,37484,44098,41461,37028,33849,42873,42939,31202,42593,41479,47110,46193,47900,44597,49761,37222,41250,42773,53226,54876,48836,46146,51748,46576,49865,55536,42055,63667,50932,47975,48151,44701,69324,79865,58139,61036,59419,60703,40470,35096,26663,29168,52759,52451,47810,37109,68327,36030,33573,50323,40659,38254,35271,37610,54700,68594,44018,50272,57379,79316,63926,69622,60551,65437,54464,89874,50893,45498,42744,52831,49710,56193,50370,38978,49460,41541,37106,52571,39187,50724,42567,54460,38017,40539,49409,45302,41329,46689,51286,44805,49469,40728,44826,42074,33563,48703,50900,50571,46286,52014,34035,35286,46967,32147,40622,31129,41773,48665,42679,59741,60948,50450,46623,33702,44386,41315,40415,33933,31875,36550,77708,43062,57173,44643,44294,37500,40804,45580,48462,47013,50000,37382,40678,43529,48698,34926,41700,44601,71389,44896,41768,52194,41482,45103,49704,43267,48308,36493,54565,54961,27133,44396,44609,63333,43913,25988,41750,52917,50928,74552,54899,52635,50629,45094,56946,47341,53681,54656,46119,34951,37309,33545,51842,53163,51258,60271,40093,48158,37763,31227,37111,37931,43294,40694,49257,47827,51053,44958,38080,53551,45680,54447,48412,51603,45816,80178,62776,48403,51362],"z":[0.479058057452896,0.206182045654613,0.317779535904065,0.15725093652296,0.148839168309343,0.0243110488255314,0.177143224130299,0.516497356392922,0.332463801327888,0.0268564977663864,0.166315012632352,0.112073182951853,0.0411426536307422,0.138284299413346,0.0339758416923963,0.032127067479425,0.136766223391825,0.139927882819449,0.130043408406565,0.0529260151672708,0.0911101582051285,0.0562358360896153,0.0519717421455702,0.142924142321639,0.266901044276869,0.395010069097481,0.0210019801374531,0.00965102315519112,0.0247968934279828,0.0305148735876156,0.38048424217124,0.237121329619073,0.0975713304580941,0.0445711463798543,0.242300766091637,0.0662443578592837,0.586669806201588,0.732584213811629,0.0733357405359109,0.266219757370366,0.0581200099312456,0.041068764179191,0.139116454309571,0.0324685932316479,0.087680892744287,0.0189975084772177,0.568064524935913,0.0048607176254235,0.0325232417938095,0.0636335893551325,0.157471075311423,0.358431144092452,0.0416249425925627,0.0479304243839146,0.0227016208068391,0.0328534421102088,0.0253933792198361,0.0803002143190855,0.219090397325932,0.886853797941659,0.875759956044013,0.396728490245814,0.00206072267308274,0.176997591631174,0.307069722215061,0.0474722625656596,0.627273685516105,0.0547148480674761,0.116805345573516,0.438879672403047,0.376620893615611,0.453369032180092,0.0345495431098175,0.114801295419375,0.0671399027933301,0.121249493467938,0.353268673997327,0.255393188649372,0.393662270532103,0.170634278876547,0.178004057981392,0.339392659134376,0.343527374301359,0.20504475134039,0.40977514719208,0.73127916364023,0.497050796177111,0.152043924697625,0.132111452764375,0.383877524185568,0.318404734781577,0.426880029030061,0.0799776112186331,0.149151660339527,0.173941032347711,0.217671098622934,0.107011270715516,0.110917799929585,0.0607121123526514,0.552100397238346,0.152632721515178,0.654023231870612,0.0456514066873393,0.272548222580569,0.404778538692387,0.0991113298588091,0.0958426277817502,0.016731682677379,0.0226466631478911,0.320103852112571,0.374471824265004,0.0561795628825934,0.0222604528017589,0.0164109903631098,0.14743154714504,0.0635290938365077,0.149760719673802,0.139997127340082,0.0338034576832859,0.0730813372367318,0.122241221836371,0.0281403800361849,0.106231857229076,0.0605597937142523,0.0655243171575279,0.247791573862698,0.13752451419124,0.0296324793521894,0.550881154515561,0.0164875667900896,0.188286254046997,0.0599911289621648,0.0524604095077131,0.07331696071591,0.130740742490415,0.0361625800164928,0.0378043237846631,0.224800668178835,0.0512910141145292,0.0896420273420933,0.00755464950331069,0.164283678123716,0.353027500962691,0.0115971178915842,0.33321462342121,0.0591483149313651,0.0474660264187833,0.537031144342589,0.346445236528349,0.749941255959525,0.108455671217315,0.390804674738165,0.277559468136676,0.184962177465468,0.0111965170091849,0.0469829160080889,0.0418567978748602,0.614772752468241,0.176161932116428,0.163305499323579,0.0698578970718778,0.30690571306601,0.620861019779206,0.21590208000283,0.290709078316463,0.171423040176506,0.550580169999413,0.0885008306571365,0.560710615460011,0.157504573655948,0.118240456008932,0.0788881199941791,0.0917113912122233,0.00220854536452232,0.381039101846758,0.0261893044898254,0.46022147865381,0.0464642791533549,0.16453595708445,0.0125499984384156,0.0536210009189172,0.168220233175466,0.0177611389830963,0.21842662298348,0.0829605045946661,0.0945562356183848,0.0696633751044041,0.0317212545934322,0.0565603584457991,0.175318222634916,0.0431273465600105,0.0756116064964033,0.0955585633414533,0.0552540065460163,0.0421509690519309,0.0325607182580825,0.0676376745009012,0.242424100485623,0.18593573367688,0.0223927462216447,0.0597509095444631,0.447509614390246,0.0347634038558941,0.0282320441669388,0.0424423761621753,0.150832672440771,0.114611797151541,0.0125160274694485,0.0849852529503563,0.047985600877448,0.039170107623511,0.00870776673057089,0.00182498415856066,0.019191337633787,0.0823800947163716,0.171305687593629,0.122835804182016,0.0832436612650488,0.424578117361519,0.0675131586926941,0.380247447509575,0.115575747081531,0.0275191888220476,0.143989277781345,0.185317536562074,0.358851332466658,0.0503062891238897,0.0601007987964774,0.498673753910482,0.362356588803478,0.615006755539822,0.804770654571445,0.605128783169996,0.701210463038286,0.192374873296884,0.00194835759204369,0.0208515579475071,0.0974433698958327,0.671820259192025,0.515463440259744,0.192211883088729,0.0980777595237742,0.347070219137751,0.0407866333246803,0.235249965875435,0.757388955879578,0.240606755182896,0.167800822027515,0.0695795012705994,0.10252999270886,0.0319497874986355,0.154894359907186,0.0112915038189517,0.0228956391060856,0.0307625091973984,0.589359716671237,0.259748378009064,0.359542131115504,0.341648547614668,0.0529112821521858,0.0591641083443241,0.905438406921026,0.522690155881522,0.621486780655569,0.297138973988358,0.655078832986204,0.527954616422863,0.53267409760523,0.54304163031871,0.41849752289399,0.655124072144762,0.0946524353050863,0.0759337686455431,0.0714283362081731,0.300998917573157,0.560915385976815,0.217932082914458,0.0653560182772104,0.0733589231167721,0.0689171445825596,0.116644569142985,0.348321055868768,0.431160473856612,0.351876100551454,0.0437446948937694,0.356027494424736,0.242335273972016,0.0476768596398813,0.0602867117374202,0.00966160766501114,0.00391728832297368,0.454100391368995,0.560445908638539,0.295020482385252,0.399670931307853,0.461813465567457,0.0998534381786696,0.282890955498922,0.495365323156006,0.0806387901791665,0.0628660480814354,0.125216087760581,0.103196162940381,0.219752946419249,0.0283335880543826,0.349772194380821,0.10931340685379,0.031964225736806,0.0505753840735529,0.0711506083572858,0.310728611506164,0.334568097191929,0.223038907501369,0.0506997196197564,0.0898945126383587,0.184342984200651,0.0363058561196233,0.295051642606346,0.591138017131892,0.0656809188556292,0.400300743520769,0.0124802128479369,0.0553002769881599,0.0635365289809914,0.0170414209410208,0.383223382415179,0.0108842771754335,0.112438566633057,0.0332147552813705,0.0428365950657765,0.473314983854494,0.0144203092637636,0.229838139406104,0.0630764641885195,0.0279570669856407,0.314102136929307,0.187944125986992,0.115826299797921,0.418517238939173,0.393755320402351,0.269745648727719,0.366044154094353,0.128837176519244,0.0144815966613759,0.263814857400089,0.0449242558734829,0.204624044735528,0.188443969477101,0.388433248167217,0.291987428779013,0.106984221334496,0.0304602240600201,0.0073268684531436,0.0293359758556497,0.353813225430212,0.75717280198962,0.371108220958998,0.581641451916527,0.138769116766857,0.0156410621327187,0.508282307964477,0.0904191994540428,0.261139429184383,0.102512257639606,0.271482288547747,0.206286443857525,0.0359635828979771,0.0565061403834944,0.379624367143475,0.517872286418644,0.276268065874962,0.343168303274484,0.0760130119543578,0.489457919520112,0.331419613213616,0.0954266644242473,0.0433628176384738,0.0810948775880832,0.0521101565262679,0.10717739763256,0.443269030954899,0.0417725810921489,0.638656415765911,0.338800495785989,0.0229240517246167,0.506251818060623,0.126121946087419,0.634666563409923,0.263101732233481,0.625464678499823,0.338778095641283,0.877637293809489,0.331280002874333,0.0471409611155591,0.104362425504103],"type":"scatter3d","mode":"markers","name":"no","marker":{"color":"rgba(191,56,42,1)","line":{"color":"rgba(191,56,42,1)"}},"textfont":{"color":"rgba(191,56,42,1)"},"error_y":{"color":"rgba(191,56,42,1)"},"error_x":{"color":"rgba(191,56,42,1)"},"line":{"color":"rgba(191,56,42,1)"},"frame":null},{"x":[12.2672994389461,9.6031929420335,13.3987777065962,11.4353746499517,11.4553175383498,9.2179116374725,12.2443842917611,11.509951045768,12.2430504606517,11.5816583026513,11.6895893807866,14.3242480030019,13.804707413569,12.4721032576468,14.9756568587497,14.2411801733883,13.0128832767855,13.1307620099466,13.0487017671548,12.2973565489328,11.2519632172178,13.3739808708675,12.4947941775566,13.2864564672613,12.111943268304,11.8889411648531,12.6555929158345,9.69029433207509,12.1364706599995,11.982447728378,11.323228778644,13.1968992579922,8.07090608878782,10.022247888257,10.0882644259051,11.1057088238233,9.2440652413778,11.752446175515,12.3369561606191,11.3537186912823,10.2838399598292,9.36990494164752,9.54423786822493,10.2911280757317,9.85293082891897,11.6569305663133,9.97571518653301,10.2854110520613,10.2077685966433,11.5906084676516,9.60757167515724,11.9794543141541,9.00871366412422,11.3535662442134,8.8942588250027,7.86403565907245,12.2862645728391,10.2557628321302,11.968050200425,10.6062137078764,9.73790511174645,11.5591695334443,11.1173314766573,10.5940814763084,8.6704291673151,10.1501522988917,12.1578640622098,11.0434017205613,11.4876281695961,10.778518694159,9.45961939689502,10.4925511795528,9.56134929428829,9.5869257805337,9.57803438239735,11.0443607999187,11.7569220720795,12.2182235236992,10.2161061102779,12.9923366932509,12.3986951317764,11.4970602757806,11.9568032675648,11.7878869730126,10.8733000938126,10.899900988884,10.1759925333881,12.2268111093046,11.179059828214,13.2590510337838,11.6321918443726,13.5737001091686,13.0601006646492,13.5897874324074,13.6244904784783,11.0118191222651,11.5544416185064,11.2701275253719,12.1529408199742,11.1120448320782,14.0402719997875,10.2439162377965,11.9507286809903,10.2582206122375,12.230896956765,10.4806344823339,9.77309408860253,11.3971217192266,11.2477612843934,9.4404992581843,10.0357431316566,11.9765336871271,11.0271013491709,9.7503946464023,9.93890295775708,13.0402570419148,13.1435748157816,13.6026699980835,13.6444825878671,13.301250710664,12.2810827106756,11.9100223234079,11.2376988337858,14.7896063168013,12.2611667078397,12.8537673356854,10.6209126255556,13.0804115782284,11.9548189296919,14.2162665957847,10.5263732000554,12.4591904467562,11.3996783763341,10.1785022312602,12.0165210146275,10.8732621776831,9.16920582861763,9.98718511155769,11.8725699953195,12.3517561512262,11.7294229802313,7.57044325205737,8.38389034410182,11.1276893638337,12.2269237425976,12.2083899584853,10.6522822839349,11.0062412537048,12.0636331216309,12.6376082782604,11.7001433485017,12.2079708428133,10.5695204406045,10.627454875436,11.2728519064332,12.9304083675461,11.5685682864356,12.1394412692316,11.9994174117208,12.5228558912555,11.7867925483883,12.6677384868263,12.6228238256553,12.241912650524,12.7731661200358,13.0082491036035,12.0061572203352,11.7452269540692,10.1921566377305,10.0260148718158,13.1359447318676,11.7238263801058,10.875269754115,10.8931030928285,10.0890953703212,11.4313140274832,10.8787262072346,12.3294268003101,10.1492532818866,7.53849499941346,11.3475908103306,10.6534403069175,12.9568399388863,8.70483390968779,8.68253812400308,13.6366350566946,9.76634966431749,8.93089098445088,15.3530184325154,11.4496874311656,12.4541000106668,10.8210974139762,11.6990564234381,11.4304564829388,10.8455824740918,12.5237770050308,11.7905572015685,13.2131999290761,11.7315628788798,13.3153363393734,10.8450950923941,11.3677147047124,9.88389690277112,9.08011778492621,9.61199824174139,10.779352044902,9.71661565864336,9.39706887058834,11.4571167281416,9.61787001413323,12.196885573321,14.5987950164575,11.7410087954608,13.59440617613,12.5446426802335,12.3077443659408,10.0187340405405,10.0635208955215,12.118841244337,11.5620013026168,10.4246297767041,11.225536682838,12.4762982363325,11.0637122103318,10.6755383306915,11.5380862606287,12.0348156500891,9.92549363279874,10.5335085474763,11.9972572048303,11.6556742466444,12.0459860496268,11.4960539378],"y":[52562,34679,49321,44888,52831,29785,50513,76250,43253,45672,58985,85743,48730,104703,81851,60239,68023,71769,44871,61621,51776,69553,45478,51536,46511,40574,47361,44647,44324,55588,64294,43838,43867,38707,39655,54537,46096,34557,96445,47546,43663,44897,42067,65018,53083,39911,40469,47653,50666,52784,43938,63669,30629,47390,49964,43207,46426,58055,53189,51804,54393,58343,48600,53897,58359,60992,50486,66080,52671,45543,39362,51547,41720,49706,47259,40492,52145,48219,41443,50868,53950,52705,40081,42655,64707,47279,60902,62618,42771,94502,86508,73533,52205,61242,69313,57312,45983,64903,78430,53752,71154,65500,72337,38046,44684,41134,56658,48652,54216,46517,41207,57955,53807,63095,66485,58595,65037,57365,83133,65771,39114,57945,43428,52782,51656,75146,49223,76244,61315,92838,44523,48464,40854,65758,45806,32929,37256,40563,43598,70858,41766,71500,40795,46484,64183,100229,57774,45466,59747,54987,44138,45380,39567,37455,59210,72408,58392,66037,56466,48192,41632,49290,65390,59309,56702,61707,69047,77862,47500,35551,53739,45332,47398,45641,35533,52080,45407,103543,44601,68750,59185,51346,36095,67010,38674,80290,38834,56737,57791,49319,46315,59305,41852,55740,53506,40442,45776,79123,53812,67042,69693,71037,62952,63622,53834,54739,79131,88328,48727,54606,63001,83571,59263,78020,66113,56419,48835,36575,46859,49624,46673,42386,56775,55240,50730,57798,57269,60320,55762,53410,56114,55128,62879],"z":[0.865404162320623,0.069652513364079,0.952162420946589,0.580199585546174,0.712079780109418,0.0323536135854908,0.844156377157918,0.931897707609798,0.764566400333229,0.635108491735458,0.834646481739015,0.99872049625489,0.968825649214446,0.996888380604474,0.999229909130662,0.991580168915928,0.978993041446198,0.985884508988141,0.905360334534665,0.926448149610502,0.642765180739303,0.987659335592386,0.837024620461737,0.953102070916975,0.777201512151451,0.637558418054378,0.876692747146316,0.143405573013834,0.754957401427083,0.849628959376913,0.825241318421363,0.914002433457183,0.0222000131044718,0.141092271896106,0.159703278359187,0.646993376692263,0.0978861812034096,0.494578885091352,0.993485687876325,0.601647153524933,0.241548765233526,0.1039425534022,0.104913468217466,0.590176501214083,0.269035594889658,0.55966793349259,0.149528374094335,0.296915318563954,0.322231391706117,0.743557696848962,0.126048927704829,0.908526962207421,0.0268604814005367,0.59897384809726,0.0855710667070956,0.0166295688955474,0.810403143988819,0.458376381931816,0.824319598045998,0.453759413886437,0.260086933089709,0.804919514533648,0.550509627484322,0.48674812913562,0.114275562725901,0.478192689695439,0.829737908297901,0.792812823930428,0.717690985048458,0.396859765611585,0.0805171021016272,0.415826046092138,0.104553043357666,0.17423084393255,0.149503409069751,0.38831426347735,0.77192560297651,0.817118218056639,0.200778824750435,0.931623738601235,0.892457132171162,0.720459700356188,0.648300895007721,0.643299331528108,0.739121123155543,0.462329840914861,0.484354894483151,0.925446311993479,0.466878643046685,0.997520367009649,0.970214636533933,0.992620726694908,0.941976743580647,0.983002617290694,0.990679445937,0.66555059992131,0.632599574260055,0.822201420470131,0.971829032567278,0.636060683729607,0.995005443360448,0.58465309699042,0.946354826836799,0.172282816817219,0.779683409845056,0.252423457806568,0.300655148986728,0.632302622385949,0.679995376132004,0.123937908208059,0.165974065296355,0.868855353555728,0.613072394102795,0.396701550008961,0.511275317873417,0.961291333804147,0.977876168182426,0.978132784236138,0.996532998997504,0.98252729148299,0.71763426015285,0.859406007112838,0.4959589526537,0.992629942478587,0.85691700496367,0.984497424847227,0.41358459910681,0.989015362583708,0.890986242199046,0.999114831703491,0.311573397922452,0.858549548942156,0.499344425564094,0.569923089164661,0.747516032784252,0.233080623152429,0.050605831975912,0.152136879594086,0.680825939122066,0.962584183160558,0.612328443396536,0.0798381136185497,0.0259457107742049,0.516622059572213,0.932694182169419,0.994169295727009,0.571792851034037,0.462389221608555,0.892953688736534,0.922414381353966,0.643045394433069,0.78333463942347,0.251777933630024,0.237216554722737,0.756701228094292,0.982888543725019,0.807220523435411,0.93426322884047,0.859812591851017,0.865364598926436,0.626337346218237,0.892021722595176,0.96040558792891,0.909242841402336,0.940405438005608,0.9674668169835,0.937357341368629,0.953102774589387,0.271964969146222,0.116764615540185,0.951933259452091,0.668387525065874,0.457065356429271,0.431878578790724,0.124661914444044,0.695073680756217,0.423632315569979,0.995997427518126,0.224469618355391,0.0644004298092963,0.772521221062755,0.459837159166243,0.822229891367193,0.19800812643378,0.031795903682955,0.99572998756349,0.108671609380896,0.135966407046005,0.997350826063335,0.657469592404545,0.838379890323169,0.645492534904436,0.605088818871026,0.746499333541689,0.55509861274223,0.788725445022936,0.692570201556374,0.992322792504369,0.786824869980075,0.98425985384774,0.795405331228281,0.888878359140149,0.433132535175977,0.233888526235114,0.225156838311858,0.556862577462437,0.660774031108402,0.71695183972203,0.650074226536634,0.236027056930819,0.924822764549932,0.998927678397318,0.845554407553425,0.994736722249944,0.958736839276096,0.898475492419129,0.24992979283203,0.129375348500997,0.782816453384347,0.691732443734839,0.317816812474847,0.474034115196495,0.917409421959389,0.6467631860596,0.455677760523608,0.794741454153133,0.871313068433365,0.400336492052959,0.501327778580714,0.831523426033934,0.798435333560773,0.855155212982042,0.840270740680563],"type":"scatter3d","mode":"markers","name":"yes","marker":{"color":"rgba(12,75,142,1)","line":{"color":"rgba(12,75,142,1)"}},"textfont":{"color":"rgba(12,75,142,1)"},"error_y":{"color":"rgba(12,75,142,1)"},"error_x":{"color":"rgba(12,75,142,1)"},"line":{"color":"rgba(12,75,142,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="decision-boundary-in-2d-feature-space" class="level2">
+<h2 class="anchored" data-anchor-id="decision-boundary-in-2d-feature-space">decision boundary in 2D feature space</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-14_19e4ef09c3a92ec522b0c929e5049811">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">extract_fit_engine</span>(chosen_model) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(estimate)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="sc">-</span> b[<span class="dv">2</span>]<span class="sc">/</span>b[<span class="dv">3</span>]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>intercept <span class="ot">&lt;-</span> <span class="sc">-</span>b[<span class="dv">1</span>]<span class="sc">/</span>b[<span class="dv">3</span>]</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>df_testing <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pop2017, <span class="at">y =</span> median_hh_income)) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> metro)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> slope, <span class="at">intercept =</span> intercept)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="logistic_regression_county_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="save-model-for-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="save-model-for-deployment">save model for deployment</h2>
+<div class="cell" data-hash="logistic_regression_county_cache/html/unnamed-chunk-15_eb0ab563cbd7b90ddcb49a49c2e4611c">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(chosen_model, <span class="at">file =</span> <span class="st">'county_logistic_model.Rdata'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
