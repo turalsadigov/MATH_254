@@ -40,28 +40,27 @@ format:
 
 # Follow along
 
+Use the link on BB or the link below:
+
+<https://tinyurl.com/4zpu5cmc>
+
 # Topics we covered
 
 ## Module - 1 - Classical Statistics
 
 -   R/R Studio/Quarto
 
--   Statistics: cases, variables, dataframes, numerical and graphical
-    summaries, Sampling distributions, Central Limit Theorem
+-   Statistics: cases, variables, dataframes, numerical and graphical summaries, Sampling distributions, Central Limit Theorem
 
--   Hypothesis testing, Common statistical tests (z, t), p-values,
-    dicing and slicing, Multiple Testing, Permutation tests, $\chi^2$
-    tests
+-   Hypothesis testing, Common statistical tests (z, t), p-values, dicing and slicing, Multiple Testing, Permutation tests, $\chi^2$ tests
 
--   Classical Confidence Intervals, Bootstrap Percentile Confidence
-    Intervals
+-   Classical Confidence Intervals, Bootstrap Percentile Confidence Intervals
 
 -   Power Analysis
 
 ## Module - 2 - Machine Learning
 
--   Linear, multiple, polynomial regression, Model assessments,
-    Diagnostics
+-   Linear, multiple, polynomial regression, Model assessments, Diagnostics
 
 -   Train-Validation-Test splits, Model selection, Model evaluation
 
@@ -142,7 +141,6 @@ format:
 ## Other packages
 
 ![](hex-stickers.png){fig-align="center"}
-
 
 # Three tidyverse tricks
 
@@ -1107,5 +1105,4 @@ glance(model_fitted)[1]
 
 ## Thank you for an amazing semester!
 
-![](officially_dad_jokes_thank_you_card-r01282b2ac4ff41059cc0fda9d8e4210d_tcvt0_736.webp){fig-align="center"
-width="475"}
+![](officially_dad_jokes_thank_you_card-r01282b2ac4ff41059cc0fda9d8e4210d_tcvt0_736.webp){fig-align="center" width="475"}
