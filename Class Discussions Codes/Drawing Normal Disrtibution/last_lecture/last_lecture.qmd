@@ -1035,8 +1035,6 @@ df <- df %>%
 
 model_spec <- linear_reg()
 model_fitted <- model_spec %>% fit(poverty ~., data = df)
-tidy(model_fitted)
-glance(model_fitted)[1]
 ```
 
 ## tidymodels comparison
@@ -1055,8 +1053,6 @@ df <- df %>%
 
 model_spec <- linear_reg()
 model_fitted <- model_spec %>% fit(poverty ~., data = df)
-tidy(model_fitted)
-glance(model_fitted)[1]
 ```
 
 ## tidymodels comparison
@@ -1075,8 +1071,6 @@ df <- df %>%
 
 model_spec <- linear_reg()
 model_fitted <- model_spec %>% fit(poverty ~., data = df)
-tidy(model_fitted)
-glance(model_fitted)[1]
 ```
 
 ## tidymodels comparison
@@ -1100,8 +1094,19 @@ model_fitted <- model_spec %>% fit(poverty ~., data = df)
 
 ```{r}
 tidy(model_fitted)
+```
+
+## tidymodels comparison
+
+```{r}
 glance(model_fitted)[1]
 ```
+
+## before you go
+
+-   Remember that modeling involves 80% training data and 20% complaining about the training data.
+
+-   Is this a dad joke?
 
 ## Thank you for an amazing semester!
 

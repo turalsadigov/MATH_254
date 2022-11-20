@@ -1431,7 +1431,7 @@
 </section>
 <section id="tidymodels-comparison" class="slide level2">
 <h2>tidymodels comparison</h2>
-<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-73_b7bd751fcd87fc393d373e8e5319af10">
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-73_b5590afb1e915bb83c9e69cef869cf80">
 <div class="sourceCode cell-code" id="cb84" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb84-2"><a href="#cb84-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb84-3"><a href="#cb84-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
@@ -1440,14 +1440,12 @@
 <span id="cb84-6"><a href="#cb84-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
 <span id="cb84-7"><a href="#cb84-7"></a></span>
 <span id="cb84-8"><a href="#cb84-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
-<span id="cb84-9"><a href="#cb84-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
-<span id="cb84-10"><a href="#cb84-10"></a><span class="fu">tidy</span>(model_fitted)</span>
-<span id="cb84-11"><a href="#cb84-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb84-9"><a href="#cb84-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidymodels-comparison-1" class="slide level2">
 <h2>tidymodels comparison</h2>
-<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-74_3b1cca6b8a8523502a7d7874fb7556cc">
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-74_0d0a9d6dbc54b0caa34f234a299e45e6">
 <div class="sourceCode cell-code" id="cb85" data-code-line-numbers="3-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb85-2"><a href="#cb85-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb85-3"><a href="#cb85-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
@@ -1456,14 +1454,12 @@
 <span id="cb85-6"><a href="#cb85-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
 <span id="cb85-7"><a href="#cb85-7"></a></span>
 <span id="cb85-8"><a href="#cb85-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
-<span id="cb85-9"><a href="#cb85-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
-<span id="cb85-10"><a href="#cb85-10"></a><span class="fu">tidy</span>(model_fitted)</span>
-<span id="cb85-11"><a href="#cb85-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb85-9"><a href="#cb85-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidymodels-comparison-2" class="slide level2">
 <h2>tidymodels comparison</h2>
-<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-75_60d5f55fa1fc344bc1ba94557970bc94">
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-75_493b2364345758cec4d60f6d31410c87">
 <div class="sourceCode cell-code" id="cb86" data-code-line-numbers="8-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb86-2"><a href="#cb86-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb86-3"><a href="#cb86-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
@@ -1472,9 +1468,7 @@
 <span id="cb86-6"><a href="#cb86-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
 <span id="cb86-7"><a href="#cb86-7"></a></span>
 <span id="cb86-8"><a href="#cb86-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
-<span id="cb86-9"><a href="#cb86-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
-<span id="cb86-10"><a href="#cb86-10"></a><span class="fu">tidy</span>(model_fitted)</span>
-<span id="cb86-11"><a href="#cb86-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb86-9"><a href="#cb86-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidymodels-comparison-3" class="slide level2">
@@ -1493,7 +1487,7 @@
 </section>
 <section id="tidymodels-comparison-4" class="slide level2">
 <h2>tidymodels comparison</h2>
-<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-77_f2c3255725322c8c22dcdd1482d2da0e">
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-77_2978b8a8426416794fc5d20f7de098cc">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="fu">tidy</span>(model_fitted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
@@ -1503,6 +1497,11 @@
 2 homeownership       -0.235    0.0134     -17.6 2.79e- 65
 3 unemployment_rate    2.12     0.0605      35.0 2.24e-219</code></pre>
 </div>
+</div>
+</section>
+<section id="tidymodels-comparison-5" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-78_1549c19f62bbaf5fe54f13e1b1043a0f">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
@@ -1511,6 +1510,13 @@
 1     0.390</code></pre>
 </div>
 </div>
+</section>
+<section id="before-you-go" class="slide level2">
+<h2>before you go</h2>
+<ul>
+<li class="fragment"><p>Remember that modeling involves 80% training data and 20% complaining about the training data.</p></li>
+<li class="fragment"><p>Is this a dad joke?</p></li>
+</ul>
 </section>
 <section id="thank-you-for-an-amazing-semester" class="slide level2">
 <h2>Thank you for an amazing semester!</h2>
