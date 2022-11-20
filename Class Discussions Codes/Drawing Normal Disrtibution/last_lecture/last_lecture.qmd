@@ -1,0 +1,1111 @@
+---
+title: MATH 254 Summary and more
+author: Tural Sadigov
+institute: Hamilton College
+editor: visual
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output: true
+  error: true
+  cache: true
+  freeze: auto
+
+format:
+  revealjs: 
+    multiplex: true
+    scrollable: true
+    slide-number: true
+    chalkboard: 
+      buttons: true
+      boardmarker-width: 5
+    logo: profil_circle.png
+    css: styles.css
+    footer: <https://turalsadigov.github.io/>
+    transition: none
+    progress: true
+    touch: true
+    mouse-wheel: true
+    code-overflow: scroll
+    code-copy: true
+    code-line-numbers: true
+    incremental: true
+    preview-links: auto
+    fig-cap-location: margin
+    auto-animate: true
+#bibliography: references.bib
+#csl: the-annals-of-statistics.csl
+---
+
+# Follow along
+
+# Topics we covered
+
+## Module - 1 - Classical Statistics
+
+-   R/R Studio/Quarto
+
+-   Statistics: cases, variables, dataframes, numerical and graphical
+    summaries, Sampling distributions, Central Limit Theorem
+
+-   Hypothesis testing, Common statistical tests (z, t), p-values,
+    dicing and slicing, Multiple Testing, Permutation tests, $\chi^2$
+    tests
+
+-   Classical Confidence Intervals, Bootstrap Percentile Confidence
+    Intervals
+
+-   Power Analysis
+
+## Module - 2 - Machine Learning
+
+-   Linear, multiple, polynomial regression, Model assessments,
+    Diagnostics
+
+-   Train-Validation-Test splits, Model selection, Model evaluation
+
+-   Bootstrap resampling in machine learning
+
+-   Classification, Logistic regression
+
+-   K nearest neighbor classification and regression
+
+# Data sets we investigated
+
+## Module - 1
+
+-   county
+
+-   advertising, atlanta_commute
+
+-   departure_delays , ecommerce
+
+-   emails , hospital
+
+-   mice , nba_salaries
+
+-   smoking, nc_births
+
+## Module - 2
+
+-   trees
+
+-   Auto
+
+-   county
+
+-   Boston
+
+-   MNIST
+
+-   Weekly, Credit, Wages
+
+-   More: simulated data, data sets from Textbook 2
+
+# Packages we used
+
+## Module - 1
+
+-   `tidyverse`
+-   `infer, ggplot2`
+-   `dplyr, tidyr`
+-   `readr, broom, magrittr`
+-   `purr, tibble, stringr`
+-   `stats2data`
+-   `visdat`
+
+## Tidyverse
+
+![](tidyverse.png){fig-align="center"}
+
+## Module - 2
+
+-   `tidymodels`
+
+-   `parsnip, yardstick`
+
+-   `rsample, recipes`
+
+-   `GGally, ggfortify`
+
+-   `doParallel, parallel`
+
+-   `janitor`
+
+-   `modelStudio, DALEX, vip`
+
+## Tidymodels
+
+![](tidymodels.png){fig-align="center"}
+
+## Other packages
+
+![](hex-stickers.png){fig-align="center"}
+
+
+# Three tidyverse tricks
+
+## Trick 1: `count` {auto-animate="true"}
+
+```{r}
+#| code-line-numbers: "1"
+#| eval: false
+library(stats2data)
+library(tidyverse)
+county %>% 
+  count(state)
+```
+
+## Trick 1: `count` {auto-animate="true"}
+
+```{r}
+#| code-line-numbers: "2"
+#| eval: false
+library(stats2data)
+library(tidyverse)
+county %>% 
+  count(state)
+```
+
+## Trick 1: `count` {auto-animate="true"}
+
+```{r}
+#| code-line-numbers: "3"
+#| eval: false
+
+library(stats2data)
+library(tidyverse)
+county %>% 
+  count(state)
+```
+
+## Trick 1: `count` {auto-animate="true"}
+
+```{r}
+#| code-line-numbers: "4"
+#| eval: false
+library(stats2data)
+library(tidyverse)
+county %>% 
+  count(state)
+```
+
+## Trick 1: `count` {auto-animate="true"}
+
+```{r}
+library(stats2data)
+library(tidyverse)
+county %>% 
+  count(state)
+```
+
+## count + sort {auto-animate="true"}
+
+```{r}
+#| eval: false
+county %>% 
+  count(state, sort = TRUE) 
+```
+
+## count + sort {auto-animate="true"}
+
+```{r}
+county %>% 
+  count(state, sort = TRUE) 
+```
+
+## count + sort + name {auto-animate="true"}
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1"
+county %>% 
+  count(state, sort = TRUE, name = 'num_of_counties')
+```
+
+## count + sort + name {auto-animate="true"}
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2"
+county %>% 
+  count(state, sort = TRUE, name = 'num_of_counties')
+```
+
+## count + sort + name {auto-animate="true"}
+
+```{r}
+county %>% 
+  count(state, sort = TRUE, name = 'num_of_counties')
+```
+
+## + weight
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1"
+county %>% 
+  count(state, sort = TRUE, name = 'total_pop2017', wt = pop2017)
+```
+
+## + weight
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2"
+county %>% 
+  count(state, sort = TRUE, name = 'total_pop2017', wt = pop2017)
+```
+
+## + weight
+
+```{r}
+county %>% 
+  count(state, sort = TRUE, name = 'total_pop2017', wt = pop2017)
+```
+
+## weight + transformation
+
+```{r}
+county %>% 
+  count(state, sort = TRUE, name = 'total_pop2017', wt = log(pop2017))
+```
+
+## count plot
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1-2"
+county %>% 
+  count(state, sort = TRUE) %>% 
+  mutate(state = fct_reorder(state, n)) %>% 
+  ggplot(aes(x = state, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+## count plot
+
+```{r}
+#| eval: false
+#| code-line-numbers: "3"
+county %>% 
+  count(state, sort = TRUE) %>% 
+  mutate(state = fct_reorder(state, n)) %>% 
+  ggplot(aes(x = state, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+## count plot
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4-5"
+county %>% 
+  count(state, sort = TRUE) %>% 
+  mutate(state = fct_reorder(state, n)) %>% 
+  ggplot(aes(x = state, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+## count plot
+
+```{r}
+#| eval: false
+#| code-line-numbers: "6"
+county %>% 
+  count(state, sort = TRUE) %>% 
+  mutate(state = fct_reorder(state, n)) %>% 
+  ggplot(aes(x = state, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+## count plot
+
+```{r}
+#| echo: false
+county %>% 
+  count(state, sort = TRUE) %>% 
+  mutate(state = fct_reorder(state, n)) %>% 
+  ggplot(aes(x = state, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+## Trick 2: summarise + List-columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1"
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## Trick 2: summarise
+
+```{r}
+#| eval: false
+#| code-line-numbers: "2"
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## Trick 2: summarise
+
+```{r}
+#| eval: false
+#| code-line-numbers: "3"
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## Trick 2: summarise
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4"
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## Trick 2: summarise
+
+```{r}
+#| eval: false
+#| code-line-numbers: "5"
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## Trick 2: summarise
+
+```{r}
+county %>% 
+  select(-smoking_ban) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(avg = mean(poverty))
+```
+
+## summarize to list columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1-4"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership)))
+```
+
+## summarize to list columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "5"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership)))
+```
+
+## summarize to list columns
+
+```{r}
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership)))
+```
+
+## map to new column
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1-5"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) 
+```
+
+## map to new column
+
+```{r}
+#| eval: false
+#| code-line-numbers: "6"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) 
+```
+
+## map to new list-column
+
+```{r}
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  drop_na() %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) 
+```
+
+## using list-columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1-5"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied)
+```
+
+## using list-columns
+
+```{r}
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied)
+```
+
+## using list-columns
+
+```{r}
+#| code-line-numbers: "7"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term == 'homeownership')
+```
+
+## using list-columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "8"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term == 'homeownership') %>% 
+  ggplot(aes(x = estimate , y = state)) +
+  geom_errorbar(aes(xmin = estimate - qnorm(0.025/51)*std.error, 
+                    xmax = estimate + qnorm(0.025/51)*std.error)) +
+  geom_vline(xintercept = 0)
+```
+
+## using list-columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "9-10"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term == 'homeownership') %>% 
+  ggplot(aes(x = estimate , y = state)) +
+  geom_errorbar(aes(xmin = estimate - qnorm(0.025/51)*std.error, 
+                    xmax = estimate + qnorm(0.025/51)*std.error)) +
+  geom_vline(xintercept = 0)
+```
+
+## using list-columns
+
+```{r}
+#| eval: false
+#| code-line-numbers: "11"
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term == 'homeownership') %>% 
+  ggplot(aes(x = estimate , y = state)) +
+  geom_errorbar(aes(xmin = estimate - qnorm(0.025/51)*std.error, 
+                    xmax = estimate + qnorm(0.025/51)*std.error)) +
+  geom_vline(xintercept = 0)
+```
+
+## using list-columns
+
+```{r}
+#| echo: false
+county %>% 
+  select(state, poverty, homeownership) %>% 
+  group_by(state) %>% 
+  summarise(lms = list(lm(poverty~homeownership))) %>% 
+  mutate(tidied  = map(lms, broom::tidy)) %>% 
+  unnest(tidied) %>% 
+  filter(term == 'homeownership') %>% 
+  ggplot(aes(x = estimate , y = state)) +
+  geom_errorbar(aes(xmin = estimate - qnorm(0.025/51)*std.error, 
+                    xmax = estimate + qnorm(0.025/51)*std.error)) +
+  geom_vline(xintercept = 0)
+```
+
+## Trick 3: `fct_lump`
+
+```{r}
+#| eval: false
+county %>%
+  select(poverty, state) %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+## Trick 3: `fct_lump`
+
+```{r}
+#| echo: false
+county %>%
+  select(poverty, state) %>% 
+  drop_na() %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+## lump states together w.r.t. count
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4"
+county %>% 
+  select(poverty, state) %>% 
+  drop_na() %>%
+  mutate(state = fct_lump_min(state, min = 100)) %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+## lump states together w.r.t. count
+
+```{r}
+#| echo: false
+county %>% 
+  select(poverty, state) %>% 
+  drop_na() %>%
+  mutate(state = fct_lump_min(state, min = 100)) %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+## lump states together w.r.t. number of levels
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4"
+county %>% 
+  select(poverty, state) %>% 
+  drop_na() %>%
+  mutate(state = fct_lump_n(state, 3)) %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+## lump states together w.r.t. number of levels
+
+```{r}
+#| echo: false
+county %>% 
+  select(poverty, state) %>% 
+  drop_na() %>%
+  mutate(state = fct_lump_n(state, 3)) %>% 
+  ggplot(aes(x = poverty, y = state)) +
+  geom_boxplot()
+```
+
+# Negative adjusted R-squared
+
+## simulate data
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: "1"
+set.seed(2022)
+df <- tibble(y = rnorm(70))
+
+for(i in 1:20){
+  df <- df %>% bind_cols(tibble(rnorm(70)))
+}
+df <- df %>% janitor::clean_names()
+```
+
+## simulate data
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: "2"
+set.seed(2022)
+df <- tibble(y = rnorm(70))
+
+for(i in 1:20){
+  df <- df %>% bind_cols(tibble(rnorm(70)))
+}
+df <- df %>% janitor::clean_names()
+```
+
+## simulate data
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: "4-6"
+set.seed(2022)
+df <- tibble(y = rnorm(70))
+
+for(i in 1:20){
+  df <- df %>% bind_cols(tibble(rnorm(70)))
+}
+df <- df %>% janitor::clean_names()
+```
+
+## simulate data
+
+```{r}
+#| message: false
+#| warning: false
+#| code-line-numbers: "7"
+set.seed(2022)
+df <- tibble(y = rnorm(70))
+
+for(i in 1:20){
+  df <- df %>% bind_cols(tibble(rnorm(70)))
+}
+df <- df %>% janitor::clean_names()
+```
+
+## model
+
+```{r}
+#| eval: false
+library(tidymodels)
+model <- linear_reg() %>% fit(y~., data = df)
+glance(model)[1:2]
+```
+
+## model
+
+```{r}
+library(tidymodels)
+model <- linear_reg() %>% fit(y~., data = df)
+glance(model)[1:2]
+```
+
+# Python (within R Studio/Quarto)
+
+## pandas (\~ dplyr)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '1'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df
+```
+
+## pandas (\~ dplyr)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '2'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df
+```
+
+## pandas (\~ dplyr)
+
+```{python}
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df
+```
+
+## select in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '1-2'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.filter('x')
+```
+
+## select in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '3'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.filter('x')
+```
+
+## select in pandas
+
+```{python}
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.filter('x')
+```
+
+## filter in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '1-2'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y': ('a', 'b')})
+df.filter('x').query('x == 1')
+```
+
+## filter in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '3'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y': ('a', 'b')})
+df.filter('x').query('x == 1')
+```
+
+## filter in pandas
+
+```{python}
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y': ('a', 'b')})
+df.filter('x').query('x == 1')
+```
+
+## mutate in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '1-2'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.assign(z = df['x']**2)
+```
+
+## mutate in pandas
+
+```{python}
+#| eval: false
+#| code-line-numbers: '3'
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.assign(z = df['x']**2)
+```
+
+## mutate in pandas
+
+```{python}
+import pandas as pd
+df = pd.DataFrame({'x': (1,2), 'y':('a', 'b')})
+df.assign(z = df['x']**2)
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '1'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '2'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '3'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '4'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '5'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '6-7'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '8'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '9'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+#| eval: false
+#| code-line-numbers: '10'
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+# sklearn (\~ tidymodels)
+
+```{python}
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+df = pd.read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df = df.dropna()
+df = df[['poverty', 'homeownership', 'unemployment_rate']]
+X = df[['homeownership', 'unemployment_rate']]
+y = df['poverty']
+model_spec = LinearRegression()
+model_fitted = model_spec.fit(X, y)
+print(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))
+```
+
+## tidymodels comparison
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: '1-2'
+library(tidymodels)
+library(tidyverse)
+df <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df <- df %>% 
+  drop_na() %>% 
+  select(poverty, homeownership, unemployment_rate)
+
+model_spec <- linear_reg()
+model_fitted <- model_spec %>% fit(poverty ~., data = df)
+tidy(model_fitted)
+glance(model_fitted)[1]
+```
+
+## tidymodels comparison
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: '3-6'
+library(tidymodels)
+library(tidyverse)
+df <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df <- df %>% 
+  drop_na() %>% 
+  select(poverty, homeownership, unemployment_rate)
+
+model_spec <- linear_reg()
+model_fitted <- model_spec %>% fit(poverty ~., data = df)
+tidy(model_fitted)
+glance(model_fitted)[1]
+```
+
+## tidymodels comparison
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+#| code-line-numbers: '8-9'
+library(tidymodels)
+library(tidyverse)
+df <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df <- df %>% 
+  drop_na() %>% 
+  select(poverty, homeownership, unemployment_rate)
+
+model_spec <- linear_reg()
+model_fitted <- model_spec %>% fit(poverty ~., data = df)
+tidy(model_fitted)
+glance(model_fitted)[1]
+```
+
+## tidymodels comparison
+
+```{r}
+#| message: false
+#| warning: false
+#| code-line-numbers: '10'
+library(tidymodels)
+library(tidyverse)
+df <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv')
+df <- df %>% 
+  drop_na() %>% 
+  select(poverty, homeownership, unemployment_rate)
+
+model_spec <- linear_reg()
+model_fitted <- model_spec %>% fit(poverty ~., data = df)
+```
+
+## tidymodels comparison
+
+```{r}
+tidy(model_fitted)
+glance(model_fitted)[1]
+```
+
+## Thank you for an amazing semester!
+
+![](officially_dad_jokes_thank_you_card-r01282b2ac4ff41059cc0fda9d8e4210d_tcvt0_736.webp){fig-align="center"
+width="475"}

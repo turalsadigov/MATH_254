@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="last_lecture_files/libs/clipboard/clipboard.min.js"></script>
+<script src="last_lecture_files/libs/quarto-html/tabby.min.js"></script>
+<script src="last_lecture_files/libs/quarto-html/popper.min.js"></script>
+<script src="last_lecture_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="last_lecture_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="last_lecture_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="last_lecture_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.1.189">
+
+  <meta name="author" content="Tural Sadigov">
+  <title>MATH 254 Summary and more</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="last_lecture_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="last_lecture_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="last_lecture_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="styles.css">
+  <link href="last_lecture_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="last_lecture_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="last_lecture_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="last_lecture_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="last_lecture_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="last_lecture_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">MATH 254 Summary and more</h1>
+  <p class="author">Tural Sadigov</p>
+  <p class="institute">Hamilton College</p>
+</section>
+
+<section id="follow-along" class="title-slide slide level1 center">
+<h1>Follow along</h1>
+
+</section>
+
+<section>
+<section id="topics-we-covered" class="title-slide slide level1 center">
+<h1>Topics we covered</h1>
+
+</section>
+<section id="module---1---classical-statistics" class="slide level2">
+<h2>Module - 1 - Classical Statistics</h2>
+<ul>
+<li class="fragment"><p>R/R Studio/Quarto</p></li>
+<li class="fragment"><p>Statistics: cases, variables, dataframes, numerical and graphical summaries, Sampling distributions, Central Limit Theorem</p></li>
+<li class="fragment"><p>Hypothesis testing, Common statistical tests (z, t), p-values, dicing and slicing, Multiple Testing, Permutation tests, <span class="math inline">\(\chi^2\)</span> tests</p></li>
+<li class="fragment"><p>Classical Confidence Intervals, Bootstrap Percentile Confidence Intervals</p></li>
+<li class="fragment"><p>Power Analysis</p></li>
+</ul>
+</section>
+<section id="module---2---machine-learning" class="slide level2">
+<h2>Module - 2 - Machine Learning</h2>
+<ul>
+<li class="fragment"><p>Linear, multiple, polynomial regression, Model assessments, Diagnostics</p></li>
+<li class="fragment"><p>Train-Validation-Test splits, Model selection, Model evaluation</p></li>
+<li class="fragment"><p>Bootstrap resampling in machine learning</p></li>
+<li class="fragment"><p>Classification, Logistic regression</p></li>
+<li class="fragment"><p>K nearest neighbor classification and regression</p></li>
+</ul>
+</section></section>
+<section>
+<section id="data-sets-we-investigated" class="title-slide slide level1 center">
+<h1>Data sets we investigated</h1>
+
+</section>
+<section id="module---1" class="slide level2">
+<h2>Module - 1</h2>
+<ul>
+<li class="fragment"><p>county</p></li>
+<li class="fragment"><p>advertising, atlanta_commute</p></li>
+<li class="fragment"><p>departure_delays , ecommerce</p></li>
+<li class="fragment"><p>emails , hospital</p></li>
+<li class="fragment"><p>mice , nba_salaries</p></li>
+<li class="fragment"><p>smoking, nc_births</p></li>
+</ul>
+</section>
+<section id="module---2" class="slide level2">
+<h2>Module - 2</h2>
+<ul>
+<li class="fragment"><p>trees</p></li>
+<li class="fragment"><p>Auto</p></li>
+<li class="fragment"><p>county</p></li>
+<li class="fragment"><p>Boston</p></li>
+<li class="fragment"><p>MNIST</p></li>
+<li class="fragment"><p>Weekly, Credit, Wages</p></li>
+<li class="fragment"><p>More: simulated data, data sets from Textbook 2</p></li>
+</ul>
+</section></section>
+<section>
+<section id="packages-we-used" class="title-slide slide level1 center">
+<h1>Packages we used</h1>
+
+</section>
+<section id="module---1-1" class="slide level2">
+<h2>Module - 1</h2>
+<ul>
+<li class="fragment"><code>tidyverse</code></li>
+<li class="fragment"><code>infer, ggplot2</code></li>
+<li class="fragment"><code>dplyr, tidyr</code></li>
+<li class="fragment"><code>readr, broom, magrittr</code></li>
+<li class="fragment"><code>purr, tibble, stringr</code></li>
+<li class="fragment"><code>stats2data</code></li>
+<li class="fragment"><code>visdat</code></li>
+</ul>
+</section>
+<section id="tidyverse" class="slide level2">
+<h2>Tidyverse</h2>
+
+<img data-src="tidyverse.png" class="margin-caption r-stretch quarto-figure-center"></section>
+<section id="module---2-1" class="slide level2">
+<h2>Module - 2</h2>
+<ul>
+<li class="fragment"><p><code>tidymodels</code></p></li>
+<li class="fragment"><p><code>parsnip, yardstick</code></p></li>
+<li class="fragment"><p><code>rsample, recipes</code></p></li>
+<li class="fragment"><p><code>GGally, ggfortify</code></p></li>
+<li class="fragment"><p><code>doParallel, parallel</code></p></li>
+<li class="fragment"><p><code>janitor</code></p></li>
+<li class="fragment"><p><code>modelStudio, DALEX, vip</code></p></li>
+</ul>
+</section>
+<section id="tidymodels" class="slide level2">
+<h2>Tidymodels</h2>
+
+<img data-src="tidymodels.png" class="margin-caption r-stretch quarto-figure-center"></section>
+<section id="other-packages" class="slide level2">
+<h2>Other packages</h2>
+
+<img data-src="hex-stickers.png" class="margin-caption r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="three-tidyverse-tricks" class="title-slide slide level1 center">
+<h1>Three tidyverse tricks</h1>
+
+</section>
+<section id="trick-1-count" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Trick 1: <code>count</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-1_464f8badb254da85abf312bfa0889e55">
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a href="#cb1-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb1-2" class="hljs-ln-code"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3" class="hljs-ln-code"><a href="#cb1-3"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4" class="hljs-ln-code"><a href="#cb1-4"></a>  <span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-1-count-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Trick 1: <code>count</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-2_d1c3e79c59e7418bb768b71c799b4a5c">
+<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb2-1" class="hljs-ln-code"><a href="#cb2-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb2-2" class="hljs-ln-code"><a href="#cb2-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3" class="hljs-ln-code"><a href="#cb2-3"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4" class="hljs-ln-code"><a href="#cb2-4"></a>  <span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-1-count-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Trick 1: <code>count</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-3_03eea4c2bf07270da48a58883a5022d9">
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb3-1" class="hljs-ln-code"><a href="#cb3-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb3-2" class="hljs-ln-code"><a href="#cb3-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-3" class="hljs-ln-code"><a href="#cb3-3"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4" class="hljs-ln-code"><a href="#cb3-4"></a>  <span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-1-count-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Trick 1: <code>count</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-4_80fbadb38c5603b4c536c42441e62276">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3" class="hljs-ln-code"><a href="#cb4-3"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>  <span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-1-count-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Trick 1: <code>count</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-5_559fc0d032e5a95ef31c5908862ca7a7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a href="#cb5-1"></a><span class="fu">library</span>(stats2data)</span>
+<span id="cb5-2" class="hljs-ln-code"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3" class="hljs-ln-code"><a href="#cb5-3"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4" class="hljs-ln-code"><a href="#cb5-4"></a>  <span class="fu">count</span>(state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                    n
+   &lt;chr&gt;                &lt;int&gt;
+ 1 Alabama                 67
+ 2 Alaska                  29
+ 3 Arizona                 15
+ 4 Arkansas                75
+ 5 California              58
+ 6 Colorado                64
+ 7 Connecticut              8
+ 8 Delaware                 3
+ 9 District of Columbia     1
+10 Florida                 67
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="count-sort" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">count + sort</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-6_08b7e4fd5c19aace6a1628b1866e53ea">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href="#cb7-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2" class="hljs-ln-code"><a href="#cb7-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-sort-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">count + sort</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-7_fbec6b59ab88cc9dcb897fb6947aa7f0">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href="#cb8-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2" class="hljs-ln-code"><a href="#cb8-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state              n
+   &lt;chr&gt;          &lt;int&gt;
+ 1 Texas            254
+ 2 Georgia          159
+ 3 Virginia         133
+ 4 Kentucky         120
+ 5 Missouri         115
+ 6 Kansas           105
+ 7 Illinois         102
+ 8 North Carolina   100
+ 9 Iowa              99
+10 Tennessee         95
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="count-sort-name" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">count + sort + name</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-8_a48a2b14960a1b7c65d04e532e196e94">
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb10-1" class="hljs-ln-code"><a href="#cb10-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2" class="hljs-ln-code"><a href="#cb10-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'num_of_counties'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-sort-name-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">count + sort + name</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-9_fd2c4dfe74df03f72674a5184e323b2b">
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb11-1" class="hljs-ln-code"><a href="#cb11-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2" class="hljs-ln-code"><a href="#cb11-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'num_of_counties'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-sort-name-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">count + sort + name</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-10_1c6ef2ec7605be6d7c90f3402257287c">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb12-1" class="hljs-ln-code"><a href="#cb12-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2" class="hljs-ln-code"><a href="#cb12-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'num_of_counties'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state          num_of_counties
+   &lt;chr&gt;                    &lt;int&gt;
+ 1 Texas                      254
+ 2 Georgia                    159
+ 3 Virginia                   133
+ 4 Kentucky                   120
+ 5 Missouri                   115
+ 6 Kansas                     105
+ 7 Illinois                   102
+ 8 North Carolina             100
+ 9 Iowa                        99
+10 Tennessee                   95
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="weight" class="slide level2">
+<h2>+ weight</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-11_36319537e285bcc46132d3f5d5a06a4c">
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'total_pop2017'</span>, <span class="at">wt =</span> pop2017)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="weight-1" class="slide level2">
+<h2>+ weight</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-12_95cea3ffe47fb77648080c031852d0f4">
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'total_pop2017'</span>, <span class="at">wt =</span> pop2017)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="weight-2" class="slide level2">
+<h2>+ weight</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-13_0368a3d232a90a0c43e12442d3dd9532">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'total_pop2017'</span>, <span class="at">wt =</span> pop2017)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state          total_pop2017
+   &lt;chr&gt;                  &lt;dbl&gt;
+ 1 California          39536653
+ 2 Texas               28304596
+ 3 Florida             20984400
+ 4 New York            19849399
+ 5 Pennsylvania        12805537
+ 6 Illinois            12802023
+ 7 Ohio                11658609
+ 8 Georgia             10429379
+ 9 North Carolina      10273419
+10 Michigan             9962311
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="weight-transformation" class="slide level2">
+<h2>weight + transformation</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-14_7b69c39d8026cc680f475decb380fc7f">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">'total_pop2017'</span>, <span class="at">wt =</span> <span class="fu">log</span>(pop2017))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state          total_pop2017
+   &lt;chr&gt;                  &lt;dbl&gt;
+ 1 Texas                  2516.
+ 2 Georgia                1622.
+ 3 Virginia               1370.
+ 4 Kentucky               1196.
+ 5 Missouri               1152.
+ 6 North Carolina         1091.
+ 7 Illinois               1058.
+ 8 Tennessee               995.
+ 9 Ohio                    983.
+10 Indiana                 975.
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="count-plot" class="slide level2">
+<h2>count plot</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-15_8a0541176c787b478bd98c04c0a66e9d">
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-plot-1" class="slide level2">
+<h2>count plot</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-16_968fb829a51365b63086f6507e111099">
+<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-plot-2" class="slide level2">
+<h2>count plot</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-17_c239d3e7a108d485b3d704e126a0868a">
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-plot-3" class="slide level2">
+<h2>count plot</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-18_b57ca42fdcbc1d389fd61fa9ce7c2f4a">
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">count</span>(state, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_reorder</span>(state, n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="count-plot-4" class="slide level2">
+<h2>count plot</h2>
+
+<img data-src="last_lecture_files/figure-revealjs/unnamed-chunk-19-1.png" class="margin-caption r-stretch" width="960"></section>
+<section id="trick-2-summarise-list-columns" class="slide level2">
+<h2>Trick 2: summarise + List-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-20_32805f2afa1cbbf042ebff55540b1d2a">
+<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-2-summarise" class="slide level2">
+<h2>Trick 2: summarise</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-21_fecb67a8ce2cc6dadaa10c746be7ac3e">
+<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-2-summarise-1" class="slide level2">
+<h2>Trick 2: summarise</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-22_b5f491263c30f226146f71cd72d1d175">
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-2-summarise-2" class="slide level2">
+<h2>Trick 2: summarise</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-23_d4ec92b37fbbbf07cfb5c76fadfcbe9d">
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-2-summarise-3" class="slide level2">
+<h2>Trick 2: summarise</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-24_7015f4c1dc14fff4e4a9d36f79b9becb">
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-2-summarise-4" class="slide level2">
+<h2>Trick 2: summarise</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-25_05970c4599e0bc664201626f87a76e6b">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>smoking_ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(poverty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                  avg
+   &lt;chr&gt;                &lt;dbl&gt;
+ 1 Alabama               20.9
+ 2 Alaska                13.0
+ 3 Arizona               20.2
+ 4 Arkansas              20.4
+ 5 California            15.7
+ 6 Colorado              13.4
+ 7 Connecticut            9.2
+ 8 Delaware              12.3
+ 9 District of Columbia  17.4
+10 Florida               17.2
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="summarize-to-list-columns" class="slide level2">
+<h2>summarize to list columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-26_3647e8f7a16a7ba2f36dc58be70eda38">
+<div class="sourceCode cell-code" id="cb31" data-code-line-numbers="1-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summarize-to-list-columns-1" class="slide level2">
+<h2>summarize to list columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-27_0db51a1b09794fe8701774e04f3c2f1c">
+<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summarize-to-list-columns-2" class="slide level2">
+<h2>summarize to list columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-28_b4d74fa3450f581e307f6a364ad16164">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                lms   
+   &lt;chr&gt;                &lt;list&gt;
+ 1 Alabama              &lt;lm&gt;  
+ 2 Alaska               &lt;lm&gt;  
+ 3 Arizona              &lt;lm&gt;  
+ 4 Arkansas             &lt;lm&gt;  
+ 5 California           &lt;lm&gt;  
+ 6 Colorado             &lt;lm&gt;  
+ 7 Connecticut          &lt;lm&gt;  
+ 8 Delaware             &lt;lm&gt;  
+ 9 District of Columbia &lt;lm&gt;  
+10 Florida              &lt;lm&gt;  
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="map-to-new-column" class="slide level2">
+<h2>map to new column</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-29_eec0ec85a862e6c037955e9be1bffb6e">
+<div class="sourceCode cell-code" id="cb35" data-code-line-numbers="1-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="#cb35-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="map-to-new-column-1" class="slide level2">
+<h2>map to new column</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-30_99ba2a64ed3eb17d840990e489a78b1b">
+<div class="sourceCode cell-code" id="cb36" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="map-to-new-list-column" class="slide level2">
+<h2>map to new list-column</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-31_43ee37972997493b262d0d277adfa1a4">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="#cb37-5"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 3
+   state                lms    tidied          
+   &lt;chr&gt;                &lt;list&gt; &lt;list&gt;          
+ 1 Alabama              &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 2 Alaska               &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 3 Arizona              &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 4 Arkansas             &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 5 California           &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 6 Colorado             &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 7 Connecticut          &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 8 Delaware             &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+ 9 District of Columbia &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+10 Florida              &lt;lm&gt;   &lt;tibble [2 × 5]&gt;
+# … with 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="using-list-columns" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-32_9d4deffbf01391a3c46fa6ab475cbd94">
+<div class="sourceCode cell-code" id="cb39" data-code-line-numbers="1-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-6"><a href="#cb39-6"></a>  <span class="fu">unnest</span>(tidied)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-list-columns-1" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-33_6643eb6c24b3bb9c32c792073a79c026">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-5"><a href="#cb40-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="#cb40-6"></a>  <span class="fu">unnest</span>(tidied)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 102 × 7
+   state      lms    term          estimate std.error statistic  p.value
+   &lt;chr&gt;      &lt;list&gt; &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Alabama    &lt;lm&gt;   (Intercept)    44.4       9.33       4.76  1.12e- 5
+ 2 Alabama    &lt;lm&gt;   homeownership  -0.320     0.127     -2.52  1.41e- 2
+ 3 Alaska     &lt;lm&gt;   (Intercept)    13.6       8.31       1.64  1.13e- 1
+ 4 Alaska     &lt;lm&gt;   homeownership  -0.0156    0.130     -0.120 9.05e- 1
+ 5 Arizona    &lt;lm&gt;   (Intercept)    -4.41     12.9       -0.342 7.38e- 1
+ 6 Arizona    &lt;lm&gt;   homeownership   0.353     0.184      1.92  7.75e- 2
+ 7 Arkansas   &lt;lm&gt;   (Intercept)    40.0       5.32       7.52  1.11e-10
+ 8 Arkansas   &lt;lm&gt;   homeownership  -0.275     0.0744    -3.70  4.13e- 4
+ 9 California &lt;lm&gt;   (Intercept)    24.4       5.51       4.42  4.56e- 5
+10 California &lt;lm&gt;   homeownership  -0.136     0.0865    -1.58  1.20e- 1
+# … with 92 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="using-list-columns-2" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-34_2b39f2a57267742f69b04055f8789894">
+<div class="sourceCode cell-code" id="cb42" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="#cb42-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">unnest</span>(tidied) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-7"><a href="#cb42-7"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'homeownership'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 7
+   state                lms    term          estimate std.error stati…¹  p.value
+   &lt;chr&gt;                &lt;list&gt; &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Alabama              &lt;lm&gt;   homeownership  -0.320     0.127   -2.52   1.41e-2
+ 2 Alaska               &lt;lm&gt;   homeownership  -0.0156    0.130   -0.120  9.05e-1
+ 3 Arizona              &lt;lm&gt;   homeownership   0.353     0.184    1.92   7.75e-2
+ 4 Arkansas             &lt;lm&gt;   homeownership  -0.275     0.0744  -3.70   4.13e-4
+ 5 California           &lt;lm&gt;   homeownership  -0.136     0.0865  -1.58   1.20e-1
+ 6 Colorado             &lt;lm&gt;   homeownership  -0.116     0.0951  -1.22   2.29e-1
+ 7 Connecticut          &lt;lm&gt;   homeownership  -0.429     0.0640  -6.71   5.34e-4
+ 8 Delaware             &lt;lm&gt;   homeownership  -0.0347    0.127   -0.274  8.30e-1
+ 9 District of Columbia &lt;lm&gt;   homeownership  NA        NA       NA     NA      
+10 Florida              &lt;lm&gt;   homeownership  -0.0996    0.0900  -1.11   2.73e-1
+# … with 41 more rows, and abbreviated variable name ¹​statistic</code></pre>
+</div>
+</div>
+</section>
+<section id="using-list-columns-3" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-35_72702da162ac4dca51c1906f066539f9">
+<div class="sourceCode cell-code" id="cb44" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">unnest</span>(tidied) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'homeownership'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-8"><a href="#cb44-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate , <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> estimate <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error, </span>
+<span id="cb44-10"><a href="#cb44-10"></a>                    <span class="at">xmax =</span> estimate <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error)) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="#cb44-11"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-list-columns-4" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-36_67253dee344f8f15959abd71082c212e">
+<div class="sourceCode cell-code" id="cb45" data-code-line-numbers="9-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-6"><a href="#cb45-6"></a>  <span class="fu">unnest</span>(tidied) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-7"><a href="#cb45-7"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'homeownership'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-8"><a href="#cb45-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate , <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="#cb45-9"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> estimate <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error, </span>
+<span id="cb45-10"><a href="#cb45-10"></a>                    <span class="at">xmax =</span> estimate <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error)) <span class="sc">+</span></span>
+<span id="cb45-11"><a href="#cb45-11"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-list-columns-5" class="slide level2">
+<h2>using list-columns</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-37_c090af33091ec72b627230b6fbc63ed8">
+<div class="sourceCode cell-code" id="cb46" data-code-line-numbers="11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">select</span>(state, poverty, homeownership) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">summarise</span>(<span class="at">lms =</span> <span class="fu">list</span>(<span class="fu">lm</span>(poverty<span class="sc">~</span>homeownership))) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-5"><a href="#cb46-5"></a>  <span class="fu">mutate</span>(<span class="at">tidied  =</span> <span class="fu">map</span>(lms, broom<span class="sc">::</span>tidy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-6"><a href="#cb46-6"></a>  <span class="fu">unnest</span>(tidied) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-7"><a href="#cb46-7"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">'homeownership'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-8"><a href="#cb46-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> estimate , <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb46-9"><a href="#cb46-9"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> estimate <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error, </span>
+<span id="cb46-10"><a href="#cb46-10"></a>                    <span class="at">xmax =</span> estimate <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">51</span>)<span class="sc">*</span>std.error)) <span class="sc">+</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-list-columns-6" class="slide level2">
+<h2>using list-columns</h2>
+
+<img data-src="last_lecture_files/figure-revealjs/unnamed-chunk-38-1.png" class="margin-caption r-stretch" width="960"></section>
+<section id="trick-3-fct_lump" class="slide level2">
+<h2>Trick 3: <code>fct_lump</code></h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-39_da9f3d8521f15f322cb8b48f93ce9596">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>county <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">select</span>(poverty, state) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="#cb47-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> poverty, <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trick-3-fct_lump-1" class="slide level2">
+<h2>Trick 3: <code>fct_lump</code></h2>
+
+<img data-src="last_lecture_files/figure-revealjs/unnamed-chunk-40-1.png" class="margin-caption r-stretch" width="960"></section>
+<section id="lump-states-together-w.r.t.-count" class="slide level2">
+<h2>lump states together w.r.t. count</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-41_28697b78014fe7682b7a536d272f318f">
+<div class="sourceCode cell-code" id="cb48" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">select</span>(poverty, state) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_lump_min</span>(state, <span class="at">min =</span> <span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> poverty, <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lump-states-together-w.r.t.-count-1" class="slide level2">
+<h2>lump states together w.r.t. count</h2>
+
+<img data-src="last_lecture_files/figure-revealjs/unnamed-chunk-42-1.png" class="margin-caption r-stretch" width="960"></section>
+<section id="lump-states-together-w.r.t.-number-of-levels" class="slide level2">
+<h2>lump states together w.r.t. number of levels</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-43_370e7cba19058cb19bd1773e348593fc">
+<div class="sourceCode cell-code" id="cb49" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>county <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">select</span>(poverty, state) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4"></a>  <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">fct_lump_n</span>(state, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-5"><a href="#cb49-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> poverty, <span class="at">y =</span> state)) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="lump-states-together-w.r.t.-number-of-levels-1" class="slide level2">
+<h2>lump states together w.r.t. number of levels</h2>
+
+<img data-src="last_lecture_files/figure-revealjs/unnamed-chunk-44-1.png" class="margin-caption r-stretch" width="960"></section></section>
+<section>
+<section id="negative-adjusted-r-squared" class="title-slide slide level1 center">
+<h1>Negative adjusted R-squared</h1>
+
+</section>
+<section id="simulate-data" class="slide level2">
+<h2>simulate data</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-45_5e5bb0afed45e07ed415ce9f5c0a5057">
+<div class="sourceCode cell-code" id="cb50" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb50-2"><a href="#cb50-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">70</span>))</span>
+<span id="cb50-3"><a href="#cb50-3"></a></span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb50-5"><a href="#cb50-5"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">tibble</span>(<span class="fu">rnorm</span>(<span class="dv">70</span>)))</span>
+<span id="cb50-6"><a href="#cb50-6"></a>}</span>
+<span id="cb50-7"><a href="#cb50-7"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulate-data-1" class="slide level2">
+<h2>simulate data</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-46_d776ae3d825f35354306ff466d7d9b25">
+<div class="sourceCode cell-code" id="cb51" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">70</span>))</span>
+<span id="cb51-3"><a href="#cb51-3"></a></span>
+<span id="cb51-4"><a href="#cb51-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb51-5"><a href="#cb51-5"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">tibble</span>(<span class="fu">rnorm</span>(<span class="dv">70</span>)))</span>
+<span id="cb51-6"><a href="#cb51-6"></a>}</span>
+<span id="cb51-7"><a href="#cb51-7"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulate-data-2" class="slide level2">
+<h2>simulate data</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-47_7390c3febb71dfe86ccb58c9e4412566">
+<div class="sourceCode cell-code" id="cb52" data-code-line-numbers="4-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb52-2"><a href="#cb52-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">70</span>))</span>
+<span id="cb52-3"><a href="#cb52-3"></a></span>
+<span id="cb52-4"><a href="#cb52-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb52-5"><a href="#cb52-5"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">tibble</span>(<span class="fu">rnorm</span>(<span class="dv">70</span>)))</span>
+<span id="cb52-6"><a href="#cb52-6"></a>}</span>
+<span id="cb52-7"><a href="#cb52-7"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulate-data-3" class="slide level2">
+<h2>simulate data</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-48_7c222b12337734683ec6be7aa1a38b72">
+<div class="sourceCode cell-code" id="cb53" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb53-2"><a href="#cb53-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">70</span>))</span>
+<span id="cb53-3"><a href="#cb53-3"></a></span>
+<span id="cb53-4"><a href="#cb53-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb53-5"><a href="#cb53-5"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">bind_cols</span>(<span class="fu">tibble</span>(<span class="fu">rnorm</span>(<span class="dv">70</span>)))</span>
+<span id="cb53-6"><a href="#cb53-6"></a>}</span>
+<span id="cb53-7"><a href="#cb53-7"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="model" class="slide level2">
+<h2>model</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-49_085d93c02fda7142ee04fe43007c3bf3">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb54-2"><a href="#cb54-2"></a>model <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="fu">fit</span>(y<span class="sc">~</span>., <span class="at">data =</span> df)</span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="fu">glance</span>(model)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="model-1" class="slide level2">
+<h2>model</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-50_bbfc0d7487ad6843a1872d237990268a">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb55-2"><a href="#cb55-2"></a>model <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="fu">fit</span>(y<span class="sc">~</span>., <span class="at">data =</span> df)</span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="fu">glance</span>(model)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  r.squared adj.r.squared
+      &lt;dbl&gt;         &lt;dbl&gt;
+1     0.275       -0.0209</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="python-within-r-studioquarto" class="title-slide slide level1 center">
+<h1>Python (within R Studio/Quarto)</h1>
+
+</section>
+<section id="pandas-dplyr" class="slide level2">
+<h2>pandas (~ dplyr)</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-51_6c496c1132f1f912c8b5025acdd9578e">
+<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb57-2"><a href="#cb57-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb57-3"><a href="#cb57-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pandas-dplyr-1" class="slide level2">
+<h2>pandas (~ dplyr)</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-52_dff3001ae339b00d52e8f74f132fdafb">
+<div class="sourceCode cell-code" id="cb58" data-code-line-numbers="2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb58-2"><a href="#cb58-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb58-3"><a href="#cb58-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pandas-dplyr-2" class="slide level2">
+<h2>pandas (~ dplyr)</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-53_deaef6aae7bfe60d72ed736ea6884583">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb59-2"><a href="#cb59-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb59-3"><a href="#cb59-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x  y
+0  1  a
+1  2  b</code></pre>
+</div>
+</div>
+</section>
+<section id="select-in-pandas" class="slide level2">
+<h2>select in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-54_fc53c42cadd6805981d6c5f1076f8dd9">
+<div class="sourceCode cell-code" id="cb61" data-code-line-numbers="1-2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb61-2"><a href="#cb61-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb61-3"><a href="#cb61-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="select-in-pandas-1" class="slide level2">
+<h2>select in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-55_a66ba9eb665acb9d150a513e994bb621">
+<div class="sourceCode cell-code" id="cb62" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb62-2"><a href="#cb62-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb62-3"><a href="#cb62-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="select-in-pandas-2" class="slide level2">
+<h2>select in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-56_db30c2b408d95b60dfcd80a660b0a745">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb63-2"><a href="#cb63-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb63-3"><a href="#cb63-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x
+0  1
+1  2</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-in-pandas" class="slide level2">
+<h2>filter in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-57_9cbb7ba8b8163489682abe009d6f4394">
+<div class="sourceCode cell-code" id="cb65" data-code-line-numbers="1-2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb65-2"><a href="#cb65-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>: (<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb65-3"><a href="#cb65-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>).query(<span class="st">'x == 1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filter-in-pandas-1" class="slide level2">
+<h2>filter in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-58_57d32c4dee470c8202c051dc5ebd4205">
+<div class="sourceCode cell-code" id="cb66" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb66-2"><a href="#cb66-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>: (<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb66-3"><a href="#cb66-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>).query(<span class="st">'x == 1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filter-in-pandas-2" class="slide level2">
+<h2>filter in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-59_9594c642fdada736323c5b4810decb11">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb67-2"><a href="#cb67-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>: (<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb67-3"><a href="#cb67-3"></a>df.<span class="bu">filter</span>(<span class="st">'x'</span>).query(<span class="st">'x == 1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x
+0  1</code></pre>
+</div>
+</div>
+</section>
+<section id="mutate-in-pandas" class="slide level2">
+<h2>mutate in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-60_398f7e7c3a98acb9ea6bac0cb309a71f">
+<div class="sourceCode cell-code" id="cb69" data-code-line-numbers="1-2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb69-2"><a href="#cb69-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb69-3"><a href="#cb69-3"></a>df.assign(z <span class="op">=</span> df[<span class="st">'x'</span>]<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mutate-in-pandas-1" class="slide level2">
+<h2>mutate in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-61_2f8d9cfb8dba214606aeb6685d920219">
+<div class="sourceCode cell-code" id="cb70" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb70-2"><a href="#cb70-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb70-3"><a href="#cb70-3"></a>df.assign(z <span class="op">=</span> df[<span class="st">'x'</span>]<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mutate-in-pandas-2" class="slide level2">
+<h2>mutate in pandas</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-62_84724bc09274e3097eb07effe09d9849">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb71-2"><a href="#cb71-2"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: (<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'y'</span>:(<span class="st">'a'</span>, <span class="st">'b'</span>)})</span>
+<span id="cb71-3"><a href="#cb71-3"></a>df.assign(z <span class="op">=</span> df[<span class="st">'x'</span>]<span class="op">**</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x  y  z
+0  1  a  1
+1  2  b  4</code></pre>
+</div>
+</div>
+</section></section>
+<section id="sklearn-tidymodels" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-63_dcb602d95f203c2c80ff4771ca839660">
+<div class="sourceCode cell-code" id="cb73" data-code-line-numbers="1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb73-2"><a href="#cb73-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb73-3"><a href="#cb73-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb73-4"><a href="#cb73-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb73-5"><a href="#cb73-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb73-6"><a href="#cb73-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb73-7"><a href="#cb73-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb73-8"><a href="#cb73-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb73-9"><a href="#cb73-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb73-10"><a href="#cb73-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-1" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-64_34be32c8f37774634b66d90ce796dc63">
+<div class="sourceCode cell-code" id="cb74" data-code-line-numbers="2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb74-2"><a href="#cb74-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb74-3"><a href="#cb74-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb74-4"><a href="#cb74-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb74-5"><a href="#cb74-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb74-6"><a href="#cb74-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb74-7"><a href="#cb74-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb74-8"><a href="#cb74-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb74-9"><a href="#cb74-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb74-10"><a href="#cb74-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-2" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-65_b2a4302b0e987d4f9785472ec79519af">
+<div class="sourceCode cell-code" id="cb75" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb75-2"><a href="#cb75-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb75-3"><a href="#cb75-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb75-4"><a href="#cb75-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb75-5"><a href="#cb75-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb75-6"><a href="#cb75-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb75-7"><a href="#cb75-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb75-8"><a href="#cb75-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb75-9"><a href="#cb75-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb75-10"><a href="#cb75-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-3" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-66_cfc5d7f8ffcdc8aba83d3fa48d5d25ac">
+<div class="sourceCode cell-code" id="cb76" data-code-line-numbers="4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb76-2"><a href="#cb76-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb76-3"><a href="#cb76-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb76-4"><a href="#cb76-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb76-5"><a href="#cb76-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb76-6"><a href="#cb76-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb76-7"><a href="#cb76-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb76-8"><a href="#cb76-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb76-9"><a href="#cb76-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb76-10"><a href="#cb76-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-4" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-67_871f97b57018d51d4b845365b2279e7b">
+<div class="sourceCode cell-code" id="cb77" data-code-line-numbers="5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb77-2"><a href="#cb77-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb77-3"><a href="#cb77-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb77-4"><a href="#cb77-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb77-5"><a href="#cb77-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb77-6"><a href="#cb77-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb77-7"><a href="#cb77-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb77-8"><a href="#cb77-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb77-9"><a href="#cb77-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb77-10"><a href="#cb77-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-5" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-68_e323abee11515b87a70fb00a3aaf1fad">
+<div class="sourceCode cell-code" id="cb78" data-code-line-numbers="6-7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb78-2"><a href="#cb78-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb78-3"><a href="#cb78-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb78-4"><a href="#cb78-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb78-5"><a href="#cb78-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb78-6"><a href="#cb78-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb78-7"><a href="#cb78-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb78-8"><a href="#cb78-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb78-9"><a href="#cb78-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb78-10"><a href="#cb78-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-6" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-69_44346b7e013674bc765801748e3c2ece">
+<div class="sourceCode cell-code" id="cb79" data-code-line-numbers="8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb79-2"><a href="#cb79-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb79-3"><a href="#cb79-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb79-4"><a href="#cb79-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb79-5"><a href="#cb79-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb79-6"><a href="#cb79-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb79-7"><a href="#cb79-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb79-8"><a href="#cb79-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb79-9"><a href="#cb79-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb79-10"><a href="#cb79-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-7" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-70_99b16d30567e5008c8ca3d4f61b34f46">
+<div class="sourceCode cell-code" id="cb80" data-code-line-numbers="9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb80-2"><a href="#cb80-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb80-3"><a href="#cb80-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb80-4"><a href="#cb80-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb80-5"><a href="#cb80-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb80-6"><a href="#cb80-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb80-7"><a href="#cb80-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb80-8"><a href="#cb80-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb80-9"><a href="#cb80-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb80-10"><a href="#cb80-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="sklearn-tidymodels-8" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-71_caf4975cd3a6826482349259442cfbbc">
+<div class="sourceCode cell-code" id="cb81" data-code-line-numbers="10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb81-2"><a href="#cb81-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb81-3"><a href="#cb81-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb81-4"><a href="#cb81-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb81-5"><a href="#cb81-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb81-6"><a href="#cb81-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb81-7"><a href="#cb81-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb81-8"><a href="#cb81-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb81-9"><a href="#cb81-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb81-10"><a href="#cb81-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section>
+<section id="sklearn-tidymodels-9" class="title-slide slide level1 center">
+<h1>sklearn (~ tidymodels)</h1>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-72_97778fee555c7dc898131d0bd22216c3">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb82-2"><a href="#cb82-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb82-3"><a href="#cb82-3"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb82-4"><a href="#cb82-4"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb82-5"><a href="#cb82-5"></a>df <span class="op">=</span> df[[<span class="st">'poverty'</span>, <span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb82-6"><a href="#cb82-6"></a>X <span class="op">=</span> df[[<span class="st">'homeownership'</span>, <span class="st">'unemployment_rate'</span>]]</span>
+<span id="cb82-7"><a href="#cb82-7"></a>y <span class="op">=</span> df[<span class="st">'poverty'</span>]</span>
+<span id="cb82-8"><a href="#cb82-8"></a>model_spec <span class="op">=</span> LinearRegression()</span>
+<span id="cb82-9"><a href="#cb82-9"></a>model_fitted <span class="op">=</span> model_spec.fit(X, y)</span>
+<span id="cb82-10"><a href="#cb82-10"></a><span class="bu">print</span>(model_fitted.intercept_, model_fitted.coef_, model_fitted.score(X, y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>23.740040309233592 [-0.23468745  2.11559819] 0.3903186571460264</code></pre>
+</div>
+</div>
+</section>
+<section id="tidymodels-comparison" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-73_b7bd751fcd87fc393d373e8e5319af10">
+<div class="sourceCode cell-code" id="cb84" data-code-line-numbers="1-2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb84-3"><a href="#cb84-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb84-4"><a href="#cb84-4"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb84-5"><a href="#cb84-5"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb84-6"><a href="#cb84-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
+<span id="cb84-7"><a href="#cb84-7"></a></span>
+<span id="cb84-8"><a href="#cb84-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
+<span id="cb84-9"><a href="#cb84-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
+<span id="cb84-10"><a href="#cb84-10"></a><span class="fu">tidy</span>(model_fitted)</span>
+<span id="cb84-11"><a href="#cb84-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tidymodels-comparison-1" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-74_3b1cca6b8a8523502a7d7874fb7556cc">
+<div class="sourceCode cell-code" id="cb85" data-code-line-numbers="3-6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb85-2"><a href="#cb85-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb85-3"><a href="#cb85-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb85-4"><a href="#cb85-4"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb85-5"><a href="#cb85-5"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb85-6"><a href="#cb85-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
+<span id="cb85-7"><a href="#cb85-7"></a></span>
+<span id="cb85-8"><a href="#cb85-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
+<span id="cb85-9"><a href="#cb85-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
+<span id="cb85-10"><a href="#cb85-10"></a><span class="fu">tidy</span>(model_fitted)</span>
+<span id="cb85-11"><a href="#cb85-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tidymodels-comparison-2" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-75_60d5f55fa1fc344bc1ba94557970bc94">
+<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="8-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb86-2"><a href="#cb86-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb86-3"><a href="#cb86-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb86-4"><a href="#cb86-4"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb86-5"><a href="#cb86-5"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb86-6"><a href="#cb86-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
+<span id="cb86-7"><a href="#cb86-7"></a></span>
+<span id="cb86-8"><a href="#cb86-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
+<span id="cb86-9"><a href="#cb86-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span>
+<span id="cb86-10"><a href="#cb86-10"></a><span class="fu">tidy</span>(model_fitted)</span>
+<span id="cb86-11"><a href="#cb86-11"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tidymodels-comparison-3" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-76_507ebb43eaa093847e004b55f957d07e">
+<div class="sourceCode cell-code" id="cb87" data-code-line-numbers="10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb87-3"><a href="#cb87-3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/data/county.csv'</span>)</span>
+<span id="cb87-4"><a href="#cb87-4"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb87-5"><a href="#cb87-5"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb87-6"><a href="#cb87-6"></a>  <span class="fu">select</span>(poverty, homeownership, unemployment_rate)</span>
+<span id="cb87-7"><a href="#cb87-7"></a></span>
+<span id="cb87-8"><a href="#cb87-8"></a>model_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
+<span id="cb87-9"><a href="#cb87-9"></a>model_fitted <span class="ot">&lt;-</span> model_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(poverty <span class="sc">~</span>., <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tidymodels-comparison-4" class="slide level2">
+<h2>tidymodels comparison</h2>
+<div class="cell" data-hash="last_lecture_cache/revealjs/unnamed-chunk-77_f2c3255725322c8c22dcdd1482d2da0e">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="fu">tidy</span>(model_fitted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term              estimate std.error statistic   p.value
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)         23.7      1.04        22.8 1.45e-104
+2 homeownership       -0.235    0.0134     -17.6 2.79e- 65
+3 unemployment_rate    2.12     0.0605      35.0 2.24e-219</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="fu">glance</span>(model_fitted)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  r.squared
+      &lt;dbl&gt;
+1     0.390</code></pre>
+</div>
+</div>
+</section>
+<section id="thank-you-for-an-amazing-semester" class="slide level2">
+<h2>Thank you for an amazing semester!</h2>
+<div class="quarto-figure quarto-figure-center margin-caption">
+<figure>
+<p><img data-src="officially_dad_jokes_thank_you_card-r01282b2ac4ff41059cc0fda9d8e4210d_tcvt0_736.webp" class="margin-caption" width="475"></p>
+</figure>
+</div>
+<p><img src="profil_circle.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><a href="https://turalsadigov.github.io/" class="uri">https://turalsadigov.github.io/</a></p>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="last_lecture_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="last_lecture_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="last_lecture_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="last_lecture_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"boardmarkerWidth":5},
+'multiplex': {"secret":null,"id":"d34ae400c64b49cc","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>
