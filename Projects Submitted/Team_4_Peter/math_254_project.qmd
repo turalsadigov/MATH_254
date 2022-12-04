@@ -109,6 +109,7 @@ folder = '/math_254_project/main'
 file = '/raw_data.csv'
 url <- str_c(remote, account, folder, file)
 raw_data = read_csv(url)
+# raw_data <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/programming_languages_peter.csv')
 
 # create clean and usable data
 # change the column names to first row

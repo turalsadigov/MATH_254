@@ -116,6 +116,7 @@ folder <- 'data/master/redlining/'
 file <- 'metro-grades.csv'
 url <- str_c(remote, account, folder, file)
 data <- read_csv(url)
+# data <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/discrimination_amrit_dean.csv')
 #head(data, 10)
 ```
 
