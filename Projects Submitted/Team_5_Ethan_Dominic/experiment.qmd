@@ -1,0 +1,491 @@
+---
+title: "Wage Gap Stemming From Undergraduate Major Choice"
+author:
+  - name: Ethan Harrast
+    email: eharrast@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+        address: Clinton, New York
+  - name: Dominic Tanelli
+    email: dtanelli@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+        address: Clinton, New York
+  - name: Tural Sadigov
+    email: tsadigov@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+        orcid: 0000-0002-6446-415X
+        address: 198 College Hill Rd
+        city: Clinton
+        state: NY
+        country: USA
+        postal-code: 13323-1218
+abstract: Over the past few decades, the gender wage gap has been heavily researched - women tend to earn less than men for the same work. While there are many other factors that lead to differing income levels, gender is an influential variable that has no clear explanation. We are attempting to provide one possible reason. Various undergraduate majors lead to vastly different income levels, and there are majors that are typically pursued by different genders. We believe that the gender wage gap can be explained by the different majors pursued by men and women. Our experiment tests how median income differs between graduates with majors predominantly held by men versus women. Through our study, we found that recent graduates holding a predominantly female major earn less than those holding a predominantly male majors.
+format: 
+    html:
+      theme: 
+        light: united
+        dark: darkly
+title-block-banner: darkblue
+date: October 26, 2022
+highlight-style: pygments
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+editor_options: 
+  chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: sentence
+bibliography: references.bib
+---
+
+```{r}
+#| echo: false
+library(tidymodels)
+library(tidyverse)
+library(infer)
+library(psych)
+library(GGally)
+library(plotly)
+library(ggfortify)
+
+remote <-
+  'https://raw.githubusercontent.com/'
+account <-
+  'fivethirtyeight/'
+folder <-
+  'data/master/college-majors/'
+file <-
+  'recent-grads.csv'
+url <-
+  str_c(remote, account, folder, file)
+recent_grads <-
+  read_csv(url)
+
+recent_grads_df <- 
+  recent_grads %>%
+  drop_na()
+```
+
+# Background and Significance
+
+The option to pursue an undergraduate degree may not be available to everyone, but for those with the choice, the decision often comes down to future wages.
+Some believe that starting work out of high school is the most profitable path while others believe the investment in a college education pays off in the long run.
+In a study by Carnevale et al. (2013), the lifetime, monetary value of a bachelor's degree is \$2.8 million.
+In comparison, those without a college degree earn 84% less than those with one.
+According to Carnevale et al., each additional level of education leads to an average lifetime earnings increase of around \$400,000.
+In other words, pursuing a degree pays off in the long run.
+They do note that education is not the only factor in expected wages.
+Gender and major choice have massive impacts.
+Women who work full-time, full year earn 25% less than their male counterparts even when holding education level constant.
+Major choice can also lead to a wide variation in lifetime earnings.
+For those pursuing an undergraduate degree, choosing a specific major is quite daunting.
+Different majors lead to different career paths, and different career paths lead to different income levels.
+A study done by Schanzenbach et al. (2017) aimed to understand this wage variation by major choice.
+They noted that there is a wide variety in career path within each major, but by identifying a single career to hold constant (Financial Manager), they were able to better compare wages for each major.
+As expected, there was a very high amount of variation from major to major, but it seems that for those looking to become a financial manager, major choice can lead to an annual income anywhere between \$50,000 to \$115,000.
+While this range is significant, the implication of this study is limited to the world of financial managers.
+Schanzenbach et al. continued their study by analyzing average annual incomes for all occupations based on major choice.
+They found that this range was between \$45,000 and \$90,000.
+However, as Carnevale et al. stated, gender, along with major, is a major factor in income level.
+This idea was researched further by Sloane et al. (2021).
+They sought to understand the extent that major sorting by gender impacts the gender wage gap.
+According to Sloan et al., "women are systematically sorted into majors with lower potential wages relative to men." This implies that income level is dependent on major choice which depends on one's gender.
+By categorizing majors by the ratio of females to males in each major, they found that 60% of the wage gap can be explained by major choice.
+For our study, we would like to expand on Sloan et al's findings by assessing how wages and employment differ for those who recently graduated with a major typically pursued by females versus a major typically pursued by males.
+While Sloan et al. focused on the wage gap, we would like to identify if laborers with majors that women are systematically sorted into receive lower wages, regardless of gender.
+By disregarding the notion of the wage gap, we will be able to provide unbiased results that definitively conclude if the majors that women pursue lead to lower potential wages.
+We believe that those who hold a major typically pursued by women have lower wages than those who hold a major typically pursued by men.
+The research questions that we are trying to answer is as follows: How does income differentiate for recent graduates that hold majors with a larger proportion of males versus females?
+In answering this question, we hope to identify the root cause of the gender wage gap and provide some guidance for closing this income disparity.
+
+# Data
+
+The data was collected by the American Community Survey 2010-2012 Public Use Microdata Series.
+The experiment was conducted with 6,771,654 college graduates to determine the economic value of a college degree and how one's major can affect their financial future.
+Respondents inbetween the ages of 18-24 were randomly surveyed across America and must have graduated with an undergraduate degree.
+These graduates are categorized into 173 rows where each row represents a specific major.
+There is only one major that does not have at least 100 graduates: Food Science.
+Since there were no graduates holding this major, we removed it from the data set.
+This lowered the number of majors to 172.
+In the original data set there are 21 total columns for each major.
+The variables are Rank (an ordinal categorical variable with a range of 1-172, with each number showing the number that a certain major is ranked, based upon median earnings (1 - Highest, 172 - Lowest)), Major Code (a nominal categorical variable with a range of 1100-6403, with each number showing the major code for the specified major in that row), Major (a nominal categorical variable with 172 levels, where each level describes a different major), Total (a discrete numerical variable that has a range of 124-393735, describing the total amount of people in a certain major), Men (a discrete numerical variable that has a range of 119-173809, describing the total number of male graduates in a certain major), Women (a discrete numerical variable that has a range of 0-307087, describing the total number of female graduates in a certain major), Major Category (a nominal categorical variable with 16 levels (Agriculture and Natural Resources, Arts, Biology and Life Science, Business, Communications and Journalism, Computers and Mathematics, Education, Engineering, Health, Humanities and Liberal Arts, Industrial Arts and Consumer Services, Interdisciplinary, Law and Public Policy, Physical Sciences, Psychology and Social Work, and Social Science)), Share of Women (a continuous numerical variable that has a range of 0-0.96895368 (range in decimal form), describing the percentage of women within each major), Sample Size (a discrete numerical variable that has a range of 2-4212, describing the sample size of each major), Employed (a discrete numerical variable that has a range of 0-307933, describing the number of people that are employed from a certain major), Full Time (a discrete numerical variable that has a range of 111-251540, describing the number of people that are working full time from a certain major), Part Time (a discrete numerical variable that has a range of 0-115172, describing the number of people that are working part time within a certain major), Full Time Year Round (a discrete numerical variable that has a range of 111-199897, describing the number of people that are working full time year round from a certain major), Unemployed (a discrete numerical variable that has a range of 0-28169, describing the number of people that are unemployed from a certain major), Unemployment Rate (a continuous numerical variable that has a range of 0-0.177226407 (range in decimal form), describing the unemployment rate within each major), Median (a discrete numerical variable that has a range of 22000-110000, describing the median earnings of full time year round workers in each major), 25th Percentile \[P25th\] (a discrete numerical variable that has a range of 18500-95000, describing the 25th percentile of earnings within each major), 75th Percentile \[P75th\] (a discrete numerical variable that has a range of 22000-125000, describing the 75th percentile of earnings within each major), Jobs that require Degree (a discrete numerical variable that has a range of 0-151643, describing the number of jobs that graduates have with a certain major that required a college degree), Jobs that don't require Degree (a discrete numerical variable that has a range of 0-148395, describing the number of jobs that graduates have within a certain major that did not required a college degree), and Low Wage Jobs (a discrete numerical variable that has a range of 0-48207, describing the number of jobs that graduates have with a certain major that are low wage jobs).
+
+The original data set holds 172 majors and 16 major categories.
+Since most school do not offer all 172 majors, we will be utilizing aggregated data for major categories.
+This will also provide for a better implication of the results as majors are typically referred to by their major category and not their specific name.
+This process was done by taking the average value of median income, share of women, unemployment rate, full-time rate, share working a job requiring a college degree, and share working a low wage job for all 16 major categories.
+We only provided averaged data for these 6 variables to limit multicollinearity in our model.
+Additionally, we created an indicator variable to categories majors as predominantly male or female.
+This variable takes the value of 1 if the share of women for a specific major category is greater than 50% and 0 if the share of women is less than 50%.
+Finally, for organization, a separate table was created to hold the total number of majors within each major category.
+In the end, our primary data frame consists of 16 rows of major categories and 8 columns indicating the major category, average median income, average share of women, average unemployment rate, average share of graduates working full time, average share of graduates working a job requiring a college degree, average share of graduates working a low-wage job, and an indicator variable for if the major category is predominantly made up of females.
+
+# Methodology
+
+Our primary methodology revolves around the following regression:
+
+Average Median Earnings = ${\beta}_0$ + ${\beta}_1$ \* (Majority Female Major) + ${\beta}_2$ \* (Unemployment Rate) + ${\beta}_3$ \* (Full-Time Rate) + ${\beta}_4$ \* (Degree Rate) + ${\beta}_5$ \* (Low Wage Rate) + Noise
+
+We are primarily interested in ${\beta}_1$ as it will indicate the impact of graduating with a predominantly female major on average median earnings.
+P-values will be used to test the statistical significance of our coefficients.
+To prevent against p-hacking, we divide the standard alpha of 0.05 by the number of hypothesis test we conducted (6) to set our significance level at 0.0083.
+We will also assess our residuals through plots (residuals versus fitted values and Q-Q plots) and metrics (R-squared and adjusted R-squared) to judge the fit of our model.
+
+Further analysis will be conducted using plots: Box plots are used to illustrate the differences in average median income across predominantly female major categories and predominantly male major categories.
+Similarly, histograms are used to illustrate the number of predominantly female major categories for differing levels of average median income.
+This will effectively compare to the histogram of the number of predominantly male major categories for differing levels of average median income.
+Beyond this, scatter plots are used to show the relationship between average median income and the other explanatory variables in our regression (excluding the indicator variable for majority female majors).
+In total, there are four scatter plots that visualize the relationship between average median income for each major category and the proportion of graduates in each major category that are unemployed, employed full-time, employed in a job requiring a college degree, and employed in a low-wage job.
+
+# Results
+
+Table 1 shows the results from our regression.
+Our model estimates an intercept of -\$82,462.
+Clearly negative income is impossible; however, our model uses this negative value as a baseline to estimate how each explanatory impacts average annual income.
+For our primary variable of interest, our model estimates that graduating with a predominantly female major decreases average median income by \$6,056.
+According to our model, a 1% increase in the percentage of graduates employed full time will lead to a \$109,746 increase in average median income for each major category.
+An increase in the proportion of graduates employed in a job requiring a degree is estimated to increase average median income by \$34,518.
+Surprisingly, average median income is estimated to increase by \$26,094 and \$121,144 for each increase in percentage of unemployed graduates and share working a low wage job within a specific major category respectively.
+If these estimates held true for the entire population, graduating with a predominantly female major has a more negative impact on average median income than graduating with a major that has a high unemployment rate.
+However, we must look at the p-values for these estimated coefficients to understand the reliability of our results.
+By doing this, we understand that none of our coefficients are statistically significant because all p-values are greater than 0.0083.
+It should be noted that the p-value of the dummy variable indicating if a major is predominantly female is the second smallest.
+
+Table 2 shows our assessment of the residuals from our initial regression.
+We found that our model has an R-squared value of 0.678 and an adjusted R-squared value of 0.517.
+From this we understand that 67.8% of the variation in average median earnings is explained by our model.
+Furthermore, as the adjusted R-squared value is less than the original R-squared value, the fit of our model is weakened by the number of explanatory variables we included.
+The p-value of our entire model is 0.0254 which is well above the significance level.
+This implies that the culmination of all our explanatory variables do not provide a statistically significant relationship with average median income.
+Figure 1 holds two plots: residuals vs fitted and Q-Q plot.
+The plot of residuals vs fitted values show that the residuals are not randomly distributed.
+This implies that our model is missing additional explanatory variables.
+The Q-Q plot shows that only some of the residuals are normally distributed.
+The outer tails do not follow a linear pattern, so our model does not explain all the trends in the data.
+
+The comparison of Figure 2 and 3 shows the different distribution of average median income for graduates holding a predominantly female major and graduates holding a predominantly male major.
+Using this plot comparison, the median income of predominantly male major graduates is far greater than the median income of predominantly female major graduates.
+In fact, the top quartile of income for predominantly female major graduates barely passes the second quartile of income for male major graduates.
+This wage disparity is further backed by the histograms provided in Figure 4 and 5 showing that there is a great density of predominantly male major graduates that earn more than most predominantly female major graduates.
+Figures 4, 5, 6, and 7 can be found within the appendix.
+These scatter plots are helpful for understanding the relationship between average median income and our explanatory variables besides our primary variable of interest (predominantly female major indicator).
+Figure 4 illustrates that average median income has a slightly negative relationship with unemployment rate, but, in our regression model, this relationship was deemed positive.
+This is caused by the introduction of other variables in our model.
+Since our regression includes more explanatory variables than just unemployment rate, the coefficient of unemployment rate must compensate for the effect of other variables while the scatter plot does not.
+Multicollinearity may also be playing a factor.
+The high correlation between unemployment rate and share of graduates working full time led to a high variance of the estimated coefficients.
+This effect is further seen in Figure 7.
+Figure 7 identifies a negative relationship between average median income and proportion of graduates working low-wage jobs.
+This negative relationship contrasts with our regression model for the same reason as Figure 4 because share working a low-wage job and share working a job requiring a college degree are highly correlated.
+Figure 5 shows that as the proportion of graduates working full-time increases within a major category, average median income tends to rise.
+Finally, the relationship between average median income and proportion of graduates working at a job requiring a college degree is deemed slightly positive by Figure 6.
+Both Figure 5 and Figure 6 support the coefficients estimated by our regression model.
+
+```{r}
+#| echo: false
+cumulative_df <-
+  recent_grads_df %>% 
+  group_by(Major_category) %>% 
+  summarize(average_income = mean(Median),
+            average_women = mean(ShareWomen),
+            average_unemploy = mean(Unemployment_rate),
+            average_full = sum(Full_time) / sum(Employed),
+            average_degree = sum(College_jobs) / 
+              (sum(College_jobs) + sum(Non_college_jobs)),
+            average_low = sum(Low_wage_jobs) / sum(Employed),
+            major_count = n()) %>% 
+  mutate(women_dummy = ifelse(average_women > 0.5, 1, 0))
+cumulative_df
+
+
+recent_grads_df$Major_category <- 
+  as.factor(recent_grads_df$Major_category)
+
+major_count <-
+  recent_grads_df %>% 
+  group_by(Major_category)%>% 
+  count() %>% 
+  setNames(c('Major', 'Count'))
+major_count
+
+
+
+model <-
+  linear_reg() %>% 
+  set_engine('lm') %>% 
+  set_mode('regression')
+
+model_fitted <-
+  model %>% 
+  fit(average_income ~ women_dummy + average_unemploy + 
+        average_full + average_degree + average_low, 
+      data = cumulative_df)
+
+regression_results <-
+  tidy(model_fitted)
+regression_results
+
+residual_metrics <-
+  glance(model_fitted)
+residual_metrics
+
+residual_plots <-
+  autoplot(model_fitted, c(1,2))
+residual_plots
+```
+
+```{r}
+#| echo: false
+## Box Plot of Average Median Income for Predominantly Female Majors
+predom_female <-
+  cumulative_df[cumulative_df$women_dummy == '1', ]
+
+box_plot_med_income_female <-
+  predom_female %>%
+  ggplot(aes(x = average_income)) +
+  geom_boxplot(color = 'black', fill = 'green', alpha = 0.5) +
+  ggtitle("Box Plot of Average Median Income for Predominantly Female Majors")
+box_plot_med_income_female
+```
+
+```{r}
+#| echo: false
+## Box Plot of Average Median Income for Predominantly Male Majors
+predom_male <-
+  cumulative_df[cumulative_df$women_dummy == '0', ]
+
+box_plot_med_income_male <-
+  predom_male %>%
+  ggplot(aes(x = average_income)) +
+  geom_boxplot(color = 'black', fill = 'green', alpha = 0.5) +
+  ggtitle("Box Plot of Average Median Income for Predominantly Male Majors") 
+box_plot_med_income_male
+```
+
+```{r}
+#| echo: false
+## Histogram of Average Median Income for Predominantly Female Majors
+hist_med_income_female <-
+  predom_female %>%
+  ggplot(aes(x = average_income)) +
+  geom_histogram(aes(y = ..density..), color = 'black', fill = 'green') +
+  geom_density(lwd = 2, color = 'red') +
+  ggtitle("Median Income Distribution (Predominantly Female Majors)")
+hist_med_income_female
+```
+
+```{r}
+#| echo: false
+## Histogram of Average Median Income for Predominantly Male Majors
+hist_med_income_male <-
+  predom_male %>%
+  ggplot(aes(x = average_income)) +
+  geom_histogram(aes(y = ..density..), color = 'black', fill = 'green') +
+  geom_density(lwd = 2, color = 'red') +
+  ggtitle("Median Income Distribution (Predominantly Male Majors)")
+hist_med_income_male
+```
+
+```{r}
+#| echo: false
+## Scatter Plot of Average Median Income by Unemployment Rate
+income_unemploy <-
+  cumulative_df %>% 
+  ggplot(aes(x = average_unemploy, y = average_income)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  ggtitle('Scatter Plot of Average Median Income by Unemployment Rate') +
+  ylab('Average Median Income') +
+  xlab('Unemployment Rate')
+income_unemploy
+```
+
+```{r}
+#| echo: false
+## Scatter Plot of Average Median Income by Share Working Full-Time
+income_full <-
+  cumulative_df %>% 
+  ggplot(aes(x = average_full, y = average_income)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  ggtitle('Scatter Plot of Average Median Income by Share Working Full-Time') +
+  ylab('Average Median Income') +
+  xlab('Share Working Full-Time')
+income_full
+```
+
+```{r}
+#| echo: false
+## Scatter Plot of Average Median Income by Share Working Job Requiring Degree
+income_degree <-
+  cumulative_df %>% 
+  ggplot(aes(x = average_degree, y = average_income)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  ggtitle('Scatter Plot of Average Median Income by Share Working Job Requiring Degree') +
+  ylab('Average Median Income') +
+  xlab('Share Working Job Requiring Degree')
+income_degree
+```
+
+```{r}
+#| echo: false
+## Scatter Plot of Average Median Income by Share Working Low-Wage Job
+income_low <-
+  cumulative_df %>% 
+  ggplot(aes(x = average_low, y = average_income)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE) +
+  ggtitle('Scatter Plot of Average Median Income by Share Working Low-Wage Job') +
+  ylab('Average Median Income') +
+  xlab('Share Working Low Wage Job')
+income_low
+```
+
+# Discussion/Conclusions
+
+Our study attempted to determine if the wage gap stems from the different majors that men and women pursue.
+Prior to completion we believed that, on average, recent graduates holding a predominantly female major earn less than those holding a predominantly male major.
+This hypothesis was tested through a multivariate regression, residual analysis, and plot comparison.
+As none of our estimated coefficients were statistically significant, we can not draw a valid conclusion.
+Keeping this in mind, our model estimated that those with a predominantly female major earn \$6,056 less than those with a predominantly male major.
+This confirms our initial hypothesis and the beliefs of Sloan et al. (2021).
+Sloan et al. studied how income differed between men with male dominated majors and women with female dominated majors, and we expanded upon this by strictly studying how income differed between predominantly male and female majors regardless of individual gender.
+This allowed us to hold gender constant and better assess if anyone with a predominantly female major earns less than anyone with a predominantly male major.
+By disregarding the gender wage gap, we provided more ethical, unbiased results and a stronger base of future research.
+
+Our study was limited by the structure of our data.
+Since the original data set was already categorized, we were unable to take advantage of the 6,771,654 individual responses.
+Therefore, we were limited to averages for the 16 major categories.
+Additional variables related to income (place of residence, parent's income, marital status, etc.) would provide further benefit by increasing the specificity of our model.
+These data limitations provided us with statistically insignificant results, so our findings can not be cited as evidence.
+Furthermore, the estimated coefficients of unemployment rate and share working a low wage job were forced to react to our other explanatory variables.
+This provided an incorrect, positive relationship between these two variables and average median earnings.
+Future research could improve upon this model with the inclusion of additional explanatory variables and exclusion of certain variables that are highly correlated with other independent variables.
+
+While our study did not provide statistically significant findings, we estimated that there is a difference in median earnings for those that hold a predominantly female major and a predominantly male major.
+This coincides with the findings of other studies surrounding the gender wage gap, and hopefully, our unbiased approach elevates the standard for future research in this topic.
+
+# References
+
+[@tidymodels]
+
+[@tidyverse]
+
+[@infer]
+
+[@psych]
+
+[@GGally]
+
+[@plotly]
+
+[@ggfortify]
+
+[@collplayoff]
+
+[@hamwork]
+
+[@wagegap]
+
+# Appendix
+
+## Numerical Summary
+
+```{r}
+#| echo: false
+summary_grads <-
+  describe(recent_grads_df)
+summary_grads
+```
+
+## Visual Summaries
+
+```{r}
+#| echo: false
+## Bar Graph of Number of Majors in Each Major Category
+major_count
+
+major_count %>% 
+  ungroup() %>% 
+  ggplot(aes(x = Major, y = Count)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  labs(title = "Bar Graph of Number of Majors in Each Major Category",
+       x = "Major Category",
+       y = "Number of Majors") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_flip()
+```
+
+```{r}
+#| echo: false
+## Bar Graph of Number of People in Each Major Category
+total_major_cat <-
+  recent_grads_df %>% 
+  group_by(Major_category) %>% 
+  summarize(grad_count = sum(Total))
+total_major_cat
+
+total_major_cat %>% 
+  ggplot(aes(Major_category, grad_count)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  labs(title = "Bar Graph of Number of Students in Each Major Category",
+       x = "Major Category",
+       y = "Number of Students") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+#| echo: false
+## Bar Graph of Share of Women in Each Major Category
+cumulative_df %>% 
+  ggplot(aes(x = Major_category, y = average_women)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  labs(title = "Bar Graph of Proportion of Women in Each Major Category",
+       x = "Major Category",
+       y = "Proportion of Women") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+#| echo: false
+## Bar Graph of Average Median Income by Major Category
+cumulative_df %>% 
+  ggplot(aes(x = Major_category, y = average_income)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  labs(title = "Bar Graph of Average Median Income by Major Category",
+       x = "Major Category",
+       y = "Average Median Income") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+#| echo: false
+## Bar Graph of Share of Recent Graduates Employed Full-Time Year-Round by Major Category
+cumulative_df %>% 
+  ggplot(aes(x = Major_category, y = average_full)) +
+  geom_col(fill = 'blue', alpha = 0.5) +
+  labs(title = "Bar Graph of Share of Recent Graduates Employed Full-Time by Major Category",
+       x = "Major Category",
+       y = "Share of Recent Graduates Employed Full-Time Year-Round") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
