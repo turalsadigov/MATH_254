@@ -671,6 +671,7 @@ folder <- 'Toddler%20Autism%20dataset%20July%'
 file <- '202018.csv'
 url <- str_c(remote, account, folder, file)
 raw_screening = tibble(read.csv(file = url))
+# raw_screening <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/Toddler_Autism_dataset_July_2018_Drake_Ben.csv')
 
 screening <-
   raw_screening %>% 

@@ -218,12 +218,16 @@ file  = 'nics-firearm-background-checks.csv'
 url = paste(remote, account, folder, file, sep = '')
 firearm <- read.csv(url)
 
+# firearm <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/firearm_felix_andrew_2.csv')
+
 #raw crime data
 remote = 'https://raw.githubusercontent.com/'
 account = 'AndrewGou1013/'
 file = 'State-crime-final/main/state_crime_final.csv'
 url = paste(remote, account, file, sep = '')
 state_crime <- read.csv(url)
+
+# state_crime <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/state_crime_felix_andrew_1.csv')
 ```
 
 ```{r year and variables selection from firearm data}
