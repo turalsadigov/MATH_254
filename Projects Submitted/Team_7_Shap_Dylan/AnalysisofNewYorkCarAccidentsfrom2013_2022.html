@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Shap McCoy">
+<meta name="author" content="Dylan Koproski">
+<meta name="author" content="Tural Sadigov">
+<meta name="dcterms.date" content="2022-12-04">
+
+<title>Analysis of New York Car Accidents from 2013-2022</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/clipboard/clipboard.min.js"></script>
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/quarto.js"></script>
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/popper.min.js"></script>
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/anchor.min.js"></script>
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="AnalysisofNewYorkCarAccidentsfrom2013_2022_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: darkblue;
+    }
+    </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Analysis of New York Car Accidents from 2013-2022</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      Shap McCoy 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Dylan Koproski 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Tural Sadigov 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 4, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="abstract-title">Abstract</div>
+      Driving is a major part of the majority of Americans’ lives and, unfortunately, this leads to a considerable number of vehicle accidents. New York state has maintained a record of all traffic incidents involving law enforcement since 2013 which is an excellent resource for studying the trends of vehicle collisions. In this investigation, we ask if drunk drivers are responsible for a different proportion of death-causing incidents than their sober counterparts. We also ask if there are certain times of the day and of the month that have a higher proportion of car accidents than others. To investigate these questions, we use two t-tests and a linear regression. We find that drunk drivers are responsible for a higher proportion of accidents involving deaths than sober drivers are. We also find that car accidents that occur at night are responsible for a higher proportion of injuries than daytime incidents. Finally, we fit a model to determine the most accident-prone day of any given month to drivers, but our model was not significant so we must reject it. Future research could potentially generate a better model to better explain any trend that may exist.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div style="page-break-after: always;"></div>
+<section id="background-and-significance" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Background and Significance</h1>
+<p>68% of people residing in the United States are licensed drivers and, of these, roughly 88.3% report that they drive daily <span class="citation" data-cites="driving-tests.org_2022">(<a href="#ref-driving-tests.org_2022" role="doc-biblioref">Driving-Tests.org 2022</a>)</span>. For millions of Americans, driving is how they commute to and from work, travel for vacation or even make their living. Many drivers are concentrated in or near cities because of the high population density and work commutes that come with cities. With higher densities of drivers comes more car accidents with 63.9% of crashes occurring in urban settings <span class="citation" data-cites="nhtsa_2022">(<a href="#ref-nhtsa_2022" role="doc-biblioref">NHTSA 2022</a>)</span>. For these reasons, urban settings are great models for studying the causes and outcomes of car accidents in the United States. Since the majority of car accidents involve law enforcement and/or insurance, almost all of them are retained for record keeping purposes.</p>
+<p>The city of New York has maintained a dataset of all vehicle incidents involving human injuries or more than $1000 worth of damage since 2012 <span class="citation" data-cites="city_of_new_york_2022">(<a href="#ref-city_of_new_york_2022" role="doc-biblioref">New York 2022</a>)</span>. This dataset gives a comprehensive view of driving-related incidents and their causes over the past decade. By analyzing this data, we can better understand why, how, when and where car accidents occur in New York City as well as the outcomes of these incidents. By doing these, we can potentially discover vehicle incident trends that can be extended to other urban settings with similar demographics. Further, data from these statistical analyses can be used to influence legislation that could help to mitigate vehicle incidents and, hopefully, reduce loss of life and injury. Furthermore, since this is a rare instance in which we have the entire population, we can verify the validity of certain statistical methods, such as bootstrap analysis, by comparing the statistics generated with the true statistics of a population. Such information would be useful for future research which may rely solely on these methods.</p>
+<p>There are several questions that this paper sets out to answer. It is common knowledge that alcohol impairs one’s ability to operate a vehicle, but the authors will seek to show it. Another objective will be to show if there is a particular time of day that accidents are more likely to happen.</p>
+</section>
+<section id="methods" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Methods</h1>
+<section id="data-collection" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="data-collection"><span class="header-section-number">2.1</span> Data Collection</h2>
+<p>Data was collected by law enforcement in New York City <span class="citation" data-cites="city_of_new_york_2022">(<a href="#ref-city_of_new_york_2022" role="doc-biblioref">New York 2022</a>)</span>. Every single vehicle incident that involves law enforcement is routinely recorded in this dataset. Note that law enforcement must fill out a report for any incident exceeding $1000 worth of damage or any incident with injury/death. Some incidents that do not meet this criteria are included as well depending on if the responding officers decided to file a report.</p>
+</section>
+<section id="variable-creation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="variable-creation"><span class="header-section-number">2.2</span> Variable Creation</h2>
+<p>The raw data as taken from the City of New York is not as useful as it could be for data analysis. A majority of variables were initially stored as character arrays. Base R <span class="citation" data-cites="R">(<a href="#ref-R" role="doc-biblioref">R Core Team 2021</a>)</span> makes it easy to convert character arrays to factors using as.factor(). The variables `CRASH_MONTH`, `CRASH_DAY`, and `CRASH_YEAR` were all sliced from the `CRASH DATE` variable provided and then converted to a double. Each of those 3 created variables together form the date when the crash occurred.&nbsp;</p>
+<p>The variable `HOUR` is the hour in which the crash occurred, and it is stored as a double. It is not particularly wieldy though, so a logical variable `DAY` was created. It is TRUE for crashes that occurred between 7:00 AM and 7:00 PM and FALSE otherwise.&nbsp;</p>
+</section>
+<section id="analytic-methods" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="analytic-methods"><span class="header-section-number">2.3</span> Analytic Methods</h2>
+<p>In this investigation, we make use of the R packages <code>tidyverse</code>, <code>tidymodels</code>, <code>infer</code>, <code>GGally</code> and <code>ggfortify</code> for our analysis. A majority of our knowledge of statistics and coding in R comes from Math 254: Statistical Modeling and Applications <span class="citation" data-cites="MATH254">Sadigov (<a href="#ref-MATH254" role="doc-biblioref">2022</a>)</span>. Our data analysis consists of classical statistics and simple supervised machine learning. All statistical analysis we perform will be done directly on the population. Before any analyses, though, we first cleaned up the data to make it more user friendly using packages in tidyverse. We also separated out any crashes that happened between 7pm and 7am as night time crashes and any crashes that occurred between 7am and 7pm as day time crashes.</p>
+<p>As we had five hypothesis tests, throughout the study we use a significance level of <span class="math inline">\(\alpha = 0.005/n=0.005/5 = 0.001\)</span></p>
+<section id="finding-the-street-with-the-highest-number-of-crashes" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="finding-the-street-with-the-highest-number-of-crashes"><span class="header-section-number">2.3.1</span> <strong>Finding the street with the highest number of crashes</strong></h3>
+<p>Initially, we calculated the mode of the categorical variable “ON STREET NAME” in order to determine the street with the highest prevalence of car accidents. Since calculating the mode of a categorical variable is not directly built in to R, we used a function sourced sourced from an external site <span class="citation" data-cites="nishida_2019">(<a href="#ref-nishida_2019" role="doc-biblioref">Nishida 2019</a>)</span>. We use this function to calculate the mode of the variable ‘ON STREET NAME’. Finally, we filter out the number killed on the street that our mode function outputted. The final output is the number of deaths on the street with the most crashes in NY.</p>
+</section>
+<section id="alcohol-impaired-driving-hypothesis-testing" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="alcohol-impaired-driving-hypothesis-testing"><span class="header-section-number">2.3.2</span> <strong>Alcohol-Impaired Driving hypothesis testing</strong></h3>
+<p>For this analysis, we are comparing the death rates of drunk and sober crashes. Before anything, we set a significance level of 0.005. The first step was to separate out all accidents with alcohol involvement. The next step was to select the data by number of persons killed in both drunk driving and non-drunk driving related incidents. Then we calculated the proportion of total incidents leading to a death. The next step is to separate out drunk driving accidents and find the number of drunk driving incidents that result in deaths. Then, we divide this number by the total number of drunk driving incidents to get our proportion. From here, we directly calculated a two sample t-test to get our p-value. (See Results section, subsection Hypothesis Testing). The conditions for this two sample t-test are all met, making it a valid test for these data.</p>
+</section>
+<section id="daynight-accident-analysis" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="daynight-accident-analysis"><span class="header-section-number">2.3.3</span> Day/Night Accident Analysis</h3>
+<p>For our second analysis, we compare the injury rates of New York crashes in the day versus the evening. Before anything, we set a significance level of 0.005. We designate 7am-7pm as ‘Day’ and 7pm-7am as ‘night’ since these are the most common intervals of light and dark respectively throughout the year. The first step was to separate out accidents occurring in the day interval and the night interval. Next, we calculate the proportion of accidents occurring in each of these intervals (accidents in each interval divided by total number of accidents). Our null hypothesis is that there is no discernible difference between the proportion of accidents that cause injury that occur during the day and during the night. The alternative hypothesis is that there is a difference between the proportion of accidents that cause injury that occur during the day and during the night. Next we perform a two-sample t-test and calculate our p-value for analysis.</p>
+</section>
+<section id="simple-supervised-machine-learning" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="simple-supervised-machine-learning"><span class="header-section-number">2.3.4</span> <strong>Simple supervised machine learning</strong></h3>
+<p>For our final analysis, we perform a simple linear regression on the data. Before anything, we again set a significance level of 0.005. We also created a new variable named “number of persons harmed” which includes both the number of people injured and the number of people killed in an incident. From this, our next step was to use a simple linear regression to determine which day of the month is the most deadly. We took a validation set approach for a simple linear regression for this investigation. Using the tidymodels package, we split our data into two sets, a testing set and a not testing set. From here, we split our not testing set into a training and validation set. We performed the simple linear regression on the training set and, finally, validated it using our validation set. Since our model ended up being poor, we rejected it and did not use it on the testing set.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+<section id="results" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Libraries_8762a0d4b51e93666c5236c841fcc469">
+
+</div>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Load the raw data_c193c491da57e31048de4aa100cb89c2">
+
+</div>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Clean the raw data into a clean dataframe_5ce178906eca41c2cec9ad589831ff54">
+
+</div>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-1_57428fb690e6f83864c12aaa0b833524">
+
+</div>
+<p>In order to calculate the street with the highest number of accidents, one can simply take the mode of the streets where accidents occur.</p>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-2_43c27b20daaba97298cc4adc80dd012c">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>clean_street_df <span class="ot">&lt;-</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_mode</span>(clean_street_df<span class="sc">$</span><span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] BROADWAY
+12654 Levels: 1 278 ROBERT F KENNEDY BRIDGE N/ ... ZWICKY AVENUE</code></pre>
+</div>
+</div>
+<p>Thus, the single street with the most accidents is Broadway.</p>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Deadliest Street Analysis_5832a1136293560cf09c9fa1ad05fb22">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>num_people_killed_on_most_dangerous_street <span class="ot">&lt;-</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"BROADWAY"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_killed =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>num_people_killed_on_most_dangerous_street[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Thus, 35 people have been killed by vehicles on Broadway since 2013</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>num_people_dangerous_on_most_dangerous_street <span class="ot">&lt;-</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"BROADWAY"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">ON STREET NAME</span><span class="st">`</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number_injured =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>num_people_dangerous_on_most_dangerous_street[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5890</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Thus, 5890 people have been injured by vehicles on Broadway since 2013</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+<section id="hypothesis-test-for-death-rate-in-alcohol-involved-crashes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="hypothesis-test-for-death-rate-in-alcohol-involved-crashes"><span class="header-section-number">3.1</span> Hypothesis Test for Death Rate in Alcohol-Involved Crashes</h2>
+<p><span class="math inline">\(H_0\)</span>: There is no difference in the proportion of alcohol involved car crashes that kill people than for no alcohol</p>
+<p><span class="math inline">\(H_a\)</span>: There is a difference in the proportion of alcohol involved car crashes that kill people than for no alcohol</p>
+<p>Significance level <span class="math inline">\(\alpha = 0.001\)</span></p>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Hypothesis Testing - Do drunk drivers kill people at a higher rate than sober?_a2c19f5c249d489114de6afa5accf034">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>The code is included in the Appendix. Since the p value calculated is rounded to 0 by the computer and that is below our significance level, we reject the null hypothesis that drunk driving is no more dangerous than sober driving.</p>
+</section>
+<section id="hypothesis-test-for-number-of-injuries-at-night-or-during-day" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="hypothesis-test-for-number-of-injuries-at-night-or-during-day"><span class="header-section-number">3.2</span> Hypothesis Test for Number of Injuries At Night or During Day</h2>
+<p>Test if injuries happen at a higher rate during the evening than at night</p>
+<p><span class="math inline">\(H_0\)</span>: The proportion of crashes with injuries is the same during the day as at night (<span class="math inline">\(p_{inj,day}=p_{inj,night}\)</span>)</p>
+<p><span class="math inline">\(H_a\)</span>: The proportion of crashes with injuries at night is higher than the proportion of crashes with injuries during the day (<span class="math inline">\(p_{inj,night}&gt; p_{inj,day}\)</span>)</p>
+<p>Significance Level: <span class="math inline">\(\alpha = 0.001\)</span>.</p>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-3_3269b0c5531933068666177cd7c811e3">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>The code used is included in the Appendix. The computer rounds the p-value to 0. As the p-value calculated is less than the significance level, <span class="math inline">\(p &lt; \alpha\)</span>, we can safely reject the null hypothesis that car crashes are equally dangerous during the day as at night.</p>
+</section>
+<section id="linear-regression-for-most-harmful-day-of-the-month" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="linear-regression-for-most-harmful-day-of-the-month"><span class="header-section-number">3.3</span> Linear Regression for Most Harmful Day of the Month</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Validation Performance function_e5225c9b9732fb498ebd9a7077f539b1">
+
+</div>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-4_438a00c686fee85c9cc35a0a15dd5b20">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+   rmse        rsq   mae
+  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+1 0.688 0.00000457 0.461</code></pre>
+</div>
+</div>
+<p>The regression has a poor relationship, thus indicating that our model does not fit the data. We are unable to predict a significant relationship between time during the month and the number of vehicular accidents that occur.</p>
+</section>
+<section id="notable-plots" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="notable-plots"><span class="header-section-number">3.4</span> Notable Plots</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="000010.png" class="img-fluid figure-img" alt="Figure 1: Stacked boxplots for selected Contributing Factors" width="350"></p>
+<p></p><figcaption class="figure-caption">Figure 1: Stacked boxplots for selected Contributing Factors</figcaption><p></p>
+</figure>
+</div>
+<p>This illustration is a good visual representation of which factors most commonly cause injuries in vehicle incidents. It is also a good rationale for examining alcohol involvement since alcohol clearly contributes a good amount to the total injury count.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="000011.png" class="img-fluid figure-img" alt="Figure 2: Scatter plot of Latitude vs Longitude for all crashes where 'Alcohol involvement' is a Contributing Factor" width="350"></p>
+<p></p><figcaption class="figure-caption">Figure 2: Scatter plot of Latitude vs Longitude for all crashes where ‘Alcohol involvement’ is a Contributing Factor</figcaption><p></p>
+</figure>
+</div>
+<p>This plot shows the spatial distribution of drunk driving incidents in New York. This plot shows that there drunk driving incidents are roughly uniform, and shows that it may not be necessary to perform any data analysis on the geographical distribution of drunk driving related incidents.</p>
+</section>
+</section>
+<section id="discussionconclusions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Discussion/Conclusions</h1>
+<p>From our analysis of drunk driving incidents, it is clear that a higher proportion of accidents with alcohol involved lead to deaths (<span class="math inline">\(p=0\)</span>, the computer was unable to calculate a value so small so it rounded to 0). Thus, it may be beneficial for local authorities to prosecute drunk drivers more harshly than current laws do. This presumably would disincentivise drivers from driving under the influence and, thus, lower drunk crashing/death rates. Although we did not perform any formal analysis on incident locations of drunk driving, we did generate a map of all drunk driving incidents in the city. There are no notable locations with high clusters of drunk driving, so further research may be able to elucidate the highest risk regions for drunk crashes and increase police activity in these areas. We also performed a hypothesis test on car accidents that occurred in either daytime (7 AM - 7 PM) or the evening (7 PM - 7 AM). We found that crashes in the evening are significantly more likely to cause injuries than those during the day (<span class="math inline">\(p=0\)</span>, the computer was unable to calculate a value so small so it rounded to 0). This result makes sense since driving conditions in the evening tend to be more difficult than those during the day. Further, this result could potentially inform drivers to avoid driving in the evening, if possible, or exercise more caution when on evening roads. Lastly, from our simple linear regression, we attempted to generate a model that represents the day of the month with the most people harmed. Our model was poor with an <span class="math inline">\(R^2=4.6\cdot10^{-6}\)</span>, so we cannot derive any useful information from. Future models with more advanced methods could possibly explain this better. Such a model could help safety officials target dangerous times of the month and increase traffic enforcement.</p>
+<p>Though the data from this study reflects only the population of New York City, the conclusions drawn here can be extended to other settings, particularly urban ones. Our hope is that our conclusions will impact future legislation and other measures aimed at targeting the most common causes of severe vehicle accidents. Though not all incidents can be prevented, laws and regulations targeted towards high-risk accident factors such as drunk driving may lessen the severity of inevitable incidents and prepare authorities for response. That being said, there are still opportunities for future research since the causes of accidents are almost innumerable and many are not studied in this investigation. Finally, more advanced methods could improve the accuracy of our model further and make it effective.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="appendix" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Appendix</h1>
+<section id="general-code" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="general-code"><span class="header-section-number">5.1</span> General Code</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-5_a007c1a70e5c38759c6e87e72cba7fe6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load raw data from .csv</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Motor_Vehicle_Collisions_Crashes.csv"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean data</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, factor) </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Organize and create additional variables</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>clean_df <span class="ot">&lt;-</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>LOCATION) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CRASH_MONTH =</span> <span class="fu">as.double</span>(<span class="fu">substr</span>(<span class="st">`</span><span class="at">CRASH DATE</span><span class="st">`</span>, <span class="dv">1</span>, <span class="dv">2</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CRASH_DAY =</span> <span class="fu">as.double</span>(<span class="fu">substr</span>(<span class="st">`</span><span class="at">CRASH DATE</span><span class="st">`</span>, <span class="dv">4</span>, <span class="dv">5</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CRASH_YEAR =</span> <span class="fu">as.double</span>(<span class="fu">substr</span>(<span class="st">`</span><span class="at">CRASH DATE</span><span class="st">`</span>, <span class="dv">7</span>, <span class="dv">10</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HOUR =</span> <span class="fu">as.double</span>(<span class="fu">substr</span>(data<span class="sc">$</span><span class="st">`</span><span class="at">CRASH TIME</span><span class="st">`</span>, <span class="dv">1</span>, <span class="dv">2</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DAY =</span> <span class="fu">if_else</span>((HOUR <span class="sc">&lt;</span> <span class="dv">19</span> <span class="sc">&amp;</span> HOUR <span class="sc">&gt;=</span> <span class="dv">7</span>), <span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Source for the function for mode of categorical variable: (<span class="citation" data-cites="nishida_2019">Nishida (<a href="#ref-nishida_2019" role="doc-biblioref">2019</a>)</span>)</p>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-6_c2ba83ae674a0162e6e3b966ebca4be0">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>calculate_mode <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  uniqx <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(x))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  uniqx[<span class="fu">which.max</span>(<span class="fu">tabulate</span>(<span class="fu">match</span>(x, uniqx)))]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="hypothesis-test-for-death-rate-in-alcohol-involved-crashes-1" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="hypothesis-test-for-death-rate-in-alcohol-involved-crashes-1"><span class="header-section-number">5.2</span> Hypothesis Test for Death Rate in Alcohol-Involved Crashes</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-7_5bfdc10f6cc8edfdcd6b74e6c88cd6db">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>alcohol_involved_df <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Alcohol Involvement"</span> <span class="sc">|</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 2</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Alcohol Involvement"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>n_alc <span class="ot">&lt;-</span> <span class="fu">count</span>(alcohol_involved_df)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">count</span>(all_data)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>n_killed_alc <span class="ot">&lt;-</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  alcohol_involved_df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>))</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  n_killed_alc <span class="sc">/</span> n_alc <span class="co"># the number of people killed per car crash where alcohol was involved</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>n_killed <span class="ot">&lt;-</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  all_data <span class="sc">%&gt;%</span> </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">sum</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS KILLED</span><span class="st">`</span>))</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  n_killed <span class="sc">/</span> n</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p0) <span class="sc">/</span> n )  </span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">pull</span>((p_hat <span class="sc">-</span> p0) <span class="sc">/</span> sigma)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="hypothesis-test-for-number-of-injuries-at-night-or-during-day-1" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="hypothesis-test-for-number-of-injuries-at-night-or-during-day-1"><span class="header-section-number">5.3</span> Hypothesis Test for Number of Injuries At Night or During Day</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-8_1a171f7549116f7f83ce3a31f6b35dfa">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>day_df <span class="ot">&lt;-</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(DAY <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>n_day <span class="ot">&lt;-</span> <span class="fu">count</span>(day_df)[[<span class="dv">1</span>]]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>day_inj <span class="ot">&lt;-</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  day_df <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span> <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>day_inj <span class="ot">&lt;-</span> day_inj[[<span class="dv">1</span>]]</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>p_inj_day <span class="ot">&lt;-</span> day_inj <span class="sc">/</span> n_day</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the proportion of crashes during the day that have injuries</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>night_df <span class="ot">&lt;-</span> </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(DAY <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>n_night <span class="ot">&lt;-</span> <span class="fu">count</span>(night_df)[[<span class="dv">1</span>]]</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>night_inj <span class="ot">&lt;-</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  night_df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span> <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>night_inj <span class="ot">&lt;-</span> night_inj[[<span class="dv">1</span>]]</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>p_inj_night <span class="ot">&lt;-</span> night_inj <span class="sc">/</span> n_night</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co"># the proportion of crashes during the night that have injuries</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>n_overall <span class="ot">&lt;-</span> <span class="fu">count</span>(clean_df)[[<span class="dv">1</span>]]</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>overall_inj <span class="ot">&lt;-</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  clean_df <span class="sc">%&gt;%</span> </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span> <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>overall_inj <span class="ot">&lt;-</span> overall_inj[[<span class="dv">1</span>]]</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>p_overall <span class="ot">&lt;-</span> overall_inj <span class="sc">/</span> n_overall</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co"># the overall proportion of crashes that have injuries</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>test_stat <span class="ot">&lt;-</span> </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  (p_inj_day <span class="sc">-</span> p_inj_night) <span class="sc">/</span> <span class="fu">sqrt</span>(p_overall <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span> p_overall) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>n_day <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>n_night))</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(test_stat) <span class="co"># the p-value associated with our hypothesis test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="linear-regression-for-most-harmful-day-of-the-month-1" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="linear-regression-for-most-harmful-day-of-the-month-1"><span class="header-section-number">5.4</span> Linear Regression for Most Harmful Day of the Month</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/unnamed-chunk-9_7b7a0d924e81e978261c60a74db70ed8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function writted by Tural Sadigov</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>validation_performance <span class="ot">&lt;-</span> <span class="cf">function</span>(model){</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  model_results <span class="ot">&lt;-</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    df_validation <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(model, df_validation)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(NUMBER_OF_PERSONS_HARMED, .pred)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  my_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    model_results <span class="sc">%&gt;%</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_metrics</span>(NUMBER_OF_PERSONS_HARMED, .pred) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> .metric, <span class="at">values_from =</span> .estimate)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generate-figure-1" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="generate-figure-1"><span class="header-section-number">5.5</span> Generate Figure 1</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Boxplots_4224999bc5a08809beb799263a344292">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select any 5 levels of CONTRIBUTING FACTOR VEHICLE 1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Pavement Slippery"</span> <span class="sc">|</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Oversized Vehicle"</span> <span class="sc">|</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Alcohol Involvement"</span> <span class="sc">|</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Traffic Control Disregarded"</span> <span class="sc">|</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Fell Asleep"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>  <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co"># Remove data where no one was injured</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate plot</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span> (<span class="at">x =</span> <span class="st">`</span><span class="at">NUMBER OF PERSONS INJURED</span><span class="st">`</span>, </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> <span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Number of Injuries for Selected Contributing Factors"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generate-figure-2" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="generate-figure-2"><span class="header-section-number">5.6</span> Generate Figure 2</h2>
+<div class="cell" data-hash="AnalysisofNewYorkCarAccidentsfrom2013_2022_cache/html/Map_f2d2ac839b2b109853f092fc5419b3de">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data so that only Alcohol Involvement remains</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>drunk_driver <span class="ot">&lt;-</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">CONTRIBUTING FACTOR VEHICLE 1</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Alcohol Involvement"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>drunk_driver <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(LONGITUDE, LATITUDE) <span class="sc">%&gt;%</span> <span class="co"># Select variables to plot</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="co"># Remove null entries</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(LONGITUDE <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span> <span class="sc">&amp;</span> LONGITUDE <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">150</span> <span class="sc">&amp;</span> LATITUDE <span class="sc">&lt;</span> <span class="dv">41</span>) <span class="sc">%&gt;%</span> <span class="co"># Remove outliers</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> LONGITUDE, <span class="at">y =</span> LATITUDE)) <span class="sc">+</span> <span class="co"># Generate Plot</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Map of drunk car crashes in New York"</span>, </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="st">"Scatter Plot of Longitude vs Latitude"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level1 unnumbered" data-number="6">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">6 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-quarto" class="csl-entry" role="doc-biblioentry">
+Allaire, JJ. 2022. <em>R Interface to ’Quarto’ Markdown Publishing System</em> (version 1.2.0.9000). <a href="https://github.com/quarto-dev/quarto-r, https://quarto-dev.github.io/quarto-r/">https://github.com/quarto-dev/quarto-r, https://quarto-dev.github.io/quarto-r/</a>.
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+Couch, Simon P., Andrew P. Bray, Chester Ismay, Evgeni Chasnovski, Benjamin S. Baumer, and Mine Çetinkaya-Rundel. 2021. <span>“<span class="nocase">infer</span>: An <span>R</span> Package for Tidyverse-Friendly Statistical Inference.”</span> <em>Journal of Open Source Software</em> 6 (65): 3661. <a href="https://doi.org/10.21105/joss.03661">https://doi.org/10.21105/joss.03661</a>.
+</div>
+<div id="ref-driving-tests.org_2022" class="csl-entry" role="doc-biblioentry">
+Driving-Tests.org. 2022. <span>“2022 Driving Statistics: The Ultimate List of Driving Stats.”</span> <em>Driving Statistics: The Ultimate List of Car Accident Statistics [2022]</em>. <a href="https://driving-tests.org/driving-statistics/">https://driving-tests.org/driving-statistics/</a>.
+</div>
+<div id="ref-city_of_new_york_2022" class="csl-entry" role="doc-biblioentry">
+New York, City of. 2022. <span>“Motor Vehicle Collisions - Crashes.”</span> <em>Catalog</em>. data.cityofnewyork.us. <a href="https://catalog.data.gov/dataset/motor-vehicle-collisions-crashes">https://catalog.data.gov/dataset/motor-vehicle-collisions-crashes</a>.
+</div>
+<div id="ref-nhtsa_2022" class="csl-entry" role="doc-biblioentry">
+NHTSA. 2022. <em>NHTSA</em>. <a href="https://www.nhtsa.gov/">https://www.nhtsa.gov/</a>.
+</div>
+<div id="ref-nishida_2019" class="csl-entry" role="doc-biblioentry">
+Nishida, Kan. 2019. <span>“Getting Most Frequent Categorical Value.”</span> <em>Exploratory</em>. <a href="https://exploratory.io/note/kanaugust/1701090969905358">https://exploratory.io/note/kanaugust/1701090969905358</a>.
+</div>
+<div id="ref-R" class="csl-entry" role="doc-biblioentry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-RStudio" class="csl-entry" role="doc-biblioentry">
+RStudio Team. 2020. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+</div>
+<div id="ref-MATH254" class="csl-entry" role="doc-biblioentry">
+Sadigov, Tural. 2022. <span>“Statistical Modeling and Applications.”</span> <a href="https://github.com/turalsadigov/MATH_254">https://github.com/turalsadigov/MATH_254</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
