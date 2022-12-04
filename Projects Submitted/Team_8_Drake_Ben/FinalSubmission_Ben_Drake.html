@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Benjamin Zhao">
+<meta name="author" content="Drake Gorecki">
+<meta name="author" content="Tural Sadigov">
+<meta name="dcterms.date" content="2022-11-16">
+
+<title>Examining Feature Rank and Dependency in the Q-CHAT-10 ASD Questionnaire</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="FinalSubmission_Ben_Drake_files/libs/clipboard/clipboard.min.js"></script>
+<script src="FinalSubmission_Ben_Drake_files/libs/quarto-html/quarto.js"></script>
+<script src="FinalSubmission_Ben_Drake_files/libs/quarto-html/popper.min.js"></script>
+<script src="FinalSubmission_Ben_Drake_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="FinalSubmission_Ben_Drake_files/libs/quarto-html/anchor.min.js"></script>
+<link href="FinalSubmission_Ben_Drake_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="FinalSubmission_Ben_Drake_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="FinalSubmission_Ben_Drake_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="FinalSubmission_Ben_Drake_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="FinalSubmission_Ben_Drake_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="FinalSubmission_Ben_Drake_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="FinalSubmission_Ben_Drake_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: darkblue;
+    }
+    </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Examining Feature Rank and Dependency in the Q-CHAT-10 ASD Questionnaire</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      Benjamin Zhao 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Drake Gorecki 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Tural Sadigov 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 16, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="abstract-title">Abstract</div>
+      Recent research has found consistent and significant increases in the prevalence of Autism Spectrum Disorder (ASD) diagnoses for children since the early 2000s (Zablotsky 2019). A widely used screening survey is the Q-CHAT-10 checklist questionnaire. We examine 1054 Q-CHAT-10 responses for toddlers collected by Dr.&nbsp;Fadi Thabtah (Thabtah 2018) using random forest, chi-squared tests, and randomized permutation to identify dependency among the questions. From our chi-square tests and random forest model, we observe a high level of dependency among the similarly ranked most important variables, a moderate level of dependency among similarly low ranked variables, and no statistically significant relationship between top and bottom groups of variables. To improve the Q-CHAT-10 survey methodology, we suggest selecting the most representative questions out of groupings of similarly-ranked high and low-importance questions while developing research on new survey questions, which may be able to help with early ASD identification.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"><span class="toc-section-number">1</span>  Background and Significance</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">2</span>  Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-overview-information-from-data-source." id="toc-data-overview-information-from-data-source." class="nav-link" data-scroll-target="#data-overview-information-from-data-source."><span class="toc-section-number">2.1</span>  Data Overview: (Information from Data Source).</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">3</span>  Results</a>
+  <ul class="collapse">
+  <li><a href="#original-random-forest-on-training-data---confusion-matrix-results" id="toc-original-random-forest-on-training-data---confusion-matrix-results" class="nav-link" data-scroll-target="#original-random-forest-on-training-data---confusion-matrix-results"><span class="toc-section-number">3.0.1</span>  Original Random Forest on Training Data - Confusion Matrix Results</a></li>
+  <li><a href="#tuned-random-forest-on-testing-data---confusion-matrix-results" id="toc-tuned-random-forest-on-testing-data---confusion-matrix-results" class="nav-link" data-scroll-target="#tuned-random-forest-on-testing-data---confusion-matrix-results"><span class="toc-section-number">3.0.2</span>  Tuned Random Forest on Testing Data - Confusion Matrix Results</a></li>
+  <li><a href="#testing-dependency-between-features-on-training-data" id="toc-testing-dependency-between-features-on-training-data" class="nav-link" data-scroll-target="#testing-dependency-between-features-on-training-data"><span class="toc-section-number">3.1</span>  Testing Dependency Between Features on Training Data</a>
+  <ul class="collapse">
+  <li><a href="#question-9-question-6-random-forest-confusion-matrix" id="toc-question-9-question-6-random-forest-confusion-matrix" class="nav-link" data-scroll-target="#question-9-question-6-random-forest-confusion-matrix"><span class="toc-section-number">3.1.1</span>  Question 9 ~ Question 6: Random Forest Confusion Matrix</a></li>
+  <li><a href="#question-7-question-5-random-forest-confusion-matrix" id="toc-question-7-question-5-random-forest-confusion-matrix" class="nav-link" data-scroll-target="#question-7-question-5-random-forest-confusion-matrix"><span class="toc-section-number">3.1.2</span>  Question 7 ~ Question 5: Random Forest Confusion Matrix</a></li>
+  </ul></li>
+  <li><a href="#chi-squared-tests" id="toc-chi-squared-tests" class="nav-link" data-scroll-target="#chi-squared-tests"><span class="toc-section-number">3.2</span>  Chi-Squared Tests:</a>
+  <ul class="collapse">
+  <li><a href="#test-1-question-9-question-6" id="toc-test-1-question-9-question-6" class="nav-link" data-scroll-target="#test-1-question-9-question-6"><span class="toc-section-number">3.2.1</span>  Test 1: Question 9 ~ Question 6</a></li>
+  <li><a href="#test-2-question-7-question-5" id="toc-test-2-question-7-question-5" class="nav-link" data-scroll-target="#test-2-question-7-question-5"><span class="toc-section-number">3.2.2</span>  Test 2: Question 7 ~ Question 5</a></li>
+  <li><a href="#test-3-top-4000-randomly-sampled-observations-from-top-5-ranked-questions-bottom-4000-randomly-sampled-observations-from-bottom-5-ranked-questions" id="toc-test-3-top-4000-randomly-sampled-observations-from-top-5-ranked-questions-bottom-4000-randomly-sampled-observations-from-bottom-5-ranked-questions" class="nav-link" data-scroll-target="#test-3-top-4000-randomly-sampled-observations-from-top-5-ranked-questions-bottom-4000-randomly-sampled-observations-from-bottom-5-ranked-questions"><span class="toc-section-number">3.2.3</span>  Test 3: Top (4000 Randomly Sampled Observations from Top 5 Ranked Questions) ~ Bottom (4000 Randomly Sampled Observations from Bottom 5 Ranked Questions)</a></li>
+  </ul></li>
+  <li><a href="#dependency-between-top-questions-9-7-6-and-5." id="toc-dependency-between-top-questions-9-7-6-and-5." class="nav-link" data-scroll-target="#dependency-between-top-questions-9-7-6-and-5."><span class="toc-section-number">3.3</span>  Dependency Between Top Questions 9, 7, 6, and 5.</a></li>
+  <li><a href="#dependency-within-bottom-questions-8-4-3-and-2" id="toc-dependency-within-bottom-questions-8-4-3-and-2" class="nav-link" data-scroll-target="#dependency-within-bottom-questions-8-4-3-and-2"><span class="toc-section-number">3.4</span>  Dependency Within Bottom Questions 8, 4, 3, and 2</a></li>
+  </ul></li>
+  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"><span class="toc-section-number">4</span>  Discussion/Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">5</span>  References:</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">6</span>  Appendix</a>
+  <ul class="collapse">
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="toc-section-number">6.1</span>  Load the Data</a></li>
+  <li><a href="#splitting-the-data-for-training-validation-and-testing" id="toc-splitting-the-data-for-training-validation-and-testing" class="nav-link" data-scroll-target="#splitting-the-data-for-training-validation-and-testing"><span class="toc-section-number">6.2</span>  Splitting the Data for Training, Validation, and Testing</a></li>
+  <li><a href="#graphs-figures" id="toc-graphs-figures" class="nav-link" data-scroll-target="#graphs-figures"><span class="toc-section-number">6.3</span>  Graphs &amp; Figures</a></li>
+  <li><a href="#q-chat-10-scores-overall-distribution" id="toc-q-chat-10-scores-overall-distribution" class="nav-link" data-scroll-target="#q-chat-10-scores-overall-distribution"><span class="toc-section-number">6.4</span>  Q-CHAT-10 Scores Overall Distribution</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="toc-section-number">6.5</span>  Libraries</a></li>
+  <li><a href="#random-forests---tuning-training-validation-and-testing" id="toc-random-forests---tuning-training-validation-and-testing" class="nav-link" data-scroll-target="#random-forests---tuning-training-validation-and-testing"><span class="toc-section-number">6.6</span>  Random Forests - Tuning, Training, Validation, and Testing</a></li>
+  <li><a href="#rf-last-fit-testing-data-results-and-variable-importance-graph" id="toc-rf-last-fit-testing-data-results-and-variable-importance-graph" class="nav-link" data-scroll-target="#rf-last-fit-testing-data-results-and-variable-importance-graph"><span class="toc-section-number">6.7</span>  RF “Last Fit,” Testing Data Results, and Variable Importance Graph</a></li>
+  <li><a href="#comparing-4000-random-samples-from-aggregated-group-of-the-top-5-feature-paired-with-4000-random-samples-from-an-aggregated-group-of-the-bottom-5-features" id="toc-comparing-4000-random-samples-from-aggregated-group-of-the-top-5-feature-paired-with-4000-random-samples-from-an-aggregated-group-of-the-bottom-5-features" class="nav-link" data-scroll-target="#comparing-4000-random-samples-from-aggregated-group-of-the-top-5-feature-paired-with-4000-random-samples-from-an-aggregated-group-of-the-bottom-5-features"><span class="toc-section-number">6.8</span>  Comparing 4000 Random Samples from Aggregated Group of the Top 5 Feature Paired with 4000 Random Samples from an Aggregated Group of the Bottom 5 Features</a></li>
+  <li><a href="#testing-dependency-between-question-6-and-question-9" id="toc-testing-dependency-between-question-6-and-question-9" class="nav-link" data-scroll-target="#testing-dependency-between-question-6-and-question-9"><span class="toc-section-number">6.9</span>  Testing Dependency between Question 6 and Question 9</a></li>
+  <li><a href="#testing-dependency-between-question-5-and-7" id="toc-testing-dependency-between-question-5-and-7" class="nav-link" data-scroll-target="#testing-dependency-between-question-5-and-7"><span class="toc-section-number">6.10</span>  Testing Dependency Between Question 5 and 7</a></li>
+  <li><a href="#our-original-random-forest-model-on-the-training-data" id="toc-our-original-random-forest-model-on-the-training-data" class="nav-link" data-scroll-target="#our-original-random-forest-model-on-the-training-data"><span class="toc-section-number">6.11</span>  Our Original Random Forest Model on the Training Data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="background-and-significance" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Background and Significance</h1>
+<p>The number of diagnoses of several different child developmental disabilities including ASD (Autism Spectrum Disorder) have increased significantly since the 2000s <span class="citation" data-cites="zablotsky2019">[<a href="#ref-zablotsky2019" role="doc-biblioref">1</a>]</span>. Social and developmental disabilities place a significant psychological and economic burden on individuals affected by ASD as well as their families, schools and healthcare systems <span class="citation" data-cites="lavelle2014a">[<a href="#ref-lavelle2014a" role="doc-biblioref">2</a>]</span>. The increasing prevalence is likely due to a variety of causes, making it difficult to determine whether the increasing rates of diagnosis are due to a greater degree of sensitivity in diagnostic criteria, shifting demographics, and/or biological changes. It is clear that the annual increases in autism prevalence have been consistent and significant <span class="citation" data-cites="thurm2012">[<a href="#ref-thurm2012" role="doc-biblioref">3</a>]</span>. In 2002, the Centers for Disease Control and Prevention (CDC) estimated that the overall prevalence of ASD from 14 sites in the US was 6.6 per 1000 for children aged 8 years <span class="citation" data-cites="cdc2007">[<a href="#ref-cdc2007" role="doc-biblioref">4</a>]</span>. In 2012, the CDC estimated that “14.5 per 1,000 (one in 69) children” would have ASD, and only 6 years later in 2018, they estimated that <span class="citation" data-cites="christensen2018">[<a href="#ref-christensen2018" role="doc-biblioref">5</a>]</span> “23.0 per 1,000 (one in 44) children aged 8 years” <span class="citation" data-cites="maenner2021">[<a href="#ref-maenner2021" role="doc-biblioref">6</a>]</span> would have ASD.</p>
+<p>It is unknown whether this increase in prevalence is cause for alarm; it may either signal concerning secular trends, or it may simply be a sign that awareness for ASD has increased. Recent research has been performed assessing the correlations between ASD and different genes, as well as optimizing the diagnostic process.<span class="citation" data-cites="thurm2012">[<a href="#ref-thurm2012" role="doc-biblioref">3</a>]</span>. Accurate and early screening is crucial, and allows time and resources to be allocated in a more effective way. Early identification of ASD may improve the efficacy of treatment, research, and reduce the long-term economic burdens of families. Recent technological and computational advancements have led to strides in machine learning and classification, allowing it to be utilized as a screening tool for multiple diseases, including ASD <span class="citation" data-cites="eslami2021">[<a href="#ref-eslami2021" role="doc-biblioref">7</a>]</span>. Dr.&nbsp;Thabtah, who is associated with the Nelson Marlborough Institute of Technology, describes a variety of machine learning models for prediction <span class="citation" data-cites="thabtah2018a">[<a href="#ref-thabtah2018a" role="doc-biblioref">8</a>]</span>. In a 2017 paper of his specifically, he discusses the issue of over-fitting when it comes to the use of machine-learning in ASD screening. He specifies how the aim of machine learning ASD screening is to “balance the specificity and sensitivity” within the data sets <span class="citation" data-cites="thabtah2017">[<a href="#ref-thabtah2017" role="doc-biblioref">9</a>]</span>. Our study uses data from 1054 Q-CHAT-10 toddler questionnaires collected by Thabtah during July of 2018 <span class="citation" data-cites="thabtah2018data">[<a href="#ref-thabtah2018data" role="doc-biblioref">10</a>]</span>. Thabtah (2018) used Repeated Incremental Pruning to Produce Error Reduction (RIPPER) and C4.5 (Decision Tree) machine learning algorithms to perform his analyses of children, adolescent, and adult Q-CHAT-10 screening responses <span class="citation" data-cites="thabtah2018">[<a href="#ref-thabtah2018" role="doc-biblioref">11</a>]</span>.</p>
+<p>We used random forests to identify the largest contributing variables involved in the Q-CHAT-10 questionnaire for toddlers<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and permutation tests to explore the dependency between questions. By understanding the relative importance of each question and identifying dependencies, we can evaluate the potential efficacy of the questionnaire. For example, if the outcome one question tends to agree significantly with the outcome of another, then that may indicate a redundancy or a lack of specificity in picking up other ASD-predicting social and behavioral traits.</p>
+</section>
+<section id="methods" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Methods</h1>
+<p>For our analysis we used the open source data of Q-CHAT-10 responses collected by Dr.&nbsp;Thabtah <span class="citation" data-cites="thabtah2018data">[<a href="#ref-thabtah2018data" role="doc-biblioref">10</a>]</span>, which includes 1054 responses for toddlers via the ASD Test app in 2018. We used decision trees and random forests in R <span class="citation" data-cites="R">[<a href="#ref-R" role="doc-biblioref">13</a>]</span> to identify which questions are most associated with and have a tendency to appear in conjunction with other questions.</p>
+<p>We want to rank the questions in order of importance and contribution. Although feature importance may not necessarily have too much technical significance within our code, it is very beneficial for visual presentation. Feature importance provides us with some insights on which social/behavioral questions within the questionnaire to explore more deeply.</p>
+<p>The responses for each question in the Q-CHAT-10 questionnaire were encoded with either a one or a zero, with one indicating ASD-like behavior associated with that response and 0 indicating a lack of ASD-like behavior associated with that response. In order to determine whether or not a toddler was recommended for referral, the total number of responses of “one” were summed, and this sum was labelled as their Q-CHAT-10 score. If a toddler were to receive a score of 4 or above, they would be seen as being at a greater risk of ASD, which in our model would mean that the prediction would be y = 1 (of concern and should see professional diagnosis). Below is a representation of this model in the form of an equation, where the sum of <span class="math inline">\(x_i\)</span>s represents the sum of the individual scores for each question, which can be one or zero. The true model of our data is, in essence, deterministic.</p>
+<p><span class="math display">\[
+y  =\begin{cases}
+      1 &amp; \sum_{i=1}^{10} x_i \geq4\\
+      0 &amp; \sum_{i=1}^{10} x_i  &lt; 4\\
+   \end{cases}
+\]</span></p>
+<p>Random forests and decision trees are essential tools for our analysis. Decision trees are made up of many branches with nodes that are questions with responses that that split into more branches. A random forest is a “forest” or many “bagged” decision-tree models put together <span class="citation" data-cites="Donges">[<a href="#ref-Donges" role="doc-biblioref">14</a>]</span>. Within the random forest the individual decision trees “will split the nodes by selecting features randomly” and the final classification or prediction “will be selected based on the outcome” of all the trees <span class="citation" data-cites="RFs">[<a href="#ref-RFs" role="doc-biblioref">15</a>]</span>.</p>
+<p>The beauty of using random forests for our model is that on our large data-set, we are able to initially plug in all of our variables into the prediction model and then take deeper look at said individual variables. Random Forests are also stable, have low variance, and high accuracy compared to decision trees because random forests are composed of a multitude of decision trees. Random forests can make variable importance plots, which are easily understandable and suitable for presentation and discussion <span class="citation" data-cites="RFs">[<a href="#ref-RFs" role="doc-biblioref">15</a>]</span>.</p>
+<p>The potential disadvantages of using random forests are that they may take a long time to run and require high computational power <span class="citation" data-cites="RFs">[<a href="#ref-RFs" role="doc-biblioref">15</a>]</span>. There are also the potential problems of over-fitting and under-fitting. Reducing and increasing the depths of trees may be required to combat over-fitting and under-fitting respectively. We plan on tuning the hyper-parameters in our tree model to get the most accurate and representative prediction as possible <span class="citation" data-cites="Kazlou">[<a href="#ref-Kazlou" role="doc-biblioref">16</a>]</span>.</p>
+<p>Since the model for determining whether or not someone has ASD traits is already known, the predictive capabilities of our model are not relevant to our study, even if it is highly successful, which we expect it to be. The main intention with regards to the use of random forest modeling is the determination of relative variable weights through its variable importance feature.</p>
+<p>We obtain question importance ranked our original random forest model with tuned hyper-parameters. From the variable importance tuned our tuned random forest model, we conduct several chi-square tests and with permuted samples and test dependency between several of the top-ranked questions. We also conducted a larger chi-square test in which the two groups were 4000 randomly sampled responses from the top 5 questions and compared if they were independent of 4000 randomly sampled responses from the bottom 5 questions.</p>
+<p>We conduct multiple hypothesis tests so to guard against p-hacking we set an adjusted alpha level of 0.001 / (# of tests) = 0.001 / (10) = 0.0001. Combining our random forest models and chi-squared tests we use within 10 hypothesis tests (random forest tests do not have p-values, so we would actually be doing only 3 tests and 5-6 mosaic plot tests, but 0.0001 is a lower threshold than dividing by 3 and it is a clearer number to interpret). We decided to use 0.0001 as our adjusted alpha significant for each statistical test we conduct (which is same as assuming we conducted around 10 hypothesis tests). With this adjusted alpha level, we can be significantly more confident with our conclusions because we are taking into account how in each additional test there’s a greater chance of falsely rejecting the null hypothesis (Type I error). With such a low significance level, we are more confident in our results if they are statistically significant.</p>
+<p>We are using the R language <span class="citation" data-cites="R">[<a href="#ref-R" role="doc-biblioref">13</a>]</span> for our analysis within the RStudio environment <span class="citation" data-cites="Rstudio">[<a href="#ref-Rstudio" role="doc-biblioref">17</a>]</span> along with the infer package <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">18</a>]</span> for statistical inferences and the tidyverse package <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">19</a>]</span> for data wrangling and to “tidy” our data. We are rendering our final project in Quarto <span class="citation" data-cites="Quarto">[<a href="#ref-Quarto" role="doc-biblioref">20</a>]</span> and plan on using the machine learning package tidymodels <span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">21</a>]</span>, random forests <span class="citation" data-cites="randomForest">[<a href="#ref-randomForest" role="doc-biblioref">22</a>]</span>, vip <span class="citation" data-cites="vip">[<a href="#ref-vip" role="doc-biblioref">23</a>]</span> for variable importance plots, and vcd <span class="citation" data-cites="vcd">[<a href="#ref-vcd" role="doc-biblioref">24</a>]</span> for mosaic plots. A 80/20 training/testing split was used to fit our random forest model. Within our training (the “other”) data, 20% is saved as the validation set for tuning the hyperparameters of our random forest model <span class="citation" data-cites="Rf_tutorial">[<a href="#ref-Rf_tutorial" role="doc-biblioref">25</a>]</span>.</p>
+<section id="data-overview-information-from-data-source." class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="data-overview-information-from-data-source."><span class="header-section-number">2.1</span> Data Overview: (Information from Data Source).</h2>
+<p>The dataset analyzed includes binary, continuous, and categorical variables. There are 1054 total individuals and 18 total variables. The data is also very clean: there are no missing data. A small amount of variable manipulation was required to settle a discontinuity within the variable that descries who completed the survey. “Health Care Professional” with a capital “C” and “P” and “Health care professional” with lowercase versions of those letters were both separate categories, and in order to combine them into one category, we simply un-capitalized all letters.</p>
+<p><strong>Variable Analysis:</strong></p>
+<p>Case number: the case number - discrete numerical variable range from 1- 1054. A1-A10 are survey questions within the Q-CHAT-10 questionnaire. They have 1s and 0s, which is binary numerical data. The max is 1 and minimum is 0, but there are no values between 0 and 1, just 0 and 1. The data source site explains for variables A1- A10 the “questions possible answers : ‘Always, Usually, Sometimes, Rarely &amp; Never” items’ values are mapped to”1” or “0” in the dataset. For questions 1-9 (A1-A9) in the Q-CHAT-10, if the response was Sometimes / Rarely / Never ‘1’ is assigned to the question (A1-A9). However, for question 10 (A10), if the response was Always / Usually / Sometimes then ‘1’ is assigned to that question. If the user obtained more than 3 Add points together for all ten questions. If your child scores more than 3 [points on the questionnaire] then there is a potential ASD traits otherwise no ASD traits are observed” <span class="citation" data-cites="thabtah2018data">[<a href="#ref-thabtah2018data" role="doc-biblioref">10</a>]</span>.</p>
+<p>The data source continues describing the remaining variables, “The remaining features in the datasets are collected from the ‘submit’ screen in the ASDTests screening app. It should be noted that the class variable was assigned automatically based on the score obtained by the user while undergoing the screening process using the ASDTests app” <span class="citation" data-cites="thabtah2018data">[<a href="#ref-thabtah2018data" role="doc-biblioref">10</a>]</span>.</p>
+<p>The remaining variables are information about the patient: Age_Mons is a discrete numerical variable (age in months) ranging from 12 - 36. Qchat.10.Score is the questionnaire score - a discrete numerical variable ranging from 0 to 10. Sex is a categorical Variable with two levels: “m” for male and “f” for female. Ethnicity is a categorical variable with 11 levels: “middle eastern,” “White European,” “Hispanic,” “black,” “asian,” “south asian,” “Native Indian,” “Others,” “Latino,” “mixed,” and “Pacifica.” Jaundice is a categorical variable with two levels: “yes” and “no”. Family_mem_with_ASD is a categorical Variable with two levels: “yes” and “no.” Who.completed.the.test is a categorical Variable with 4 levels: “family member”, “health care professional”, “self”, and “others.” Class.ASD.Traits is a categorical variable with two levels: “yes” and “no”. Yes corresponds to a questionnaire score of 4 or more.</p>
+</section>
+</section>
+<section id="results" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
+<p>We observe the following variable importance graph from our tuned random forest model:</p>
+<p><img src="tuned_vip.png" class="img-fluid"></p>
+<p>Our first random forest model used to classify whether or not someone had ASD-like criteria using all variables except the Q-CHAT-10 yielded a confusion matrix.</p>
+<section id="original-random-forest-on-training-data---confusion-matrix-results" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="original-random-forest-on-training-data---confusion-matrix-results"><span class="header-section-number">3.0.1</span> Original Random Forest on Training Data - Confusion Matrix Results</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Observed (no)</th>
+<th>Observed (yes)</th>
+<th>Classification Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prediction (no)</td>
+<td>240</td>
+<td>20</td>
+<td>0.0769231</td>
+</tr>
+<tr class="even">
+<td>Prediction (yes)</td>
+<td>14</td>
+<td>568</td>
+<td>0.0240550</td>
+</tr>
+</tbody>
+</table>
+<p>The OOB (Out-Of-Bag) estimate of classification error rate of our random original forest model is 4.04% The true positive rate is if we had predicted that the surveyed toddler was positive for ASD screening and it was actually true and the true negative rate is if we had predicted negative and it was actually an observed negative, or a “0’ <span class="citation" data-cites="Narkhede">[<a href="#ref-Narkhede" role="doc-biblioref">26</a>]</span>. Our confusion matrix tells us that our original model has false positive rate (Type I error) of 2.40545% and a false negative rate (Type II error) of 7.69231%. In essence, it is clear that our model without tuning has fairly high accuracy, but to an extent, our model under-fits the data because of the high false negative rate compared to the false positive rate. The low false positive rate is not bad, but the high false negative rate is not necessarily a good thing in the sense that we hope for patients with concern to receive early and accurate diagnoses. We observe a very high classification success rate of 95.96%, which is likely due to the way how values points for when Q-CHAT-10 scores are summed up to 4 or more, the classification will be 1, or the individual should check a professional doctor for diagnosis.</p>
+</section>
+<section id="tuned-random-forest-on-testing-data---confusion-matrix-results" class="level3" data-number="3.0.2">
+<h3 data-number="3.0.2" class="anchored" data-anchor-id="tuned-random-forest-on-testing-data---confusion-matrix-results"><span class="header-section-number">3.0.2</span> Tuned Random Forest on Testing Data - Confusion Matrix Results</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Observed (no)</th>
+<th>Observed (yes)</th>
+<th>Classification Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prediction (no)</td>
+<td>61</td>
+<td>4</td>
+<td>0.061538</td>
+</tr>
+<tr class="even">
+<td>Prediction (yes)</td>
+<td>5</td>
+<td>142</td>
+<td>0.034014</td>
+</tr>
+</tbody>
+</table>
+<p>We observe that our random forest “last fit” tuned model has an OOB classification error of 4.245% on our testing data. We observe in our tuned model the false positive rate and false negative rates are closer to each other compared to our original random forest model. It’s good that we lowered the false negative rate. We observe that our turned model over-fits the testing data because of the slightly higher classification error in our tuned random forest model compared to the default original model. It is expected that our model performs slightly worse on the unseen testing data.</p>
+<p><img src="roc_curve.png" class="img-fluid" width="415"></p>
+</section>
+<section id="testing-dependency-between-features-on-training-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="testing-dependency-between-features-on-training-data"><span class="header-section-number">3.1</span> Testing Dependency Between Features on Training Data</h2>
+<section id="question-9-question-6-random-forest-confusion-matrix" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="question-9-question-6-random-forest-confusion-matrix"><span class="header-section-number">3.1.1</span> Question 9 ~ Question 6: Random Forest Confusion Matrix</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Observed (no)</th>
+<th>Observed (yes)</th>
+<th>Classification Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prediction (no)</td>
+<td>266</td>
+<td>167</td>
+<td>0.3837</td>
+</tr>
+<tr class="even">
+<td>Prediction (yes)</td>
+<td>86</td>
+<td>324</td>
+<td>0.2103</td>
+</tr>
+</tbody>
+</table>
+<p>When testing the dependency using random forests between question 6 and question 9, we observe the following results: when using question 9 as a response variable and question 6 as a predictor, we observe an OOB estimate classification error rate of 30.05%.</p>
+</section>
+<section id="question-7-question-5-random-forest-confusion-matrix" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="question-7-question-5-random-forest-confusion-matrix"><span class="header-section-number">3.1.2</span> Question 7 ~ Question 5: Random Forest Confusion Matrix</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Observed (no)</th>
+<th>Observed (yes)</th>
+<th>Classification Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prediction (no)</td>
+<td>206</td>
+<td>91</td>
+<td>0.3064</td>
+</tr>
+<tr class="even">
+<td>Prediction (yes)</td>
+<td>184</td>
+<td>361</td>
+<td>0.3376</td>
+</tr>
+</tbody>
+</table>
+<p>When testing the dependency using random forests between question 5 and question 7, we observe the following results: when using question 7 as the response variable and question 5 as a predictor, we observe an OOB estimate classification error rate of 32.66%. Given the moderately low error rate in predicting one top question using another similarly-ranked question, we have some evidence to believe that top-ranked questions may be linked in that they screen for similar behavioral or social traits. We continue this thought process by carrying out several chi-squared tests below.</p>
+</section>
+</section>
+<section id="chi-squared-tests" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="chi-squared-tests"><span class="header-section-number">3.2</span> Chi-Squared Tests:</h2>
+<section id="test-1-question-9-question-6" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="test-1-question-9-question-6"><span class="header-section-number">3.2.1</span> Test 1: Question 9 ~ Question 6</h3>
+<p>We want to test the following hypotheses at the alpha = 0.0001 significance level.</p>
+<p>H<sub>0</sub>: The distribution of “1”s in question 9 (meaning qualifying for of concern for autism screening) is independent of the distribution of “1”s in question 6. Positive and negative results for screening in question 6 and question 9 do not have a statistically significant relationship.</p>
+<p>H<sub>A</sub>: The distribution of “1”s in question 9 is dependent on the distribution of “1”s in question 6. More “1”s in question 6 are correlated with more “1”s in question 9.</p>
+<p>We can assume the data was taken through simple random sample (IID - Data is independently, identically distributed) taken by the data source. The variables are categorical: there are two categorical variables -&gt; question 9 and question 6. There is independence of observations: as each survey response is not related to another. Large sample size: there’s an expected count condition that 80% of expected cells must be greater than 5 and all expected cells must be greater than 1. In our 9 ~ 6 data, every expected value in each cell is greater than 100, so the conditions for the chi-square test are met.</p>
+<p>We observe a Chi-Squared statistic of 139.49 and p-value of 2.2e-16. Since our observed p-value is &lt; alpha significance level 0.0001, we reject the null hypothesis that the distribution of “1”s in question 9 (meaning qualifying for of concern for autism screening) is independent of the distribution) of “1”s in question 6. We have statistically significant evidence for the alternative hypothesis that more “1”s in question 9 are correlated with more “1”s in question 6.</p>
+<p>In our mosaic plot, we observe this relationship in which question 6 and question 9 are correlated. Brightly highly color-saturated regions have high pearson residuals and are therefore statistically significant <span class="citation" data-cites="MIT">[<a href="#ref-MIT" role="doc-biblioref">27</a>]</span>. A high proportion of “1”s in question 9 seems to be associated with a high proportions of “1”s in question 6.</p>
+<p><img src="9_6.png" class="img-fluid" width="469"></p>
+</section>
+<section id="test-2-question-7-question-5" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="test-2-question-7-question-5"><span class="header-section-number">3.2.2</span> Test 2: Question 7 ~ Question 5</h3>
+<p>We want to test the following hypotheses at the alpha = 0.0001 significance level.</p>
+<p>H<sub>0</sub>: The distribution of “1”s in question 7 (meaning qualifying for of concern for autism screening) is independent of the distribution of “1”s in question 5. Positive and negative results for screening in question 5 and question 7 do not have a statistically significant relationship.</p>
+<p>H<sub>A</sub>: The distribution of “1”s in question 7 is dependent on the distribution of “1”s in question 5. More “1”s in question 5 are correlated with more “1”s in question 7.</p>
+<p>We can assume the data was taken through simple random sample (IID - Data is independently, identically distributed) taken by the data source. The variables are categorical: there are two categorical variables -&gt; question 7 and question 5. There is independence of observations: as each survey response is not related to another. Large sample size: there’s an expected count condition that 80% of expected cells must be greater than 5 and all expected cells must be greater than 1. In our 7 ~ 5 data, every expected value in each cell is greater than 100, so the conditions for the chi-square test are met.</p>
+<p>We observe a Chi-Squared statistic of 96.6 and p-value of 2.2e-16. Since our observed p-value is &lt; alpha significance level 0.0001, we reject the null hypothesis that the distribution of “1”s in question 7 (meaning qualifying for of concern for autism screening is independent of the distribution) of “1”s in question 5. We have statistically significant evidence for the alternative hypothesis that more “1”s in question 7 are correlated with more “1”s in question 5.</p>
+<p>In our mosaic plot, we observe this relationship in which question 5 and question 7 are highly correlated. A high proportion of “1”s in question 7 seems to be associated with a high proportion of “1”s in question 5.</p>
+<p><img src="7_5.png" class="img-fluid" width="449"></p>
+</section>
+<section id="test-3-top-4000-randomly-sampled-observations-from-top-5-ranked-questions-bottom-4000-randomly-sampled-observations-from-bottom-5-ranked-questions" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="test-3-top-4000-randomly-sampled-observations-from-top-5-ranked-questions-bottom-4000-randomly-sampled-observations-from-bottom-5-ranked-questions"><span class="header-section-number">3.2.3</span> Test 3: Top (4000 Randomly Sampled Observations from Top 5 Ranked Questions) ~ Bottom (4000 Randomly Sampled Observations from Bottom 5 Ranked Questions)</h3>
+<p>We want to test the following hypotheses at the alpha = 0.0001 significance level.</p>
+<p>H<sub>0</sub>: The distribution of “1”s (meaning qualifying for of concern for autism screening) in the top-ranked group is independent of the distribution of “1”s in the bottom-ranked Group. Positive and negative results for screening in the top-ranked group and the bottom-ranked group do not have a statistically significant relationship.</p>
+<p>H<sub>A</sub>: The distribution of “1”s in the top-ranked group is dependent on the distribution of “1”s in the bottom-ranked Group. Positive and negative results for screening in the top-ranked group and the bottom-ranked group have a statistically significant relationship.</p>
+<p>We can assume the data was taken through simple random sample (IID - Data is independently, identically distributed) taken by the data source. The variables are categorical: there are two categorical variables -&gt; “top” and “bottom” in which responses are “0” for not of concern and “1” for of concern. There is independence of observations: as each survey response is not related to another. Large sample size: there’s an expected count condition that 80% of expected cells must be greater than 5 and all expected cells must be greater than 1. In our top ~ bottom data, every expected value in each cell is greater than 200, so the conditions for the chi-square test are met.</p>
+<p>We observe a Chi-squared statistic of 0.847 and a p-value of 0.341. Since our observed p-value is &gt; our alpha = 0.0001 significance level, we fail to reject the null hypothesis that the distribution of qualifying for screening in the top-ranked group is independent of the distribution of “1”s in the bottom-ranked Group. There is no association between responses in randomly sampled top questions with “1”s to randomly sampled bottom-ranked questions.</p>
+<p>Our contingency plot agrees with our Chi-Square test. All quadrants of our mosaic plot are roughly, evenly distributed in size and proportion. The cells are all white, meaning that in each box, there are very small Pearson residual which is close to 0. There is no correlation between the general group of top-ranked and the general group of bottom-ranked questions. In general, the distribution of positive and negative results in the top-ranked questions are independent of the distribution of positive and negative results in the bottom-ranked questions.</p>
+<p><img src="top_bottom.png" class="img-fluid" width="447"></p>
+</section>
+</section>
+<section id="dependency-between-top-questions-9-7-6-and-5." class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dependency-between-top-questions-9-7-6-and-5."><span class="header-section-number">3.3</span> Dependency Between Top Questions 9, 7, 6, and 5.</h2>
+<p>There are multiple highly saturated blue and red within the contingency table of the top 4 questions ranked from our feature importance. Several of the top questions are highly correlated.</p>
+<p><img src="top.png" class="img-fluid" width="443"></p>
+</section>
+<section id="dependency-within-bottom-questions-8-4-3-and-2" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="dependency-within-bottom-questions-8-4-3-and-2"><span class="header-section-number">3.4</span> Dependency Within Bottom Questions 8, 4, 3, and 2</h2>
+<p>There are some highly saturated blue and red cells within the contingency table of the bottom 4 questions ranked from our feature importance. Several of the bottom questions are correlated, but there are a more statistically non-significant grey cells so although that there seems to be some correlation between bottom questions, the correlation within these questions seems weaker than the correlation between top questions.</p>
+<p><img src="bottom.png" class="img-fluid" width="473"></p>
+</section>
+</section>
+<section id="discussionconclusions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Discussion/Conclusions</h1>
+<p><strong>Below are the importance ranking of the top questions from our tuned random forest model:</strong></p>
+<p>6: Does your child follow where you’re looking?</p>
+<p>9: Does your child use simple gestures (e.g.&nbsp;wave goodbye)?</p>
+<p>5: Does your child pretend (egg care for dolls, talk on a toy phone)?</p>
+<p>7: If you or someone else in the family is visibly upset, does your child show signs of wanting to comfort them (e.g.&nbsp;stroking their hair, hugging them)?</p>
+<p>1: Does your child look at you when you call his/her name?</p>
+<p>4: Does your child point to share interest with you (e.g.&nbsp;pointing at an interesting sight)?</p>
+<p>2: How easy is it for you to get eye contact with your child?</p>
+<p>8: Would you describe your child’s first words as:</p>
+<p>3: Does your child point to indicate that s/he wants something (e.g.&nbsp;a toy that is out of reach)?</p>
+<p>10: Does your child stare at nothing with no apparent purpose?</p>
+<p>Within our results, we observed a statistically significant relationship between top questions, particularly question 9 ~ question 6 (p = 2.2e-16) and question 7 ~ question 5 (p = 2.2e-16). In our contingency tables, we observed that, in general (not in particular pairing of questions), top questions are highly correlated with similarly ranked top questions and bottom questions are moderately correlated with similarly ranked bottom questions.</p>
+<p>We observed no statistically significant relationship between randomly sampled top questions and bottom questions (p = 0.341). In this sense, this test validates the general accuracy of the Q-CHAT-Checklist as it must mean that questions vary and are able to pick up on certain behavioral traits. Although we can conclude that there is some level of correlation and repetition between similarly ranked questions, questions are not repetitive to the extent that the top group or bottom group could be completely removed. The distribution of “1”s and “0”s in the from the questions in the representative top group and bottom group are largely independent. We also noticed that responses from questions that had a large difference in variable importance were more likely to be independent of each other. Our observations — high correlation between similarly “important” questions and no correlation between questions with a large difference in variable importance — guide our thought process of boosting the robustness of the Q-CHAT-10 questionnaire.</p>
+<p>To improve the Q-CHAT-10 survey methodology, we suggest selecting the most representative questions out of similarly high-ranked question and keeping low-importance questions and selecting the most representative questions out of low-importance questions. This may reduce redundancy and improve the accuracy of the survey. With the goal of early ASD identification and treatment in mind, we believe that slightly over-fitting (having a higher false positive rate for screening) is preferable to under-fitting because more individuals that potentially need treatment would be identified earlier at the expense of the time and financial costs borne by some individuals who classified for screening, but do not actually have ASD. The over-fitting and under-fitting problem is a delicate balancing act and requires more research into the social and behavioral predictors of ASD, which is still considered a fairly new area of scientific research. We conclude that in addition to the issue of some redundancy because of the high correlation between top features, more questions may be added to the questionnaire that are different from existing questions to improve the ability of the Q-CHAT-10 survey to capture social and behavioral ASD-like traits.</p>
+<p>Our study is limited by our data and our understanding. The data from the screening app may be slightly biased towards individuals who classify for ASD. In the possibly conveniently sampled data, it is likely that parents of toddlers who have reason to believe that their child has ASD-like traits would would use the screening app for screening, and later formal diagnosis. Further, our data only reveals if individuals screened or classify for formal diagnosis, but does not indicate the actual medical diagnosis. That is a significant limitation of our study: although screening may be correlated with actual diagnosis, there exists a gap between our data, our understanding, and the reality of patients. By focusing on feature importance and dependency, we hope that we can contribute something useful so that in the future, we, or others may pick up from what we observed and continue to research and improve the methods for ASD screening and diagnosis.</p>
+<p>In theory, there may be reasons behind the question importance rankings given by our random forest model. Question 6 probes into whether a child pays attention to where his or her parents are looking at and question 9 pertains to whether a child is able to communicate with parents and peers through simple gestures <span class="citation" data-cites="ellawadi2014">[<a href="#ref-ellawadi2014" role="doc-biblioref">28</a>]</span>. Both questions 6 and 9 are related to whether the toddler pays attention to his or her surroundings and is able to communicate his or her needs. Question 7 relates to empathy and feeling the emotions of others, while question 5 relates to the typical social development and learning process of children <span class="citation" data-cites="mcdonald2011">[<a href="#ref-mcdonald2011" role="doc-biblioref">29</a>]</span>. For question 5, children typically learn by pretending and imitating the mannerisms and interactions they observe of their parents and people around them. Questions 5 and 7 seem to screen for abilities which are more important are in the long-term future of a child’s development, while questions 6 and 9 more pertain to a toddler’s current needs for his or her age.</p>
+<p>For example, not paying attention to surroundings may be detrimental to a toddler’s ability to pick up on social cues and participate within a school environment. A sense of isolation and an inability to interact with the surrounding environment may be harmful for a toddler’s social development because much of human growth and survival in adulthood depends on being able to take in and process sensory outputs from the outside. It is powerful and natural for children to voice their wants and needs. Children with ASD experience a sensory overload and have difficulty in effectively voicing their needs and communicating <span class="citation" data-cites="williamsonm.d.2017">[<a href="#ref-williamsonm.d.2017" role="doc-biblioref">30</a>]</span>. Research defines ASD as a permanent neurological condition. However, in recent years, a variety of pharmaceutical, behavioral, complementary, alternative, and therapeutic treatments have emerged <span class="citation" data-cites="weitlaufph.d.2017">[<a href="#ref-weitlaufph.d.2017" role="doc-biblioref">31</a>]</span>. A large portion of existing ASD research finds that behavioral therapy is the most effective treatment for ASD-affected children. There is limited evidence for the effectiveness of behavioral therapy on more severe cases of ASD <span class="citation" data-cites="newcomb2018">[<a href="#ref-newcomb2018" role="doc-biblioref">32</a>]</span>. Behavioral treatments has found to be more effective for individuals of younger ages such as youth. In schools, etc., behavioral therapy has been found to be mildly effective in treating anxiety for children with mildly/moderately-effected individuals <span class="citation" data-cites="McCarty">[<a href="#ref-McCarty" role="doc-biblioref">33</a>]</span>. Though current research on ASD is limited and developing, it is clear that there has been progress. We believe in the long-term vision of “creating a dignified future for people with autism” and we “must never forget to listen to their point of view, whenever possible, in order to meet their particular needs” <span class="citation" data-cites="Posar2019">[<a href="#ref-Posar2019" role="doc-biblioref">34</a>]</span>.</p>
+</section>
+<section id="references" class="level1" data-number="5">
+
+
+</section>
+<section id="appendix" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Appendix</h1>
+<section id="load-the-data" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="load-the-data"><span class="header-section-number">6.1</span> Load the Data</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-1_bf97d4b5dd2ff917978cb2f3b0001b33">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ranger)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-2_c8852554becd634cb3b4f3ab8088f1f4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Autism screening data for toddlers as csv</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remote <span class="ot">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>account <span class="ot">&lt;-</span> <span class="st">'benz3927/Data/main/'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>folder <span class="ot">&lt;-</span> <span class="st">'Toddler%20Autism%20dataset%20July%'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">'202018.csv'</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">str_c</span>(remote, account, folder, file)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>raw_screening <span class="ot">=</span> <span class="fu">tibble</span>(<span class="fu">read.csv</span>(<span class="at">file =</span> url))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>screening <span class="ot">&lt;-</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  raw_screening <span class="sc">%&gt;%</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Class.ASD.Traits =</span> <span class="fu">as_factor</span>(Class.ASD.Traits.)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Class.ASD.Traits.) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), as.factor)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), as.factor)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Who.completed.the.test =</span> <span class="fu">tolower</span>(Who.completed.the.test))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(screening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,054
+Columns: 19
+$ Case_No                &lt;fct&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …
+$ A1                     &lt;fct&gt; 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1,…
+$ A2                     &lt;fct&gt; 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,…
+$ A3                     &lt;fct&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1,…
+$ A4                     &lt;fct&gt; 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0,…
+$ A5                     &lt;fct&gt; 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1,…
+$ A6                     &lt;fct&gt; 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0,…
+$ A7                     &lt;fct&gt; 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1,…
+$ A8                     &lt;fct&gt; 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1,…
+$ A9                     &lt;fct&gt; 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0,…
+$ A10                    &lt;fct&gt; 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1,…
+$ Age_Mons               &lt;fct&gt; 28, 36, 36, 24, 20, 21, 33, 33, 36, 22, 36, 17,…
+$ Qchat.10.Score         &lt;fct&gt; 3, 4, 4, 10, 9, 8, 5, 6, 2, 8, 6, 8, 0, 7, 0, 7…
+$ Sex                    &lt;fct&gt; f, m, m, m, f, m, m, m, m, m, m, m, f, f, m, m,…
+$ Ethnicity              &lt;fct&gt; middle eastern, White European, middle eastern,…
+$ Jaundice               &lt;fct&gt; yes, yes, yes, no, no, no, yes, yes, no, no, ye…
+$ Family_mem_with_ASD    &lt;fct&gt; no, no, no, no, yes, no, no, no, no, no, yes, n…
+$ Who.completed.the.test &lt;chr&gt; "family member", "family member", "family membe…
+$ Class.ASD.Traits       &lt;fct&gt; No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes,…</code></pre>
+</div>
+</div>
+</section>
+<section id="splitting-the-data-for-training-validation-and-testing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="splitting-the-data-for-training-validation-and-testing"><span class="header-section-number">6.2</span> Splitting the Data for Training, Validation, and Testing</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-3_9a2812e75f12bbde333c25c6d09f4314">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Splitting</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>splits <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(screening, <span class="at">strata =</span> Class.ASD.Traits, <span class="at">prop =</span> <span class="fl">0.80</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>screening_other <span class="ot">&lt;-</span> <span class="fu">training</span>(splits)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>screening_test  <span class="ot">&lt;-</span> <span class="fu">testing</span>(splits)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># total training set proportions by children</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>screening_other <span class="sc">%&gt;%</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Class.ASD.Traits) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Class.ASD.Traits     n  prop
+  &lt;fct&gt;            &lt;int&gt; &lt;dbl&gt;
+1 No                 260 0.309
+2 Yes                582 0.691</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test set proportions by children</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>screening_test  <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Class.ASD.Traits) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Class.ASD.Traits     n  prop
+  &lt;fct&gt;            &lt;int&gt; &lt;dbl&gt;
+1 No                  66 0.311
+2 Yes                146 0.689</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # validation set</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>val_set <span class="ot">&lt;-</span> <span class="fu">validation_split</span>(screening_other,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">strata =</span> Class.ASD.Traits,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">prop =</span> <span class="fl">0.80</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>val_set</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Validation Set Split (0.8/0.2)  using stratification 
+# A tibble: 1 × 2
+  splits            id        
+  &lt;list&gt;            &lt;chr&gt;     
+1 &lt;split [673/169]&gt; validation</code></pre>
+</div>
+</div>
+</section>
+<section id="graphs-figures" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="graphs-figures"><span class="header-section-number">6.3</span> Graphs &amp; Figures</h2>
+<p><strong>Qchat Score vs Sex:</strong></p>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-4_bcbf82caedc70bbd929f98e4b479b6bd">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raw_screening <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Qchat.<span class="fl">10.</span>Score, <span class="at">fill=</span>Sex)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Q-CHAT-10 Score vs Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The median Q-CHAT-10 Score of male and female toddlers is roughly the same at around 5. The minimum for females and males is both 0. For females the 1st quartile is around 2.3, for males the 1st quartile is around 2.6. For females the 3rd quartile is a score of around 7 and for males the 3rd quartile is around 8. The maximum for both male and female is a score of 10. The Qchat score for females is slightly skewed left while the Q-CHAT-10 score for males is slightly skewed right.</p>
+<p><strong>Q-CHAT-10 Score vs Whether Family Member had ASD</strong></p>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-5_8d17fb0f41bdb8b4e5bff0d8ff8f6345">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># side by side boxplot for Q-CHAT-10 score and whether family member had ASD.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>raw_screening <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Family_mem_with_ASD, <span class="at">y=</span>Qchat.<span class="fl">10.</span>Score, <span class="at">fill=</span>Family_mem_with_ASD)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Q-CHAT-10 Score vs Whether a Family Member had ASD '</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The median Q-CHAT-10 score for toddlers with a family member with ASD (5.8) was higher than for toddlers no family member with ASD (5). The range/spread of the the data is similar as the previous graph. With a min of 0 and max of 10 for both groups (family member with and without ASD). For this graph, the distribution of no family members with ASD is roughly symmetric, while the distribution of family member with ASD is more skewed right.</p>
+</section>
+<section id="q-chat-10-scores-overall-distribution" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="q-chat-10-scores-overall-distribution"><span class="header-section-number">6.4</span> Q-CHAT-10 Scores Overall Distribution</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-6_b36cdfedb2b0e12a6dbbaa4a8e306b67">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>raw_screening <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Qchat.<span class="fl">10.</span>Score, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">'white'</span>, <span class="at">fill =</span> <span class="st">'darkgreen'</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Questionnaire Scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For overall Q-CHAT-10 scores, we plotted them on a histogram and the mode is around a score of 4. The center/median of the distribution looks to be around 5. The distribution of Q-CHAT-10 scores looks roughly symmetric without significant outliers. The range/spread of the distribution is 10 - 0, max of 10 and a min of 0.</p>
+</section>
+<section id="libraries" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="libraries"><span class="header-section-number">6.5</span> Libraries</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-7_9c53dc0e982a4ab07ac287cc49b5f8a5">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vip)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="random-forests---tuning-training-validation-and-testing" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="random-forests---tuning-training-validation-and-testing"><span class="header-section-number">6.6</span> Random Forests - Tuning, Training, Validation, and Testing</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-8_8b3426dfdb92336d337080c3fd499bb9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forests</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Import libraries</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>cores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rf_mod <span class="ot">&lt;-</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">mtry =</span> <span class="fu">tune</span>(), <span class="at">min_n =</span> <span class="fu">tune</span>(), <span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">num.threads =</span> cores) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>rf_recipe <span class="ot">&lt;-</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(Class.ASD.Traits <span class="sc">~</span> A1 <span class="sc">+</span> A2 <span class="sc">+</span> A3 <span class="sc">+</span> A4 <span class="sc">+</span> A5 <span class="sc">+</span> A6 <span class="sc">+</span> A7 <span class="sc">+</span> A8 <span class="sc">+</span> A9 <span class="sc">+</span> A10, <span class="at">data =</span> screening_other)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>rf_workflow <span class="ot">&lt;-</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(rf_mod) <span class="sc">%&gt;%</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rf_recipe)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_parameter_set_dials</span>(rf_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Collection of 2 parameters for tuning
+
+ identifier  type    object
+       mtry  mtry nparam[?]
+      min_n min_n nparam[+]
+
+Model parameters needing finalization:
+   # Randomly Selected Predictors ('mtry')
+
+See `?dials::finalize` or `?dials::update.parameters` for more information.</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-9_edf6922fe8ea9fdb4b56be7fdd4a5ffc">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finding the best model using roc and auc</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rf_resample <span class="ot">&lt;-</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  rf_workflow <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(val_set,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">grid =</span> <span class="dv">25</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">control =</span> <span class="fu">control_grid</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">metrics =</span> <span class="fu">metric_set</span>(roc_auc))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>rf_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_best</span>(<span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+   mtry min_n .metric .estimator  mean     n std_err .config              
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
+1     1    26 roc_auc binary     0.999     1      NA Preprocessor1_Model07
+2     1    16 roc_auc binary     0.999     1      NA Preprocessor1_Model16
+3     2     7 roc_auc binary     0.996     1      NA Preprocessor1_Model19
+4     3     3 roc_auc binary     0.993     1      NA Preprocessor1_Model11
+5     2    35 roc_auc binary     0.992     1      NA Preprocessor1_Model04</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># graph models, why do these graphs look different </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(rf_resample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finding the best manual manually</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rf_resample<span class="sc">$</span>.metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+# A tibble: 25 × 6
+    mtry min_n .metric .estimator .estimate .config              
+   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                
+ 1     7    12 roc_auc binary         0.988 Preprocessor1_Model01
+ 2     5     4 roc_auc binary         0.992 Preprocessor1_Model02
+ 3     9    39 roc_auc binary         0.985 Preprocessor1_Model03
+ 4     2    35 roc_auc binary         0.992 Preprocessor1_Model04
+ 5     3    38 roc_auc binary         0.988 Preprocessor1_Model05
+ 6     8    31 roc_auc binary         0.986 Preprocessor1_Model06
+ 7     1    26 roc_auc binary         0.999 Preprocessor1_Model07
+ 8     9     9 roc_auc binary         0.987 Preprocessor1_Model08
+ 9     5    23 roc_auc binary         0.986 Preprocessor1_Model09
+10     9    25 roc_auc binary         0.984 Preprocessor1_Model10
+# … with 15 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computer finds the best model out of the 25.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rf_best <span class="ot">&lt;-</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  rf_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rf_best</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+   mtry min_n .config              
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;                
+1     1    26 Preprocessor1_Model07</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-10_fec59cfef1cc3e932f492d845896872e">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># at some point the Yes's and No's flipped</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rf_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,225 × 8
+   id         .pred_No .pred_Yes  .row  mtry min_n Class.ASD.Traits .config     
+   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;fct&gt;            &lt;chr&gt;       
+ 1 validation    0.998   0.00189     2     7    12 No               Preprocesso…
+ 2 validation    1       0           8     7    12 No               Preprocesso…
+ 3 validation    1       0          11     7    12 No               Preprocesso…
+ 4 validation    1       0          12     7    12 No               Preprocesso…
+ 5 validation    1       0          14     7    12 No               Preprocesso…
+ 6 validation    1       0          16     7    12 No               Preprocesso…
+ 7 validation    1       0          17     7    12 No               Preprocesso…
+ 8 validation    1       0          20     7    12 No               Preprocesso…
+ 9 validation    1       0          25     7    12 No               Preprocesso…
+10 validation    0.998   0.00151    32     7    12 No               Preprocesso…
+# … with 4,215 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rf_auc <span class="ot">&lt;-</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  rf_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> rf_best, <span class="at">type =</span> <span class="st">'response'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Class.ASD.Traits, .pred_No) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Random Forest"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(rf_auc) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Tuned Random Forest ROC/AUC Curve Accuracy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="rf-last-fit-testing-data-results-and-variable-importance-graph" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="rf-last-fit-testing-data-results-and-variable-importance-graph"><span class="header-section-number">6.7</span> RF “Last Fit,” Testing Data Results, and Variable Importance Graph</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-11_a4108d1ddc0541a5aa5776f7a2f5bfe5">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>last_rf_mod <span class="ot">&lt;-</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">mtry =</span> <span class="dv">4</span>, <span class="at">min_n =</span> <span class="dv">7</span>, <span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">num.threads =</span> cores, <span class="at">importance =</span> <span class="st">"impurity"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>last_rf_workflow <span class="ot">&lt;-</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  rf_workflow <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_model</span>(last_rf_mod)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>last_rf_fit <span class="ot">&lt;-</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  last_rf_workflow <span class="sc">%&gt;%</span> </span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">last_fit</span>(splits)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>last_rf_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  .metric  .estimator .estimate .config             
+  &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy binary         0.958 Preprocessor1_Model1
+2 roc_auc  binary         0.996 Preprocessor1_Model1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>last_rf_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vip</span>(<span class="at">num_features =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Most Important Features From Tuned Random Forest Model'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-12_f5959dd15f30abe3cb40768f4e7825ff">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># confusion matrix for tuned model</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>last_rf_fit_predictions <span class="ot">&lt;-</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  last_rf_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>()</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>last_rf_fit_predictions <span class="sc">%&gt;%</span> </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(Class.ASD.Traits, .pred_class) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Truth
+Prediction  No Yes
+       No   61   4
+       Yes   5 142</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(last_rf_fit, <span class="at">file =</span> <span class="st">'QCHAT-RandomForest_Last_fit.Rdata'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="comparing-4000-random-samples-from-aggregated-group-of-the-top-5-feature-paired-with-4000-random-samples-from-an-aggregated-group-of-the-bottom-5-features" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="comparing-4000-random-samples-from-aggregated-group-of-the-top-5-feature-paired-with-4000-random-samples-from-an-aggregated-group-of-the-bottom-5-features"><span class="header-section-number">6.8</span> Comparing 4000 Random Samples from Aggregated Group of the Top 5 Feature Paired with 4000 Random Samples from an Aggregated Group of the Bottom 5 Features</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-13_7db3e6c9eba6986819b9e344334c144e">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>top<span class="ot">&lt;-</span><span class="fu">unlist</span>(screening_other[,<span class="dv">1</span><span class="sc">+</span><span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">1</span>)])   <span class="do">## Add 1 since the A9 is at the 10th column.</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>top <span class="ot">&lt;-</span> <span class="fu">tibble</span>(top) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">4000</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>bottom <span class="ot">&lt;-</span><span class="fu">unlist</span>(screening_other[,<span class="dv">1</span><span class="sc">+</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>)])</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>bottom <span class="ot">&lt;-</span> <span class="fu">tibble</span>(bottom) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">4000</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>df_new <span class="ot">&lt;-</span> </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  top <span class="sc">%&gt;%</span> </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(bottom)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(df_new)</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a> obs_statistic_2groups <span class="ot">&lt;-</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>   df_new <span class="sc">%&gt;%</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">specify</span>(top <span class="sc">~</span> bottom, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'Chisq'</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1 has top 5 features and Group 2 has bottom 5 features</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>null_dist_2groups <span class="ot">&lt;-</span></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  df_new <span class="sc">%&gt;%</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(top <span class="sc">~</span> bottom, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesise</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'Chisq'</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>p_value_2groups <span class="ot">&lt;-</span> null_dist_2groups <span class="sc">%&gt;%</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_statistic_2groups,</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>p_value_2groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1   0.341</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>null_dist_2groups <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualise</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_statistic_2groups,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">'right'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>groups_test <span class="ot">=</span> <span class="fu">chisq.test</span>(df_new<span class="sc">$</span>top, df_new<span class="sc">$</span>bottom)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>groups_test<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          df_new$bottom
+df_new$top        0        1
+         0  922.071  835.929
+         1 1175.929 1066.071</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>obs_statistic_2groups</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: top (factor)
+Explanatory: bottom (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1 0.847</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(df_new<span class="sc">$</span>top <span class="sc">~</span> df_new<span class="sc">$</span>bottom, <span class="at">data =</span> df_new, <span class="at">main =</span> <span class="st">'Dependency Between Top 5 Features and Bottom 5 Features'</span>, <span class="at">xlab =</span> <span class="st">'Bottom 5 Features'</span>,<span class="at">ylab =</span> <span class="st">'Top 5 Features'</span>, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-14_fbf1a709b987b4a6fd4b4a6cb0380bfe">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># testing question 6 (very highest ranked question) and question 10 (lowest ranked question) there is no statistically significant relationship between question 6 and 10. Therefore, questions of high and low importance must be kept.</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_6_10 <span class="ot">&lt;-</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A6 <span class="sc">~</span> A10, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>null_dist_6_10 <span class="ot">&lt;-</span> screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A6 <span class="sc">~</span> A10, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>)) </span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>null_dist_6_10 <span class="sc">%&gt;%</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(observed_chisq_stat_6_10,</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>p_value_6_10 <span class="ot">&lt;-</span> null_dist_6_10 <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_chisq_stat_6_10,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_6_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: A6 (factor)
+Explanatory: A10 (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1  3.57</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>p_value_6_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1   0.062</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>six_two <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>((<span class="fu">table</span>(screening_other<span class="sc">$</span>A6, screening_other<span class="sc">$</span>A10)))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>six_two<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+           0        1
+  0 147.1544 204.8456
+  1 204.8456 285.1544</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(A6 <span class="sc">~</span> A10, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>,<span class="at">gp =</span> shading_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-15_3473918bb2df0a23dbd96b1bfc533d4c">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># top ranked questions</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>( <span class="sc">~</span> A9 <span class="sc">+</span> A7 <span class="sc">+</span> A6 <span class="sc">+</span> A5, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-16_2e5a4842e6856bd48d3fc7c6d96524b4">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>( <span class="sc">~</span> A2 <span class="sc">+</span> A4 <span class="sc">+</span> A8 <span class="sc">+</span> A3, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-17_6be31ff93195a7d61172603c84cf5aed">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking at specific top questions 9 and 6</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_9_6 <span class="ot">&lt;-</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A9 <span class="sc">~</span> A6, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>null_dist_9_6 <span class="ot">&lt;-</span> screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A9 <span class="sc">~</span> A6, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>)) </span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>null_dist_9_6 <span class="sc">%&gt;%</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(observed_chisq_stat_9_6,</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>p_value_9_6 <span class="ot">&lt;-</span> null_dist_9_6 <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_chisq_stat_9_6,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_9_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: A9 (factor)
+Explanatory: A6 (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1  139.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>p_value_9_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1       0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>nine_six <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>((<span class="fu">table</span>(screening_other<span class="sc">$</span>A9, screening_other<span class="sc">$</span>A6)))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>nine_six<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+           0        1
+  0 181.0166 251.9834
+  1 170.9834 238.0166</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(A9 <span class="sc">~</span> A6, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>,<span class="at">gp =</span> shading_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="testing-dependency-between-question-6-and-question-9" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="testing-dependency-between-question-6-and-question-9"><span class="header-section-number">6.9</span> Testing Dependency between Question 6 and Question 9</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-18_337e6b59c66ba6c38b1e5f72b17639eb">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forests</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>rf_6_9 <span class="ot">&lt;-</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'randomForest'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'classification'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="fu">factor</span>(A9) <span class="sc">~</span> <span class="fu">factor</span>(A6), </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> screening_other)</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>rf_6_9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>parsnip model object
+
+
+Call:
+ randomForest(x = maybe_data_frame(x), y = y, ntree = ~1000) 
+               Type of random forest: classification
+                     Number of trees: 1000
+No. of variables tried at each split: 1
+
+        OOB estimate of  error rate: 30.05%
+Confusion matrix:
+    0   1 class.error
+0 266 167   0.3856813
+1  86 323   0.2102689</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-dependency-between-question-5-and-7" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="testing-dependency-between-question-5-and-7"><span class="header-section-number">6.10</span> Testing Dependency Between Question 5 and 7</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-19_5c72435e106ac02df7ef0e7c98c4dc38">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square test for 7 and 5</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_7_5 <span class="ot">&lt;-</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A7 <span class="sc">~</span> A5, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>null_dist_7_5 <span class="ot">&lt;-</span> screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A7 <span class="sc">~</span> A5, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>)) </span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>null_dist_7_5 <span class="sc">%&gt;%</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(observed_chisq_stat_7_5,</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>p_value_7_5 <span class="ot">&lt;-</span> null_dist_7_5 <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_chisq_stat_7_5,</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_7_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: A7 (factor)
+Explanatory: A5 (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1  96.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>p_value_7_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1       0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>seven_five <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>((<span class="fu">table</span>(screening_other<span class="sc">$</span>A7, screening_other<span class="sc">$</span>A5)))</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>seven_five<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+           0        1
+  0 137.5653 159.4347
+  1 252.4347 292.5653</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(A7 <span class="sc">~</span> A5, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>,<span class="at">gp =</span> shading_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-20_eec8db748c436aeda1218ebac8896bb3">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forests </span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>rf_7_5 <span class="ot">&lt;-</span> </span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'randomForest'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'classification'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="fu">factor</span>(A7) <span class="sc">~</span> <span class="fu">factor</span>(A5), </span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> screening_other)</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>rf_7_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>parsnip model object
+
+
+Call:
+ randomForest(x = maybe_data_frame(x), y = y, ntree = ~1000) 
+               Type of random forest: classification
+                     Number of trees: 1000
+No. of variables tried at each split: 1
+
+        OOB estimate of  error rate: 32.66%
+Confusion matrix:
+    0   1 class.error
+0 206  91   0.3063973
+1 184 361   0.3376147</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-21_db3fd23e0384fb9e26dfd8e9c60cc8c7">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_6_5 <span class="ot">&lt;-</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A6 <span class="sc">~</span> A5, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>))</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>null_dist_6_5 <span class="ot">&lt;-</span> screening_other <span class="sc">%&gt;%</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(A6 <span class="sc">~</span> A5, <span class="at">success =</span> <span class="st">'1'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">'1'</span>, <span class="st">'0'</span>)) </span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>null_dist_6_5 <span class="sc">%&gt;%</span></span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(observed_chisq_stat_6_5,</span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>p_value_6_5 <span class="ot">&lt;-</span> null_dist_6_5 <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_chisq_stat_6_5,</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">"greater"</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>observed_chisq_stat_6_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: A6 (factor)
+Explanatory: A5 (factor)
+# A tibble: 1 × 1
+   stat
+  &lt;dbl&gt;
+1  150.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>p_value_6_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1       0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(A6 <span class="sc">~</span> A5, <span class="at">data =</span> screening_other, <span class="at">shade =</span> <span class="cn">TRUE</span>,<span class="at">gp =</span> shading_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="FinalSubmission_Ben_Drake_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="our-original-random-forest-model-on-the-training-data" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="our-original-random-forest-model-on-the-training-data"><span class="header-section-number">6.11</span> Our Original Random Forest Model on the Training Data</h2>
+<div class="cell" data-hash="FinalSubmission_Ben_Drake_cache/html/unnamed-chunk-22_6b097ca87dfc6cc44173617309e7357c">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>rf_screen <span class="ot">&lt;-</span> </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(<span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'randomForest'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'classification'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Class.ASD.Traits <span class="sc">~</span> A1 <span class="sc">+</span> A2 <span class="sc">+</span> A3 <span class="sc">+</span> A4 <span class="sc">+</span> A5 <span class="sc">+</span> A6 <span class="sc">+</span> A7 <span class="sc">+</span> A8 <span class="sc">+</span> A9 <span class="sc">+</span> A10, </span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> screening_other)</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>rf_screen</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>parsnip model object
+
+
+Call:
+ randomForest(x = maybe_data_frame(x), y = y, ntree = ~1000) 
+               Type of random forest: classification
+                     Number of trees: 1000
+No. of variables tried at each split: 3
+
+        OOB estimate of  error rate: 4.04%
+Confusion matrix:
+     No Yes class.error
+No  240  20  0.07692308
+Yes  14 568  0.02405498</code></pre>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="QChatChecklist.png" class="img-fluid figure-img" alt="Q-CHAT-10 Checklist from the National Institute for Health Research [@qchat]." width="654"></p>
+<p></p><figcaption class="figure-caption">Q-CHAT-10 Checklist from the National Institute for Health Research <span class="citation" data-cites="qchat">[<a href="#ref-qchat" role="doc-biblioref">12</a>]</span>.</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">5 References:</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-zablotsky2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Zablotsky</span>, B., <span class="smallcaps">Black</span>, L. I., <span class="smallcaps">Maenner</span>, M. J., <span class="smallcaps">Schieve</span>, L. A., <span class="smallcaps">Danielson</span>, M. L., <span class="smallcaps">Bitsko</span>, R. H., <span class="smallcaps">Blumberg</span>, S. J., <span class="smallcaps">Kogan</span>, M. D. and <span class="smallcaps">Boyle</span>, C. A. (2019). <a href="https://doi.org/10.1542/peds.2019-0811">Prevalence and Trends of Developmental Disabilities among Children in the United States: 2009<span></span>2017</a>. <em>Pediatrics</em> <strong>144</strong>.</div>
+</div>
+<div id="ref-lavelle2014a" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Lavelle</span>, T. A., <span class="smallcaps">Weinstein</span>, M. C., <span class="smallcaps">Newhouse</span>, J. P., <span class="smallcaps">Munir</span>, K., <span class="smallcaps">Kuhlthau</span>, K. A. and <span class="smallcaps">Prosser</span>, L. A. (2014). <a href="https://doi.org/10.1542/peds.2013-0763">Economic Burden of Childhood Autism Spectrum Disorders</a>. <em>Pediatrics</em> <strong>133</strong> e520–9.</div>
+</div>
+<div id="ref-thurm2012" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Thurm</span>, A. and <span class="smallcaps">Swedo</span>, S. E. (2012). <a href="https://doi.org/10.31887/dcns.2012.14.3/athurm">The importance of autism research</a>. <em>Dialogues in Clinical Neuroscience</em> <strong>14</strong> 219–22.</div>
+</div>
+<div id="ref-cdc2007" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Autism</span> and <span class="smallcaps">Investigators</span>, D. D. M. N. S. Y. 2002. P. (2007). <a href="https://pubmed.ncbi.nlm.nih.gov/17287715/">Prevalence of autism spectrum disorders – autism and developmental disabilities monitoring network, 14 sites, united states, 2002</a>. <em>MMWR. Surveillance Summaries</em> 12–38.</div>
+</div>
+<div id="ref-christensen2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Christensen</span>, D. L., <span class="smallcaps">Braun</span>, K. V. N., <span class="smallcaps">Baio</span>, J., <span class="smallcaps">Bilder</span>, D., <span class="smallcaps">Charles</span>, J., <span class="smallcaps">Constantino</span>, J. N., <span class="smallcaps">Daniels</span>, J., <span class="smallcaps">Durkin</span>, M. S., <span class="smallcaps">Fitzgerald</span>, R. T., <span class="smallcaps">Kurzius-Spencer</span>, M., <span class="smallcaps">Lee</span>, L.-C., <span class="smallcaps">Pettygrove</span>, S., <span class="smallcaps">Robinson</span>, C., <span class="smallcaps">Schulz</span>, E., <span class="smallcaps">Wells</span>, C., <span class="smallcaps">Wingate</span>, M. S., <span class="smallcaps">Zahorodny</span>, W. and <span class="smallcaps">Yeargin-Allsopp</span>, M. (2018). <a href="https://doi.org/10.15585/mmwr.ss6513a1">Prevalence and characteristics of autism spectrum disorder among children aged 8 years <span></span> autism and developmental disabilities monitoring network, 11 sites, united states, 2012</a>. <em>MMWR. Surveillance Summaries</em> <strong>65</strong> 1–23.</div>
+</div>
+<div id="ref-maenner2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Maenner</span>, M. J., <span class="smallcaps">Shaw</span>, K. A., <span class="smallcaps">Bakian</span>, A. V., <span class="smallcaps">Bilder</span>, D. A., <span class="smallcaps">Durkin</span>, M. S., <span class="smallcaps">Esler</span>, A., <span class="smallcaps">Furnier</span>, S. M., <span class="smallcaps">Hallas</span>, L., <span class="smallcaps">Hall-Lande</span>, J., <span class="smallcaps">Hudson</span>, A., <span class="smallcaps">Hughes</span>, M. M., <span class="smallcaps">Patrick</span>, M., <span class="smallcaps">Pierce</span>, K., <span class="smallcaps">Poynter</span>, J. N., <span class="smallcaps">Salinas</span>, A., <span class="smallcaps">Shenouda</span>, J., <span class="smallcaps">Vehorn</span>, A., <span class="smallcaps">Warren</span>, Z., <span class="smallcaps">Constantino</span>, J. N., <span class="smallcaps">DiRienzo</span>, M., <span class="smallcaps">Fitzgerald</span>, R. T., <span class="smallcaps">Grzybowski</span>, A., <span class="smallcaps">Spivey</span>, M. H., <span class="smallcaps">Pettygrove</span>, S., <span class="smallcaps">Zahorodny</span>, W., <span class="smallcaps">Ali</span>, A., <span class="smallcaps">Andrews</span>, J. G., <span class="smallcaps">Baroud</span>, T., <span class="smallcaps">Gutierrez</span>, J., <span class="smallcaps">Hewitt</span>, A., <span class="smallcaps">Lee</span>, L.-C., <span class="smallcaps">Lopez</span>, M., <span class="smallcaps">Mancilla</span>, K. C., <span class="smallcaps">McArthur</span>, D., <span class="smallcaps">Schwenk</span>, Y. D., <span class="smallcaps">Washington</span>, A., <span class="smallcaps">Williams</span>, S. and <span class="smallcaps">Cogswell</span>, M. E. (2021). <a href="https://doi.org/10.15585/mmwr.ss7011a1">Prevalence and characteristics of autism spectrum disorder among children aged 8 years <span></span> autism and developmental disabilities monitoring network, 11 sites, united states, 2018</a>. <em>MMWR. Surveillance Summaries</em> <strong>70</strong> 1–16.</div>
+</div>
+<div id="ref-eslami2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Eslami</span>, T., <span class="smallcaps">Almuqhim</span>, F., <span class="smallcaps">Raiker</span>, J. S. and <span class="smallcaps">Saeed</span>, F. (2021). <a href="https://doi.org/10.3389/fninf.2020.575999">Machine learning methods for diagnosing autism spectrum disorder and attention- deficit/hyperactivity disorder using functional and structural MRI: A survey</a>. <em>Frontiers in Neuroinformatics</em> <strong>14</strong>.</div>
+</div>
+<div id="ref-thabtah2018a" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="smallcaps">Thabtah</span>, F. (2018). <a href="https://doi.org/10.1080/17538157.2017.1399132">Machine learning in autistic spectrum disorder behavioral research: A review and ways forward</a>. <em>Informatics for Health and Social Care</em> <strong>44</strong> 278–97.</div>
+</div>
+<div id="ref-thabtah2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span class="smallcaps">Thabtah</span>, F. (2017). <a href="https://doi.org/10.1145/3107514.3107515">Autism spectrum disorder screening</a>. <em>Proceedings of the 1st International Conference on Medical and Health Informatics 2017</em>.</div>
+</div>
+<div id="ref-thabtah2018data" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="smallcaps">Thabtah</span>, F. (2018). <a href="https://www.kaggle.com/datasets/fabdelja/autism-screening-for-toddlers?select=Toddler+Autism+dataset+July+2018.csv">Autism screening data for toddlers</a>.</div>
+</div>
+<div id="ref-thabtah2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline"><span class="smallcaps">Thabtah</span>, F., <span class="smallcaps">Kamalov</span>, F. and <span class="smallcaps">Rajab</span>, K. (2018). <a href="https://doi.org/10.1016/j.ijmedinf.2018.06.009">A new computational intelligence approach to detect autistic features for autism screening</a>. <em>International Journal of Medical Informatics</em> <strong>117</strong> 112–24.</div>
+</div>
+<div id="ref-qchat" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. (2012). <a href="https://docs.autismresearchcentre.com/tests/QCHAT-10.pdf">Q-CHAT-10 quantitative checklist for autism in toddlers</a>.</div>
+</div>
+<div id="ref-R" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline"><span class="smallcaps">R Core Team</span>. (2022). <em><a href="https://www.R-project.org/">R: A language and environment for statistical computing</a></em>. R Foundation for Statistical Computing, Vienna, Austria.</div>
+</div>
+<div id="ref-Donges" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline"><span class="smallcaps">Donges, Niklas</span>. (2022). <a href="https://builtin.com/data-science/random-forest-algorithm">Random forest classifier: A complete guide to how it works in machine learning</a>.</div>
+</div>
+<div id="ref-RFs" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline"><span class="smallcaps">Section.io</span>. (2020). <a href="https://www.section.io/engineering-education/introduction-to-random-forest-in-machine-learning/#:~:text=The%20random%20forest%20will%20split,will%20be%20the%20final%20choice">Introduction to random forest in machine learning</a>.</div>
+</div>
+<div id="ref-Kazlou" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline"><span class="smallcaps">Kazlou, Aliaksandr</span>. (2021). <a href="https://towardsdatascience.com/one-common-misconception-about-random-forest-and-overfitting-47cae2e2c23b">One common misconception about random forest and overfitting</a>.</div>
+</div>
+<div id="ref-Rstudio" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline"><span class="smallcaps">RStudio Team</span>. (2020). <em><a href="http://www.rstudio.com/">RStudio: Integrated development environment for r</a></em>. RStudio, PBC., Boston, MA.</div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661">Infer: An r package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the tidyverse</a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-Quarto" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline"><span class="smallcaps">Allair, JJ</span>. (2022). <em><a href="https://cran.r-project.org/web/packages/quarto/index.html">Quarto</a></em>.</div>
+</div>
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline"><span class="smallcaps">Kuhn</span>, M. and <span class="smallcaps">Wickham</span>, H. (2020). <a href="https://www.tidymodels.org">Tidymodels: A collection of packages for modeling and machine learning using tidyverse principles.</a></div>
+</div>
+<div id="ref-randomForest" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline"><span class="smallcaps">Liaw</span>, A. and <span class="smallcaps">Wiener</span>, M. (2002). <a href="https://CRAN.R-project.org/doc/Rnews/">Classification and regression by randomForest</a>. <strong>2</strong> 18–22.</div>
+</div>
+<div id="ref-vip" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline"><span class="smallcaps">Greenwell</span>, B. M. and <span class="smallcaps">Boehmke</span>, B. C. (2020). <a href="https://doi.org/10.32614/RJ-2020-013">Variable importance plots<span></span>an introduction to the vip package</a>. <strong>12</strong>.</div>
+</div>
+<div id="ref-vcd" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline"><span class="smallcaps">Meyer</span>, D., <span class="smallcaps">Zeileis</span>, A. and <span class="smallcaps">Hornik</span>, K. (2022). Vcd: Visualizing categorical data.</div>
+</div>
+<div id="ref-Rf_tutorial" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline"><span class="smallcaps">Tidymodels</span>. (2022). <a href="https://www.tidymodels.org/start/case-study/#data-split">A predictive modeling case study</a>.</div>
+</div>
+<div id="ref-Narkhede" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline"><span class="smallcaps">Narkhede, Sarang</span>. (2018). <a href="https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62">Understanding confusion matrix</a>.</div>
+</div>
+<div id="ref-MIT" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. <a href="http://alumni.media.mit.edu/~tpminka/courses/36-350.2001/lectures/day12/">Visualizing contingency tables</a>.</div>
+</div>
+<div id="ref-ellawadi2014" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline"><span class="smallcaps">Ellawadi</span>, A. B. and <span class="smallcaps">Weismer</span>, S. E. (2014). <a href="https://doi.org/10.1044/2013_jslhr-l-12-0244">Assessing Gestures in Young Children With Autism Spectrum Disorder</a>. <em>Journal of Speech, Language, and Hearing Research</em> <strong>57</strong> 524–31.</div>
+</div>
+<div id="ref-mcdonald2011" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline"><span class="smallcaps">McDonald</span>, N. M. and <span class="smallcaps">Messinger</span>, D. S. (2011). <a href="https://doi.org/10.1007/s10803-011-1390-y">Empathic Responding in Toddlers at Risk for an Autism Spectrum Disorder</a>. <em>Journal of Autism and Developmental Disorders</em> <strong>42</strong> 1566–73.</div>
+</div>
+<div id="ref-williamsonm.d.2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline"><span class="smallcaps">Williamson, M.D.</span>, E., <span class="smallcaps">Sathe, M.A., M.L.I.S.</span>, N. A. and <span class="smallcaps">Andrews, M.D.</span>, J. C. (2017). <em><a href="https://doi.org/10.23970/ahrqepccer189">Medical therapies for children with autism spectrum disorder<span></span>an update</a></em>.</div>
+</div>
+<div id="ref-weitlaufph.d.2017" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline"><span class="smallcaps">Weitlauf, Ph.D.</span>, A. S., <span class="smallcaps">Sathe, M.A., M.L.I.S.</span>, N. A. and <span class="smallcaps">McPheeters, Ph.D., M.P.H.</span>, M. L. (2017). <em><a href="https://doi.org/10.23970/ahrqepccer186">Interventions targeting sensory challenges in children with autism spectrum disorder<span></span>an update</a></em>.</div>
+</div>
+<div id="ref-newcomb2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline"><span class="smallcaps">Newcomb</span>, E. T. and <span class="smallcaps">Hagopian</span>, L. P. (2018). <a href="https://doi.org/10.1080/09540261.2018.1435513">Treatment of severe problem behaviour in children with autism spectrum disorder and intellectual disabilities</a>. <em>International Review of Psychiatry</em> <strong>30</strong> 96–109.</div>
+</div>
+<div id="ref-McCarty" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline"><span class="smallcaps">McCarty, Niko</span>. (2021). <a href="https://www.spectrumnews.org/news/cognitive-behavioral-therapy-may-be-only-mildly-effective-for-anxious-autistic-children/">Cognitive behavioral therapy may be only mildly effective for anxious, autistic children</a>.</div>
+</div>
+<div id="ref-Posar2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline"><span class="smallcaps">posar</span>, annio. (2019). <a href="https://doi.org/10.14744/turkpediatriars.2019.16768">Long-term outcome of autism spectrum disorder</a>. <em>Türk Pediatri Ar<span>ş</span>ivi</em>.</div>
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The Q-CHAT-10 questionnaire is a survey that checks for red flags for ASD screening. The scoring is as follows: “For questions 1-9: if you circle an answer in columns C, D or E, score 1 point per question. For question 10: if you circle an answer in columns A, B or C, score 1 point. Add points together for all ten questions. If your child scores 3 or above, the health professional may consider referring your child for a multi-disciplinary assessment” <span class="citation" data-cites="qchat">[<a href="#ref-qchat" role="doc-biblioref">12</a>]</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
