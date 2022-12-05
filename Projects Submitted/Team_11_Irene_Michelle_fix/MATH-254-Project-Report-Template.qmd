@@ -92,8 +92,8 @@ We are interested in the relationship between social factors and alcohol use, wh
 library(tidyverse)
 library(infer)
 
-# load(file='nsduh.rda')
-da34933.0001 <- read_csv(file = 'michelle_irene.csv')
+load("~/Desktop/github_projects/MATH_254/Projects Submitted/Team_11_Irene_Michelle_fix/nsduh.rda")
+#da34933.0001 <- read_csv(file = 'michelle_irene.csv')
 drugdata <- 
   da34933.0001 %>% 
   filter(CATAGE == '(2) 18-25 Years Old') %>% 
