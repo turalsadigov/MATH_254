@@ -118,7 +118,8 @@ library(tidymodels)
 #| message: false
 #| echo: false
 
-data <- read_csv("Motor_Vehicle_Collisions_Crashes.csv")
+#data <- read_csv("Motor_Vehicle_Collisions_Crashes.csv")
+data <- read_csv("https://media.githubusercontent.com/media/turalsadigov/MATH_254/main/Datasets%20for%20projects/Motor_Vehicle_Collisions_Crashes.csv")
 ```
 
 ```{r Clean the raw data into a clean dataframe}
@@ -393,7 +394,7 @@ library(infer)
 library(tidymodels)
 
 # Load raw data from .csv
-data <- read_csv("Motor_Vehicle_Collisions_Crashes.csv")
+#data <- read_csv("Motor_Vehicle_Collisions_Crashes.csv")
 
 # Clean data
 df <- data %>% 
