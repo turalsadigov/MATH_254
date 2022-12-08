@@ -246,18 +246,34 @@ Significance Level: $\alpha = 0.001$.
 ```{r}
 #| echo: false
 
+clean_df %>% 
+  select(DAY, `NUMBER OF PERSONS INJURED`) %>% 
+  mutate(`NUMBER OF PERSONS INJURED` = if_else(`NUMBER OF PERSONS INJURED` ==0, 0, 1)) %>% 
+  drop_na() %>% 
+  count(DAY, `NUMBER OF PERSONS INJURED`) %>% 
+  group_by(DAY) %>% 
+  mutate(total = sum(n)) 
+
+
 day_df <-
   clean_df %>% 
   filter(DAY == TRUE) %>% 
   select(`NUMBER OF PERSONS INJURED`) %>% 
   drop_na()
+
+
 n_day <- count(day_df)[[1]]
+n_day
+
 day_inj <-
   day_df %>%
   filter(`NUMBER OF PERSONS INJURED` != 0) %>% 
-  count()
+  count()]
+day_inj
+
 day_inj <- day_inj[[1]]
 p_inj_day <- day_inj / n_day
+p_inj_day
 # the proportion of crashes during the day that have injuries
 
 night_df <- 
@@ -266,10 +282,12 @@ night_df <-
   select(`NUMBER OF PERSONS INJURED`) %>% 
   drop_na()
 n_night <- count(night_df)[[1]]
+n_night
 night_inj <-
   night_df %>% 
   filter(`NUMBER OF PERSONS INJURED` != 0) %>% 
   count()
+night_inj
 night_inj <- night_inj[[1]]
 p_inj_night <- night_inj / n_night
 # the proportion of crashes during the night that have injuries
@@ -281,6 +299,7 @@ overall_inj <-
   select(`NUMBER OF PERSONS INJURED`) %>% 
   drop_na() %>% 
   count()
+overall_inj
 overall_inj <- overall_inj[[1]]
 p_overall <- overall_inj / n_overall
 # the overall proportion of crashes that have injuries
