@@ -26,8 +26,8 @@ abstract: In this paper we investigate whether airplanes themselves have become 
 format: 
     html:
       theme: 
-        light: united
-        dark: darkly
+        light: cerulean
+        dark: cyborg
 title-block-banner: darkblue
 date: today
 highlight-style: pygments
@@ -302,21 +302,43 @@ df2 %>%
 library(tidyverse)
 library(tidymodels)
 library(vtable)
-flights <- read_csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/airline-safety/airline-safety.csv')
+remote <- 'https://raw.githubusercontent.com/'
+account <- 'fivethirtyeight/'
+folder <- 'data/master/airline-safety/'
+file <- 'airline-safety.csv'
+url <- str_c(remote, account, folder, file)
+flights <- read_csv(url)
 
 flights
 
 #data wrangling and sumstats
-american <- c("Alaska Airlines*", "American*", "Delta / Northwest*", "Hawaiian Airlines", "Southwest Airlines", "United / Continental*", "US Airways / America West*")
+american <- c("Alaska Airlines*", 
+              "American*", 
+              "Delta / Northwest*", 
+              "Hawaiian Airlines", 
+              "Southwest Airlines", 
+              "United / Continental*", 
+              "US Airways / America West*")
 
 df <- 
   flights %>% 
   mutate(americanairline = ifelse(airline %in% american, 1, 0)) %>%
   select(-avail_seat_km_per_week)
 
-labs <- c("Number of Incidents (1985-1999)", "Fatal Accidents (1985-1999)", "Fatalities (1985-1999)", "Number of Incidents (2000-2014)", "Fatal Accidents (2000-2014)", "Fatalities (2000-2014)" , "American Airliners")
+labs <- c("Number of Incidents (1985-1999)", 
+          "Fatal Accidents (1985-1999)", 
+          "Fatalities (1985-1999)", 
+          "Number of Incidents (2000-2014)", 
+          "Fatal Accidents (2000-2014)", 
+          "Fatalities (2000-2014)" , 
+          "American Airliners")
 
-vtable::sumtable(df, digits = 2 , title = "Summary Statistics", note = "N = 56 | Source: FiveThirtyEight", labels = labs, summ = c("mean(x)", "sd(x)", "min(x)", "max(x)"), fit.page = 30)
+vtable::sumtable(df, digits = 2 , 
+                 title = "Summary Statistics", 
+                 note = "N = 56 | Source: FiveThirtyEight", 
+                 labels = labs, 
+                 summ = c("mean(x)", "sd(x)", "min(x)", "max(x)"), 
+                 fit.page = 30)
 
 df <-
   df %>% 
