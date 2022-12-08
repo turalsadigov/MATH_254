@@ -36,9 +36,9 @@ abstract: In this investigation we try to determine whether there is a relations
 format: 
     html:
       theme: 
-        light: united
-        dark: darkly
-title-block-banner: darkblue
+        light: simplex
+        dark: sketchy
+title-block-banner: darkturquoise
 date: November 16, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -61,6 +61,10 @@ execute:
   out.width: "100%"
   cache: true
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
+editor: 
+ markdown: 
+    wrap: 72
 ---
 
 # Background and Significance
@@ -571,27 +575,14 @@ One thing to note is that we decided to group grades together to conduct our reg
 
 In the future it would be interesting to conduct a time-series analysis and determine racial diversity over time. We also do not know the percentages of HOLC grades. This dataset selects one A, B, C, and D per state which is not representative of the correct distribution. In future research it would be beneficial to have a dataset with randomly selected counties, and separate the dataset further.
 
-# References
+[@tidyverse], [@tidymodels], [@vip], [@plotly], [@USCLAP], [@Redlining], [@HOLC], [@ggfortify], [@infer], [@skimr]
 
-[@tidyverse]
 
-[@tidymodels]
+# References:
 
-[@vip]
+::: {#refs}
+:::
 
-[@plotly]
-
-[@USCLAP]
-
-[@Redlining]
-
-[@HOLC]
-
-[@ggfortify]
-
-[@infer]
-
-[@skimr]
 
 # Appendix
 
