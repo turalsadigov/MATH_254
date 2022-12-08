@@ -2,6 +2,15 @@
 title: "State-level crime occurrance in the US in relation to household firmarm ownership: a depth study with respect to 2019 data "
 
 author:
+
+  - name: Felix Pu
+    email: fpu@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+  - name: Andrew Gou
+    email: qgou@hamilton.edu
+    affiliations:
+      - name: Hamilton College
   - name: Tural Sadigov
     email: tsadigov@hamilton.edu
     affiliations:
@@ -12,14 +21,6 @@ author:
         state: NY
         country: USA
         postal-code: 13323-1218
-  - name: Felix Pu
-    email: fpu@hamilton.edu
-    affiliations:
-      - name: Hamilton College
-  - name: Andrew Gou
-    email: qgou@hamilton.edu
-    affiliations:
-      - name: Hamilton College
         
 abstract: According to CDC's annual statistics, on average, 
   321 people are shot dead as victims of criminal activies in the US everyday. 
@@ -59,15 +60,15 @@ execute:
 
 Gun control has always been a controversial topic in the United States. On one hand, "American gun owners - an estimated 80 million of them - see their firearms as protection to defend their own freedoms and property" [@shooting2022] under the Second Amendment, which notes "the right of the people to keep and bear Arms, shall not be infringed" [@seconda2002]. On the other hand, tragedies such as the 2018 Stoneman Douglas High School Shooting, where 17 young adults were murdered under "a pattern of disciplinary issues and unnerving behavior," [@shooter2018] led other Americans to strongly advocate restrictive gun control policies. Tragedies related to firearms reignited the debate over gun control in the US. But realistically, many believe that "the argument over guns has simply become too politically divisive and culturally entrenched to allow for meaningful change" [@shooting2022]. Even the the new gun laws New Jersey recently enacted in response to the Supreme Court's ruling are facing ongoing litigation and legal scrutiny [@gunlaw2022]. The tremendous resistance against gun rights sets the motivation behind composing this paper, specifically whether their resistance towards guns based on the reason that guns are associated with crimes can be backed by statistical analysis. Would more firearms lead to more crimes as anti-gun individuals contend for or is it unrelated that occurrences of crimes is independent from presence of firearms. With this question, this paper uses data collected by federal agencies at 2019 to investigate the potential association between gun possession and occurrences of crime across United States. This paper is written to answer to what degree is prevalence of gun possession associated with occurrence of crime: a focus study on United States based on 2019 data.
 
-There are prior researches conducted pertaining to this topic and other relevant topics of this field. For example, Gary Kleck and E. Britt Patterson [@Kleck1993] conclude in a prior study that the results are generally negative for the violence control effectiveness of gun control. Yet, the significance of the few supportive results should not be overlooked. There do appear to be some gun controls which work. In addition, Philip J. Cook [@Cook1981] studies the effect of Gun availability on violent crime patterns. And Cook's research concludes that it is reasonable to suppose that moderate gun control measures have the potential to discourage some violent criminals - potential or active - from obtaining guns. Miller [@miller2007]examines the role played by household firearms in homicide victimization, whom concludes existence of potential positive association between percentage of household firearm ownership and crime rates across the United States based on data collected in the early 2000s.
+There are prior researches conducted pertaining to this topic and other relevant topics of this field. For example, Gary Kleck and E. Britt Patterson [@Kleck1993] conclude in a prior study that the results are generally negative for the violence control effectiveness of gun control. Yet, the significance of the few supportive results should not be overlooked. There do appear to be some gun controls which work. In addition, Philip J. Cook [@Cook1981] studies the effect of Gun availability on violent crime patterns. And Cook's research concludes that it is reasonable to suppose that moderate gun control measures have the potential to discourage some violent criminals - potential or active - from obtaining guns. Miller [@miller2007] examines the role played by household firearms in homicide victimization, whom concludes existence of potential positive association between percentage of household firearm ownership and crime rates across the United States based on data collected in the early 2000s.
 
-However, this research is significant for three reasons. Firstly, most of the prior researches are done based on historical data when the partisan divide on gun rights and regulations was not as significant, such as a study conducted by Branas[@branas2009]. Therefore, one of the goals of this paper is to update this field with analysis based on recent data. Secondly, prior researches did not emphasize the specifics of guns owned in terms of their type and actual number but substituted by a vague percentage of household firearm ownership. Thirdly, different from prior studies, this research uses number of permits as the initial explanatory variable instead of number of firearms presented at each state. Permit is intentionally chosen because this research intends to extend the magnitude of the explanatory variable by including all the individuals with the potential of owning firearms, thereby holistically examining whether there is an association between a broadly defined magnitude of 'gun possession' (numbers of permit) and occurrence of crimes across the United States in 2019, in which the null hypothesis and the alternative hypothesis are given as the following. There are four tests conducted in this paper, thereby the significance level is set at 0.0125 as calculated by 0.05/4 to avoid p-hacking practice.
+However, this research is significant for three reasons. Firstly, most of the prior researches are done based on historical data when the partisan divide on gun rights and regulations was not as significant, such as a study conducted by Branas [@branas2009]. Therefore, one of the goals of this paper is to update this field with analysis based on recent data. Secondly, prior researches did not emphasize the specifics of guns owned in terms of their type and actual number but substituted by a vague percentage of household firearm ownership. Thirdly, different from prior studies, this research uses number of permits as the initial explanatory variable instead of number of firearms presented at each state. Permit is intentionally chosen because this research intends to extend the magnitude of the explanatory variable by including all the individuals with the potential of owning firearms, thereby holistically examining whether there is an association between a broadly defined magnitude of 'gun possession' (numbers of permit) and occurrence of crimes across the United States in 2019, in which the null hypothesis and the alternative hypothesis are given as the following. There are four tests conducted in this paper, thereby the significance level is set at 0.0125 as calculated by 0.05/4 to avoid p-hacking practice.
 
 **Hypotheses:**
 
-Null Hypothesis: There is no association between gun possession and occurrence of crime across the southern states in 2019
+Null Hypothesis: There is no association between gun possession and occurrence of crime across the southern states in 2019.
 
-Alternative Hypothesis: There is association between gun possession and occurrence of crime across the southern states in 2019
+Alternative Hypothesis: There is association between gun possession and occurrence of crime across the southern states in 2019.
 
 Significance Level/Alpha: 0.0125
 
@@ -81,49 +82,45 @@ The "state crime" data from 1960 to 2019 [@state_crime2019] is collected by the 
 
 **Methods:**
 
-The analytic method used in research is regression analysis, both simple linear regression and multivariate linear regression, under R Studio [@Rstudio]. Before, conducting regression analysis, data within the scope of interest is selected to create new data frame with aid of R Studio package [@tidyverse]. Both raw firearm checks data set and state crime data set are first limited to the year of 2019, the year of this research's interest. Because the firearm check data is categorized by months, the first assumption behind this paper is that the data of December 2019 from the firearm date frame will be used as the proxy for the entire 2019. December is chosen for two reasons: it is the last month of the year when permit holders of earlier months would maintain their qualifications through the year while new permits of the year are approved; December is also the month when people take their Christmas break from school and work that opens up more chances of gun related crimes.
+The analytic method used in research is regression analysis, both simple linear regression and multivariable linear regression, conducted in R Studio [@Rstudio]. Before, conducting regression analysis, data within the scope of interest is selected to create new data frame with aid of tidyverse package [@tidyverse]. Both raw firearm checks data set and state crime data set are first limited to the year of 2019, the year of this research's interest. Because the firearm check data is categorized by months, the first assumption behind this paper is that the data of December 2019 from the firearm date frame will be used as the proxy for the entire 2019. December is chosen for two reasons: it is the last month of the year when permit holders of earlier months would maintain their qualifications through the year while new permits of the year are approved; December is also the month when people take their Christmas break from school and work that opens up more chances of gun related crimes.
 
 After filtering the data frame by year, six columns of variable are chosen in total and bind to create the final data frame to be analyzed in this research. Five variables are chosen from the firearm checks data， which are month, state, permit, handgun, and long-gun. The key explanatory variable 'permit' is defined as 'the number of people with a gun permit,' while the two 'gun' named variable are defined with respect to their number of presences at each state. Variables 'handgun' and 'long-gun' are chosen with purpose to nuance the regression analysis after generating the machine-learning models, which will be explained towards the end of this section. Two additional variables are chosen from the state_crime data set and added together to create a new variable: total number of recorded crimes happened at 2019, which includes the total number of recorded violent crimes: assaults, murders, rapes, and robberies and the total number of the property-related crime: burglaries, larcenies, and motor crimes.
 
-After the data frame is set, the analysis starts by plotting the two variables of interest: number of permits in each state and the total number of reported crime in each state into a scatter-plot to check if the two variables present features of linearity that support the usage of liner regression analysis. The scatter plot would be used as the first preliminary result before applying machine learning models with R Studio packages [@GGally][@ggfortify][@tidymodels][@infer][@knitr]. There are three models applied in this research, in which model 1 is the classic linear regression model without any modification:
+After the data frame is set, the analysis starts by plotting the two variables of interest: number of permits in each state and the total number of reported crime in each state into a scatter-plot to check if the two variables present features of linearity that support the usage of liner regression analysis. The scatter plot would be used as the first preliminary result before applying machine learning models with R Studio packages @GGally @ggfortify @tidymodels @infer and @knitr. There are three models applied in this research, in which
 
-$model 1: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1$
+-   model 1 is the classic linear regression model without any modification
 
-$H_0: \hat{\beta}_1 = 0$
+    $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1$
 
-$H_a: \hat{\beta}_1 ≠ 0$
+-   model 2 is a logarithmic y-variable-transformed linear regression model:
 
-model 2 is a logarithmic y-variable-transformed linear regression model:
+    $\hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1 x_1$
 
-$model 2: \hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1 x_1$
+-   model 3 is another logarithmic model with both x and y-variables-transformed:
 
-$H_0: \hat{\beta}_1 = 0$
+    $\hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1ln(x_1)$
 
-$H_a: \hat{\beta}_1 ≠ 0$
+where $x_1$ is defined as the number of permits registered at a given state. In all three models we conduct the following hypothesis testing:
 
-model 3 is another logarithmic model with both x and y-variables-transformed:
-
-$model 3: \hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1ln(x_1)$
-
-$H_0: \hat{\beta}_1 = 0$
-
-$H_a: \hat{\beta}_1 ≠ 0$
-
-where $x_1$ is defined as the number of permits registered at a given state.
+$$H_0: \beta_1 = 0$$ $$H_a: \beta_1 ≠ 0$$
 
 By applying feature (predictor) engineering to variables under the frame of regression analysis, this research would generate three models with different hypotheses and adjusted-r-squared values. On one hand, for each of the models, null hypothesis is given as non-association between explanatory and response variables, while alternative hypothesis is presence of association between the two variables.
 
-In addition to the three linear regression models, one additional multivariate regression model is created based the best-fitted linear model from the three. Specifically, the model with the highest adjusted-r-squared value would be nuanced by narrowing the magnitude of the explanatory variable from the number of permits to the actual number of guns (handguns + long_guns) presented at each state. While using the permit variable broadens the scope of analysis, the replacement of the explanatory variable would enhance this research's precision to capture the association between the actual gun possession and prevalence of crimes, which is this research's ultimate purpose. Model 4 is the multivariate regression model without any modification:
+In addition to the three linear regression models, one additional multivariable regression model is created based the best-fitted linear model from the three. Specifically, the model with the highest adjusted-r-squared value would be nuanced by narrowing the magnitude of the explanatory variable from the number of permits to the actual number of guns (handguns + long_guns) presented at each state. While using the permit variable broadens the scope of analysis, the replacement of the explanatory variable would enhance this research's precision to capture the association between the actual gun possession and prevalence of crimes, which is this research's ultimate purpose. Model 4 is the multivariate regression model without any modification:
 
-$model 4: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3$
+$\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3$
 
-$x_2$ is defined as the number of handgun registered at a given state
+Here
 
-$x_3$ is defined as the number of long-gun registered at a given state
+-   $x_2$ is defined as the number of handgun registered at a given state
 
-$H_0: \beta_1 = \beta_2 = 0$
+-   $x_3$ is defined as the number of long-gun registered at a given state
 
-$H_0: \beta_1 ≠ \beta_2 ≠ 0$
+Corresponding hypothesis testing is
+
+$$H_0: \beta_1 = \beta_2 = 0$$
+
+$$H_a: \beta_1 ≠ 0 \text{  or  }\beta_2 ≠ 0$$
 
 For each of the fitted models, both independence of residuals and normality are analyzed with corresponding plots and summary statistics given. The four prediction sets are compiled together along the raw data set to conclude which of the prediction is the best fit of the true relationship between prevalence of firearms and occurrence of crimes across the United States at 2019.
 
@@ -141,13 +138,8 @@ According to figure 3, the fitted p-value from model 1 is almost 0, which is sma
 
 ![Summary statistics and formula of model 1 simple linear regression](images/Screen%20Shot%202022-11-09%20at%204.01.37%20PM.png){width="500" height="61"}
 
-$model 1: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1$
 
-$H_0: \hat{\beta}_1 = 0$
-
-$H_a: \hat{\beta}_1 ≠ 0$
-
-Continuing the analysis, as demonstrated by figure 4, the residuals plot suggests there is a weak and subtle negative correlation between the residuals and fitted values, which barely meets the homoscedasticity requirement. On the other hand, the normal QQ plot suggests that most points align to the QQ line well. There are just a few points at the two ends that do not follow the regression line, which satisfies the normality check of the linear regression analysis.
+Continuing the analysis, as demonstrated by figure 4, the residuals plot suggests there is a weak and subtle negative correlation between the residuals and fitted values, which shows that residuals still depend on the fitted values and the model was unable to divorce pattern from the noise. On the other hand, the normal QQ plot suggests that even if the middle points align to the QQ line well, there is clear departure from normality on both ends.
 
 ![Residual independence and normality plots of simple linear regression model 1](images/Screen%20Shot%202022-11-03%20at%204.39.53%20PM.png){width="504"}
 
@@ -175,13 +167,6 @@ Given the p-values of the fitted coefficients of the full model, and specifying 
 
 ![Summary statistics and formula of model 4 multi-linear regression (combined variables)](images/Screen%20Shot%202022-11-16%20at%201.36.40%20PM.png){width="570"}
 
-$model 4: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3$
-
-$x_2$ is defined as the number of handgun registered at a given state
-
-$x_3$ is defined as the number of long-gun registered at a given state
-
-where $x_2$ and $x_3$ are assumed to be positively correlated
 
 On the other hand, when we treat the two $\hat{\beta}_1$ as one, the summary statistics from figure 12 suggests that we can reject the null hypothesis because the calculated p-value is almost 0, which is less than the set alpha. Superficially, the results appear contradictory, but they are actually not because the calculated p-value takes both $x_2$ and $x_3$ into consideration when fitting. The value change of either $x_2$ or $x_3$ would affect the other and have a collective effect on the result. On the other hand, separation of the two $\hat{\beta}$ only take consideration of one x-variable respectfully, which generates a less accurate prediction of the linear relationship as $x_2$ and $x_3$ are correlated, which means a change of either $x_2$ or $x_3$ would also affect the value of the other that have a collective effect on the result.
 
@@ -216,7 +201,7 @@ account = 'BuzzFeedNews/nics-firearm-background-checks/'
 folder = 'master/data/'
 file  = 'nics-firearm-background-checks.csv'
 url = paste(remote, account, folder, file, sep = '')
-firearm <- read.csv(url)
+firearm <- read_csv(url)
 
 # firearm <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/firearm_felix_andrew_2.csv')
 
@@ -225,7 +210,7 @@ remote = 'https://raw.githubusercontent.com/'
 account = 'AndrewGou1013/'
 file = 'State-crime-final/main/state_crime_final.csv'
 url = paste(remote, account, file, sep = '')
-state_crime <- read.csv(url)
+state_crime <- read_csv(url)
 
 # state_crime <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/state_crime_felix_andrew_1.csv')
 ```
@@ -239,18 +224,18 @@ df_Dec <-
 new_df_Dec <- df_Dec[-c(12, 22, 42, 50), ] 
 
 new_df_Dec_month <- 
-new_df_Dec %>% 
-select(month)
-as.factor('month')
+  new_df_Dec %>%
+  select(month) 
 
 new_df_Dec_state <- 
-new_df_Dec %>% 
-select(state)  
-as.factor('state')
+  new_df_Dec %>% 
+  select(state)  
+
+#as.factor('state')
 
 new_df_Dec_permit <- 
-new_df_Dec %>% 
-select(permit) 
+  new_df_Dec %>% 
+  select(permit) 
 
 new_df_Dec_handgun <- 
 new_df_Dec %>% 
@@ -259,6 +244,13 @@ select(handgun)
 new_df_Dec_long_gun <-
 new_df_Dec %>% 
 select(long_gun)
+
+
+df_dec_2 <- new_df_Dec %>% 
+  select(month, state, permit, handgun, long_gun)
+
+df_dec_2
+
 ```
 
 ```{r year and variable selection of violence data}
@@ -271,11 +263,8 @@ state_crime_2019_final <-
 
 ```{r binding selected variables as the final data frame}
 df_firearm_final <-
-  new_df_Dec_month %>% 
-  bind_cols(new_df_Dec_state) %>% 
-  bind_cols(new_df_Dec_permit) %>% 
-  bind_cols(new_df_Dec_handgun) %>% 
-  bind_cols(new_df_Dec_long_gun) %>%
+  new_df_Dec %>% 
+  select(month, state, permit, handgun, long_gun) %>% 
   bind_cols(state_crime_2019_final)
 ```
 
@@ -297,7 +286,7 @@ model_1 <-
   linear_reg() %>% 
   set_engine('lm') %>%
   set_mode('regression') %>% 
-  fit(state_crime_2019_total ~ permit+1, 
+  fit(state_crime_2019_total ~ permit + 1, 
       data = df_firearm_final) 
 
 # tidy output
@@ -389,6 +378,7 @@ Scatterplot_between_handgun_and_total_Violence <-
  xlab('Total gun') +
  ylab('Total Crime') +
  ggtitle('Scatterplot between number of firearms and total crime')
+Scatterplot_between_handgun_and_total_Violence
 ```
 
 ```{r linear regression model 4}

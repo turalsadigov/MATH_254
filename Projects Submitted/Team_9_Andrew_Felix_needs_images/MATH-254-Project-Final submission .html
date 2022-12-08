@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tural Sadigov">
 <meta name="author" content="Felix Pu">
 <meta name="author" content="Andrew Gou">
+<meta name="author" content="Tural Sadigov">
 <meta name="dcterms.date" content="2022-11-16">
 
 <title>State-level crime occurrance in the US in relation to household firmarm ownership: a depth study with respect to 2019 data</title>
@@ -145,14 +145,6 @@ div.csl-indent {
     <div class="quarto-title-meta-heading">Affiliations</div>
     
       <div class="quarto-title-meta-contents">
-      Tural Sadigov 
-    </div>
-      <div class="quarto-title-meta-contents">
-          <p class="affiliation">
-              Hamilton College
-            </p>
-        </div>
-        <div class="quarto-title-meta-contents">
       Felix Pu 
     </div>
       <div class="quarto-title-meta-contents">
@@ -162,6 +154,14 @@ div.csl-indent {
         </div>
         <div class="quarto-title-meta-contents">
       Andrew Gou 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Tural Sadigov 
     </div>
       <div class="quarto-title-meta-contents">
           <p class="affiliation">
@@ -212,11 +212,11 @@ div.csl-indent {
 <section id="background-and-significance" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Background and Significance</h1>
 <p>Gun control has always been a controversial topic in the United States. On one hand, “American gun owners - an estimated 80 million of them - see their firearms as protection to defend their own freedoms and property” <span class="citation" data-cites="shooting2022">[<a href="#ref-shooting2022" role="doc-biblioref">1</a>]</span> under the Second Amendment, which notes “the right of the people to keep and bear Arms, shall not be infringed” <span class="citation" data-cites="seconda2002">[<a href="#ref-seconda2002" role="doc-biblioref">2</a>]</span>. On the other hand, tragedies such as the 2018 Stoneman Douglas High School Shooting, where 17 young adults were murdered under “a pattern of disciplinary issues and unnerving behavior,” <span class="citation" data-cites="shooter2018">[<a href="#ref-shooter2018" role="doc-biblioref">3</a>]</span> led other Americans to strongly advocate restrictive gun control policies. Tragedies related to firearms reignited the debate over gun control in the US. But realistically, many believe that “the argument over guns has simply become too politically divisive and culturally entrenched to allow for meaningful change” <span class="citation" data-cites="shooting2022">[<a href="#ref-shooting2022" role="doc-biblioref">1</a>]</span>. Even the the new gun laws New Jersey recently enacted in response to the Supreme Court’s ruling are facing ongoing litigation and legal scrutiny <span class="citation" data-cites="gunlaw2022">[<a href="#ref-gunlaw2022" role="doc-biblioref">4</a>]</span>. The tremendous resistance against gun rights sets the motivation behind composing this paper, specifically whether their resistance towards guns based on the reason that guns are associated with crimes can be backed by statistical analysis. Would more firearms lead to more crimes as anti-gun individuals contend for or is it unrelated that occurrences of crimes is independent from presence of firearms. With this question, this paper uses data collected by federal agencies at 2019 to investigate the potential association between gun possession and occurrences of crime across United States. This paper is written to answer to what degree is prevalence of gun possession associated with occurrence of crime: a focus study on United States based on 2019 data.</p>
-<p>There are prior researches conducted pertaining to this topic and other relevant topics of this field. For example, Gary Kleck and E. Britt Patterson <span class="citation" data-cites="Kleck1993">[<a href="#ref-Kleck1993" role="doc-biblioref">5</a>]</span> conclude in a prior study that the results are generally negative for the violence control effectiveness of gun control. Yet, the significance of the few supportive results should not be overlooked. There do appear to be some gun controls which work. In addition, Philip J. Cook <span class="citation" data-cites="Cook1981">[<a href="#ref-Cook1981" role="doc-biblioref">6</a>]</span> studies the effect of Gun availability on violent crime patterns. And Cook’s research concludes that it is reasonable to suppose that moderate gun control measures have the potential to discourage some violent criminals - potential or active - from obtaining guns. Miller <span class="citation" data-cites="miller2007">[<a href="#ref-miller2007" role="doc-biblioref">7</a>]</span>examines the role played by household firearms in homicide victimization, whom concludes existence of potential positive association between percentage of household firearm ownership and crime rates across the United States based on data collected in the early 2000s.</p>
-<p>However, this research is significant for three reasons. Firstly, most of the prior researches are done based on historical data when the partisan divide on gun rights and regulations was not as significant, such as a study conducted by Branas<span class="citation" data-cites="branas2009">[<a href="#ref-branas2009" role="doc-biblioref">8</a>]</span>. Therefore, one of the goals of this paper is to update this field with analysis based on recent data. Secondly, prior researches did not emphasize the specifics of guns owned in terms of their type and actual number but substituted by a vague percentage of household firearm ownership. Thirdly, different from prior studies, this research uses number of permits as the initial explanatory variable instead of number of firearms presented at each state. Permit is intentionally chosen because this research intends to extend the magnitude of the explanatory variable by including all the individuals with the potential of owning firearms, thereby holistically examining whether there is an association between a broadly defined magnitude of ‘gun possession’ (numbers of permit) and occurrence of crimes across the United States in 2019, in which the null hypothesis and the alternative hypothesis are given as the following. There are four tests conducted in this paper, thereby the significance level is set at 0.0125 as calculated by 0.05/4 to avoid p-hacking practice.</p>
+<p>There are prior researches conducted pertaining to this topic and other relevant topics of this field. For example, Gary Kleck and E. Britt Patterson <span class="citation" data-cites="Kleck1993">[<a href="#ref-Kleck1993" role="doc-biblioref">5</a>]</span> conclude in a prior study that the results are generally negative for the violence control effectiveness of gun control. Yet, the significance of the few supportive results should not be overlooked. There do appear to be some gun controls which work. In addition, Philip J. Cook <span class="citation" data-cites="Cook1981">[<a href="#ref-Cook1981" role="doc-biblioref">6</a>]</span> studies the effect of Gun availability on violent crime patterns. And Cook’s research concludes that it is reasonable to suppose that moderate gun control measures have the potential to discourage some violent criminals - potential or active - from obtaining guns. Miller <span class="citation" data-cites="miller2007">[<a href="#ref-miller2007" role="doc-biblioref">7</a>]</span> examines the role played by household firearms in homicide victimization, whom concludes existence of potential positive association between percentage of household firearm ownership and crime rates across the United States based on data collected in the early 2000s.</p>
+<p>However, this research is significant for three reasons. Firstly, most of the prior researches are done based on historical data when the partisan divide on gun rights and regulations was not as significant, such as a study conducted by Branas <span class="citation" data-cites="branas2009">[<a href="#ref-branas2009" role="doc-biblioref">8</a>]</span>. Therefore, one of the goals of this paper is to update this field with analysis based on recent data. Secondly, prior researches did not emphasize the specifics of guns owned in terms of their type and actual number but substituted by a vague percentage of household firearm ownership. Thirdly, different from prior studies, this research uses number of permits as the initial explanatory variable instead of number of firearms presented at each state. Permit is intentionally chosen because this research intends to extend the magnitude of the explanatory variable by including all the individuals with the potential of owning firearms, thereby holistically examining whether there is an association between a broadly defined magnitude of ‘gun possession’ (numbers of permit) and occurrence of crimes across the United States in 2019, in which the null hypothesis and the alternative hypothesis are given as the following. There are four tests conducted in this paper, thereby the significance level is set at 0.0125 as calculated by 0.05/4 to avoid p-hacking practice.</p>
 <p><strong>Hypotheses:</strong></p>
-<p>Null Hypothesis: There is no association between gun possession and occurrence of crime across the southern states in 2019</p>
-<p>Alternative Hypothesis: There is association between gun possession and occurrence of crime across the southern states in 2019</p>
+<p>Null Hypothesis: There is no association between gun possession and occurrence of crime across the southern states in 2019.</p>
+<p>Alternative Hypothesis: There is association between gun possession and occurrence of crime across the southern states in 2019.</p>
 <p>Significance Level/Alpha: 0.0125</p>
 </section>
 <section id="methods" class="level1" data-number="2">
@@ -225,28 +225,30 @@ div.csl-indent {
 <p>The “Firearm checks” data <span class="citation" data-cites="firearm_check2019">[<a href="#ref-firearm_check2019" role="doc-biblioref">9</a>]</span> is recorded by the FBI’s National Instant Criminal Background Check System from November 1998 – September 2022. Data is collected by all the registered sales and license administrations. Before every permit grant and sale, personnel would call the FBI or other designated agencies to ensure that customer does not have a criminal record. Otherwise, customers are ineligible to obtain the permit nor make a purchase. And when purchasing firearms, the type of gun purchased will be recorded as well.</p>
 <p>The “state crime” data from 1960 to 2019 <span class="citation" data-cites="state_crime2019">[<a href="#ref-state_crime2019" role="doc-biblioref">10</a>]</span> is collected by the FBI’s Unified Crime Reporting Program (UCR) using its Summary Reporting System along with the assistance from the U.S. Department of Justice and the Federal Bureau of Investigation. The data contains two main categories: property and violent crime. Property crime refers to burglary, larceny, and motor related crime while violent crime refers to assault, murder, rape, and robbery.</p>
 <p><strong>Methods:</strong></p>
-<p>The analytic method used in research is regression analysis, both simple linear regression and multivariate linear regression, under R Studio <span class="citation" data-cites="Rstudio">[<a href="#ref-Rstudio" role="doc-biblioref">11</a>]</span>. Before, conducting regression analysis, data within the scope of interest is selected to create new data frame with aid of R Studio package <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">12</a>]</span>. Both raw firearm checks data set and state crime data set are first limited to the year of 2019, the year of this research’s interest. Because the firearm check data is categorized by months, the first assumption behind this paper is that the data of December 2019 from the firearm date frame will be used as the proxy for the entire 2019. December is chosen for two reasons: it is the last month of the year when permit holders of earlier months would maintain their qualifications through the year while new permits of the year are approved; December is also the month when people take their Christmas break from school and work that opens up more chances of gun related crimes.</p>
+<p>The analytic method used in research is regression analysis, both simple linear regression and multivariable linear regression, conducted in R Studio <span class="citation" data-cites="Rstudio">[<a href="#ref-Rstudio" role="doc-biblioref">11</a>]</span>. Before, conducting regression analysis, data within the scope of interest is selected to create new data frame with aid of tidyverse package <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">12</a>]</span>. Both raw firearm checks data set and state crime data set are first limited to the year of 2019, the year of this research’s interest. Because the firearm check data is categorized by months, the first assumption behind this paper is that the data of December 2019 from the firearm date frame will be used as the proxy for the entire 2019. December is chosen for two reasons: it is the last month of the year when permit holders of earlier months would maintain their qualifications through the year while new permits of the year are approved; December is also the month when people take their Christmas break from school and work that opens up more chances of gun related crimes.</p>
 <p>After filtering the data frame by year, six columns of variable are chosen in total and bind to create the final data frame to be analyzed in this research. Five variables are chosen from the firearm checks data， which are month, state, permit, handgun, and long-gun. The key explanatory variable ‘permit’ is defined as ‘the number of people with a gun permit,’ while the two ‘gun’ named variable are defined with respect to their number of presences at each state. Variables ‘handgun’ and ‘long-gun’ are chosen with purpose to nuance the regression analysis after generating the machine-learning models, which will be explained towards the end of this section. Two additional variables are chosen from the state_crime data set and added together to create a new variable: total number of recorded crimes happened at 2019, which includes the total number of recorded violent crimes: assaults, murders, rapes, and robberies and the total number of the property-related crime: burglaries, larcenies, and motor crimes.</p>
-<p>After the data frame is set, the analysis starts by plotting the two variables of interest: number of permits in each state and the total number of reported crime in each state into a scatter-plot to check if the two variables present features of linearity that support the usage of liner regression analysis. The scatter plot would be used as the first preliminary result before applying machine learning models with R Studio packages [<span class="citation" data-cites="GGally">[<a href="#ref-GGally" role="doc-biblioref">13</a>]</span>]<span class="citation" data-cites="ggfortify">[<a href="#ref-ggfortify" role="doc-biblioref">14</a>]</span>[<span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">15</a>]</span>]<span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">16</a>]</span><span class="citation" data-cites="knitr">[<a href="#ref-knitr" role="doc-biblioref">17</a>]</span>. There are three models applied in this research, in which model 1 is the classic linear regression model without any modification:</p>
-<p><span class="math inline">\(model 1: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1\)</span></p>
-<p><span class="math inline">\(H_0: \hat{\beta}_1 = 0\)</span></p>
-<p><span class="math inline">\(H_a: \hat{\beta}_1 ≠ 0\)</span></p>
-<p>model 2 is a logarithmic y-variable-transformed linear regression model:</p>
-<p><span class="math inline">\(model 2: \hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1 x_1\)</span></p>
-<p><span class="math inline">\(H_0: \hat{\beta}_1 = 0\)</span></p>
-<p><span class="math inline">\(H_a: \hat{\beta}_1 ≠ 0\)</span></p>
-<p>model 3 is another logarithmic model with both x and y-variables-transformed:</p>
-<p><span class="math inline">\(model 3: \hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1ln(x_1)\)</span></p>
-<p><span class="math inline">\(H_0: \hat{\beta}_1 = 0\)</span></p>
-<p><span class="math inline">\(H_a: \hat{\beta}_1 ≠ 0\)</span></p>
-<p>where <span class="math inline">\(x_1\)</span> is defined as the number of permits registered at a given state.</p>
+<p>After the data frame is set, the analysis starts by plotting the two variables of interest: number of permits in each state and the total number of reported crime in each state into a scatter-plot to check if the two variables present features of linearity that support the usage of liner regression analysis. The scatter plot would be used as the first preliminary result before applying machine learning models with R Studio packages <span class="citation" data-cites="GGally">[<a href="#ref-GGally" role="doc-biblioref">13</a>]</span> <span class="citation" data-cites="ggfortify">[<a href="#ref-ggfortify" role="doc-biblioref">14</a>]</span> <span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">15</a>]</span> <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">16</a>]</span> and <span class="citation" data-cites="knitr">[<a href="#ref-knitr" role="doc-biblioref">17</a>]</span>. There are three models applied in this research, in which</p>
+<ul>
+<li><p>model 1 is the classic linear regression model without any modification</p>
+<p><span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1\)</span></p></li>
+<li><p>model 2 is a logarithmic y-variable-transformed linear regression model:</p>
+<p><span class="math inline">\(\hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1 x_1\)</span></p></li>
+<li><p>model 3 is another logarithmic model with both x and y-variables-transformed:</p>
+<p><span class="math inline">\(\hat{ln(y)} = \hat{\beta}_0 + \hat{\beta}_1ln(x_1)\)</span></p></li>
+</ul>
+<p>where <span class="math inline">\(x_1\)</span> is defined as the number of permits registered at a given state. In all three models we conduct the following hypothesis testing:</p>
+<p><span class="math display">\[H_0: \beta_1 = 0\]</span> <span class="math display">\[H_a: \beta_1 ≠ 0\]</span></p>
 <p>By applying feature (predictor) engineering to variables under the frame of regression analysis, this research would generate three models with different hypotheses and adjusted-r-squared values. On one hand, for each of the models, null hypothesis is given as non-association between explanatory and response variables, while alternative hypothesis is presence of association between the two variables.</p>
-<p>In addition to the three linear regression models, one additional multivariate regression model is created based the best-fitted linear model from the three. Specifically, the model with the highest adjusted-r-squared value would be nuanced by narrowing the magnitude of the explanatory variable from the number of permits to the actual number of guns (handguns + long_guns) presented at each state. While using the permit variable broadens the scope of analysis, the replacement of the explanatory variable would enhance this research’s precision to capture the association between the actual gun possession and prevalence of crimes, which is this research’s ultimate purpose. Model 4 is the multivariate regression model without any modification:</p>
-<p><span class="math inline">\(model 4: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3\)</span></p>
-<p><span class="math inline">\(x_2\)</span> is defined as the number of handgun registered at a given state</p>
-<p><span class="math inline">\(x_3\)</span> is defined as the number of long-gun registered at a given state</p>
-<p><span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span></p>
-<p><span class="math inline">\(H_0: \beta_1 ≠ \beta_2 ≠ 0\)</span></p>
+<p>In addition to the three linear regression models, one additional multivariable regression model is created based the best-fitted linear model from the three. Specifically, the model with the highest adjusted-r-squared value would be nuanced by narrowing the magnitude of the explanatory variable from the number of permits to the actual number of guns (handguns + long_guns) presented at each state. While using the permit variable broadens the scope of analysis, the replacement of the explanatory variable would enhance this research’s precision to capture the association between the actual gun possession and prevalence of crimes, which is this research’s ultimate purpose. Model 4 is the multivariate regression model without any modification:</p>
+<p><span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3\)</span></p>
+<p>Here</p>
+<ul>
+<li><p><span class="math inline">\(x_2\)</span> is defined as the number of handgun registered at a given state</p></li>
+<li><p><span class="math inline">\(x_3\)</span> is defined as the number of long-gun registered at a given state</p></li>
+</ul>
+<p>Corresponding hypothesis testing is</p>
+<p><span class="math display">\[H_0: \beta_1 = \beta_2 = 0\]</span></p>
+<p><span class="math display">\[H_a: \beta_1 ≠ 0 \text{  or  }\beta_2 ≠ 0\]</span></p>
 <p>For each of the fitted models, both independence of residuals and normality are analyzed with corresponding plots and summary statistics given. The four prediction sets are compiled together along the raw data set to conclude which of the prediction is the best fit of the true relationship between prevalence of firearms and occurrence of crimes across the United States at 2019.</p>
 </section>
 <section id="results" class="level1" data-number="3">
@@ -273,10 +275,7 @@ div.csl-indent {
 <p></p><figcaption class="figure-caption">Summary statistics and formula of model 1 simple linear regression</figcaption><p></p>
 </figure>
 </div>
-<p><span class="math inline">\(model 1: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1\)</span></p>
-<p><span class="math inline">\(H_0: \hat{\beta}_1 = 0\)</span></p>
-<p><span class="math inline">\(H_a: \hat{\beta}_1 ≠ 0\)</span></p>
-<p>Continuing the analysis, as demonstrated by figure 4, the residuals plot suggests there is a weak and subtle negative correlation between the residuals and fitted values, which barely meets the homoscedasticity requirement. On the other hand, the normal QQ plot suggests that most points align to the QQ line well. There are just a few points at the two ends that do not follow the regression line, which satisfies the normality check of the linear regression analysis.</p>
+<p>Continuing the analysis, as demonstrated by figure 4, the residuals plot suggests there is a weak and subtle negative correlation between the residuals and fitted values, which shows that residuals still depend on the fitted values and the model was unable to divorce pattern from the noise. On the other hand, the normal QQ plot suggests that even if the middle points align to the QQ line well, there is clear departure from normality on both ends.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/Screen%20Shot%202022-11-03%20at%204.39.53%20PM.png" class="img-fluid figure-img" width="504"></p>
@@ -335,10 +334,6 @@ div.csl-indent {
 <p></p><figcaption class="figure-caption">Summary statistics and formula of model 4 multi-linear regression (combined variables)</figcaption><p></p>
 </figure>
 </div>
-<p><span class="math inline">\(model 4: \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_2 + \hat{\beta}_2 x_3\)</span></p>
-<p><span class="math inline">\(x_2\)</span> is defined as the number of handgun registered at a given state</p>
-<p><span class="math inline">\(x_3\)</span> is defined as the number of long-gun registered at a given state</p>
-<p>where <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span> are assumed to be positively correlated</p>
 <p>On the other hand, when we treat the two <span class="math inline">\(\hat{\beta}_1\)</span> as one, the summary statistics from figure 12 suggests that we can reject the null hypothesis because the calculated p-value is almost 0, which is less than the set alpha. Superficially, the results appear contradictory, but they are actually not because the calculated p-value takes both <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span> into consideration when fitting. The value change of either <span class="math inline">\(x_2\)</span> or <span class="math inline">\(x_3\)</span> would affect the other and have a collective effect on the result. On the other hand, separation of the two <span class="math inline">\(\hat{\beta}\)</span> only take consideration of one x-variable respectfully, which generates a less accurate prediction of the linear relationship as <span class="math inline">\(x_2\)</span> and <span class="math inline">\(x_3\)</span> are correlated, which means a change of either <span class="math inline">\(x_2\)</span> or <span class="math inline">\(x_3\)</span> would also affect the value of the other that have a collective effect on the result.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -363,7 +358,7 @@ div.csl-indent {
 </section>
 <section id="appendix" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Appendix</h1>
-<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/raw data frame_79fd72d86e33f86ca0f8dc9ad5fe6dfb">
+<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/raw data frame_baa1372a127f32ac232adba45ac1eb58">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
@@ -376,7 +371,7 @@ div.csl-indent {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>folder <span class="ot">=</span> <span class="st">'master/data/'</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>file  <span class="ot">=</span> <span class="st">'nics-firearm-background-checks.csv'</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="fu">paste</span>(remote, account, folder, file, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>firearm <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>firearm <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># firearm &lt;- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/firearm_felix_andrew_2.csv')</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
@@ -385,11 +380,11 @@ div.csl-indent {
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>account <span class="ot">=</span> <span class="st">'AndrewGou1013/'</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="st">'State-crime-final/main/state_crime_final.csv'</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="fu">paste</span>(remote, account, file, <span class="at">sep =</span> <span class="st">''</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>state_crime <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>state_crime <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># state_crime &lt;- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/state_crime_felix_andrew_1.csv')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/year and variables selection from firearm data_13c62a6925116abaa9c0d8f71cd55db4">
+<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/year and variables selection from firearm data_48bb6deab4d20a325cf3035930a81a4e">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_Dec <span class="ot">&lt;-</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  firearm <span class="sc">%&gt;%</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="st">'2019-12'</span>)  </span>
@@ -398,74 +393,87 @@ div.csl-indent {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="ot">&lt;-</span> df_Dec[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">22</span>, <span class="dv">42</span>, <span class="dv">50</span>), ] </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>new_df_Dec_month <span class="ot">&lt;-</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(month)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>(<span class="st">'month'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  new_df_Dec <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month) </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>new_df_Dec_state <span class="ot">&lt;-</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state)  </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#as.factor('state')</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>new_df_Dec_permit <span class="ot">&lt;-</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(permit) </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>new_df_Dec_handgun <span class="ot">&lt;-</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(handgun) </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>new_df_Dec_long_gun <span class="ot">&lt;-</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(long_gun)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>df_dec_2 <span class="ot">&lt;-</span> new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month, state, permit, handgun, long_gun)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>df_dec_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] month
-Levels: month</code></pre>
+<pre><code># A tibble: 51 × 5
+   month   state                permit handgun long_gun
+   &lt;chr&gt;   &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1 2019-12 Alabama               33683   33020    25882
+ 2 2019-12 Alaska                  386    3455     3080
+ 3 2019-12 Arizona                4536   18178    10423
+ 4 2019-12 Arkansas               2339    8671    10957
+ 5 2019-12 California            29544   40637    30780
+ 6 2019-12 Colorado               4867   22531    16681
+ 7 2019-12 Connecticut            4329    5655     2215
+ 8 2019-12 Delaware                153    2075     2301
+ 9 2019-12 District of Columbia    623     101        1
+10 2019-12 Florida               15238   67435    31580
+# … with 41 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>new_df_Dec_state <span class="ot">&lt;-</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(state)  </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>(<span class="st">'state'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] state
-Levels: state</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>new_df_Dec_permit <span class="ot">&lt;-</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(permit) </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>new_df_Dec_handgun <span class="ot">&lt;-</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(handgun) </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>new_df_Dec_long_gun <span class="ot">&lt;-</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>new_df_Dec <span class="sc">%&gt;%</span> </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(long_gun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/year and variable selection of violence data_13c5f6a20f749e7cf91cdb9104a47467">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>state_crime_2019_final <span class="ot">&lt;-</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  state_crime <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state_crime_2019_total =</span> Data.Totals.Property.All <span class="sc">+</span> Data.Totals.Violent.All) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state_crime_2019_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>state_crime_2019_final <span class="ot">&lt;-</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  state_crime <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">state_crime_2019_total =</span> Data.Totals.Property.All <span class="sc">+</span> Data.Totals.Violent.All) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state_crime_2019_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/binding selected variables as the final data frame_c6fbd7334dfa4e503e7d550db95c15bd">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_firearm_final <span class="ot">&lt;-</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  new_df_Dec_month <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(new_df_Dec_state) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(new_df_Dec_permit) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(new_df_Dec_handgun) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(new_df_Dec_long_gun) <span class="sc">%&gt;%</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(state_crime_2019_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/binding selected variables as the final data frame_e0f3dd01045b61365270e12a64616df5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_firearm_final <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  new_df_Dec <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month, state, permit, handgun, long_gun) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(state_crime_2019_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/scatter plot - model 1_73e82c26a1b420dbd0a27a23eaebc38c">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_permit_and_total_Violence <span class="ot">&lt;-</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> permit<span class="sc">+</span><span class="dv">1</span>, </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> state_crime_2019_total)) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">'Permit'</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">'Total Crime'</span>) <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between permit and total crime'</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_permit_and_total_Violence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_permit_and_total_Violence <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> permit<span class="sc">+</span><span class="dv">1</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> state_crime_2019_total)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">'Permit'</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">'Total Crime'</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between permit and total crime'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_permit_and_total_Violence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/scatter%20plot%20-%20model%201-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/linear regression model 1_17f9a9ffff4056b54207d1aace4e58dc">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(state_crime_2019_total <span class="sc">~</span> permit<span class="sc">+</span><span class="dv">1</span>, </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_firearm_final) </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_1) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/linear regression model 1_164cddc96909bc28d51d688784558b76">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(state_crime_2019_total <span class="sc">~</span> permit <span class="sc">+</span> <span class="dv">1</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_firearm_final) </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_1) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic      p.value
@@ -473,8 +481,8 @@ Levels: state</code></pre>
 1 (Intercept)  50748.   25544.        1.99 0.0526      
 2 permit          16.2      2.39      6.79 0.0000000142</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squa…¹  sigma stati…² p.value    df logLik   AIC   BIC devia…³
@@ -483,36 +491,36 @@ Levels: state</code></pre>
 # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis and accuracy of the model</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_1, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis and accuracy of the model</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_1, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/linear%20regression%20model%201-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/scatter plot - model 2_b86d8c50ac363e6d5da1d5863b41a2fd">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>test_mod <span class="ot">&lt;-</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_crime =</span> <span class="fu">log</span>(state_crime_2019_total),</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">new_permit =</span> permit<span class="sc">+</span><span class="dv">1</span> )</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>test_mod <span class="sc">%&gt;%</span> </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> new_permit, <span class="at">y =</span> log_crime)) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>test_mod <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_crime =</span> <span class="fu">log</span>(state_crime_2019_total),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">new_permit =</span> permit<span class="sc">+</span><span class="dv">1</span> )</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>test_mod <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> new_permit, <span class="at">y =</span> log_crime)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/scatter%20plot%20-%20model%202-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/linear regression model 2_68f3531d3576955d202a0cc9f9139862">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_crime <span class="sc">~</span> new_permit, </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> test_mod) </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_crime <span class="sc">~</span> new_permit, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> test_mod) </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term          estimate std.error statistic  p.value
@@ -520,8 +528,8 @@ Levels: state</code></pre>
 1 (Intercept) 10.9       0.150         72.3  1.90e-51
 2 new_permit   0.0000860 0.0000141      6.10 1.63e- 7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squ…¹ adj.r…² sigma stati…³ p.value    df logLik   AIC   BIC devia…⁴ df.re…⁵
@@ -530,39 +538,39 @@ Levels: state</code></pre>
 # … with 1 more variable: nobs &lt;int&gt;, and abbreviated variable names
 #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis and accuracy of the model</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_2, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis and accuracy of the model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_2, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/linear%20regression%20model%202-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/scatter plot - model 3_48e1c462cf3b4bf705ffe4bb953baae5">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_mod_again <span class="ot">&lt;-</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  test_mod <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_permit =</span> <span class="fu">log</span>(new_permit))</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>test_mod_again <span class="sc">%&gt;%</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_permit, <span class="at">y =</span> log_crime)) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Log_Permit'</span>) <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Log_Total Crime'</span>) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between number of permit and total crime under log transformation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>test_mod_again <span class="ot">&lt;-</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  test_mod <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_permit =</span> <span class="fu">log</span>(new_permit))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>test_mod_again <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> log_permit, <span class="at">y =</span> log_crime)) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Log_Permit'</span>) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Log_Total Crime'</span>) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between number of permit and total crime under log transformation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/scatter%20plot%20-%20model%203-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/linear regression model 3_b1f65b103bf5853b6e98fb685774fe1e">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit new model</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_crime <span class="sc">~</span> log_permit, </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> test_mod_again)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit new model</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_crime <span class="sc">~</span> log_permit, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> test_mod_again)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic  p.value
@@ -570,8 +578,8 @@ Levels: state</code></pre>
 1 (Intercept)    9.29     0.414      22.4  2.07e-27
 2 log_permit     0.284    0.0521      5.44 1.67e- 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squ…¹ adj.r…² sigma stati…³ p.value    df logLik   AIC   BIC devia…⁴ df.re…⁵
@@ -580,14 +588,14 @@ Levels: state</code></pre>
 # … with 1 more variable: nobs &lt;int&gt;, and abbreviated variable names
 #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_3, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_3, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/linear%20regression%20model%203-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/summary statistics binded_ac61428bf1d787c07b13567403aebedb">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squa…¹  sigma stati…² p.value    df logLik   AIC   BIC devia…³
@@ -596,7 +604,7 @@ Levels: state</code></pre>
 # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squ…¹ adj.r…² sigma stati…³ p.value    df logLik   AIC   BIC devia…⁴ df.re…⁵
@@ -605,7 +613,7 @@ Levels: state</code></pre>
 # … with 1 more variable: nobs &lt;int&gt;, and abbreviated variable names
 #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squ…¹ adj.r…² sigma stati…³ p.value    df logLik   AIC   BIC devia…⁴ df.re…⁵
@@ -615,27 +623,31 @@ Levels: state</code></pre>
 #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/scatter plot - model 4_400f7b90d4d6dabbcba32ea5d6421572">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_handgun_and_total_Violence <span class="ot">&lt;-</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> handgun <span class="sc">+</span> long_gun, </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> state_crime_2019_total)) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">'Total gun'</span>) <span class="sc">+</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">'Total Crime'</span>) <span class="sc">+</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between number of firearms and total crime'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/scatter plot - model 4_44d9fee4e4395681e92a9bcdb9413c41">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_handgun_and_total_Violence <span class="ot">&lt;-</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  df_firearm_final <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> handgun <span class="sc">+</span> long_gun, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> state_crime_2019_total)) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">'Total gun'</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">'Total Crime'</span>) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">'Scatterplot between number of firearms and total crime'</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>Scatterplot_between_handgun_and_total_Violence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="MATH-254-Project-Final-submission-_files/figure-html/scatter%20plot%20-%20model%204-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/linear regression model 4_3ba6704574c4b6388d61fd88afa01de5">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(state_crime_2019_total <span class="sc">~</span> handgun <span class="sc">+</span> long_gun, </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_firearm_final) <span class="co"># fits the model</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(state_crime_2019_total <span class="sc">~</span> handgun <span class="sc">+</span> long_gun, </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> df_firearm_final) <span class="co"># fits the model</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy output</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term         estimate std.error statistic p.value
@@ -644,8 +656,8 @@ Levels: state</code></pre>
 2 handgun          1.76      2.39     0.737 0.465  
 3 long_gun        12.1       3.74     3.24  0.00216</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glance at metrics</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(model_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squ…¹  sigma stati…²  p.value    df logLik   AIC   BIC devia…³
@@ -654,27 +666,27 @@ Levels: state</code></pre>
 # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
 #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_4, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual analysis</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_4, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/linear%20regression%20model%204-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/predictions_bebd4f9803630ccfe77039393900419a">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>test_preds <span class="ot">&lt;-</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  test_mod_again <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>handgun, <span class="sc">-</span>long_gun, <span class="sc">-</span>log_crime, <span class="sc">-</span>new_permit, <span class="sc">-</span>log_permit, <span class="sc">-</span>permit) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">pred1 =</span> <span class="fu">predict</span>(model_1, <span class="at">new_data =</span> test_mod_again), </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred2 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(model_2, <span class="at">new_data =</span> test_mod_again)),</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred3 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(model_3, <span class="at">new_data =</span> test_mod_again)),</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred4 =</span> <span class="fu">predict</span>(model_4, <span class="at">new_data =</span> test_mod_again))</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># change column names</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(test_preds) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'state'</span>, <span class="st">'crimes'</span>, <span class="st">'pred1'</span>, <span class="st">'pred2'</span>, <span class="st">'pred3'</span>, <span class="st">'pred4'</span>)</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co"># display the data</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(test_preds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>test_preds <span class="ot">&lt;-</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  test_mod_again <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>handgun, <span class="sc">-</span>long_gun, <span class="sc">-</span>log_crime, <span class="sc">-</span>new_permit, <span class="sc">-</span>log_permit, <span class="sc">-</span>permit) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">pred1 =</span> <span class="fu">predict</span>(model_1, <span class="at">new_data =</span> test_mod_again), </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred2 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(model_2, <span class="at">new_data =</span> test_mod_again)),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred3 =</span> <span class="fu">exp</span>(<span class="fu">predict</span>(model_3, <span class="at">new_data =</span> test_mod_again)),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">pred4 =</span> <span class="fu">predict</span>(model_4, <span class="at">new_data =</span> test_mod_again))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># change column names</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(test_preds) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'state'</span>, <span class="st">'crimes'</span>, <span class="st">'pred1'</span>, <span class="st">'pred2'</span>, <span class="st">'pred3'</span>, <span class="st">'pred4'</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># display the data</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(test_preds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 51
 Columns: 6
@@ -687,9 +699,9 @@ $ pred4  &lt;dbl&gt; 356533.68, 28246.33, 143124.50, 132855.70, 429281.06, 22660
 </div>
 </div>
 <div class="cell" data-hash="MATH-254-Project-Final-submission-_cache/html/final pair plots_89c37aa24a20c269018c27af34c894e3">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>test_preds <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggscatmat</span>() <span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>test_preds <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  GGally<span class="sc">::</span><span class="fu">ggscatmat</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="MATH-254-Project-Final-submission-_files/figure-html/final%20pair%20plots-1.png" class="img-fluid" width="672"></p>
 </div>
