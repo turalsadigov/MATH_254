@@ -34,9 +34,9 @@ abstract: In the sport of track and field, the 100 meter sprint is a popular dis
 format: 
     html:
       theme: 
-        light: united
-        dark: darkly
-title-block-banner: darkblue
+        light: materia
+        dark: minty
+title-block-banner: darkorange
 date: November 16, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -61,6 +61,7 @@ execute:
 editor_options: 
   chunk_output_type: console
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
 nocite: |
   @*
 ---
@@ -89,7 +90,12 @@ Since race results are skewed right, we created a new variable `log_times` which
 #| echo: fenced
 #| code-fold: true
 library(tidyverse)
-df <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/track_data_eddie_branden.csv')
+remote <- "https://media.githubusercontent.com/media/"
+account <- "turalsadigov/"
+folder <- "MATH_254/main/Datasets%20for%20projects/"
+file <- "track_data_eddie_branden.csv"
+url <- str_c(remote, account, folder, file)
+df <- read_csv(url)
 
 df2 <- 
   df %>%
@@ -117,7 +123,7 @@ We also grouped results by legal or illegal wind speed by creating a boolean var
 
 c. Methods
 
-To determine the wind threshold under which race results are independent of wind speed, for each possible wind threshold we fit a linear regression model to the relationship between wind speed and log-scaled result times for races under that wind threshold. We did this by filtering results to include only those under a given threshold, then fitting a linear regression to this subset of observations. A threshold is deemed fair if log-scaled race results could reasonably be independent of wind for wind speeds under that threshold.
+To determine the wind threshold under which race results are independent of wind speed, for each possible wind threshold ranging from 0.1 up to 4 incremented by 0.1, we fit a linear regression model to the relationship between wind speed and log-scaled result times for races under that wind threshold. We did this by filtering results to include only those under a given threshold, then fitting a linear regression to this subset of observations. A threshold is deemed fair if log-scaled race results could reasonably be independent of wind for wind speeds under that threshold.
 
 # Results
 
@@ -173,7 +179,7 @@ plot(thresholds, p_values, pch = 20, cex = .5,
 abline(0, 0.05/40)
 ```
 
-Below is our fitted linear model of rescaled results vs wind speed using a wind speed threshold of 2.4 m/s. This the the lowest threshold showing a statistically significant relationship between wind speed and rescaled race results, with a p-value of 0.00000724. The linear relationship is modeled by the equation `log_times` $= 0.49586 - 0.02443*$`Wind`, yielding a relationship of `Result` $=e^{0.49586-0.02443*\text{Wind}} + 8.69$. There is very little remaining pattern to residuals, and residuals appear nearly normally distributed, showing that our model is a reasonable representation of the relationship between rescaled results and wind speed.
+Below is our fitted linear model of rescaled results vs wind speed using a wind speed threshold of 2.4 m/s. This the the lowest threshold showing a statistically significant relationship between wind speed and rescaled race results, with a p-value of 0.00000724. The linear relationship is modeled by the equation `log_times` $= 0.49586 - 0.02443*$`Wind`, yielding a relationship of `Result` $=e^{0.49586-0.02443*\text{Wind}} + 8.69$. There is very little remaining pattern to residuals, but residuals seem to depart from normality.
 
 ```{r}
 #| echo: fenced
@@ -211,9 +217,14 @@ The p-value that we obtain for each model indicates significance under the null 
 
 Using the current threshold of 2.0 meters per second, we obtain a p-value of 0.015, indicating that there is no significant relationship between wind speed and race results. The highest threshold with a p-value above 0.00125 is 2.3 meters per second, with $p = 0.003.$ Therefore the higher threshold of 2.3 meters per second still shows no significant relationship between results and wind speed, so this is a better threshold than the current 2.0 meter per second regulation. Notice that without adjusting our $\alpha$-threshold to guard against p-hacking, we would find that the current regulation is reasonable, since 1.8 m/s is the last wind threshold with a p-value above 0.05. Therefore the current threshold may be a result of improper data analysis, and we recommend increasing the wind threshold to 2.3 meters per second. We would be interested in continuing to monitor the Diamond League results to update or confirm our findings as we gather more observations.
 
+# References
+
+::: {#refs}
+:::
+
 # Appendix
 
-### Vsualizations of Variable Distributions
+### Visualizations of Variable Distributions
 
 ```{r}
 #| echo: fenced

@@ -120,10 +120,10 @@ div.csl-indent {
 <script src="254proj11_16_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="254proj11_16_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="254proj11_16_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="254proj11_16_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="254proj11_16_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <style>
     .quarto-title-block .quarto-title-banner {
-      background: darkblue;
+      background: darkorange;
     }
     </style>
 
@@ -199,10 +199,11 @@ div.csl-indent {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">2</span>  Methods</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">3</span>  Results</a></li>
   <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"><span class="toc-section-number">4</span>  Discussion/Conclusions</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">5</span>  Appendix</a>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">5</span>  References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">6</span>  Appendix</a>
   <ul class="collapse">
-  <li><a href="#vsualizations-of-variable-distributions" id="toc-vsualizations-of-variable-distributions" class="nav-link" data-scroll-target="#vsualizations-of-variable-distributions"><span class="toc-section-number">5.0.1</span>  Vsualizations of Variable Distributions</a></li>
-  <li><a href="#visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" id="toc-visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" class="nav-link" data-scroll-target="#visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms"><span class="toc-section-number">5.0.2</span>  Visual Summary for the Linear Model of the Current Wind Threshold 2.0 m/s</a></li>
+  <li><a href="#visualizations-of-variable-distributions" id="toc-visualizations-of-variable-distributions" class="nav-link" data-scroll-target="#visualizations-of-variable-distributions"><span class="toc-section-number">6.0.1</span>  Visualizations of Variable Distributions</a></li>
+  <li><a href="#visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" id="toc-visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" class="nav-link" data-scroll-target="#visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms"><span class="toc-section-number">6.0.2</span>  Visual Summary for the Linear Model of the Current Wind Threshold 2.0 m/s</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -225,34 +226,39 @@ div.csl-indent {
 <p>Unlike a survey, most of the variables in this data set are measured for the race and required for official results, so there are almost no missing data. All personal information fields are required for atheletes to participate in a race, and both result times and wind speed are required for official result certification. The only missing data are unknown values, such as a few athletes’ birth years.</p>
 <p>b. Variable Creation</p>
 <p>Since race results are skewed right, we created a new variable <code>log_times</code> which is a log-scaled version of race results. These are first shifted down by 8.69 seconds to scale the lowest time to 1 second, then rescaled by the natural logarithm function. Histograms of the original and rescaled times are displayed below.</p>
-<div class="cell" data-hash="254proj11_16_cache/html/unnamed-chunk-1_078c072fd9f485da6fa4686db067e5e9">
+<div class="cell" data-hash="254proj11_16_cache/html/unnamed-chunk-1_58790fb6641b139bdab0aa9b28a4df20">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/track_data_eddie_branden.csv'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_times =</span> <span class="fu">log</span>(Result <span class="sc">-</span> <span class="fu">min</span>(Result) <span class="sc">+</span> <span class="dv">1</span>))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Result</span><span class="st">`</span>, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">'darkgreen'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'green4'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Race Result (seconds)'</span>) <span class="sc">+</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Density'</span>) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Histogram of Diamond League Men's 100m Race Results"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">log_times</span><span class="st">`</span>, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">'darkgreen'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'green4'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Adjusted Race Result'</span>) <span class="sc">+</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Density'</span>) <span class="sc">+</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Histogram of Diamond League Men's 100m Rescaled Race Results"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>remote <span class="ot">&lt;-</span> <span class="st">"https://media.githubusercontent.com/media/"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>account <span class="ot">&lt;-</span> <span class="st">"turalsadigov/"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>folder <span class="ot">&lt;-</span> <span class="st">"MATH_254/main/Datasets%20for%20projects/"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="st">"track_data_eddie_branden.csv"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">str_c</span>(remote, account, folder, file)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_times =</span> <span class="fu">log</span>(Result <span class="sc">-</span> <span class="fu">min</span>(Result) <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Result</span><span class="st">`</span>, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">'darkgreen'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'green4'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Race Result (seconds)'</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Density'</span>) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Histogram of Diamond League Men's 100m Race Results"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">log_times</span><span class="st">`</span>, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">'darkgreen'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'green4'</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Adjusted Race Result'</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Density'</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Histogram of Diamond League Men's 100m Rescaled Race Results"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="254proj11_16_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
@@ -263,7 +269,7 @@ div.csl-indent {
 </div>
 <p>We also grouped results by legal or illegal wind speed by creating a boolean variable <code>IsLegal</code> that takes the value TRUE if the recorded wind speed is less than the +2.0m/s legal threshold and FALSE if the recorded wind speed is greater than the legal threshold.</p>
 <p>c.&nbsp;Methods</p>
-<p>To determine the wind threshold under which race results are independent of wind speed, for each possible wind threshold we fit a linear regression model to the relationship between wind speed and log-scaled result times for races under that wind threshold. We did this by filtering results to include only those under a given threshold, then fitting a linear regression to this subset of observations. A threshold is deemed fair if log-scaled race results could reasonably be independent of wind for wind speeds under that threshold.</p>
+<p>To determine the wind threshold under which race results are independent of wind speed, for each possible wind threshold ranging from 0.1 up to 4 incremented by 0.1, we fit a linear regression model to the relationship between wind speed and log-scaled result times for races under that wind threshold. We did this by filtering results to include only those under a given threshold, then fitting a linear regression to this subset of observations. A threshold is deemed fair if log-scaled race results could reasonably be independent of wind for wind speeds under that threshold.</p>
 </section>
 <section id="results" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
@@ -332,7 +338,7 @@ div.csl-indent {
 <p><img src="254proj11_16_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Below is our fitted linear model of rescaled results vs wind speed using a wind speed threshold of 2.4 m/s. This the the lowest threshold showing a statistically significant relationship between wind speed and rescaled race results, with a p-value of 0.00000724. The linear relationship is modeled by the equation <code>log_times</code> <span class="math inline">\(= 0.49586 - 0.02443*\)</span><code>Wind</code>, yielding a relationship of <code>Result</code> <span class="math inline">\(=e^{0.49586-0.02443*\text{Wind}} + 8.69\)</span>. There is very little remaining pattern to residuals, and residuals appear nearly normally distributed, showing that our model is a reasonable representation of the relationship between rescaled results and wind speed.</p>
+<p>Below is our fitted linear model of rescaled results vs wind speed using a wind speed threshold of 2.4 m/s. This the the lowest threshold showing a statistically significant relationship between wind speed and rescaled race results, with a p-value of 0.00000724. The linear relationship is modeled by the equation <code>log_times</code> <span class="math inline">\(= 0.49586 - 0.02443*\)</span><code>Wind</code>, yielding a relationship of <code>Result</code> <span class="math inline">\(=e^{0.49586-0.02443*\text{Wind}} + 8.69\)</span>. There is very little remaining pattern to residuals, but residuals seem to depart from normality.</p>
 <div class="cell" data-hash="254proj11_16_cache/html/unnamed-chunk-4_27149d829fc0d31c5494a8fcaf51f634">
 <details>
 <summary>Code</summary>
@@ -377,10 +383,14 @@ div.csl-indent {
 <p>The p-value that we obtain for each model indicates significance under the null hypothesis that the re-scaled finish times are not affected by wind speed. A p-value below our <span class="math inline">\(\alpha\)</span>-threshold allows us to reject the null hypothesis, conveying that the finish times are dependent on the wind speed.</p>
 <p>Using the current threshold of 2.0 meters per second, we obtain a p-value of 0.015, indicating that there is no significant relationship between wind speed and race results. The highest threshold with a p-value above 0.00125 is 2.3 meters per second, with <span class="math inline">\(p = 0.003.\)</span> Therefore the higher threshold of 2.3 meters per second still shows no significant relationship between results and wind speed, so this is a better threshold than the current 2.0 meter per second regulation. Notice that without adjusting our <span class="math inline">\(\alpha\)</span>-threshold to guard against p-hacking, we would find that the current regulation is reasonable, since 1.8 m/s is the last wind threshold with a p-value above 0.05. Therefore the current threshold may be a result of improper data analysis, and we recommend increasing the wind threshold to 2.3 meters per second. We would be interested in continuing to monitor the Diamond League results to update or confirm our findings as we gather more observations.</p>
 </section>
-<section id="appendix" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Appendix</h1>
-<section id="vsualizations-of-variable-distributions" class="level3" data-number="5.0.1">
-<h3 data-number="5.0.1" class="anchored" data-anchor-id="vsualizations-of-variable-distributions"><span class="header-section-number">5.0.1</span> Vsualizations of Variable Distributions</h3>
+<section id="references" class="level1" data-number="5">
+
+
+</section>
+<section id="appendix" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Appendix</h1>
+<section id="visualizations-of-variable-distributions" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="visualizations-of-variable-distributions"><span class="header-section-number">6.0.1</span> Visualizations of Variable Distributions</h3>
 <div class="cell" data-hash="254proj11_16_cache/html/unnamed-chunk-5_2fa97ba9b2a3282df5c263b76a22c70e">
 <details>
 <summary>Code</summary>
@@ -438,8 +448,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" class="level3" data-number="5.0.2">
-<h3 data-number="5.0.2" class="anchored" data-anchor-id="visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms"><span class="header-section-number">5.0.2</span> Visual Summary for the Linear Model of the Current Wind Threshold 2.0 m/s</h3>
+<section id="visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms" class="level3" data-number="6.0.2">
+<h3 data-number="6.0.2" class="anchored" data-anchor-id="visual-summary-for-the-linear-model-of-the-current-wind-threshold-2.0-ms"><span class="header-section-number">6.0.2</span> Visual Summary for the Linear Model of the Current Wind Threshold 2.0 m/s</h3>
 <div class="cell" data-hash="254proj11_16_cache/html/unnamed-chunk-7_82da649ee7ac4f7e2c42440d878b6ab8">
 <details>
 <summary>Code</summary>
@@ -478,37 +488,36 @@ div.csl-indent {
 <p><img src="254proj11_16_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-Wind_Rules" class="csl-entry" role="doc-biblioentry">
-<em>Competition and Technical Rules</em>. 2020. Monacco: World Athletics. <a href="https://www.worldathletics.org">www.worldathletics.org</a>.
-</div>
-<div id="ref-Diamond_League" class="csl-entry" role="doc-biblioentry">
-League, Diamond. 2022. <em>Diamond League 100 Meter Race Statistics</em>. <a href="https://dl.all-athletics.com/dls/en/alltime-list/fnnnn/10229630/1073741823/detailed">https://dl.all-athletics.com/dls/en/alltime-list/fnnnn/10229630/1073741823/detailed</a>.
-</div>
-<div id="ref-patchwork" class="csl-entry" role="doc-biblioentry">
-Pedersen, Thomas Lin. 2022. <em>Patchwork: The Composer of Plots</em>. <a href="https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork">https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork</a>.
-</div>
-<div id="ref-GGally" class="csl-entry" role="doc-biblioentry">
-Schloerke, Barret, Di Cook, Joseph Larmarange, Francois Briatte, Moritz Marbach, Edwin Thoen, Amos Elberg, and Jason Crowley. 2021. <span>“GGally: Extension to ’Ggplot2’.”</span> <a href="https://CRAN.R-project.org/package=GGally">https://CRAN.R-project.org/package=GGally</a>.
-</div>
-<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
-Tang, Yuan, Masaaki Horikoshi, and Wenxuan Li. 2016. <span>“Ggfortify: Unified Interface to Visualize Statistical Result of Popular r Packages”</span> 8. <a href="https://doi.org/10.32614/RJ-2016-060">https://doi.org/10.32614/RJ-2016-060</a>.
-</div>
-<div id="ref-R" class="csl-entry" role="doc-biblioentry">
-Team, R Core. 2022. <em>R: A Language and Environment for Statistical Computing</em>. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
-</div>
-<div id="ref-Rstudio" class="csl-entry" role="doc-biblioentry">
-Team, Rstudio. 2022. <em>RStudio: Integrated Development for r</em>. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">5 References</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
 </div>
 <div id="ref-ggplot2" class="csl-entry" role="doc-biblioentry">
-Wickham, Hadley. 2016. <span>“Ggplot2: Elegant Graphics for Data Analysis.”</span> <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H. (2016). <a href="https://ggplot2.tidyverse.org">ggplot2: Elegant graphics for data analysis</a>.</div>
 </div>
-<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+<div id="ref-GGally" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Schloerke</span>, B., <span class="smallcaps">Cook</span>, D., <span class="smallcaps">Larmarange</span>, J., <span class="smallcaps">Briatte</span>, F., <span class="smallcaps">Marbach</span>, M., <span class="smallcaps">Thoen</span>, E., <span class="smallcaps">Elberg</span>, A. and <span class="smallcaps">Crowley</span>, J. (2021). <a href="https://CRAN.R-project.org/package=GGally">GGally: Extension to ’ggplot2’</a>.</div>
+</div>
+<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Tang</span>, Y., <span class="smallcaps">Horikoshi</span>, M. and <span class="smallcaps">Li</span>, W. (2016). <a href="https://doi.org/10.32614/RJ-2016-060">Ggfortify: Unified interface to visualize statistical result of popular r packages</a>. <strong>8</strong>.</div>
+</div>
+<div id="ref-patchwork" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Pedersen</span>, T. L. (2022). <em><a href="https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork">Patchwork: The composer of plots</a></em>.</div>
+</div>
+<div id="ref-Rstudio" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Team</span>, R. (2022). <em><a href="http://www.rstudio.com/">RStudio: Integrated development for r</a></em>.</div>
+</div>
+<div id="ref-R" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Team</span>, R. C. (2022). <em><a href="https://www.R-project.org/">R: A language and environment for statistical computing</a></em>.</div>
+</div>
+<div id="ref-Wind_Rules" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. (2020). <em><a href="https://www.worldathletics.org">Competition and technical rules</a></em>. World Athletics, Monacco.</div>
+</div>
+<div id="ref-Diamond_League" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span class="smallcaps">League</span>, D. (2022). <em><a href="https://dl.all-athletics.com/dls/en/alltime-list/fnnnn/10229630/1073741823/detailed">Diamond league 100 meter race statistics</a></em>.</div>
 </div>
 </div></section></div></main>
 <!-- /main column -->
