@@ -13,7 +13,8 @@ beep(sound = 2)
 df <- 
   county %>% 
   select(pop2017, median_hh_income, metro) %>% 
-  mutate(metro = factor(metro))
+  mutate(metro = factor(metro)) %>% 
+  drop_na()
 
 summary(df)
 GGally::ggpairs(df)
@@ -149,6 +150,20 @@ save(model_2, file = 'my_amazing_model.RDATA')
 
 
 # ====== 
+
+# with NAs
+df <- 
+  county %>% 
+  select(pop2017, median_hh_income, metro) %>% 
+  mutate(metro = factor(metro))
+
+### split data
+set.seed(2020)
+df_split <- initial_split(df, .80, metro)
+df_training <- training(df_split)
+df_testing <- testing(df_split)
+summary(df_training)
+summary(df_testing)
 
 model_spec <- 
   nearest_neighbor(neighbors = 50) %>% 
