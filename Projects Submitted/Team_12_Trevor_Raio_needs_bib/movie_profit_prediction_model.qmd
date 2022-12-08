@@ -1,0 +1,704 @@
+---
+title: "Movie Profit Prediction Model"
+author:
+  - name: Trevor Wilkes
+    email: twilkes@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+        address: Clinton, New York
+  - name: Raio Huang
+    email: zhuang@hamilton.edu
+    affiliations:
+      - name: Hamilton College
+        address: Clinton, New York
+  - name: Tural Sadigov
+    email: tsadigov@hamilton.edu
+    affiliations:
+        
+      - name: Hamilton College
+        orcid: 0000-0002-6446-415X
+        address: 198 College Hill Rd
+        city: Clinton
+        state: NY
+        country: USA
+        postal-code: 13323-1218
+abstract:
+  The film industry is constantly looking at what makes a movie work, what makes it successful in a modern market. This includes looking at a number of factors, including the budgets of past films or their audience ratings, for example. In this paper we use machine learning methods, specifically multiple linear regression, bootstrapping, and feature engineering on the IMDB 5000 Movies dataset obtained from Kaggle to discover the influence of multiple factors on movie gross income. We found that some genres, such as comedy and family, are more likely to contribute to the gross income, while others decrease profitability. Finally, we found that the variables such as IMDB scores, budget of a movie, duration of a movie, and number of votes it got on IMDB,  can be used as predictors for film gross.
+format: 
+    html:
+      theme: 
+        light: journal
+        dark: litera
+title-block-banner: lightblue
+date: October 17, 2022
+highlight-style: pygments
+chunk_output_type: console
+fig-align: center
+always_allow_html: true
+toc: true
+toc-location: right
+number-sections: true
+page-layout: article
+code-overflow: scroll
+code-line-numbers: false
+code-copy: true
+execute:
+  echo: true
+  warning: false
+  eval: true
+  output: true
+  error: false
+  freeze: true
+  out.width: "100%"
+  cache: true
+editor_options: 
+  chunk_output_type: console
+# csl: electronic-journal-of-statistics.csl
+#bibliography: references.bib
+---
+
+# Background and Significance
+
+Cinema is a form of media that's constantly reinventing itself, always exploring new genres and topics or even exploring older topics in a new form. The film industry is constantly looking at what makes a movie work, what makes it successful in a modern market; much analysis has been done on movie profit and other numerical variables, for example (Chen). As such, statistical analysis of the metadata behind the industry could prove to improve the development and financing process of creating a movie
+
+The process of making a film, after the idea is already created, begins with a synopsis of the movie that's then brought around by a lead producer to see if they can sell the idea. It's only after this that funding can be acquired to actually produce the movie. Based on this short synopsis that presents the big ideas of the movie, the movie is evaluated, approved or denied for funding. Investors may be looking at what a "safe bet" for them is, what genre or buzzwords will get an audience excited to pay for a movie.
+
+The aim of this study is to look at gross income as a response variable to a few explanatory variables. We will look at it as a response to the budget for the film, to the IMDB rating of the film, and to the duration. Within each of these relationships we will also look at which genres are associated with the gross income of the film, that is parsing out the individual contribution of a particular genre to how well the movie does at the box office. Going further, we will find out how accurately we can predict the gross income of the film factoring in its genre. A final research topic will explore the synergy between genres, looking at the difference between the gross income of films of one genre versus the gross income of films that incorporate multiple genres using the same numerical predictors.
+
+# Methods
+
+## Data Collection
+
+This dataset comes from Kaggle and was collected in 2016. We found that the gross income variable (gross) and the budget variable (budget) are measured in local currencies, and it is hard to convert them into USD, so we decided to only look at US movies in this project for homogeneity in currency.
+
+## Variable Creation
+
+Some important variables in this dataset includes budget, gross income, genres, and IMDB scores, which are related to the budget of the movie, gross income of the movie, the genres of the movie, and its score on IMDB respectively. We also extract partial strings from the original "genres" variable to create individual genres dummy variable including comedy, family, action, horror, and etc.
+
+## Analytic Methods
+
+We use machine learning, specifically multiple linear regression, to predict the gross income of a film using multiple predictors. Here, the response variable is gross income with predictors including IMDB score, movie genre, budget, and duration. We then move to use feature engineering in order to look at nonlinear correlations between the variables in the data set. We split the dataset using the validation set method and use these models created by feature engineering to predict the accuracy of our model for the testing data set. We set the null hypothesis to be that gross income is not correlated to any of the predictors the predictor set of variables.
+
+# Results
+
+In creating a correlation plot of all available variables, we visualize that some variables are strongly correlated with each other, causing a multicolliniarity. Therefore, we need to try out different models in order to solve this problems. In the 18 models that we created, Model 18 one turns out to have the best validation R-squared value of 0.53. Similarly, the R-squared for the entire training dataset is about 0.6 After verifying it with the testing dataset, we figure out that the R-squared value of Model 18 is 64%, which is decently good in predicting the gross income of a movie.
+
+Among the variables, we find that actors' facebook likes are highly correlated with one another. Additionally, budget of a movie and number of online reviews and users who voted for a movie is also highly correlated. Using multiple linear regression and looking at corresponding p-values for the genre coefficients, we found that on average and with a significance level of 0.05, the genres "Sci-Fi", "Crime", and "Fantasy" actually reduced the gross income of the movie. These coefficients were all negative and had respective p-values of 0.000035, 0.02, and 0.009. With this same method we found the variables "budget" and "num_voted_users" to positively contribute to gross income, with positive coefficients and respective p-values of approximately 0.
+
+# Discussion/Conclusions
+
+The objective of this study was to look at gross income as a response variable to the budget for the film, to the IMDB rating of the film, the duration of the film, and the genre tag of the film. The final model fit to this dataset incorporated these predictors, but used many more in addition to these initial predictors thought to be significant at the start of this project. Since the response variable in question was gross income, since the concern is just on how much the film makes from box office proceedings, the use of feature engineering was chosen to have the best predictive power for the training data, as well as the testing data. The only caveat to this process is that the specific sums and products used to create our final model (Model 18) are uninterpretable. However, since this feature engineering facilitated a more desirable R-squared value in our training and testing sets, this process was valid in our analysis of gross income.
+
+Our p-value for Model 18, 1.98e-40 \<\< $\alpha = 0.005$, suggests that this model is statistically significant, even though it only achieved a relatively low R-squared value of 0.641 (with an adjusted-R-squared value of 0.565). As prescribed by the p-value, we reject our null hypothesis that gross income is not correlated to any of the predictors the predictor set of variables with a p-value of 1.98e-40. However these results for correlation may be too low to be used in an investment setting, which may desire a much stronger correlation to ensure the most profit from their film. Still, all of this suggests that there is a relationship between the gross income of a film and the metadata included in our final model. Previous research consulted has reviewed individual metadata and their correlation to the revenue of the films in their data, but they didn't use multiple predictors or feature engineering, an expansion that this project attempts to provide. Our results suggest that this approach, using many predictors, including qualitative information like film genre, to predict gross income, can go further in the film industry. Despite the fact that much of the "buzz" surrounding the film industry and the films they produce appears to be qualitative, it is possible to examine it in a quantitative sense using multiple linear regression modeling. If this process were continued with more data, with a greater focus on metadata on each film, possible investors could be given predictions based on preliminary information on a film and make an informed decision to fund a project.
+
+# Reference
+
+1.  [@wickham2019]
+
+2.  [@couch2021]
+
+3.  [@rstudioapi]
+
+4.  [@tidyverse]
+
+5.  [@tidymodels]
+
+6.  [@infer]
+
+7.  [@GGally]
+
+8.  [@ggfortify]
+
+9.  [@knitr]
+
+10. [@corrplot]
+
+11. [@chen2018]
+
+12. [@james2013]
+
+# References:
+
+::: {#refs}
+:::
+
+
+# Appendix
+
+## Libraries
+
+```{r}
+library(tidyverse)
+library(infer)
+library(tidymodels)
+library(GGally)
+library(ggfortify)
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+library(corrplot)
+```
+
+## Dataset
+
+```{r}
+# movie_raw_data <- read_csv('movie_metadata.csv')
+
+movie_raw_data <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/movie_metadata_trevor_raio.csv')
+```
+
+## Table of Variables in Dataset
+
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| Variable                      |   | Explanation                                                                                  |
++===============================+===+==============================================================================================+
+| **color**                     |   | is the movie colored or black and white?                                                     |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **num_critic\_**              |   | number of critics for reviews on IMDB                                                        |
+|                               |   |                                                                                              |
+| **for_reviews**               |   |                                                                                              |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **duration**                  |   | the movie duration                                                                           |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **director_facebook_likes**   |   | number of likes that the director get on facebook (0s are missing data)                      |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **actor_1\_facebook_likes**   |   | number of likes that the actor with most likes have on facebook (0s are missing data)        |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **actor_2\_facebook_likes**   |   | number of likes that the actor with second most likes have on facebook (0s are missing data) |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **actor_3\_facebook_likes**   |   | number of likes that the actor with third most likes have on facebook (0s are missing data)  |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **cast_total_facebook_likes** |   | number of the total facebook likes of the casts                                              |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **gross**                     |   | gross income of the movie                                                                    |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **genres**                    |   | the genres of the movie (there maybe multiple genres for one movie)                          |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **num_voted_users**           |   | number of users that voted on IMDB                                                           |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **facenumber_in_poster**      |   | number of faces in the poster                                                                |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **num_user_for_reviews**      |   | number of users for reviews on IMDB                                                          |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **content_rating**            |   | the content rating of the movie                                                              |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **budget**                    |   | the budget of the movie                                                                      |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **title_year**                |   | the year that the movie was published                                                        |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **imdb_scores**               |   | the IMDB scores of the movies                                                                |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **aspect_ratio**              |   | aspect ratio of the movie                                                                    |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+| **movie_facebook_likes**      |   | number of likes that the movie got on facebook                                               |
++-------------------------------+---+----------------------------------------------------------------------------------------------+
+
+## Cleaning
+
+```{r}
+# Set so that long lines in R will be wrapped:
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+
+# This part clears the outliers and focuses on the main part of the data by 
+# excluding the lowest 5% and the highest 5% of the data in each variable
+
+# Create a range for each variable that excludes the lowest and highest 5%
+
+# For each variable, we find the cut-off points for the
+# lowest 5% and the highest 5%.
+
+
+num_critic_quartile <- quantile(movie_raw_data$num_critic_for_reviews, 
+                                probs = c(.05, .95), 
+                                na.rm = T)
+num_voted_quartile <- quantile(movie_raw_data$num_voted_users, 
+                               probs = c(.05, .95), 
+                               na.rm = T)
+budget_quartile <- quantile(movie_raw_data$budget, 
+                            probs = c(.05, .95), 
+                            na.rm = T)
+duration_quartile <- quantile(movie_raw_data$duration, 
+                              probs = c(.05, .95), 
+                              na.rm = T)
+gross_quartile <- quantile(movie_raw_data$gross, 
+                           probs = c(.05, .95), 
+                           na.rm = T)
+actor_1_quartile <- quantile(movie_raw_data$actor_1_facebook_likes, 
+                             probs = c(.05, .95), 
+                             na.rm = T)
+actor_2_quartile <- quantile(movie_raw_data$actor_2_facebook_likes, 
+                             probs = c(.05, .95), 
+                             na.rm = T)
+actor_3_quartile <- quantile(movie_raw_data$actor_3_facebook_likes, 
+                             probs = c(.05, .95), 
+                             na.rm = T)
+
+# Dropping data that isn't in the ranges/dropping unwanted variables
+
+# Use the cut-off points that we identified above, and include the data points
+# that are only within the lower and higher boundaries.
+
+movie_data <- movie_raw_data %>% 
+  filter(country == 'USA') %>% 
+  filter(budget_quartile[1] < budget & budget < budget_quartile[2]) %>% 
+  filter(duration_quartile[1] < duration & duration < duration_quartile[2]) %>% 
+  filter(gross_quartile[1] < gross & gross < gross_quartile[2]) %>% 
+  filter(actor_1_quartile[1] < actor_1_facebook_likes &
+           actor_1_facebook_likes < actor_1_quartile[2]) %>%
+  filter(actor_2_quartile[1] < actor_2_facebook_likes & 
+           actor_2_facebook_likes < actor_2_quartile[2]) %>%  
+  filter(actor_3_quartile[1] < actor_3_facebook_likes & 
+           actor_3_facebook_likes < actor_3_quartile[2]) %>%  
+  filter(num_critic_quartile[1] < num_critic_for_reviews & 
+           num_critic_for_reviews < num_critic_quartile[2]) %>%  
+  filter(num_voted_quartile[1] < num_voted_users 
+         & num_voted_users < num_voted_quartile[2]) %>%
+  select(-c(2,7,11,12,15,17,18,20,21,22))
+```
+
+## Preliminary Visualizations
+
+```{r}
+movie_data %>% 
+  drop_na(duration, imdb_score) %>% 
+  ggplot(aes(x = num_voted_users, y = imdb_score)) + 
+  geom_point(alpha = 0.3) +
+  geom_smooth(lwd = 1, method = 'lm') + 
+  labs(x = "Movie Duration", y = 'IMDB Scores')
+```
+
+```{r}
+movie_data %>% 
+  drop_na(duration, imdb_score) %>% 
+  ggplot(aes(x = duration, y = imdb_score)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth( lwd = 1) +
+  labs(x = "Movie Duration", y = 'IMDB Scores')
+```
+
+```{r}
+movie_data %>% 
+  drop_na(gross, imdb_score) %>% 
+  ggplot(aes(x = gross, y = imdb_score)) + 
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = 'lm', lwd = 1)+
+  labs(x = "Gross Income", y = 'IMDB Scores')
+```
+
+```{r}
+movie_data %>% 
+  drop_na(imdb_score, budget) %>% 
+  ggplot(aes(x = budget, y = imdb_score)) + 
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", lwd = 1) + 
+  labs(x = "Budget", y = 'IMDB Scores')
+```
+
+## Machine Learning/Linear Regression (First Results w/o Genre Variable)
+
+```{r}
+model_1 <- 
+  linear_reg() %>% 
+  set_engine('lm') %>% 
+  set_mode('regression') %>% 
+  fit(gross ~ duration+imdb_score+budget, data = movie_data)
+tidy(model_1)
+glance(model_1)
+
+model_1 %>% 
+  predict(new_data = movie_data)
+
+movie_data %>% 
+  bind_cols(predict(model_1, new_data = movie_data)) %>% 
+  ggplot(aes(x = .pred, y = gross)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+movie_data %>% 
+  dplyr::select(duration, imdb_score, budget, gross) %>% 
+  bind_cols(predict(model_1, new_data = movie_data)) %>% 
+  mutate(ress = gross - .pred, ress_sq = ress^2) %>% 
+  summarise(RSS = sum(ress_sq), 
+            TSS = sum((gross - mean(gross))^2),
+            perc_not_explained = RSS/TSS,
+            R_sq = 1 - perc_not_explained,
+            r = cor(gross, .pred),
+            r_sq = r^2)
+```
+
+## Split the data
+
+```{r}
+movie_data_test <- movie_data
+comedy <- str_detect(movie_data$genres, 'Comedy')
+crime <- str_detect(movie_data$genres, 'Crime')
+action <- str_detect(movie_data$genres, 'Action')
+mystery <- str_detect(movie_data$genres, 'Mystery')
+adventure <- str_detect(movie_data$genres, 'Adventure')
+animation <- str_detect(movie_data$genres, 'Animation')
+family <- str_detect(movie_data$genres, 'Family')
+musical <- str_detect(movie_data$genres, 'Musical')
+sci_fi <- str_detect(movie_data$genres, 'Sci-Fi')
+history <- str_detect(movie_data$genres, 'History')
+thriller <- str_detect(movie_data$genres, 'Thriller')
+romance <- str_detect(movie_data$genres, 'Romance')
+sport <- str_detect(movie_data$genres, 'Sport')
+horror <- str_detect(movie_data$genres, 'Horror')
+war <- str_detect(movie_data$genres, 'War')
+fantasy <- str_detect(movie_data$genres, 'Fantasy')
+western <- str_detect(movie_data$genres, 'Western')
+biography <- str_detect(movie_data$genres, 'Biography')
+music <- str_detect(movie_data$genres, 'music')
+
+
+movie_data_test <- movie_data %>%
+  relocate(genres, .after = movie_facebook_likes) %>%
+  bind_cols(comedy = comedy) %>%
+  bind_cols(crime = crime) %>%
+  bind_cols(action = action) %>%
+  bind_cols(mystery = mystery) %>%
+  bind_cols(adventure = adventure) %>%
+  bind_cols(animation = animation) %>%
+  bind_cols(family = family) %>%
+  bind_cols(musical = musical) %>%
+  bind_cols(sci_fi = sci_fi) %>%
+  bind_cols(history = history) %>%
+  bind_cols(thriller = thriller) %>%
+  bind_cols(romance = romance) %>%
+  bind_cols(sport = sport) %>%
+  bind_cols(horror = horror) %>%
+  bind_cols(war = war) %>%
+  bind_cols(fantasy = fantasy) %>%
+  bind_cols(western = western) %>%
+  bind_cols(biography = biography) %>%
+  bind_cols(music = music)  
+
+set.seed(47)
+movie_split <- initial_split(data = movie_data_test, prop = 0.8, strata = gross)
+movie_training <- training(movie_split)
+movie_testing <- testing(movie_split)
+
+movie_validation_resample <- validation_split(data = movie_training,
+                                           prop = 0.75,
+                                           strata = gross)
+```
+
+## Model specification
+
+```{r}
+lm_specs <-
+  linear_reg() %>% 
+  set_engine('lm') %>% 
+  set_mode('regression')
+```
+
+## Check correlation between specific genres
+
+```{r}
+cor_variable <- movie_data_test %>% 
+  select(-color, - genres, -c(19:37), - aspect_ratio, -facenumber_in_poster) %>% 
+  cor()
+
+corrplot(cor_variable, method = 'pie')
+
+cor_genres <- movie_data_test %>% 
+  select(gross, budget, c(19:37)) %>% 
+  cor()
+corrplot(cor_genres, method = 'pie')
+```
+
+## Fit various models to training data (movie_training), evaluate them for validation data
+
+```{r}
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+
+model_1 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. -genres,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_2 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_3 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - duration,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_4 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - facenumber_in_poster,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_5 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_6 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_7 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews 
+                - director_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_8 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews 
+                - cast_total_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_9 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews 
+                - title_year,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_10 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews 
+                - actor_3_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_11 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio 
+                - num_user_for_reviews
+                + actor_3_facebook_likes*
+                  actor_2_facebook_likes*
+                  actor_1_facebook_likes*
+                  cast_total_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_12 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres
+                - color
+                - aspect_ratio
+                - num_user_for_reviews 
+                - movie_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_13 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres
+                - color
+                - aspect_ratio
+                - num_user_for_reviews
+                - movie_facebook_likes
+                + imdb_score*budget*duration*log(num_user_for_reviews),
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_14 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - color 
+                - aspect_ratio
+                - num_user_for_reviews
+                - movie_facebook_likes
+                - num_critic_for_reviews
+                + imdb_score*budget*duration*num_voted_users,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_15 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - actor_1_facebook_likes
+                - actor_2_facebook_likes
+                - actor_3_facebook_likes
+                - cast_total_facebook_likes
+                + actor_1_facebook_likes*
+                  actor_2_facebook_likes*
+                  actor_3_facebook_likes*
+                  cast_total_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_16 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~. 
+                - genres 
+                - actor_1_facebook_likes
+                - actor_2_facebook_likes 
+                - actor_3_facebook_likes 
+                - cast_total_facebook_likes 
+                + actor_1_facebook_likes*
+                  actor_2_facebook_likes*
+                  actor_3_facebook_likes*
+                  cast_total_facebook_likes 
+                - num_critic_for_reviews 
+                - num_voted_users
+                - num_user_for_reviews
+                - title_year 
+                - movie_facebook_likes 
+                + num_critic_for_reviews*
+                  num_voted_users*
+                  num_user_for_reviews*
+                  title_year*
+                  movie_facebook_likes,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_17 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~ actor_1_facebook_likes*
+                        actor_2_facebook_likes*
+                        cast_total_facebook_likes 
+                + num_critic_for_reviews*
+                  num_voted_users*
+                  num_user_for_reviews*
+                  movie_facebook_likes 
+                + budget
+                + facenumber_in_poster
+                + title_year
+                + imdb_score*num_voted_users*duration
+                + family 
+                + animation 
+                + comedy 
+                + horror 
+                + sci_fi 
+                + thriller 
+                + sport 
+                + mystery 
+                + fantasy,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+
+model_18 <- 
+  lm_specs %>% 
+  fit_resamples(gross ~ actor_1_facebook_likes*
+                        actor_2_facebook_likes*
+                        cast_total_facebook_likes
+                + num_critic_for_reviews*
+                  num_voted_users*
+                  num_user_for_reviews*
+                  movie_facebook_likes*
+                  budget
+                + facenumber_in_poster
+                + director_facebook_likes
+                + title_year*num_critic_for_reviews
+                + imdb_score*duration
+                + family 
+                + animation 
+                + comedy*crime*action*thriller 
+                + horror 
+                + sci_fi 
+                + sport 
+                + mystery 
+                + fantasy,
+                movie_validation_resample,
+                metrics = metric_set(rsq, rmse, mae))
+```
+
+## Put models together
+
+```{r}
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+
+fitted_models <- list(model_1, model_2, model_3, model_4, model_5, 
+                      model_6,model_7, model_8, model_9, model_10, 
+                      model_11, model_12, model_13, model_14, model_15, 
+                      model_16, model_17, model_18)
+```
+
+## Pull out metrics for comparison and more wrangling
+
+```{r}
+validation_result <-
+  bind_rows(fitted_models) %>%
+  mutate(model_name = row_number())
+model_results <- validation_result %>%
+  select(.metrics, model_name) %>%
+  unnest(.metrics)%>%
+  select(.metric, .estimate, model_name) %>%
+  arrange(.metric) %>%
+  pivot_wider(names_from = .metric, values_from = .estimate)
+
+model_results
+```
+
+## Use model on testing data
+
+```{r}
+test <- 
+  lm_specs %>% 
+  fit(gross ~ actor_1_facebook_likes*
+              actor_2_facebook_likes*
+              cast_total_facebook_likes 
+      + num_critic_for_reviews*
+        num_voted_users*
+        num_user_for_reviews*
+        movie_facebook_likes*budget
+      + facenumber_in_poster
+      + director_facebook_likes
+      + title_year*num_critic_for_reviews
+      + imdb_score*duration
+      + family 
+      + animation 
+      + comedy*crime*action*thriller 
+      + horror 
+      + sci_fi 
+      + sport 
+      + mystery 
+      + fantasy,
+      data = movie_testing)
+
+glance(test)
+```

@@ -27,9 +27,9 @@ abstract:  Alcohol abuse is a highly prevalent problem that affects individuals;
 format: 
     html:
       theme: 
-        light: united
-        dark: darkly
-title-block-banner: darkblue
+        light: lumen
+        dark: lux
+title-block-banner: purple
 date: October 17, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -52,6 +52,7 @@ execute:
   out.width: "100%"
   cache: true
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
 ---
 
 # Background and Significance
@@ -532,6 +533,13 @@ In conclusion, we used a series of permutation tests to identify significant soc
 
 Our analysis has two major limitations: inaccuracies of multiple testing and lack of causality identification. Due to the type of variables we used - most of which being categorical and indicator variables - we are unable to determine a causal relationship between variables using a regression model. In turn, we conducted five hypothesis tests to confirm the associations we observed between five pairs of variables individually. Although we discovered four significant correlations between social determinants and alcohol use, the practicality of results may be undermined by multiple testing. One improvement that can be made in future research is fitting a multiple linear regression model on the variables that can potentially affect age first tried alcohol, or fitting a logit regression on the indicator variable for treatment. In addition, a similar approach may be expanded to other types of popular substances used among young adults, such as marijuana and cocaine etc.
 
+
+# References
+
+::: {#refs}
+:::
+
+
 # Appendix
 
 We selected 15 variables from the main dataset including 1 identifier variable, 7 categorical variables, and 7 numerical variables. As an initial view of the data, we plotted the 4 age variables to get an idea of the distribution of respondents' age when first used alcohol or drug. Below is a detailed list of the 15 variables we used.
@@ -575,4 +583,3 @@ drugdata %>%
 
 ```
 
-# Reference

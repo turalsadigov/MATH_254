@@ -57,10 +57,10 @@ div.csl-indent {
 <script src="MATH-254-Project-Report-Template_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="MATH-254-Project-Report-Template_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="MATH-254-Project-Report-Template_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="MATH-254-Project-Report-Template_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="MATH-254-Project-Report-Template_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <style>
     .quarto-title-block .quarto-title-banner {
-      background: darkblue;
+      background: purple;
     }
     </style>
 
@@ -136,8 +136,8 @@ div.csl-indent {
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">2</span>  Methods</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">3</span>  Results</a></li>
   <li><a href="#conclusions-discussion" id="toc-conclusions-discussion" class="nav-link" data-scroll-target="#conclusions-discussion"><span class="toc-section-number">4</span>  Conclusions &amp; Discussion</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">5</span>  Appendix</a></li>
-  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference"><span class="toc-section-number">6</span>  Reference</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">5</span>  References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">6</span>  Appendix</a></li>
   </ul>
 </nav>
 </div>
@@ -148,8 +148,8 @@ div.csl-indent {
 
 <section id="background-and-significance" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Background and Significance</h1>
-<p>Substance abuse can contribute to mental health and behavioral problems, such as stroke, heart disease, and depression <span class="citation" data-cites="socialdeterminant">(<a href="#ref-socialdeterminant" role="doc-biblioref">xGalea and Vlahov 2002</a>)</span>. Despite these risks, individuals still engage in substance use. According to the National Center of Drug Abuse Statistics, 59.277 million (or 21.4%) of people aged 12 and over have used illegal drugs or misused prescription drugs within the last year – 25.4% of illegal drug users have a drug disorder <span class="citation" data-cites="subabuse">(<a href="#ref-subabuse" role="doc-biblioref"><span>“Substance Abuse and Addiction Statistics [2022],”</span> n.d.</a>)</span>. There seem to be other factors within an individual’s experience that play a role in substance abuse – in many cases, there is a combination of biological, psychological, and social factors that give reason for one’s substance use. In particular, the main question of this paper is: what are the social determinants of alcohol abuse? Social determinants refer to the social and economic conditions in an individual’s life that can play a role in an individual’s overall wellness <span class="citation" data-cites="mentalhealth">(<a href="#ref-mentalhealth" role="doc-biblioref"><span>“Factors That Impact Addiction and Problematic Substance Use,”</span> n.d.</a>)</span>.&nbsp;</p>
-<p>Existing literature has found that social and economic factors affect the health of drug users indirectly by shaping risk behaviors <span class="citation" data-cites="socialdeterminant">(<a href="#ref-socialdeterminant" role="doc-biblioref">xGalea and Vlahov 2002</a>)</span>. Thus, we hypothesize that variables related to a patient’s educational attainment, income bracket, race, age when first drank alcohol have a statistically significant impact on alcohol abuse.</p>
+<p>Substance abuse can contribute to mental health and behavioral problems, such as stroke, heart disease, and depression <span class="citation" data-cites="socialdeterminant">[<a href="#ref-socialdeterminant" role="doc-biblioref">1</a>]</span>. Despite these risks, individuals still engage in substance use. According to the National Center of Drug Abuse Statistics, 59.277 million (or 21.4%) of people aged 12 and over have used illegal drugs or misused prescription drugs within the last year – 25.4% of illegal drug users have a drug disorder <span class="citation" data-cites="subabuse">[<a href="#ref-subabuse" role="doc-biblioref">2</a>]</span>. There seem to be other factors within an individual’s experience that play a role in substance abuse – in many cases, there is a combination of biological, psychological, and social factors that give reason for one’s substance use. In particular, the main question of this paper is: what are the social determinants of alcohol abuse? Social determinants refer to the social and economic conditions in an individual’s life that can play a role in an individual’s overall wellness <span class="citation" data-cites="mentalhealth">[<a href="#ref-mentalhealth" role="doc-biblioref">3</a>]</span>.&nbsp;</p>
+<p>Existing literature has found that social and economic factors affect the health of drug users indirectly by shaping risk behaviors <span class="citation" data-cites="socialdeterminant">[<a href="#ref-socialdeterminant" role="doc-biblioref">1</a>]</span>. Thus, we hypothesize that variables related to a patient’s educational attainment, income bracket, race, age when first drank alcohol have a statistically significant impact on alcohol abuse.</p>
 </section>
 <section id="methods" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Methods</h1>
@@ -160,7 +160,7 @@ div.csl-indent {
 <p>In our dataset, 15 variables are taken from the original 2021 NSDUH. We dropped all observations that are not from the age group 18-25 years old using the age category variable. The main variable of interest is the age first tried alcohol variable. Demographic variables such as education and income are selected to determine social and economic factors that impact alcohol use. Other potential determinants like mental health variables such as “ever had anxiety/depression”, “ever received treatment”&nbsp; will also be investigated. A more detailed list of variables and description can be found in the Appendix section.</p>
 <p>For the purpose of our analysis, the educational attainment and income variables were condensed to 2 separate levels rather than 4. The former includes the combination of “Less than high school” and “High school diploma” values to make “High school”, and the combination of “Some college” and “College Degree” to form “College”. The latter includes the combination of “Less than $20,000” and “$20,000 - $49,999” values to make “Under $50,000”, and the combination of “$50,000 - $74,999” and&nbsp; “$75,000 or More” to make “Over $50,000”. This process was taken to simplify the process of conducting permutation tests, which is discussed in the next section. Furthermore, we dropped missing “ever received treatment” values as this was due to the number of non-users who did not ever use alcohol.</p>
 <p><em>c.&nbsp;Analytic Methods.</em>&nbsp;</p>
-<p>We aim to identify potential association between social and economic factors and alcohol use. To do so, we used R <span class="citation" data-cites="rstudio">(<a href="#ref-rstudio" role="doc-biblioref">RStudio Team 2020</a>)</span>and Quarto <span class="citation" data-cites="quarto">(<a href="#ref-quarto" role="doc-biblioref">Xie 2022</a>)</span> softwares along with tidyverse <span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>and infer <span class="citation" data-cites="infer">(<a href="#ref-infer" role="doc-biblioref">Couch et al. 2021</a>)</span> packages to analyze and produce results (in text citation). We used the variable “age first used alcohol” as an initial testing metric of alcohol use; its relationship with income (INCOME), education (EDUCCAT2), mental health variables (DEPRSLIF/LIFANXD), and treatment (TXEVER) are visualized individually. In order to clearly present the levels of the categorical variables education, income, mental health, and treatment variables, we renamed them to show only relevant information and deleted the recoded description in the original variables.</p>
+<p>We aim to identify potential association between social and economic factors and alcohol use. To do so, we used R <span class="citation" data-cites="rstudio">[<a href="#ref-rstudio" role="doc-biblioref">4</a>]</span>and Quarto <span class="citation" data-cites="quarto">[<a href="#ref-quarto" role="doc-biblioref">5</a>]</span> softwares along with tidyverse <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">6</a>]</span>and infer <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">7</a>]</span> packages to analyze and produce results (in text citation). We used the variable “age first used alcohol” as an initial testing metric of alcohol use; its relationship with income (INCOME), education (EDUCCAT2), mental health variables (DEPRSLIF/LIFANXD), and treatment (TXEVER) are visualized individually. In order to clearly present the levels of the categorical variables education, income, mental health, and treatment variables, we renamed them to show only relevant information and deleted the recoded description in the original variables.</p>
 <p>First, we constructed a box plot showing age first tried alcohol by 4 educational attainment levels. Second, a bar graph is displayed to illustrate the relationship between income and age first used alcohol. Third, and similarly, association between whether an individual has depression and age first used alcohol is shown by a stacked bar graph. Lastly, association between whether an individual got treatment and age first tried alcohol is depicted by a stacked bar graph.&nbsp;</p>
 <p>After gaining an understanding of our data, we proceeded with permutation tests. We first set our significance level in accordance with the number of hypothesis testing conducted: <span class="math inline">\(\alpha = 0.05/5 = 0.01\)</span>. All 5 permutation tests involve the age first used alcohol as the primary variable, then the secondary variables were: indicator variable for depression, indicator variable for anxiety, educational attainment, and income bracket, and indicator variable for treatment respectively.</p>
 </section>
@@ -286,8 +286,12 @@ div.csl-indent {
 <p>In conclusion, we used a series of permutation tests to identify significant social and economic determinants on how early the individual tries alcohol. Education level, anxiety, depression history are significant social determinant; Income is not a significant economic factor; in addition, having received treatment is associated with how early the individual tried alcohol. Our results confirm the hypotheses that less educated individuals and individuals with anxiety or depression tend to try alcohol later in life; trying alcohol earlier is associated with if the person gets treatment later, and in turn we further propose it is highly possible that trying alcohol earlier has a causal effect on the severity of alcohol abuse.</p>
 <p>Our analysis has two major limitations: inaccuracies of multiple testing and lack of causality identification. Due to the type of variables we used - most of which being categorical and indicator variables - we are unable to determine a causal relationship between variables using a regression model. In turn, we conducted five hypothesis tests to confirm the associations we observed between five pairs of variables individually. Although we discovered four significant correlations between social determinants and alcohol use, the practicality of results may be undermined by multiple testing. One improvement that can be made in future research is fitting a multiple linear regression model on the variables that can potentially affect age first tried alcohol, or fitting a logit regression on the indicator variable for treatment. In addition, a similar approach may be expanded to other types of popular substances used among young adults, such as marijuana and cocaine etc.</p>
 </section>
-<section id="appendix" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Appendix</h1>
+<section id="references" class="level1" data-number="5">
+
+
+</section>
+<section id="appendix" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Appendix</h1>
 <p>We selected 15 variables from the main dataset including 1 identifier variable, 7 categorical variables, and 7 numerical variables. As an initial view of the data, we plotted the 4 age variables to get an idea of the distribution of respondents’ age when first used alcohol or drug. Below is a detailed list of the 15 variables we used.</p>
 <p>QUESTID2 (respondent identification), CIGAGE (age when first started smoking cigarette every day), ALCTRY (age when first drank alcohol), ALCYRTOT (total number of days used alcohol in past 12 months), MJAGE (age first used marijuana), MJYRTOT (total number of days used marijuana in past 12 months), COCAGE (age when first used cocaine), COCYRTOT (cocaine in past 12 months), ALCAFU (alcohol age of first use - categorized recode), TXEVER (ever received drug or alcohol treatment), LIFANXD (ever had anxiety disorder), LIFDEPRS (ever had depression), INCOME, CATAGE (age category), EDUCCAT2 (education category).</p>
 <div class="cell" data-hash="MATH-254-Project-Report-Template_cache/html/unnamed-chunk-12_6f87b87735a4063c257a12a55590438b">
@@ -305,32 +309,28 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="reference" class="level1 unnumbered" data-number="6">
 
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">6 Reference</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
-Couch, Simon P., Andrew P. Bray, Chester Ismay, Evgeni Chasnovski, Benjamin S. Baumer, and Mine Çetinkaya-Rundel. 2021. <span>“<span></span>Infer<span></span>: An <span></span>r<span></span> Package for Tidyverse-Friendly Statistical Inference”</span> 6: 3661. <a href="https://doi.org/10.21105/joss.03661">https://doi.org/10.21105/joss.03661</a>.
-</div>
-<div id="ref-mentalhealth" class="csl-entry" role="doc-biblioentry">
-<span>“Factors That Impact Addiction and Problematic Substance Use.”</span> n.d. <em>CMHA Ontario</em>. <a href="https://ontario.cmha.ca/factors-that-impact-addiction-and-substance-misuse/">https://ontario.cmha.ca/factors-that-impact-addiction-and-substance-misuse/</a>.
-</div>
-<div id="ref-rstudio" class="csl-entry" role="doc-biblioentry">
-RStudio Team. 2020. <span>“RStudio: Integrated Development Environment for r.”</span> <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">5 References</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-socialdeterminant" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">xGalea</span>, Sandro and <span class="smallcaps">Vlahov</span>, D. (2002). <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1913691/">Social Determinants and the Health of Drug Users: Socioeconomic Status, Homelessness, and Incarceration</a>. <em>Public Health Reports (Washington, D.C. : 1974), U.S. National Library of Medicine, 2002</em>.</div>
 </div>
 <div id="ref-subabuse" class="csl-entry" role="doc-biblioentry">
-<span>“Substance Abuse and Addiction Statistics [2022].”</span> n.d. <em>NCDAS</em>. <a href="https://drugabusestatistics.org/">https://drugabusestatistics.org/</a>.
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. <a href="https://drugabusestatistics.org/">Substance Abuse and Addiction Statistics [2022]</a>. <em>NCDAS</em>.</div>
 </div>
-<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+<div id="ref-mentalhealth" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. <a href="https://ontario.cmha.ca/factors-that-impact-addiction-and-substance-misuse/">Factors that Impact Addiction and Problematic substance use</a>. <em>CMHA Ontario</em>.</div>
 </div>
-<div id="ref-socialdeterminant" class="csl-entry" role="doc-biblioentry">
-xGalea, Sandro, and David Vlahov. 2002. <span>“Social Determinants and the Health of Drug Users: Socioeconomic Status, Homelessness, and Incarceration.”</span> <em>Public Health Reports (Washington, D.C. : 1974), U.S. National Library of Medicine, 2002</em>. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1913691/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1913691/</a>.
+<div id="ref-rstudio" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">RStudio Team</span>. (2020). <a href="http://www.rstudio.com/">RStudio: Integrated development environment for r</a>.</div>
 </div>
 <div id="ref-quarto" class="csl-entry" role="doc-biblioentry">
-Xie, Yihui. 2022. <span>“Knitr: A General-Purpose Package for Dynamic Report Generation in r.”</span> <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Xie</span>, Y. (2022). <a href="https://yihui.org/knitr/">Knitr: A general-purpose package for dynamic report generation in r</a>.</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661"><span></span>Infer<span></span>: An <span></span>r<span></span> package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
 </div>
 </div></section></div></main>
 <!-- /main column -->
