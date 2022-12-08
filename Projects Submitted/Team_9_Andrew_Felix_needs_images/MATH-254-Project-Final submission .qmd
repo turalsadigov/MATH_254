@@ -24,12 +24,11 @@ author:
 abstract: According to CDC's annual statistics, on average, 
   321 people are shot dead as victims of criminal activies in the US everyday. 
   Yet, federal gun-control program has always faced resistence with disagreements over association between firearms and crime occurrence. In this paper, firearm data from FBI National Instant Criminal BackgroundCheck System and the state-level crime data from FBI Unified Crime Reporting Program in 2019 are used to test existence of potential association between gun possession and occurrence of crimes across the US. Three single linear regression models using the number of permits as explanatory variable and one multivariate regression model with a nuanced total gun explanatory variable are generated. The result suggests that there is a considerable positive correlation between the number of permits and the number of crimes. Moreover, the number of guns is also correlated with the total crime with a strong association, indicating that firearm ownership plays a crucial role in victimization.
-
 format: 
     html:
       theme: 
         light: united
-        dark: darkly
+        dark: quartz
 date: November 16, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -43,7 +42,8 @@ code-overflow: scroll
 code-line-numbers: false
 code-copy: true
 bibliography: references-final.bib
-title-block-banner: darkblue
+csl: electronic-journal-of-statistics.csl
+title-block-banner: darkbrown
 execute:
   echo: true
   warning: false
@@ -57,7 +57,7 @@ execute:
 
 # Background and Significance
 
-Gun control has always been a controversial topic in the United States. On one hand, "American gun owners - an estimated 80 million of them - see their firearms as protection to defend their own freedoms and property" [@shooting2022] under the Second Amendment, which notes "the right of the people to keep and bear Arms, shall not be infringed" [@seconda2002]. On the other hand, tragedies such as the 2018 Stoneman Douglas High School Shooting, where 17 young adults were murdered under "a pattern of disciplinary issues and unnerving behavior," [@shooter2018] led other Americans to strongly advocate restrictive gun control policies.Tragedies related to firearms reignited the debate over gun control in the US. But realistically, many believe that "the argument over guns has simply become too politically divisive and culturally entrenched to allow for meaningful change" [@shooting2022]. Even the the new gun laws New Jersey recently enacted in response to the Supreme Court's ruling are facing ongoing litigation and legal scrutiny [@gunlaw2022]. The tremendous resistance against gun rights sets the motivation behind composing this paper, specifically whether their resistance towards guns based on the reason that guns are associated with crimes can be backed by statistical analysis. Would more firearms lead to more crimes as anti-gun individuals contend for or is it unrelated that occurrences of crimes is independent from presence of firearms. With this question, this paper uses data collected by federal agencies at 2019 to investigate the potential association between gun possession and occurrences of crime across United States. This paper is written to answer to what degree is prevalence of gun possession associated with occurrence of crime: a focus study on United States based on 2019 data.
+Gun control has always been a controversial topic in the United States. On one hand, "American gun owners - an estimated 80 million of them - see their firearms as protection to defend their own freedoms and property" [@shooting2022] under the Second Amendment, which notes "the right of the people to keep and bear Arms, shall not be infringed" [@seconda2002]. On the other hand, tragedies such as the 2018 Stoneman Douglas High School Shooting, where 17 young adults were murdered under "a pattern of disciplinary issues and unnerving behavior," [@shooter2018] led other Americans to strongly advocate restrictive gun control policies. Tragedies related to firearms reignited the debate over gun control in the US. But realistically, many believe that "the argument over guns has simply become too politically divisive and culturally entrenched to allow for meaningful change" [@shooting2022]. Even the the new gun laws New Jersey recently enacted in response to the Supreme Court's ruling are facing ongoing litigation and legal scrutiny [@gunlaw2022]. The tremendous resistance against gun rights sets the motivation behind composing this paper, specifically whether their resistance towards guns based on the reason that guns are associated with crimes can be backed by statistical analysis. Would more firearms lead to more crimes as anti-gun individuals contend for or is it unrelated that occurrences of crimes is independent from presence of firearms. With this question, this paper uses data collected by federal agencies at 2019 to investigate the potential association between gun possession and occurrences of crime across United States. This paper is written to answer to what degree is prevalence of gun possession associated with occurrence of crime: a focus study on United States based on 2019 data.
 
 There are prior researches conducted pertaining to this topic and other relevant topics of this field. For example, Gary Kleck and E. Britt Patterson [@Kleck1993] conclude in a prior study that the results are generally negative for the violence control effectiveness of gun control. Yet, the significance of the few supportive results should not be overlooked. There do appear to be some gun controls which work. In addition, Philip J. Cook [@Cook1981] studies the effect of Gun availability on violent crime patterns. And Cook's research concludes that it is reasonable to suppose that moderate gun control measures have the potential to discourage some violent criminals - potential or active - from obtaining guns. Miller [@miller2007]examines the role played by household firearms in homicide victimization, whom concludes existence of potential positive association between percentage of household firearm ownership and crime rates across the United States based on data collected in the early 2000s.
 
