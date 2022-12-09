@@ -29,8 +29,8 @@ format:
     html:
       theme: 
         light: united
-        dark: darkly
-title-block-banner: darkblue
+        dark: solar
+title-block-banner: gray
 date: October 17, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -54,6 +54,8 @@ execute:
   cache: true
 code-fold: show
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
+
 ---
 
 # Background and Significance
@@ -278,6 +280,10 @@ In an attempt to predict the duration of a tennis match created various linear r
 By changing the random seed used in our calculations, we get different results as to which model performs best. If we were to redo this process from scratch, we would use logistic regression. This way, we would split the data repeatedly with parallel programming, repeating the process where non-testing data is split into a training set and validation set. Bootstrap sampling would be utilized in this process. Overall, this new approach would ensure more stability in our results and less variability in which model is "ideal" for fitting the data.
 
 Finally, we give credit to the knitr package ([@knitr]) for providing the resources needed to format and construct this paper, as well as USCLAP ([@USCLAP-Template]) for providing the project template.
+
+
+::: {#refs}
+:::
 
 # Appendix
 
