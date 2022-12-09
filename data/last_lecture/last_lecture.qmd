@@ -39,6 +39,15 @@ format:
 
 ![](qr.svg){fig-align="center"}
 
+# Content
+
+-   Course summary
+
+-   Tidyverse tricks
+
+-   Adjusted R-squared
+
+-   Data Science in Python
 
 # Topics we covered
 
