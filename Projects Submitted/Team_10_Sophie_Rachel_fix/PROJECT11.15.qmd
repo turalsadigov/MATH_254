@@ -1,5 +1,5 @@
 ---
-title: "MATH 254 - Predicting Marriage Happiness"
+title: "Predicting Marriage Happiness"
 author:
   - name: Sophie Maniscalco
     email: smanisca@hamilton.edu
@@ -26,7 +26,7 @@ abstract: Due to the high rate of divorce in the United States, a topic of
   that were significantly correlated to relationship happiness -- results indicated 
   that only three out of five potential relationship variables were significantly    
   related to relationship happiness. Seven linear models were constructed using
-  the three variables and the best model based on the training-validation slipt 
+  the three variables and the best model based on the training-validation split 
   and selecting the maximized r-squared value was selected to predict relationship 
   happiness -- specifically, an interaction between hours of sleep per night 
   and argument frequency best predicted relationship happiness. Hours of sleep 
@@ -38,7 +38,7 @@ format:
       theme: 
         light: united
         dark: darkly
-title-block-banner: darkblue
+title-block-banner: maroon
 date: October 17, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -54,7 +54,7 @@ code-copy: true
 execute:
   echo: true
   warning: false
-  eval: true
+  eval: false
   output: true
   error: false
   freeze: true
@@ -66,6 +66,7 @@ editor:
 editor_options: 
   chunk_output_type: console
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
 echo: fenced
 code-fold: show
 ---
@@ -121,7 +122,7 @@ questionnaires separately. "90% of participants completed all 10 days".
 All of this information was provided by icpsr.umich.edu under Health and
 Relationships Project, United States, 2014-2015 (ICPSR 37404).
 
-b. *Variable creation*.There are twelve variables we looked at in our
+b. *Variable creation*. There are twelve variables we looked at in our
 analysis. RELHAPPY, which is our primary variable of interest, is a
 discrete numerical variable with range 1 to 7 assessing the respondent's
 degree of happiness in the relationship, with higher scores indicating
@@ -347,7 +348,6 @@ relationship happiness decreases.
 #| eval: true
 correlation_hat <-
   data %>% 
-  drop_na() %>% 
   specify(RELHAPPY1 ~ YRSMAR) %>% 
   calculate(stat = 'correlation')
 
@@ -356,7 +356,6 @@ correlation_hat
 set.seed(2023)
 null_dist <-
   data %>% 
-  drop_na() %>% 
   specify(RELHAPPY1 ~ YRSMAR) %>% 
   hypothesize(null = 'independence') %>% 
   generate(reps = 1000, type = 'permute') %>% 
@@ -761,6 +760,13 @@ that could lead to relationship happiness including, age, political
 beliefs, religion, and other variables. If possible future research
 could look at more models with different variables by using imputation
 techniques to use variables with a lot of missing values.
+
+
+# References:
+
+::: {#refs}
+:::
+
 
 # Appendix
 

@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.649">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sophie Maniscalco">
+<meta name="author" content="Rachel O’Brien">
+<meta name="author" content="Tural Sadigov">
+<meta name="dcterms.date" content="2022-10-17">
+
+<title>Predicting Marriage Happiness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="PROJECT11.15_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PROJECT11.15_files/libs/quarto-html/quarto.js"></script>
+<script src="PROJECT11.15_files/libs/quarto-html/popper.min.js"></script>
+<script src="PROJECT11.15_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="PROJECT11.15_files/libs/quarto-html/anchor.min.js"></script>
+<link href="PROJECT11.15_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PROJECT11.15_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="PROJECT11.15_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="PROJECT11.15_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="PROJECT11.15_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="PROJECT11.15_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="PROJECT11.15_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
+<style>
+    .quarto-title-block .quarto-title-banner {
+      background: maroon;
+    }
+    </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Predicting Marriage Happiness</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Affiliations</div>
+    
+      <div class="quarto-title-meta-contents">
+      Sophie Maniscalco 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Rachel O’Brien 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+        <div class="quarto-title-meta-contents">
+      Tural Sadigov 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Hamilton College
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 17, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="abstract-title">Abstract</div>
+      Due to the high rate of divorce in the United States, a topic of interest for many investigators is relationship happiness in marriages. This project aimed to construct a model predicting relationship happiness using numerous relationship variables. Permutation tests were used to select variables that were significantly correlated to relationship happiness – results indicated that only three out of five potential relationship variables were significantly related to relationship happiness. Seven linear models were constructed using the three variables and the best model based on the training-validation split and selecting the maximized r-squared value was selected to predict relationship happiness – specifically, an interaction between hours of sleep per night and argument frequency best predicted relationship happiness. Hours of sleep appeared to serve as a protective factor for couples with higher argument frequency, effectively reducing the negative effect of argument frequency on relationship happiness.
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"> <span class="header-section-number">1</span> Background and Significance</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"> <span class="header-section-number">2</span> Methods</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"> <span class="header-section-number">3</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"> <span class="header-section-number">3.1</span> Descriptive statistics</a>
+  <ul class="collapse">
+  <li><a href="#descriptive-statistics-for-relationship-happiness-our-response-variable." id="toc-descriptive-statistics-for-relationship-happiness-our-response-variable." class="nav-link" data-scroll-target="#descriptive-statistics-for-relationship-happiness-our-response-variable."> <span class="header-section-number">3.1.1</span> Descriptive statistics for relationship happiness, our response variable.</a></li>
+  <li><a href="#descriptive-statistics-for-years-married." id="toc-descriptive-statistics-for-years-married." class="nav-link" data-scroll-target="#descriptive-statistics-for-years-married."> <span class="header-section-number">3.1.2</span> Descriptive statistics for years married.</a></li>
+  <li><a href="#descriptive-statistics-for-cohabitation-before-marriage." id="toc-descriptive-statistics-for-cohabitation-before-marriage." class="nav-link" data-scroll-target="#descriptive-statistics-for-cohabitation-before-marriage."> <span class="header-section-number">3.1.3</span> Descriptive statistics for cohabitation before marriage.</a></li>
+  <li><a href="#descriptive-statistics-for-hours-of-sleep." id="toc-descriptive-statistics-for-hours-of-sleep." class="nav-link" data-scroll-target="#descriptive-statistics-for-hours-of-sleep."> <span class="header-section-number">3.1.4</span> Descriptive Statistics for hours of sleep.</a></li>
+  <li><a href="#descriptive-statistics-for-argument-frequency." id="toc-descriptive-statistics-for-argument-frequency." class="nav-link" data-scroll-target="#descriptive-statistics-for-argument-frequency."> <span class="header-section-number">3.1.5</span> Descriptive Statistics for argument frequency.</a></li>
+  <li><a href="#descriptive-statistics-for-days-in-the-past-three-months-that-spouse-consumed-more-than-4-drinks" id="toc-descriptive-statistics-for-days-in-the-past-three-months-that-spouse-consumed-more-than-4-drinks" class="nav-link" data-scroll-target="#descriptive-statistics-for-days-in-the-past-three-months-that-spouse-consumed-more-than-4-drinks"> <span class="header-section-number">3.1.6</span> Descriptive Statistics for days in the past three months that spouse consumed more than 4 drinks</a></li>
+  </ul></li>
+  <li><a href="#hypothesis-tests" id="toc-hypothesis-tests" class="nav-link" data-scroll-target="#hypothesis-tests"> <span class="header-section-number">3.2</span> Hypothesis Tests</a>
+  <ul class="collapse">
+  <li><a href="#permutation-test-for-relation-between-years-married-and-relationship-happiness." id="toc-permutation-test-for-relation-between-years-married-and-relationship-happiness." class="nav-link" data-scroll-target="#permutation-test-for-relation-between-years-married-and-relationship-happiness."> <span class="header-section-number">3.2.1</span> Permutation test for relation between years married and relationship happiness.</a></li>
+  <li><a href="#preliminary-result-of-relationship-between-months-cohabiting-before-marriage-and-relationship-happiness." id="toc-preliminary-result-of-relationship-between-months-cohabiting-before-marriage-and-relationship-happiness." class="nav-link" data-scroll-target="#preliminary-result-of-relationship-between-months-cohabiting-before-marriage-and-relationship-happiness."> <span class="header-section-number">3.2.2</span> Preliminary result of relationship between months cohabiting before marriage and relationship happiness.</a></li>
+  <li><a href="#permutation-test-for-relation-between-cohabitation-before-marriage-and-relationship-happiness." id="toc-permutation-test-for-relation-between-cohabitation-before-marriage-and-relationship-happiness." class="nav-link" data-scroll-target="#permutation-test-for-relation-between-cohabitation-before-marriage-and-relationship-happiness."> <span class="header-section-number">3.2.3</span> Permutation test for relation between cohabitation before marriage and relationship happiness.</a></li>
+  <li><a href="#permutation-test-for-hours-of-sleep-per-night-and-relationship-happiness." id="toc-permutation-test-for-hours-of-sleep-per-night-and-relationship-happiness." class="nav-link" data-scroll-target="#permutation-test-for-hours-of-sleep-per-night-and-relationship-happiness."> <span class="header-section-number">3.2.4</span> Permutation Test for hours of sleep per night and relationship happiness.</a></li>
+  <li><a href="#permutation-test-for-independence-between-days-partner-consumed-more-than-4-drinks-in-the-last-90-days-and-relationship-happiness" id="toc-permutation-test-for-independence-between-days-partner-consumed-more-than-4-drinks-in-the-last-90-days-and-relationship-happiness" class="nav-link" data-scroll-target="#permutation-test-for-independence-between-days-partner-consumed-more-than-4-drinks-in-the-last-90-days-and-relationship-happiness"> <span class="header-section-number">3.2.5</span> Permutation test for independence between days partner consumed more than 4 drinks in the last 90 days and relationship happiness:</a></li>
+  <li><a href="#permutation-test-for-independence-between-argument-frequency-and-relationship-happiness" id="toc-permutation-test-for-independence-between-argument-frequency-and-relationship-happiness" class="nav-link" data-scroll-target="#permutation-test-for-independence-between-argument-frequency-and-relationship-happiness"> <span class="header-section-number">3.2.6</span> Permutation test for independence between argument frequency and relationship happiness:</a></li>
+  <li><a href="#new-variable-arguefrq1" id="toc-new-variable-arguefrq1" class="nav-link" data-scroll-target="#new-variable-arguefrq1"> <span class="header-section-number">3.2.7</span> New variable ARGUEFRQ1</a></li>
+  </ul></li>
+  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"> <span class="header-section-number">3.3</span> Linear Model</a></li>
+  </ul></li>
+  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"> <span class="header-section-number">4</span> Discussion/Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"> <span class="header-section-number">5</span> References:</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"> <span class="header-section-number">6</span> Appendix</a>
+  <ul class="collapse">
+  <li><a href="#loading-libraries-and-data-file." id="toc-loading-libraries-and-data-file." class="nav-link" data-scroll-target="#loading-libraries-and-data-file."> <span class="header-section-number">6.1</span> Loading Libraries and Data File.</a></li>
+  <li><a href="#visualizing-cohabitation-before-marriage." id="toc-visualizing-cohabitation-before-marriage." class="nav-link" data-scroll-target="#visualizing-cohabitation-before-marriage."> <span class="header-section-number">6.2</span> Visualizing cohabitation before marriage.</a></li>
+  <li><a href="#visualizing-months-cohabiting-before-marriage." id="toc-visualizing-months-cohabiting-before-marriage." class="nav-link" data-scroll-target="#visualizing-months-cohabiting-before-marriage."> <span class="header-section-number">6.3</span> Visualizing months cohabiting before marriage.</a></li>
+  <li><a href="#visualizing-years-married." id="toc-visualizing-years-married." class="nav-link" data-scroll-target="#visualizing-years-married."> <span class="header-section-number">6.4</span> Visualizing years married.</a></li>
+  <li><a href="#visualizing-stress-levels." id="toc-visualizing-stress-levels." class="nav-link" data-scroll-target="#visualizing-stress-levels."> <span class="header-section-number">6.5</span> Visualizing stress levels.</a></li>
+  <li><a href="#visualizing-relationship-happiness-our-response-variable." id="toc-visualizing-relationship-happiness-our-response-variable." class="nav-link" data-scroll-target="#visualizing-relationship-happiness-our-response-variable."> <span class="header-section-number">6.6</span> Visualizing relationship happiness, our response variable.</a></li>
+  <li><a href="#visualizing-relationship-warmness." id="toc-visualizing-relationship-warmness." class="nav-link" data-scroll-target="#visualizing-relationship-warmness."> <span class="header-section-number">6.7</span> Visualizing relationship warmness.</a></li>
+  <li><a href="#visualizing-how-critical-ones-spouse-is." id="toc-visualizing-how-critical-ones-spouse-is." class="nav-link" data-scroll-target="#visualizing-how-critical-ones-spouse-is."> <span class="header-section-number">6.8</span> Visualizing how critical one’s spouse is.</a></li>
+  <li><a href="#visualizing-argument-frequency." id="toc-visualizing-argument-frequency." class="nav-link" data-scroll-target="#visualizing-argument-frequency."> <span class="header-section-number">6.9</span> Visualizing argument frequency.</a></li>
+  <li><a href="#visualizing-depression-symptoms." id="toc-visualizing-depression-symptoms." class="nav-link" data-scroll-target="#visualizing-depression-symptoms."> <span class="header-section-number">6.10</span> Visualizing depression symptoms.</a></li>
+  <li><a href="#visualizing-days-in-which-spouse-has-had-more-than-four-drinks-in-one-day-in-the-last-three-months" id="toc-visualizing-days-in-which-spouse-has-had-more-than-four-drinks-in-one-day-in-the-last-three-months" class="nav-link" data-scroll-target="#visualizing-days-in-which-spouse-has-had-more-than-four-drinks-in-one-day-in-the-last-three-months"> <span class="header-section-number">6.11</span> Visualizing days in which spouse has had more than four drinks in one day in the last three months</a></li>
+  <li><a href="#visualizing-hours-of-sleep." id="toc-visualizing-hours-of-sleep." class="nav-link" data-scroll-target="#visualizing-hours-of-sleep."> <span class="header-section-number">6.12</span> Visualizing hours of sleep.</a></li>
+  </ul></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"> <span class="header-section-number">7</span> References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="background-and-significance" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Background and Significance</h1>
+<p>In 2019, there were 2,015,603 marriages in the United States <span class="citation" data-cites="CDC">[<a href="#ref-CDC" role="doc-biblioref">1</a>]</span>. This means that marriage is a crucial part of life for a lot of American people. According to marriage.com, marriage “acts as a social and legal contract that gives a partner someone to rely on, brings a greater degree of intimacy and emotional security” <span class="citation" data-cites="Marriage.com">[<a href="#ref-Marriage.com" role="doc-biblioref">2</a>]</span>. At least that this is the ideal goal of marriage. However, also according to the CDC, in 2019 there were 746,971 divorces in the United States, so this idealistic goal of marriage is not reached in every relationship.</p>
+<p>Given this grim outlook on marriage, we were interested as to what components of a marriage make it a successful one. Previous studies have shown that cohabitation before marriage is bad for marriage, with studies finding on average that couples that cohabited before marriage had a 33% higher rate of divorce than couples that did not cohabit before marriage <span class="citation" data-cites="Atlantic">[<a href="#ref-Atlantic" role="doc-biblioref">3</a>]</span>. In addition, marriages where at least one member is depressed are less positive than marriages where neither member is depressed <span class="citation" data-cites="Johnson1997">[<a href="#ref-Johnson1997" role="doc-biblioref">4</a>]</span>. Additionally, when looking at sleep and marriage, The American Academy of Sleep Medicine states that “being stably married or gaining a partner is associated with better sleep in women than being unmarried or losing a partner” <span class="citation" data-cites="AASM">[<a href="#ref-AASM" role="doc-biblioref">5</a>]</span>. With so many factors that can affect a relationship, how can we predict happiness in a marriage?</p>
+<p>Our main analysis looks at how eleven different variables influence relationship happiness. We hypothesize that years married, cohabiting before marriage, hours of sleep a night, days binge drinking, and argument frequency all impact the happiness of a marriage. Our goal is to see if it is possible to predict happiness in a marriage through a combination of these variables.</p>
+</section>
+<section id="methods" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Methods</h1>
+<p>a.&nbsp;<em>Data collection</em>. The data, which was collected between 2014 and 2015 only includes couples that “were legally married and had been living together for a minimum of three years at the time of the study.” The sample was collected using different methods. About 70% of the same-sex couples in the sample were selected from the Massachusetts Registry of Vital Records and participants received invitations to participate in the mail. About 40% of the different-sex couples in the sample were selected from public records and then asked to participate. The rest of the participants were recruited through referrals. After all that, the couples were then asked to refer any other couples that met the study’s requirements. The data itself was collected through a series of 10-day surveys with questions about their relationship which were referred to as diaries. The couples were asked to complete these questionnaires separately. “90% of participants completed all 10 days”. All of this information was provided by icpsr.umich.edu under Health and Relationships Project, United States, 2014-2015 (ICPSR 37404).</p>
+<p>b.&nbsp;<em>Variable creation</em>.There are twelve variables we looked at in our analysis. RELHAPPY, which is our primary variable of interest, is a discrete numerical variable with range 1 to 7 assessing the respondent’s degree of happiness in the relationship, with higher scores indicating greater relationship happiness. COHB4MAR is a normal categorical variable indicating whether or not a couple cohabitated before marriage. MNCOHB4M is a continuous numerical variable assessing the number of months that the couple spent cohabiting before marriage if they did cohabit before marriage, with range 1 to 180. YRSMAR is a continuous numerical variable assessing how many years a couple has been married for, with range 0 to 13 years. RAGE is a continuous numerical variable with range 35 to 65 indicating the respondent’s age at the time of the survey. STRSCALE is a discrete numerical variable with range 9 to 41 indicating how stressful the marriage is; it is an aggregate measure of multiple variables that were calculated by adding up the scores (from 1 to 7) of the other items. RELREWAR is a discrete numerical variable with range 1 to 6 representing how rewarding the relationship is, with higher scores indicating greater feelings that the relationship with their spouse is rewarding. SPCRITIC is a discrete numerical variable with range 1 to 5 representing how critical their spouse is, with higher scores indicating a more critical spouse. ARGUEFRQ is a discrete numerical variable with range 1 to 5 assessing how often the respondent argues with their spouse, with higher scores indicating a higher frequency of arguing. DEPSYM is a discrete numerical variable with range 11 to 38 assessing depressive symptoms in the respondent; this is an aggregate measure calculated by adding up the positive variable items in a reverse-coded fashion. CDDAYSBD is a discrete numerical variable with range 0 to 90 indicating how many days out of the last three months that the respondent’s spouse had four or more drinks. Finally, HRSLEEP is a continuous numerical variable with range 2 to 10, indicating how many hours of sleep the respondent gets on an average night. All variables were taken from Health and Relationships Project, United States, 2014-2015 and, unless otherwise stated, were direct measures.</p>
+<p>RELHAPPY1 was created by us in order to better use the data provided. Originally the data was in string format and we converted it into numeric. We extracted the numbers provided in the original strings to create RELHAPPY1.</p>
+<p>ARGUEFRQ1 was created by us in order to better use the data provided. Originally the data was in string format and we converted it into numeric. We extracted the numbers provided in the original strings to create ARGUFRQ1.</p>
+<p>c.&nbsp;<em>Analytic Methods</em>. A bar graph was used to illustrate the distribution of respondents who cohabited and did not cohabit before marriage. A histogram was used to illustrate the distribution of daily hours of sleep received by respondents at night. Five initial permutation tests were conducted to assess the relationship between the outcome variable, relationship happiness, and the potential predictor variables, years married, nightly hours of sleep, number of days in a three-month period where the partner had more than three drinks, and argument frequency. Two new variables were constructed for relationship happiness and argument frequency by extracting the numerical value from the string data. The relationship between relationship happiness and cohabitation before marriage was assessed using side-by-side boxplots.</p>
+<p>Once we had initial results for our five variables of interest in relation to relationship happiness, we chose three variables to do linear regression models with. We chose these variables based on if they were significantly correlated to relationship happiness or not. Through our hypothesis testing, we found that two variables, years married and argument frequency had a significant non-zero correlation coefficient with relationship happiness. We also chose a third variable, hours of sleep per night to use in our modeling because it had the lowest p-value of the variables with a non-significant relationship with relationship happiness. Then we chose 7 different possible combinations of these variables to test to see if a linear regression would be a good model for our data which were, argument frequency, argument frequency added to years married, argument frequency added to years married, and hours of sleep per night, argument frequency multiplied by hours of sleep per night, square root of years married, a degree two polynomial of argument frequency, and a degree three polynomial of argument frequency. We split our data into 3 subsections: testing data, training data, and validation data. Then we used our training data subgroup to create linear regressions based on our 7 models. Finally, we selected our best model based on the maximized r-squared value for the validation data. We ended up selecting our fourth model which was the model that contained interaction between hours of sleep and argument frequency. Then we used our testing data to test this model.</p>
+</section>
+<section id="results" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
+<p>In the results sections we used libraries from the following sources: <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">6</a>]</span>, <span class="citation" data-cites="rlang">[<a href="#ref-rlang" role="doc-biblioref">7</a>]</span>, <span class="citation" data-cites="rstudioapi">[<a href="#ref-rstudioapi" role="doc-biblioref">8</a>]</span>, and <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">9</a>]</span>.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-1_65f4926eb60105d4b5e69eb78bafe33c">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/happiness_sophie_rachael.csv'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="ot">&lt;-</span> da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY, YRSMAR, COHB4MAR, HRSLEEP, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         ARGUEFRQ, CDDAYSBD, MNCOHB4M, STRSCALE, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         RELWARM, SPCRITIC, DEPSYM) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character,factor)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># load(file = '37404-0001-Data.rda')</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># da37404.0001 &lt;- read_rds(file = '~/Desktop/github_projects/MATH_254/Datasets for projects/happiness_rachael_sophie.RDS')</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#load("~/Desktop/github_projects/MATH_254/Projects Submitted/Team_10_Sophie_Rachel/37404-0001-Data.rda")</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#da37404.0001 &lt;- tibble::tibble(da37404.0001)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="descriptive-statistics" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">3.1</span> Descriptive statistics</h2>
+<section id="descriptive-statistics-for-relationship-happiness-our-response-variable." class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="descriptive-statistics-for-relationship-happiness-our-response-variable."><span class="header-section-number">3.1.1</span> Descriptive statistics for relationship happiness, our response variable.</h3>
+<p>Relationship happiness - Descriptive statistics First, we dropped 7 NAs in the data for a total of 831 observations. From the resulting subset, the mean relationship happiness was 5.19, with range 1 to 7.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-2_defea0faad2022f591d20625579e5b73">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RELHAPPY1 =</span> <span class="fu">str_sub</span>(RELHAPPY, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RELHAPPY1 =</span> <span class="fu">as.numeric</span>(RELHAPPY1))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY1) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(RELHAPPY1),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(RELHAPPY1),            </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(RELHAPPY1))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="descriptive-statistics-for-years-married." class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="descriptive-statistics-for-years-married."><span class="header-section-number">3.1.2</span> Descriptive statistics for years married.</h3>
+<p>Years Married - Descriptive statistics No NAs were dropped. The mean number of years married was 8.69, with range from 0 to 42.5.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-3_7465e8f3356d6eecbdfe2e2b20da10a1">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(YRSMAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(YRSMAR), <span class="at">min =</span> <span class="fu">min</span>(YRSMAR), <span class="at">max =</span> <span class="fu">max</span>(YRSMAR))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="descriptive-statistics-for-cohabitation-before-marriage." class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="descriptive-statistics-for-cohabitation-before-marriage."><span class="header-section-number">3.1.3</span> Descriptive statistics for cohabitation before marriage.</h3>
+<p>Cohabitation before marriage - Descriptive statistics No NAs were dropped. The majority of respondents cohabited before marriage, as depicted in the bar graph below.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-4_e66d39959b6679362f29dfb6d5a7b129">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COHB4MAR) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COHB4MAR1 =</span> <span class="fu">str_sub</span>(COHB4MAR, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COHB4MAR1 =</span> <span class="fu">as.numeric</span>(COHB4MAR1)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(COHB4MAR1)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Bar graph of cohabitation before marriage'</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Cohabitation before marriage'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-5_64f76e9c53c71d0e4857614cbae2b543">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(HRSLEEP) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(HRSLEEP), </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">minimum =</span> <span class="fu">min</span>(HRSLEEP), </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">maximum =</span> <span class="fu">max</span>(HRSLEEP))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="descriptive-statistics-for-hours-of-sleep." class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="descriptive-statistics-for-hours-of-sleep."><span class="header-section-number">3.1.4</span> Descriptive Statistics for hours of sleep.</h3>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-6_2a37bb1166c4265eb908953eec26f651">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(HRSLEEP) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HRSLEEP)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">col =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Distribution of Hours of Sleep per Night'</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Hours of Sleep per Night'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="descriptive-statistics-for-argument-frequency." class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="descriptive-statistics-for-argument-frequency."><span class="header-section-number">3.1.5</span> Descriptive Statistics for argument frequency.</h3>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-7_7d35d24691eae3a0391000f803e5760a">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ARGUEFRQ1 =</span> <span class="fu">str_sub</span>(ARGUEFRQ, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ARGUEFRQ1 =</span> <span class="fu">as.numeric</span>(ARGUEFRQ1))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ARGUEFRQ1), </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">minimum =</span> <span class="fu">min</span>(ARGUEFRQ1), </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">maximum =</span> <span class="fu">max</span>(ARGUEFRQ1))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="descriptive-statistics-for-days-in-the-past-three-months-that-spouse-consumed-more-than-4-drinks" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="descriptive-statistics-for-days-in-the-past-three-months-that-spouse-consumed-more-than-4-drinks"><span class="header-section-number">3.1.6</span> Descriptive Statistics for days in the past three months that spouse consumed more than 4 drinks</h3>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-8_ee271b447c70ee04f20c30f7341b08d2">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(CDDAYSBD), </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">minimum =</span> <span class="fu">min</span>(CDDAYSBD), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">maximum =</span> <span class="fu">max</span>(CDDAYSBD))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="hypothesis-tests" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="hypothesis-tests"><span class="header-section-number">3.2</span> Hypothesis Tests</h2>
+<p>For the hypothesis tests, we will assess using a significance level of 0.05. Given that we are doing multiple tests and models, we will divide the significance level by the number of tests and coefficients in our models to avoid p-hacking. So, for each individual test, the significance level is 0.0025.</p>
+<section id="permutation-test-for-relation-between-years-married-and-relationship-happiness." class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="permutation-test-for-relation-between-years-married-and-relationship-happiness."><span class="header-section-number">3.2.1</span> Permutation test for relation between years married and relationship happiness.</h3>
+<p><span class="math inline">\(H_o\)</span>: Relationship happiness is not related to years married; the correlation coefficient is 0.</p>
+<p><span class="math inline">\(H_a:\)</span> Relationship happiness is negatively related to years married: the correlation coefficient is negative.</p>
+<p>Years married vs.&nbsp;relationship happiness from a sub-sample of 831 respondents (after NAs were dropped), the data revealed a significant negative correlation, based on our p-value, between years married and relationship happiness, such that as years married increases, relationship happiness decreases.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-9_80cce13b4ba9a7cb90de58b3fc05a850">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>correlation_hat <span class="ot">&lt;-</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> YRSMAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>correlation_hat</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>null_dist <span class="ot">&lt;-</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> YRSMAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> correlation_hat,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"two-sided"</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> correlation_hat,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">'two-sided'</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: RELHAPPY1 (numeric)
+Explanatory: YRSMAR (numeric)
+# A tibble: 1 × 1
+     stat
+    &lt;dbl&gt;
+1 -0.0883
+# A tibble: 1 × 1
+  p_value
+    &lt;dbl&gt;
+1    0.02</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="PROJECT11.15_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="preliminary-result-of-relationship-between-months-cohabiting-before-marriage-and-relationship-happiness." class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="preliminary-result-of-relationship-between-months-cohabiting-before-marriage-and-relationship-happiness."><span class="header-section-number">3.2.2</span> Preliminary result of relationship between months cohabiting before marriage and relationship happiness.</h3>
+<p>These boxplots provide preliminary results that the tail ends of happiness (i.e., perfect relationship happiness and extreme unhappiness) correspond to longer cohabitation periods before marriage, as indicated by the IQR of the boxplots.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-10_3da4a31c6201005ad01823efa64673f1">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MNCOHB4M, RELHAPPY) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MNCOHB4M, <span class="at">y =</span> RELHAPPY)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Happiness with Relationship and Pre-Marriage Cohabitation'</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Months Cohabitated before Marriage'</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Happiness with relationship"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="permutation-test-for-relation-between-cohabitation-before-marriage-and-relationship-happiness." class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="permutation-test-for-relation-between-cohabitation-before-marriage-and-relationship-happiness."><span class="header-section-number">3.2.3</span> Permutation test for relation between cohabitation before marriage and relationship happiness.</h3>
+<p><span class="math inline">\(H_o\)</span>: Relationship happiness is not related to cohabitation before marriage; the correlation coefficient is 0.</p>
+<p><span class="math inline">\(H_a:\)</span> Relationship happiness is negatively related to cohabitation before marriage; the correlation coefficient is negative.</p>
+<p>Cohabitation before marriage vs.&nbsp;relationship happiness from a sub-sample of 831 respondents (after NAs were dropped). The boxplot for respondents that cohabited before marriage has a smaller inter-quartile range than the boxplot for respondents who did not cohabit before marriage, indicating that couples that cohabited before marriage are generally happier with their relationship. This finding is contrary to previous findings that suggest cohabiting before marriage is bad for the relationship. However, follow-up hypothesis testing using a permutation test for difference in means revealed that there was a non-significant difference in relationship happiness between couples that cohabited and those that did not cohabit before marriage.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-11_3916f72220600685fc918ab950b7d7f8">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY1, COHB4MAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(COHB4MAR, RELHAPPY1)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Cohabitation before marriage'</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Relationship happiness'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-12_31cf6d76c841369239dda3fca1111aad">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="ot">&lt;-</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> COHB4MAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'diff in means'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>obs_stat</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>null_dist <span class="ot">&lt;-</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> COHB4MAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'diff in means'</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> correlation_hat,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">direction =</span> <span class="st">"two-sided"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> correlation_hat,</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">direction =</span> <span class="st">'two-sided'</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="permutation-test-for-hours-of-sleep-per-night-and-relationship-happiness." class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="permutation-test-for-hours-of-sleep-per-night-and-relationship-happiness."><span class="header-section-number">3.2.4</span> Permutation Test for hours of sleep per night and relationship happiness.</h3>
+<p>Hypothesis Testing for independence between hours of sleep per night and relationship happiness</p>
+<p>Null Hypothesis: hours of sleep per night and relationship happiness are independent. The correlation coefficient is 0.</p>
+<p>Alternative Hypothesis: hours of sleep per night and relationship happiness are not independent. The correlation coefficient is not 0.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-13_e2b76b1b953179e1a8f3f85146e79d87">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="ot">&lt;-</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> HRSLEEP) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>null_dist <span class="ot">&lt;-</span> </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> HRSLEEP) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>()</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_stat, <span class="at">direction =</span> <span class="st">'both'</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>p_value</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(stat)) <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)  <span class="sc">+</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>obs_stat</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>This permutation test results in a p-value of 0.004, which is slightly larger than our significance level of 0.0025. Therefore we fail to reject the null-hypothesis that the correlation coefficient between relationship happiness and hours of sleep per night is 0.</p>
+</section>
+<section id="permutation-test-for-independence-between-days-partner-consumed-more-than-4-drinks-in-the-last-90-days-and-relationship-happiness" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="permutation-test-for-independence-between-days-partner-consumed-more-than-4-drinks-in-the-last-90-days-and-relationship-happiness"><span class="header-section-number">3.2.5</span> Permutation test for independence between days partner consumed more than 4 drinks in the last 90 days and relationship happiness:</h3>
+<p>Null Hypothesis: Days partner consumed more than 4 drinks in the last 40 days and relationship happiness are independent. The correlation coefficient is 0.</p>
+<p>Alternative Hypothesis: Days partner consumed more than 4 drinks in the last 40 days are not independent. The correlation coefficient is not 0.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-14_0cee59e74aa9c1c494497fdfa0268abf">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="ot">&lt;-</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>null_dist <span class="ot">&lt;-</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_stat, <span class="at">direction =</span> <span class="st">'both'</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>p_value</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_stat, <span class="at">direction =</span> <span class="st">'both'</span>)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(stat)) <span class="sc">+</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)  <span class="sc">+</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>)</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>obs_stat</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>This permutation test results in a p-value of 0.566 which is greater than our significance level of 0.0025, so we fail to reject the null hypothesis that days partner consumed more than 4 drinks in the last 40 days is independent from relationship happiness.</p>
+</section>
+<section id="permutation-test-for-independence-between-argument-frequency-and-relationship-happiness" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="permutation-test-for-independence-between-argument-frequency-and-relationship-happiness"><span class="header-section-number">3.2.6</span> Permutation test for independence between argument frequency and relationship happiness:</h3>
+<p>Null Hypothesis: Argument frequency and relationship happiness are independent. The correlation coefficient is 0.</p>
+<p>Alternative Hypothesis: argument frequency and relationship happiness are not independent. The correlation coefficient is not 0.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-15_d36f2bb0a5919470703abc8f9fa63582">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="ot">&lt;-</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>null_dist <span class="ot">&lt;-</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">'independence'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">'permute'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">'correlation'</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>()</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> obs_stat, <span class="at">direction =</span> <span class="st">'both'</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>p_value</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visualize</span>() <span class="sc">+</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shade_p_value</span>(<span class="at">obs_stat =</span> obs_stat, <span class="at">direction =</span> <span class="st">'both'</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>null_dist <span class="sc">%&gt;%</span> </span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(stat)) <span class="sc">+</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)  <span class="sc">+</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span> obs_stat<span class="sc">$</span>stat, </span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">1.5</span>)</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>obs_stat</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>This permutation test results in a p-value of 0 which is less than our significance level of 0.0025 which leads us to reject the null hypothesis that the correlation coefficient between argument frequency and relationship happiness is 0. So there is a significant correlation between the argument frequency and relationship happiness.</p>
+</section>
+<section id="new-variable-arguefrq1" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="new-variable-arguefrq1"><span class="header-section-number">3.2.7</span> New variable ARGUEFRQ1</h3>
+<p>The variable ARGUEFRQ1 was constructed by taking the second character in the ARGUEFRQ strings in the data and mutating them into a new column that is a numeric variable so that we could more easily use the data for testing.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-16_9dd8c68ea59aa9d2196044ecb035af3b">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ARGUEFRQ1) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ARGUEFRQ1))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="linear-model" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">3.3</span> Linear Model</h2>
+<p>For our linear model, we used libraries from the following sources: <span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">10</a>]</span>, <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">9</a>]</span>, <span class="citation" data-cites="ggfortify">[<a href="#ref-ggfortify" role="doc-biblioref">11</a>]</span>, and <span class="citation" data-cites="vip">[<a href="#ref-vip" role="doc-biblioref">12</a>]</span>.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-17_ef30d8028e417252af96bf82b0183c56">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vip)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY1, ARGUEFRQ1, HRSLEEP, YRSMAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1800</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df, <span class="at">prop =</span> <span class="fl">0.80</span>, <span class="at">strata =</span> RELHAPPY1)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>df_split</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>df_not_testing <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>df_testing <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>df_split_2 <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df_not_testing,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>                            <span class="at">prop =</span> <span class="fl">0.75</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>                            <span class="at">strata =</span> RELHAPPY1)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>df_training <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split_2)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>df_validation <span class="ot">&lt;-</span><span class="fu">testing</span>(df_split_2)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>model_specs <span class="ot">&lt;-</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>)</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1, <span class="at">data =</span> df_training)</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1 <span class="sc">+</span> YRSMAR, <span class="at">data =</span> df_training)</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1 <span class="sc">+</span> YRSMAR <span class="sc">+</span> HRSLEEP, <span class="at">data =</span> df_training)</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1<span class="sc">*</span>HRSLEEP, <span class="at">data =</span> df_training)</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>model_5 <span class="ot">&lt;-</span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> <span class="fu">sqrt</span>(YRSMAR), <span class="at">data =</span> df_training)</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>model_6 <span class="ot">&lt;-</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> <span class="fu">poly</span>(ARGUEFRQ1, <span class="at">degree =</span> <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> df_training)</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>model_7 <span class="ot">&lt;-</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> <span class="fu">poly</span>(ARGUEFRQ1, <span class="at">degree =</span> <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> YRSMAR, <span class="at">data =</span> df_training)</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>fitted_models <span class="ot">&lt;-</span> <span class="fu">list</span>(model_1, model_2, model_3,</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>                      model_4, model_5, model_6,</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>                      model_7)</span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a><span class="co"># function for validation performance</span></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>validation_performance <span class="ot">&lt;-</span> <span class="cf">function</span>(model){</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>  model_results <span class="ot">&lt;-</span></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>    df_validation <span class="sc">%&gt;%</span> </span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(model, df_validation)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(RELHAPPY1, .pred)</span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>  my_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span></span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>    model_results <span class="sc">%&gt;%</span> </span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_metrics</span>(RELHAPPY1, .pred) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> .metric, <span class="at">values_from =</span> .estimate)</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a>validation_results <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(model <span class="cf">in</span> fitted_models){</span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>  validation_results <span class="ot">&lt;-</span></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>    validation_results <span class="sc">%&gt;%</span> </span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>(<span class="fu">validation_performance</span>(model))</span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a>validation_results</span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a><span class="co"># CHOOSE A MODEL and do a last fit!</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>model_4_updated <span class="ot">&lt;-</span></span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(RELHAPPY1 <span class="sc">~</span> ARGUEFRQ1<span class="sc">*</span>HRSLEEP, <span class="at">data =</span> df_not_testing)</span>
+<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_4_updated)</span>
+<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a><span class="co"># report the following test result</span></span>
+<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span></span>
+<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a>  df_testing <span class="sc">%&gt;%</span> </span>
+<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">predict</span>(model_4_updated, <span class="at">new_data =</span> df_testing)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY1, .pred)</span>
+<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a>my_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
+<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>test_results <span class="sc">%&gt;%</span> </span>
+<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">my_metrics</span>(RELHAPPY1, .pred)</span>
+<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="discussionconclusions" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Discussion/Conclusions</h1>
+<p>Our objective in this project was to find a way to predict happiness within a marriage using a combination of factors including, hours of sleep per night, years married, cohabitation before marriage, argument frequency, and drinking habits. The best model that we found is $$ RELHAPPY1 =</p>
+<p><span class="math display">\[ \]</span>7.29 - 1.01ARGUEFRQ1 - 0.1404HRSLEEP + 0.0787ARGUEFRQ1*HRSLEEP. $$ The <span class="math inline">\(R^2\)</span> value for this model is .193. This means that around 19% of</p>
+<p>the variance in marriage relationship happiness can be explained by our model. Our model suggests that a higher frequency of arguments predicts a lower rate of happiness in a relationship. However, if the couple sleeps more hours per night, the argument frequency has less of a negative effect on happiness. Previous studies have shown that cohabitation before marriage is bad for marriage <span class="citation" data-cites="Atlantic">[<a href="#ref-Atlantic" role="doc-biblioref">3</a>]</span>, however, we did not find a significant relationship between the relationship happiness and cohabitation before marriage. Additionally, we found that hours of sleep has a positive effect on a marriage which aligns with The American Academy of Sleep Medicine’s study on sleep and relationships <span class="citation" data-cites="AASM">[<a href="#ref-AASM" role="doc-biblioref">5</a>]</span>. Happiness is hard to find and define in real life, and it is also hard to predict, so there are some limitations we have to consider. Our data set contained around 500 variables, and we did not have the capacity to use all of them. Additionally, many of the variables we did not choose had a high population of N/A inputs which is one reason they did not end up on our final list of variables. Since we only selected five possible explanatory variables, there were a lot of other factors that could lead to relationship happiness including, age, political beliefs, religion, and other variables. If possible future research could look at more models with different variables by using imputation techniques to use variables with a lot of missing values.</p>
+</section>
+<section id="references" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> References:</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-CDC" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Anon</span>. (2022). <a href="https://cdc.gov/nchs/fastats/marriage-divorce.htm">Marriage and Divorce.</a> <em>Centers for Disease Control and Prevention</em>.</div>
+</div>
+<div id="ref-Marriage.com" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Smith</span>, S. (2022). <a href="https://www.marriage.com/advice/relationship/five-facets-of-the-true-meaning-of-marriage/">What is Marriage?</a> <em>Marriage.com</em>.</div>
+</div>
+<div id="ref-Atlantic" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Fox</span>, L. (2014). <a href="https://www.theatlantic.com/health/archive/2014/03/the-science-of-cohabitation-a-step-toward-marriage-not-a-rebellion/284512/">The Science of Cohabitation: A Step Toward Marriage, Not a Rebellion.</a> <em>The Atlantic</em>.</div>
+</div>
+<div id="ref-Johnson1997" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Johnson</span>, S. L. and <span class="smallcaps">Jacob</span>, T. (1997). <a href="https://doi.org/10.1037/0022-006x.65.1.15">Marital interactions of depressed men and women.</a> <em>Journal of Consulting and Clinical Psychology</em> <strong>65</strong> 15–23.</div>
+</div>
+<div id="ref-AASM" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Wagner</span>, K. (2009). <a href="https://aasm.org/stable-marriage-is-linked-with-better-sleep-in-women/">Stable Marriage is Linked with Better Sleep In Women</a>. <em>American Academy of Sleep Medicine - Association for Sleep Clinicians and Researchers</em>.</div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661"><span></span>Infer<span></span>: An <span></span>r<span></span> package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
+</div>
+<div id="ref-rlang" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Henry</span>, L. and <span class="smallcaps">Wickham</span>, H. (2022). <a href="https://CRAN.R-project.org/package=rlang">Rlang: Functions for base types and core r and ’tidyverse’ features</a>.</div>
+</div>
+<div id="ref-rstudioapi" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="smallcaps">Ushey</span>, K., <span class="smallcaps">Allaire</span>, J., <span class="smallcaps">Wickham</span>, H. and <span class="smallcaps">Ritchie</span>, G. (2022). <a href="https://CRAN.R-project.org/package=rstudioapi">Rstudioapi: Safely access the RStudio API</a>.</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="smallcaps">Kuhn</span>, M. and <span class="smallcaps">Wickham</span>, H. (2020). <a href="https://www.tidymodels.org">Tidymodels: A collection of packages for modeling and machine learning using tidyverse principles.</a></div>
+</div>
+<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline"><span class="smallcaps">Tang</span>, Y., <span class="smallcaps">Horikoshi</span>, M. and <span class="smallcaps">Li</span>, W. (2016). <a href="https://doi.org/10.32614/RJ-2016-060">Ggfortify: Unified interface to visualize statistical result of popular r packages</a>. <strong>8</strong>.</div>
+</div>
+<div id="ref-vip" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline"><span class="smallcaps">Greenwell</span>, B. M. and <span class="smallcaps">Boehmke</span>, B. C. (2020). <a href="https://doi.org/10.32614/RJ-2020-013">Variable importance plots<span></span>an introduction to the vip package</a>. <strong>12</strong>.</div>
+</div>
+</div>
+</section>
+<section id="appendix" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Appendix</h1>
+<p>In the appedix we used the libraries <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">9</a>]</span> and <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">6</a>]</span>.</p>
+<section id="loading-libraries-and-data-file." class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="loading-libraries-and-data-file."><span class="header-section-number">6.1</span> Loading Libraries and Data File.</h2>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-18_16d1516c748ce69a29b895fac2100f12">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">'37404-0001-Data.rda'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-cohabitation-before-marriage." class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="visualizing-cohabitation-before-marriage."><span class="header-section-number">6.2</span> Visualizing cohabitation before marriage.</h2>
+<p>Visualizing breakdown of cohabitation before marriage - COHAB4MAR This variable is a non-ordinal categorical variable with two levels that tells whether or not the couple cohabited before marriage. Seems like the vast majority of couples cohabit before marriage.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-19_b31f9501010e483fcec549cdd7ce2af2">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> COHB4MAR)) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Bar plot depicting cohabitation before marriage'</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Cohabitation before marriage'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-months-cohabiting-before-marriage." class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="visualizing-months-cohabiting-before-marriage."><span class="header-section-number">6.3</span> Visualizing months cohabiting before marriage.</h2>
+<p>Visualizing number of months cohabiting before marriage - MNCOHB4M This is a continuous numerical variable with range 0 to infinity that tells us the number of months that the couple spent cohabiting before marriage. Problem: if couple did not cohabit before marriage, data was entered as NA rather than 0. Will have to mutate the variable.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-20_d1518166da329033b09a50fb010d7a0e">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> MNCOHB4M)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Histogram of months cohabited prior to marriage'</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Number of Months'</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-years-married." class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="visualizing-years-married."><span class="header-section-number">6.4</span> Visualizing years married.</h2>
+<p>Visualizing years married among couples in this data set - YRSMAR. This is a continuous numerical variable with range 0 to infinity that tells us how long a couple has been married at the time of their interview.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-21_89086de5a46e87295b7ff940ca25254e">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(YRSMAR) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> YRSMAR)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Years married'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-stress-levels." class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="visualizing-stress-levels."><span class="header-section-number">6.5</span> Visualizing stress levels.</h2>
+<p>Visualizing stress scores - STRSCALE This is a continuous numerical variable with range 0 to 41, indicating the sum of stress related question scores. Higher numbers correspond to higher stress levels.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-22_83b68174bf5b9cdbf20a5a2ef74fd42a">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(STRSCALE) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(STRSCALE))<span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Stress scale'</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">range =</span> <span class="fu">range</span>(STRSCALE))</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-relationship-happiness-our-response-variable." class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="visualizing-relationship-happiness-our-response-variable."><span class="header-section-number">6.6</span> Visualizing relationship happiness, our response variable.</h2>
+<p>Visualizing relationship happiness - RELHAPPY This is a ordinal categorical variable with range 1 to 7.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-23_530c2630eed02f2b52396d9c5b601c59">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELHAPPY) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(RELHAPPY)) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Relationsip Happiness'</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-relationship-warmness." class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="visualizing-relationship-warmness."><span class="header-section-number">6.7</span> Visualizing relationship warmness.</h2>
+<p>Visualing relationship warmness - RELRWAR This is a ordinal categorical variable with range 1 to 7.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-24_a14d9ff486d3ab996f105b671f0f7030">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(RELWARM) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(RELWARM)) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Relationship Warmness'</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-how-critical-ones-spouse-is." class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="visualizing-how-critical-ones-spouse-is."><span class="header-section-number">6.8</span> Visualizing how critical one’s spouse is.</h2>
+<p>Visualizing how critical spouse’s partner is - SPCRICTIC This is a ordinal categorical variable with range 1 to 5.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-25_f240a6dcd5bac0f2b32de7d524a9cba8">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SPCRITIC) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(SPCRITIC)) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Criticalness of Spouse'</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-argument-frequency." class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="visualizing-argument-frequency."><span class="header-section-number">6.9</span> Visualizing argument frequency.</h2>
+<p>ARGUEFRQ: An ordinal categorical variable with how often the couple argues with 5 levels, (1) Very Rarely, (2) Rarely, (3) Sometimes, (4) Often, (5) Very Often. This variable gives us information about how frequently the couple argues.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-26_fbf0d34e3c42dfe859df9672fc9f371f">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ARGUEFRQ) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ARGUEFRQ)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Frequency of arguements in couples"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Frequency of arguements"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-depression-symptoms." class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="visualizing-depression-symptoms."><span class="header-section-number">6.10</span> Visualizing depression symptoms.</h2>
+<p>DEPSYM: A discrete numerical variable range 11 to 38 that tells us about how many depressive symptoms the respondant faces.</p>
+<p>Note: This variable was created by adding up the ranking (1-5) of other categories to determine the overall depressive symptoms numerical value.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-27_00f909b53ab875b45cf68ef2aec108a8">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DEPSYM) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">range =</span> <span class="fu">range</span>(DEPSYM))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-28_032db2cdcc971659ae6b0e73acbc7235">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DEPSYM) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> DEPSYM)) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Depression symptoms'</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-days-in-which-spouse-has-had-more-than-four-drinks-in-one-day-in-the-last-three-months" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="visualizing-days-in-which-spouse-has-had-more-than-four-drinks-in-one-day-in-the-last-three-months"><span class="header-section-number">6.11</span> Visualizing days in which spouse has had more than four drinks in one day in the last three months</h2>
+<p>CDDAYSBD: A continuous numerical variable with range 0 to 90 which tells us how many days has the spouse had 4+ drinks in the last 3 months.</p>
+<p>Problem: There are some N/As.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-29_f9f3b5fcfabd4056b7dd4dca410e44d1">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">range =</span> <span class="fu">range</span>(CDDAYSBD))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-30_de90a0e5c2c9f951bc31f586524f8640">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CDDAYSBD) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> CDDAYSBD)) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Days partner had more than 3 drinks in last three months'</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="visualizing-hours-of-sleep." class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="visualizing-hours-of-sleep."><span class="header-section-number">6.12</span> Visualizing hours of sleep.</h2>
+<p>HRSLEEP: A continuous numerical variable with range 2 to 10 that tells us how many hours of sleep per/day the respondent gets.</p>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-31_63f947a2d5a8d351da3225128b829e2d">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(HRSLEEP) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">range =</span> <span class="fu">range</span>(HRSLEEP))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-hash="PROJECT11.15_cache/html/unnamed-chunk-32_934c0a7d00aa3a3c6c7300828f93db56">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>da37404<span class="fl">.0001</span> <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(HRSLEEP) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HRSLEEP)) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">'blue'</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Hours of sleep'</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="references-1" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> References</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
