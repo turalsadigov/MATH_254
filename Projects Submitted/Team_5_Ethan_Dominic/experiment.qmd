@@ -25,9 +25,9 @@ abstract: Over the past few decades, the gender wage gap has been heavily resear
 format: 
     html:
       theme: 
-        light: united
+        light: default
         dark: darkly
-title-block-banner: darkblue
+title-block-banner: chocolate
 date: October 26, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -55,6 +55,7 @@ editor:
   markdown: 
     wrap: sentence
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
 ---
 
 ```{r}
@@ -385,27 +386,12 @@ Future research could improve upon this model with the inclusion of additional e
 While our study did not provide statistically significant findings, we estimated that there is a difference in median earnings for those that hold a predominantly female major and a predominantly male major.
 This coincides with the findings of other studies surrounding the gender wage gap, and hopefully, our unbiased approach elevates the standard for future research in this topic.
 
+[@tidymodels], [@tidyverse], [@infer], [@psych], [@GGally], [@plotly], [@ggfortify], [@collplayoff], [@hamwork], [@wagegap]
+
 # References
 
-[@tidymodels]
-
-[@tidyverse]
-
-[@infer]
-
-[@psych]
-
-[@GGally]
-
-[@plotly]
-
-[@ggfortify]
-
-[@collplayoff]
-
-[@hamwork]
-
-[@wagegap]
+::: {#refs}
+:::
 
 # Appendix
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-0.9.649">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -15,15 +15,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -56,11 +51,11 @@ div.csl-indent {
 <link href="experiment_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="experiment_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="experiment_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="experiment_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="experiment_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="experiment_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="experiment_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
 <style>
     .quarto-title-block .quarto-title-banner {
-      background: darkblue;
+      background: chocolate;
     }
     </style>
 
@@ -128,20 +123,20 @@ div.csl-indent {
   
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"><span class="toc-section-number">1</span>  Background and Significance</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">2</span>  Data</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"><span class="toc-section-number">3</span>  Methodology</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">4</span>  Results</a></li>
-  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"><span class="toc-section-number">5</span>  Discussion/Conclusions</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">6</span>  References</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">7</span>  Appendix</a>
+  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"> <span class="header-section-number">1</span> Background and Significance</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"> <span class="header-section-number">2</span> Data</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology"> <span class="header-section-number">3</span> Methodology</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"> <span class="header-section-number">4</span> Results</a></li>
+  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"> <span class="header-section-number">5</span> Discussion/Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"> <span class="header-section-number">6</span> References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"> <span class="header-section-number">7</span> Appendix</a>
   <ul class="collapse">
-  <li><a href="#numerical-summary" id="toc-numerical-summary" class="nav-link" data-scroll-target="#numerical-summary"><span class="toc-section-number">7.1</span>  Numerical Summary</a></li>
-  <li><a href="#visual-summaries" id="toc-visual-summaries" class="nav-link" data-scroll-target="#visual-summaries"><span class="toc-section-number">7.2</span>  Visual Summaries</a></li>
+  <li><a href="#numerical-summary" id="toc-numerical-summary" class="nav-link" data-scroll-target="#numerical-summary"> <span class="header-section-number">7.1</span> Numerical Summary</a></li>
+  <li><a href="#visual-summaries" id="toc-visual-summaries" class="nav-link" data-scroll-target="#visual-summaries"> <span class="header-section-number">7.2</span> Visual Summaries</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -291,19 +286,42 @@ div.csl-indent {
 <p>Our study attempted to determine if the wage gap stems from the different majors that men and women pursue. Prior to completion we believed that, on average, recent graduates holding a predominantly female major earn less than those holding a predominantly male major. This hypothesis was tested through a multivariate regression, residual analysis, and plot comparison. As none of our estimated coefficients were statistically significant, we can not draw a valid conclusion. Keeping this in mind, our model estimated that those with a predominantly female major earn $6,056 less than those with a predominantly male major. This confirms our initial hypothesis and the beliefs of Sloan et al.&nbsp;(2021). Sloan et al.&nbsp;studied how income differed between men with male dominated majors and women with female dominated majors, and we expanded upon this by strictly studying how income differed between predominantly male and female majors regardless of individual gender. This allowed us to hold gender constant and better assess if anyone with a predominantly female major earns less than anyone with a predominantly male major. By disregarding the gender wage gap, we provided more ethical, unbiased results and a stronger base of future research.</p>
 <p>Our study was limited by the structure of our data. Since the original data set was already categorized, we were unable to take advantage of the 6,771,654 individual responses. Therefore, we were limited to averages for the 16 major categories. Additional variables related to income (place of residence, parent’s income, marital status, etc.) would provide further benefit by increasing the specificity of our model. These data limitations provided us with statistically insignificant results, so our findings can not be cited as evidence. Furthermore, the estimated coefficients of unemployment rate and share working a low wage job were forced to react to our other explanatory variables. This provided an incorrect, positive relationship between these two variables and average median earnings. Future research could improve upon this model with the inclusion of additional explanatory variables and exclusion of certain variables that are highly correlated with other independent variables.</p>
 <p>While our study did not provide statistically significant findings, we estimated that there is a difference in median earnings for those that hold a predominantly female major and a predominantly male major. This coincides with the findings of other studies surrounding the gender wage gap, and hopefully, our unbiased approach elevates the standard for future research in this topic.</p>
+<p><span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">1</a>]</span>, <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">2</a>]</span>, <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">3</a>]</span>, <span class="citation" data-cites="psych">[<a href="#ref-psych" role="doc-biblioref">4</a>]</span>, <span class="citation" data-cites="GGally">[<a href="#ref-GGally" role="doc-biblioref">5</a>]</span>, <span class="citation" data-cites="plotly">[<a href="#ref-plotly" role="doc-biblioref">6</a>]</span>, <span class="citation" data-cites="ggfortify">[<a href="#ref-ggfortify" role="doc-biblioref">7</a>]</span>, <span class="citation" data-cites="collplayoff">[<a href="#ref-collplayoff" role="doc-biblioref">8</a>]</span>, <span class="citation" data-cites="hamwork">[<a href="#ref-hamwork" role="doc-biblioref">9</a>]</span>, <span class="citation" data-cites="wagegap">[<a href="#ref-wagegap" role="doc-biblioref">10</a>]</span></p>
 </section>
 <section id="references" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> References</h1>
-<p><span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span></p>
-<p><span class="citation" data-cites="tidyverse">(<a href="#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span></p>
-<p><span class="citation" data-cites="infer">(<a href="#ref-infer" role="doc-biblioref">Couch et al. 2021</a>)</span></p>
-<p><span class="citation" data-cites="psych">(<a href="#ref-psych" role="doc-biblioref">Revelle 2022</a>)</span></p>
-<p><span class="citation" data-cites="GGally">(<a href="#ref-GGally" role="doc-biblioref">Schloerke et al. 2021</a>)</span></p>
-<p><span class="citation" data-cites="plotly">(<a href="#ref-plotly" role="doc-biblioref">Sievert 2020</a>)</span></p>
-<p><span class="citation" data-cites="ggfortify">(<a href="#ref-ggfortify" role="doc-biblioref">Tang, Horikoshi, and Li 2016</a>)</span></p>
-<p><span class="citation" data-cites="collplayoff">(<a href="#ref-collplayoff" role="doc-biblioref">Carnevale and Cheah 2013</a>)</span></p>
-<p><span class="citation" data-cites="hamwork">(<a href="#ref-hamwork" role="doc-biblioref">Schanzenbach and Nantz 2017</a>)</span></p>
-<p><span class="citation" data-cites="wagegap">(<a href="#ref-wagegap" role="doc-biblioref">Sloane and Black 2021</a>)</span></p>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Kuhn</span>, M. and <span class="smallcaps">Wickham</span>, H. (2020). <a href="https://www.tidymodels.org">Tidymodels: A collection of packages for modeling and machine learning using tidyverse principles.</a></div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661"><span></span>Infer<span></span>: An <span></span>r<span></span> package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
+</div>
+<div id="ref-psych" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Revelle</span>, W. (2022). <a href="https://CRAN.R-project.org/package=psych">Psych: Procedures for psychological, psychometric, and personality research</a>.</div>
+</div>
+<div id="ref-GGally" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Schloerke</span>, B., <span class="smallcaps">Cook</span>, D., <span class="smallcaps">Larmarange</span>, J., <span class="smallcaps">Briatte</span>, F., <span class="smallcaps">Marbach</span>, M., <span class="smallcaps">Thoen</span>, E., <span class="smallcaps">Elberg</span>, A. and <span class="smallcaps">Crowley</span>, J. (2021). <a href="https://CRAN.R-project.org/package=GGally">GGally: Extension to ’ggplot2’</a>.</div>
+</div>
+<div id="ref-plotly" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Sievert</span>, C. (2020). <a href="https://plotly-r.com">Interactive web-based data visualization with r, plotly, and shiny</a>.</div>
+</div>
+<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Tang</span>, Y., <span class="smallcaps">Horikoshi</span>, M. and <span class="smallcaps">Li</span>, W. (2016). <a href="https://doi.org/10.32614/RJ-2016-060">Ggfortify: Unified interface to visualize statistical result of popular r packages</a>. <strong>8</strong>.</div>
+</div>
+<div id="ref-collplayoff" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="smallcaps">Carnevale</span>, Rose and <span class="smallcaps">Cheah</span>. (2013). <a href="https://repository.library.georgetown.edu/handle/10822/559300">The college payoff: Education, occupation, lifetime earnings</a>.</div>
+</div>
+<div id="ref-hamwork" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span class="smallcaps">Schanzenbach</span>, Nunn and <span class="smallcaps">Nantz</span>. (2017). <a href="https://www.hamiltonproject.org/assets/files/career_paths_after_college.pdf">Putting your major to work: Career paths after college</a>.</div>
+</div>
+<div id="ref-wagegap" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="smallcaps">Sloane</span>, Hurst and <span class="smallcaps">Black</span>. (2021). <a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.35.4.223">College majors, occupations, and the gender wage gap</a>.</div>
+</div>
+</div>
 </section>
 <section id="appendix" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Appendix</h1>
@@ -428,63 +446,13 @@ Low_wage_jobs            0  48207.00  48207.00  3.27    12.64  530.73</code></pr
 <p><img src="experiment_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-collplayoff" class="csl-entry" role="doc-biblioentry">
-Carnevale, Rose, and Cheah. 2013. <span>“The College Payoff: Education, Occupation, Lifetime Earnings.”</span> <a href="https://repository.library.georgetown.edu/handle/10822/559300">https://repository.library.georgetown.edu/handle/10822/559300</a>.
-</div>
-<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
-Couch, Simon P., Andrew P. Bray, Chester Ismay, Evgeni Chasnovski, Benjamin S. Baumer, and Mine Çetinkaya-Rundel. 2021. <span>“<span></span>Infer<span></span>: An <span></span>r<span></span> Package for Tidyverse-Friendly Statistical Inference”</span> 6: 3661. <a href="https://doi.org/10.21105/joss.03661">https://doi.org/10.21105/joss.03661</a>.
-</div>
-<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
-Kuhn, Max, and Hadley Wickham. 2020. <span>“Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles.”</span> <a href="https://www.tidymodels.org">https://www.tidymodels.org</a>.
-</div>
-<div id="ref-psych" class="csl-entry" role="doc-biblioentry">
-Revelle, William. 2022. <span>“Psych: Procedures for Psychological, Psychometric, and Personality Research.”</span> <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
-</div>
-<div id="ref-hamwork" class="csl-entry" role="doc-biblioentry">
-Schanzenbach, Nunn, and Nantz. 2017. <span>“Putting Your Major to Work: Career Paths After College.”</span> <a href="https://www.hamiltonproject.org/assets/files/career_paths_after_college.pdf">https://www.hamiltonproject.org/assets/files/career_paths_after_college.pdf</a>.
-</div>
-<div id="ref-GGally" class="csl-entry" role="doc-biblioentry">
-Schloerke, Barret, Di Cook, Joseph Larmarange, Francois Briatte, Moritz Marbach, Edwin Thoen, Amos Elberg, and Jason Crowley. 2021. <span>“GGally: Extension to ’Ggplot2’.”</span> <a href="https://CRAN.R-project.org/package=GGally">https://CRAN.R-project.org/package=GGally</a>.
-</div>
-<div id="ref-plotly" class="csl-entry" role="doc-biblioentry">
-Sievert, Carson. 2020. <span>“Interactive Web-Based Data Visualization with r, Plotly, and Shiny.”</span> <a href="https://plotly-r.com">https://plotly-r.com</a>.
-</div>
-<div id="ref-wagegap" class="csl-entry" role="doc-biblioentry">
-Sloane, Hurst, and Black. 2021. <span>“College Majors, Occupations, and the Gender Wage Gap.”</span> <a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.35.4.223">https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.35.4.223</a>.
-</div>
-<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
-Tang, Yuan, Masaaki Horikoshi, and Wenxuan Li. 2016. <span>“Ggfortify: Unified Interface to Visualize Statistical Result of Popular r Packages”</span> 8. <a href="https://doi.org/10.32614/RJ-2016-060">https://doi.org/10.32614/RJ-2016-060</a>.
-</div>
-<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
-</div>
-</div></section></div></main>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
   const disableStylesheet = (stylesheets) => {
     for (let i=0; i < stylesheets.length; i++) {
       const stylesheet = stylesheets[i];
@@ -514,14 +482,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     manageTransitions('#quarto-margin-sidebar .nav-link', false);
     if (alternate) {
       enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
     } else {
       disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
     }
     manageTransitions('#quarto-margin-sidebar .nav-link', true);
     // Switch the toggles
@@ -535,16 +497,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           toggle.classList.remove("alternate");
         }
       }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
     }
   }
   const isFileUrl = () => { 
@@ -647,8 +599,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
