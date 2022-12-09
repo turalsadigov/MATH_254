@@ -55,7 +55,6 @@ execute:
 code-fold: show
 bibliography: references.bib
 csl: electronic-journal-of-statistics.csl
-
 ---
 
 # Background and Significance
@@ -122,7 +121,12 @@ Loading the data, and mutating a new column that informs us about upsets.
 library(tidyverse) 
 library(infer)
 library(ggplot2)
-new_data <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/tennis_troy_pandelis.csv')
+remote <- "https://media.githubusercontent.com/media/"
+account <- "turalsadigov/"
+folder <- "MATH_254/main/Datasets%20for%20projects/"
+file <- "tennis_troy_pandelis.csv"
+url <- str_c(remote, account, folder, file)
+new_data <- read_csv(url)
 ```
 
 Displaying counts -- grouping by surface
@@ -141,7 +145,8 @@ Mutate: adding a row to indicates if there was an upset (1) or not (0)
 ```{r}
 new_data_2 <-
   new_data %>%
-  mutate(upset = case_when(winner_rank > loser_rank ~ 1, winner_rank < loser_rank ~ 0))
+  mutate(upset = case_when(winner_rank > loser_rank ~ 1, 
+                           winner_rank < loser_rank ~ 0))
 new_data_2 %>%
   select(winner_rank, loser_rank, upset)
 ```
@@ -149,11 +154,21 @@ new_data_2 %>%
 The code below creates a data-frame to display details regarding the number of upsets per court surface and respective proportions. See Appendix for derivation of the results below.
 
 ```{r}
-upsets_per_court_surface <- data.frame(
-  surface = c('Carpet', 'Clay', 'Grass', 'Hard-Court'),
-  Num_of_Matches = c(208, 1119, 326, 1711),
-  Upsets_on_surface = c(65, 397, 122, 545),
-  prop_of_upsets = c(0.3125, 0.3547811, 0.3742331, 0.3185272))
+upsets_per_court_surface <- 
+  new_data_2 %>% 
+  select(upset, surface) %>% 
+  drop_na() %>% 
+  group_by(surface) %>% 
+  summarise(Num_of_Matches = n(), 
+            Upsets_on_surface = sum(upset),
+            prop_of_upsets =  Upsets_on_surface/Num_of_Matches )
+upsets_per_court_surface
+# upsets_per_court_surface <- data.frame(
+#   surface = c('Carpet', 'Clay', 'Grass', 'Hard-Court'),
+#   Num_of_Matches = c(208, 1119, 326, 1711),
+#   Upsets_on_surface = c(65, 397, 122, 545),
+#   prop_of_upsets = c(0.3125, 0.3547811, 0.3742331, 0.3185272))
+
 ```
 
 ## Investigating Upsets in Tennis Matches:
@@ -162,29 +177,49 @@ Is the likelihood of an upset, where a lower ranked player beats a higher ranked
 
 ### Checking Conditions for a Chi-Square Test for Independence:
 
-The observations are independent of one another, and the observations were collected in no specific order; thus, independence and randomness are satisfied. Both variables being studied are categorical. The test checks for independence between the likelihood of an upset and court surface. The value of each cell's expected value is at least 5 in at least 80% of the cells, and no cell has an expected value of less than one. Since all conditions are met, we are able to conduct a chi-square test in which we test for independence between the following variables: upset and surface.
+The observations are independent of one another, and the observations were collected in no specific order; thus, independence and randomness are satisfied. Both variables being studied are categorical. The test checks for independence between the likelihood of an upset and court surface. The value of each cell's expected value is at least 5 in at least 80% of the cells (to be precise, in all cells), and no cell has an expected value of less than one since the minimum is 65 (see code below). Since all conditions are met, we are able to conduct a chi-square test in which we test for independence between the following variables: upset and surface.
+
+```{r}
+new_data_2 %>% 
+  select(upset, surface) %>% 
+  mutate(upset = factor(upset),
+         surface = factor(surface)) %>%
+  drop_na() %>% 
+  group_by(upset, surface) %>%  
+  count() %>% 
+  pivot_wider(names_from = surface, values_from = n)
+```
 
 ### Hypotheses:
 
-$H_o$: The likelihood of an upset is independent of the court surface in a tennis match.
+-   $H_o$: The likelihood of an upset is independent of the court surface in a tennis match.
 
-$H_a$: The likelihood of an upset is dependent on the court surface in a tennis match.
+-   $H_a$: The likelihood of an upset is dependent on the court surface in a tennis match.
 
-$\alpha$: 0.001
+-   $\alpha$: 0.001
 
 ```{r}
 set.seed(10)
 # cleaning data for usage
-new_data_2$upset<-factor(new_data_2$upset)
-new_data_2$surface<-factor(new_data_2$surface)
+# new_data_2$upset<-factor(new_data_2$upset)
+# new_data_2$surface<-factor(new_data_2$surface)
 # calculating the independent test statistic
 observed_indep_stat <-
   new_data_2 %>%
+  select(upset, surface) %>% 
+  mutate(upset = factor(upset),
+         surface = factor(surface)) %>% 
+  drop_na() %>% 
   specify(surface ~ upset) %>%
   hypothesize(null = 'independence') %>%
   calculate(stat = 'Chisq')
 # chi-square test with permutation:
-null_dist <- new_data_2 %>%
+null_dist <- 
+  new_data_2 %>%
+  select(upset, surface) %>% 
+  mutate(upset = factor(upset),
+         surface = factor(surface)) %>% 
+  drop_na() %>% 
   specify(surface ~ upset) %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
@@ -195,7 +230,8 @@ null_dist %>%
   shade_p_value(observed_indep_stat,
                 direction = "greater")
 null_dist %>%
-  get_p_value(observed_indep_stat, direction = 'greater') # p-value: 0.311	
+  get_p_value(observed_indep_stat, 
+              direction = 'greater') # p-value: 0.311	
 ```
 
 ## Investigating Duration of Tennis Matches:
@@ -205,10 +241,12 @@ Does court surface impact the duration of a tennis match?
 We chose to explore this topic with a difference in means test between the mean duration of tennis matches on clay and the mean duration of tennis matches on hard-court. These two surfaces were chosen over carpet and grass because they had significantly more observations.
 
 ```{r}
-surface_counts <- new_data %>%
+surface_counts <- 
+  new_data %>%
   group_by(surface) %>%
   count() %>%
   arrange(rev(n))
+surface_counts 
 ```
 
 Creating a data frame that selects surface and minutes and filters so that the two surfaces being studied are Clay and Hard Court.
@@ -217,20 +255,27 @@ Creating a data frame that selects surface and minutes and filters so that the t
 new_data_cp4 <-
   new_data %>%
   select(surface, minutes) %>%
-  filter(surface == 'Clay' | surface == 'Hard')
+  filter(surface == 'Clay' | surface == 'Hard') %>% 
+  mutate(surface = factor(surface)) %>% 
+  drop_na()
+
+new_data_cp4 %>% 
+  summary()
+
+dim(new_data_cp4)
 ```
 
 ### Checking Conditions for a Difference in Means Test:
 
-Both the clay and hard-court samples are independent. The sample sizes are n1 = 1711 and n2 = 1119 for hard court and clay respectively. Both of these values are greater than or equal to 30, so they are large enough to satisfy the condition that checks for (approximate) normality. Moreover, both samples are less than 10% of all matches played on the respective surface. As a result, the condition for sufficiently large samples checks out. Since all conditions are met, we are able to conduct a difference in means test to study whether court surface plays a role in the duration of a tennis match.
+Both the clay and hard-court samples are independent. The sample sizes are $n_1 = 1711$ and $n_2 = 1119$ for hard court and clay respectively. Both of these values are greater than or equal to 30, so they are large enough to satisfy the condition that checks for (approximate) normality. Moreover, both samples are less than 10% of all matches played on the respective surface. As a result, the condition for sufficiently large samples checks out. Since all conditions are met, we are able to conduct a difference in means test to study whether court surface plays a role in the duration of a tennis match.
 
 ### Hypothesis Test: Difference in Means
 
-$H_o$: The mean duration (in minutes) of a tennis match on clay surface is equal to the mean duration (in minutes) of a tennis match on hard-court surface. That is, the difference in means is equal to 0. Thus, $\mu_1 - \mu_2 = 0$.
+-   $H_o$: The mean duration (in minutes) of a tennis match on clay surface is equal to the mean duration (in minutes) of a tennis match on hard-court surface. That is, the difference in means is equal to 0. Thus, $\mu_1 - \mu_2 = 0$.
 
-$H_a$: The mean duration (in minutes) of a tennis match on clay surface is NOT equal to the mean duration (in minutes) of a tennis match on hard-court surface. That is, the difference in means is not equal to 0. Thus, $\mu_1 - \mu_2 \neq 0$.
+-   $H_a$: The mean duration (in minutes) of a tennis match on clay surface is NOT equal to the mean duration (in minutes) of a tennis match on hard-court surface. That is, the difference in means is not equal to 0. Thus, $\mu_1 - \mu_2 \neq 0$.
 
-$\alpha$: 0.001
+-   $\alpha$: 0.001
 
 ### Code to set up the difference in means test:
 
@@ -241,20 +286,42 @@ observed_stat <-
   new_data_cp4 %>% 
   specify(minutes ~ surface) %>% 
   calculate(stat = 'diff in means')
-obs_stat_extracted = observed_stat$stat
+observed_stat
+obs_stat_extracted <-  observed_stat$stat
+obs_stat_extracted 
 ```
 
 Combining n1 + n2 into a general sample size, n.
 
 ```{r}
-total_sample_size = 1711 + 1119
-deg_freedom = total_sample_size - 2
+total_sample_size <- dim(new_data_cp4)[1]
+deg_freedom <-  total_sample_size - 2
+deg_freedom
 ```
 
 P-value:
 
 ```{r}
 2 * (1 - pt(obs_stat_extracted, deg_freedom)) 
+```
+
+Or simply, we can do the following to be more precise.
+
+```{r}
+x <- 
+  new_data_cp4 %>% 
+  filter(surface == 'Clay') %>% 
+  pull(minutes)
+
+y <- 
+  new_data_cp4 %>% 
+  filter(surface == 'Hard') %>% 
+  pull(minutes)
+
+t.test(x, y) %>% 
+  tidy() %>% 
+  transmute(p_value = p.value, 
+            deg_freedom = parameter)
 ```
 
 ## Predicting Duration of Tennis Matches:
@@ -281,7 +348,6 @@ By changing the random seed used in our calculations, we get different results a
 
 Finally, we give credit to the knitr package ([@knitr]) for providing the resources needed to format and construct this paper, as well as USCLAP ([@USCLAP-Template]) for providing the project template.
 
-
 ::: {#refs}
 :::
 
@@ -290,6 +356,8 @@ Finally, we give credit to the knitr package ([@knitr]) for providing the resour
 The code below consists of various calculations that produced the needed results to create the "upsets_per_court_surface" data frame.
 
 ```{r}
+#| eval: false
+#| echo: false
 total_upset_carpet <- 
   new_data_2 %>%
   filter(upset == 1 & surface == "Carpet") %>%
@@ -315,6 +383,18 @@ total_upset_hard <-
   filter(upset == 1 & surface == "Hard") %>%
   count()
 prop_upset_hard <- total_upset_hard / 1711
+```
+
+```{r}
+upsets_per_court_surface <- 
+  new_data_2 %>% 
+  select(upset, surface) %>% 
+  drop_na() %>% 
+  group_by(surface) %>% 
+  summarise(Num_of_Matches = n(), 
+            Upsets_on_surface = sum(upset),
+            prop_of_upsets =  Upsets_on_surface/Num_of_Matches )
+upsets_per_court_surface
 ```
 
 Density Plot for Duration of Matches (in minutes)
@@ -465,28 +545,28 @@ model_1 <-
   fit_resamples(log_minutes_plus_1 ~ winner_rank + loser_rank + w_ace + l_ace + surface, 
                 df_validation_resample, 
                 metrics = metric_set(rsq, rmse, mae))
-model_1
+
 
 model_2 <- 
   lm_specs %>% 
   fit_resamples(minutes ~ winner_rank + loser_rank + w_ace + l_ace + surface, 
                 df_validation_resample, 
                 metrics = metric_set(rsq, rmse, mae))
-model_2
+
 
 model_3 <- 
   lm_specs %>% 
   fit_resamples(log_minutes_plus_1 ~ surface + w_ace + l_ace, 
                 df_validation_resample, 
                 metrics = metric_set(rsq, rmse, mae))
-model_3
+
 
 model_4 <- 
   lm_specs %>% 
   fit_resamples(minutes ~ surface + w_ace + l_ace, 
                 df_validation_resample, 
                 metrics = metric_set(rsq, rmse, mae))
-model_4
+
 ```
 
 Putting models together.
@@ -516,7 +596,7 @@ validation_results %>%
   pivot_wider(names_from = .metric, values_from = .estimate)
 ```
 
-We chose model 3. Final re-sample below.
+We chose model 3. Final fit below.
 
 ```{r}
 set.seed(10)
