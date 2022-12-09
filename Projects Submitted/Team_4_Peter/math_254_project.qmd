@@ -17,7 +17,7 @@ author:
         state: NY
         country: USA
         postal-code: 13323-1218
-abstract: Programming languages have become a key tool for almost all areas of science, picking the right tool for the job is more important than ever. This paper investigates the potential social drivers(linkdin posts, stack overflow questions and github repos) and the technical drivers (the technical aspect of the language) on how it influences the popularity of a langauge. This data set was a web-scraped data set from a study in creating an automatic decision model for picking the right programming languages. The methodology choosen consistes of evaluating whether a certain technical feature is independent of pouplarity, acheived by multiple hypothesis testing using chisq test and a linear regression model that uses the social media activities to predict the popularity. Despite some results showing signficant evidence, the paper concluded no concrete conclusions can be drawn from the study.
+abstract: Programming languages have become a key tool for almost all areas of science, picking the right tool for the job is more important than ever. This paper investigates the potential social drivers (linkdin posts, stack overflow questions and github repos) and the technical drivers (the technical aspect of the language) on how it influences the popularity of a langauge. This data set was a web-scraped data set from a study in creating an automatic decision model for picking the right programming languages. The methodology choosen consists of evaluating whether a certain technical feature is independent of popularity, acheived by multiple hypothesis testing using chisq test and a linear regression model that uses the social media activities to predict the popularity. Despite some results showing signficant evidence, the paper concluded no concrete conclusions can be drawn from the study.
 
 format: 
     html:
@@ -69,19 +69,19 @@ In this paper, we intend to explore what feature drives the usage of that progra
 
 **Variable creation** Several additional variables are created to understand the research question, alongside with some unique interpretation of variables. First the variable google_hits is interpreted as the popularity indicator. Since, when and what people search is private (different than a post of social media), this can be used to indicate when people are curios about the language, hence the popularity. A new categorical variable with 4 levels is created called popularity. The variable is created by splitting the google_hits into 4 parts using quartiles, and assigning it one of four levels of popularity (not popular, somewhat popular, popular and very popular)
 
-Second, all numerical variables in the data set are extremely rightward skewed. This makes sense intuitively, as one can assume languages like Python and R will be very popular and thus with people posting and sharing about it on social media. Most other languages will remain unknown to the vast majority of people. If we attempt to fit a linear regression model directly, the distribution of the residual will not be heteroscedastic or normally distributed. To linearize the relationship the log function of all the numerical variables are taken and are seen as equivalent to the original variable in relation to the rest of the paper.
+Second, all numerical variables in the data set are extremely rightward skewed. This makes sense intuitively, as one can assume languages like Python and R will be very popular and thus with people posting and sharing about it on social media. Most other languages will remain unknown to the vast majority of people. If we attempt to fit a linear regression model directly, the distribution of the residual will not be heteroscedastic or normally distributed. To linearize the relationship the log transformation of all the numerical variables are taken and are seen as equivalent to the original variable in relation to the rest of the paper.
 
-**Analytic methods** To explore the first idea, what technical features drives the popularity of the programming languages. We decided to do a multiple hypothesis test for independence using the chisq test, between the programming feature and popularity. First each programming language feature will be checked against the conditions of the chisq test. The null distribution will be generated assuming the independence between whether the PL have the feature or not and its popularity. The observed statistics will then be calculated using the data set. Then the probability of the observation under the null distribution will be calculated. With multiple programming features, the chisq test will be repeated for every feature that satisfies the chisq assumptions. Finally, since multiple hypothesis testing is conducted and to avoid p-hacking, the alpha value (0.05) will be divided by the number of tests. The p-value of all the significant results will be compared against each other to create a ranked list of programming features that directly impacts popularity.
+**Analytic methods** To explore the first idea, what technical features drives the popularity of the programming languages, we decided to do a multiple hypothesis testing for independence using the chi-squared test, between the programming feature and popularity. First each programming language feature will be checked against the conditions of the chi-squared test. The null distribution will be generated assuming the independence between whether the PL (programming language) have the feature or not and its popularity. The observed statistics will then be calculated using the data set. Then the probability of the observation under the null distribution will be calculated. With multiple programming features, the chi-squared test will be repeated for every feature that satisfies the the chi-squared test assumptions. Finally, since multiple hypothesis testing is conducted and to avoid p-hacking, the alpha value (0.05) will be divided by the number of tests. The p-value of all the significant results will be compared against each other to create a ranked list of programming features that directly impacts popularity.
 
-To explore the second idea, what drives the popularity of a languages in general. A multiple linear regression will be used with popularity as the response variable (y). The possible numerical predictors are the number of stack overflow posts, Linkdin profile mentions and github hits. The possible categorical predictors will be the top three programming features returned from the multiple hypothesis testing.
+To explore the second idea, what drives the popularity of a languages in general, a multiple linear regression will be used with popularity as the response variable (y). The possible numerical predictors are the number of stack overflow posts, Linkdin profile mentions and github hits. The possible categorical predictors will be the top three programming features returned from the multiple hypothesis testing.
 
-Each model will be trained and tested, by splitting the existing data set in to a testing set(20%) and a non-testing set (80%). The non-testing set will be further divided into a training (75%) and a validation set. The hypothesized models will first be fitted against the training data and then compared using the validation data. The best fitted model will be re-trained on the entire non-testing set and tested on the testing set to determine, whether popularity can be predicted using a linear regression model.
+Each model will be trained and tested, by splitting the existing data set in to a testing set (20%) and a non-testing set (80%). The non-testing set will be further divided into a training (75%) and a validation set. The hypothesized models will first be fitted against the training data and then compared using the validation data. The best fitted model will be re-trained on the entire non-testing set and tested on the testing set to determine, whether popularity can be predicted using a linear regression model.
 
 With the result from the chisq test and linear regression model, we can hopefully discover some insights on what drives the popularity of a programming language.
 
 # Results
 
-The results from multiple hypothesis testing is disappointing. Out of all 21 programming features provided by the data set, only 5 passes the assumption for the chisq test. 15 out of the 16 test cases, either the feature is unique (only one programming language have that feature) or a total of less than 30 languages have that feature. This is a direct result of the data set being web-scrapped. Developers are known for terrible documentation, so a lot of one off or non-rigorous features are listed and scrapped, which caused significant bloat to the data set. The special case dropped from testing is due to an obvious mismatch between the feature and the language, so the entire feature is dropped. Below shows the results from the 5 test cases used in hypothesis testing.
+The results from multiple hypothesis testing is disappointing. Out of all 21 programming features provided by the data set, only 5 passes the assumption for the chi-squared test. 15 out of the 16 test cases, either the feature is unique (only one programming language have that feature) or a total of less than 30 languages have that feature. This is a direct result of the data set being web-scrapped. Developers are known for terrible documentation, so a lot of one off or non-rigorous features are listed and scrapped, which caused significant bloat to the data set. The special case dropped from testing is due to an obvious mismatch between the feature and the language, so the entire feature is dropped. Below shows the results from the 5 test cases used in hypothesis testing.
 
 |                     |           |
 |---------------------|-----------|
@@ -92,7 +92,7 @@ The results from multiple hypothesis testing is disappointing. Out of all 21 pro
 | Concurrent          | 0.07      |
 | Scripting           | 0.05      |
 
-In relation to the adjust alpha value $alpha = 0.05 / 5 = 0.01$, only one programming feature showed statistically significant evidence that the null hypothesis the popularity of the languages and whether language is functional are independent can be rejected (highlighted by the graph below). And we can conclude a programming language being functional have an impact on its popularity.
+In relation to the adjust alpha value $alpha = 0.05 / 5 = 0.01$, only one programming feature showed statistically significant evidence that the null hypothesis the popularity of the languages and whether language is functional are independent can be rejected (highlighted by the Null distribution below). And we can conclude a programming language being functional have an impact on its popularity.
 
 ```{r}
 #| echo: false
@@ -109,15 +109,23 @@ account = '/ZichuPan'
 folder = '/math_254_project/main'
 file = '/raw_data.csv'
 url <- str_c(remote, account, folder, file)
-raw_data = read_csv(url)
-# raw_data <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/programming_languages_peter.csv')
+raw_data <-  read_csv(url)
+
+# remote <- "https://media.githubusercontent.com/media/"
+# account <- "turalsadigov/"
+# folder <- "MATH_254/main/Datasets%20for%20projects/"
+# file <- "programming_languages_peter.csv"
+# url <- str_c(remote, account, folder, file)
+# raw_data <-  read_csv(url)
+
 
 # create clean and usable data
 # change the column names to first row
 colnames(raw_data) <- raw_data[1,]
 # remove first row
 df <- raw_data[-1,]
-# remove column named NA
+
+# remove columns named NA
 df <- df[,!(names(df) %in% 'NA')]
 # remove unnecessary columns
 df <-
@@ -137,7 +145,7 @@ df <-
 class(df[[1]]) = "character"
 
 for (i in 2:ncol(df)){
-  class(df[[i]]) = "numeric"
+  class(df[[i]]) <-  "numeric"
 }
 
 # change NA to 0
@@ -147,9 +155,9 @@ df[is.na(df)] <- 0
 df <-
   df %>% 
   mutate(social_media_presence = 
-           df$stackoverflow +
-           df$LinkedIn +
-           df$`GitHub hits`)
+           stackoverflow +
+           LinkedIn +
+           `GitHub hits`) 
 
 temp <- quantile(df$`Google hits`, probability = c(0.25))
 df <- 
@@ -218,7 +226,7 @@ null_dist %>%
 
 ```
 
-The results from the multiple linear regression model is equally as disappointing. 8 models are tested with its results shown below:
+The results from the multiple linear regression model is equally as disappointing. 8 models are tested with their validation set results are shown below:
 
 | Predictors                                          | rsq    | rmse | mae  |
 |-----------------------------------------------------|--------|------|------|
@@ -231,13 +239,18 @@ The results from the multiple linear regression model is equally as disappointin
 | github hits + stack overflow + linkdin              | 0.215  | 2.51 | 1.98 |
 | github hits + stack overflow + linkdin + functional | 0.211  | 2.52 | 1.98 |
 
-The models that minimized rmse and mae while maximizeing rsq is using predictor github hits and stack overflow. Finally by refitting the model using the not-testing data, the following model is returned with $y = 11.6 + 0.627x_1 + 0.125x_2$ with a rmse of 2.75, rsq of 0.334 and mae of 1.95.
+The models that minimized `rmse` and `mae` while maximizing `rsq` is using predictor github hits and stack overflow. Finally by refitting the model using the not-testing data, the following model is returned
+
+$$y = 11.6 + 0.627x_1 + 0.125x_2$$
+
+with testing `rmse` of 2.75, `rsq` of 0.334 and `mae` of 1.95. Here $x_1$ is the log-transformed GitHub hit ($log(GH)$), $x_2$ is the log-transformed stack-overflow ($log(SO)$) and $y$ is the log-transformed Google hits ($log(GG)$). One could obtain then
+$$\hat{GG} = (109097.8) GH^{0.627} SO^{0.125}.$$
 
 # Discussion/Conclusions
 
-In conclusion, due to the server limitation of the data set, we didn't receive a definite result that a programming feature influence a langue's popularity. \[Although one feature is statistically significant, but it doesn't make sense only one feature by it self determines the popularity\] Even thou, the paper can't reject the null hypothesis that features and popularity is independent, it doesn't disprove there dependency.
+In conclusion, due to the server limitation of the data set, we didn't receive a definite result that a programming feature influence a langue's popularity. \[Although one feature is statistically significant, but it doesn't make sense only one feature by it self determines the popularity\] Even though, the paper can't reject the null hypothesis that features and popularity is independent, it doesn't disprove there dependency.
 
-The results from the linear regression model is not any better. Only 33.4% of the variance in the observed data can be explained model, indicating a bad fit. Once again, this doesn't deny the relationship between popularity and social media activity, but the paper indicates it is weakly correlated.
+The results from the linear regression model is not any better. Only 33.4% of the variance in the observed popularity (to be precise, logarithm of the Google hits) can be explained model, indicating a bad fit. Once again, this doesn't deny the relationship between popularity and social media activity, but the paper indicates it is weakly correlated.
 
 This analysis has some major limitations, the data being scrapped directly from the internet and the time sensitive nature of some data. Programming features are scrapped from its official documentation, however more obscure or less popular languages might have incomplete documentation. The potential missing data from this data set is treated as the programming language is missing that feature. Second it is natural to assume a more recent programming language will have a lower adoption rate than an older language, this gives an implicit lower weight to newly released languages.
 
@@ -647,14 +660,18 @@ df %>%
 
 ```{r}
 set.seed(1)
-df_split <- initial_split(data = df, prop = 0.80, strata = log_google_hits)
+df_split <- initial_split(data = df, 
+                          prop = 0.80, 
+                          strata = log_google_hits)
 
 df_not_testing <- training(df_split)
 df_testing <- testing(df_split)
 
 
 # split the data into training and validation
-df_split_2 <- initial_split(data = df_not_testing, prop = .75, strata = log_google_hits)
+df_split_2 <- initial_split(data = df_not_testing, 
+                            prop = .75, 
+                            strata = log_google_hits)
 df_training <- training(df_split_2)
 df_validation <- testing(df_split_2)
 
@@ -757,4 +774,5 @@ test_results %>%
   my_metrics(log_google_hits, .pred)
 ```
 
-# links
+::: {#refs}
+:::

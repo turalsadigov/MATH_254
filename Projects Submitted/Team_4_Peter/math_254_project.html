@@ -176,7 +176,7 @@ div.csl-indent {
   <div>
     <div class="abstract">
       <div class="abstract-title">Abstract</div>
-      Programming languages have become a key tool for almost all areas of science, picking the right tool for the job is more important than ever. This paper investigates the potential social drivers(linkdin posts, stack overflow questions and github repos) and the technical drivers (the technical aspect of the language) on how it influences the popularity of a langauge. This data set was a web-scraped data set from a study in creating an automatic decision model for picking the right programming languages. The methodology choosen consistes of evaluating whether a certain technical feature is independent of pouplarity, acheived by multiple hypothesis testing using chisq test and a linear regression model that uses the social media activities to predict the popularity. Despite some results showing signficant evidence, the paper concluded no concrete conclusions can be drawn from the study.
+      Programming languages have become a key tool for almost all areas of science, picking the right tool for the job is more important than ever. This paper investigates the potential social drivers (linkdin posts, stack overflow questions and github repos) and the technical drivers (the technical aspect of the language) on how it influences the popularity of a langauge. This data set was a web-scraped data set from a study in creating an automatic decision model for picking the right programming languages. The methodology choosen consists of evaluating whether a certain technical feature is independent of popularity, acheived by multiple hypothesis testing using chisq test and a linear regression model that uses the social media activities to predict the popularity. Despite some results showing signficant evidence, the paper concluded no concrete conclusions can be drawn from the study.
     </div>
   </div>
   
@@ -192,7 +192,6 @@ div.csl-indent {
   <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"><span class="toc-section-number">4</span>  Discussion/Conclusions</a></li>
   <li><a href="#references-links-after-appendix" id="toc-references-links-after-appendix" class="nav-link" data-scroll-target="#references-links-after-appendix"><span class="toc-section-number">5</span>  References (links after appendix)</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">6</span>  Appendix</a></li>
-  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links"><span class="toc-section-number">7</span>  links</a></li>
   </ul>
 </nav>
 </div>
@@ -212,15 +211,15 @@ div.csl-indent {
 <h1 data-number="2"><span class="header-section-number">2</span> Methods</h1>
 <p><strong>Data collection</strong> The raw data set was originally created as part of a larger collection of data set to create a decision model for programming language selection by Farshidi, Siamakl; Jansen, Slinger and Deldar, Mahdi. Where the focus of the research is in several industry case studies accompanied by expert interviews on which programming language is selected for what project in industry<span class="citation" data-cites="farshidi2020">[<a href="#ref-farshidi2020" role="doc-biblioref">1</a>]</span>. This raw data set in particular was scrapped directly from the web with the cutoff date of June 2021. This list of programming languages used are all that were listed on wiki at the time, meaning the list of programming languages are not complete, but all the most popular and impactful languages are included. All the social media information is scraped from each respective platforms. Note Stack Overflow posts, Linkdin profile mentions and Google hits are all-time data, where Github commits are all repositories that have a recent commit (the project is still used as a dependency or there is a recent commit), which is time sensitive by nature. It also nature to assume a programming language released more recently will naturally have a lower social media presence and project adoption, but this is not considered during data collection. Finally, the programming features are scrapped from each programming language’s Wikipedia page, this introduced possible errors where a languages have a feature, but is not explicitly mentioned and thus ignored.</p>
 <p><strong>Variable creation</strong> Several additional variables are created to understand the research question, alongside with some unique interpretation of variables. First the variable google_hits is interpreted as the popularity indicator. Since, when and what people search is private (different than a post of social media), this can be used to indicate when people are curios about the language, hence the popularity. A new categorical variable with 4 levels is created called popularity. The variable is created by splitting the google_hits into 4 parts using quartiles, and assigning it one of four levels of popularity (not popular, somewhat popular, popular and very popular)</p>
-<p>Second, all numerical variables in the data set are extremely rightward skewed. This makes sense intuitively, as one can assume languages like Python and R will be very popular and thus with people posting and sharing about it on social media. Most other languages will remain unknown to the vast majority of people. If we attempt to fit a linear regression model directly, the distribution of the residual will not be heteroscedastic or normally distributed. To linearize the relationship the log function of all the numerical variables are taken and are seen as equivalent to the original variable in relation to the rest of the paper.</p>
-<p><strong>Analytic methods</strong> To explore the first idea, what technical features drives the popularity of the programming languages. We decided to do a multiple hypothesis test for independence using the chisq test, between the programming feature and popularity. First each programming language feature will be checked against the conditions of the chisq test. The null distribution will be generated assuming the independence between whether the PL have the feature or not and its popularity. The observed statistics will then be calculated using the data set. Then the probability of the observation under the null distribution will be calculated. With multiple programming features, the chisq test will be repeated for every feature that satisfies the chisq assumptions. Finally, since multiple hypothesis testing is conducted and to avoid p-hacking, the alpha value (0.05) will be divided by the number of tests. The p-value of all the significant results will be compared against each other to create a ranked list of programming features that directly impacts popularity.</p>
-<p>To explore the second idea, what drives the popularity of a languages in general. A multiple linear regression will be used with popularity as the response variable (y). The possible numerical predictors are the number of stack overflow posts, Linkdin profile mentions and github hits. The possible categorical predictors will be the top three programming features returned from the multiple hypothesis testing.</p>
-<p>Each model will be trained and tested, by splitting the existing data set in to a testing set(20%) and a non-testing set (80%). The non-testing set will be further divided into a training (75%) and a validation set. The hypothesized models will first be fitted against the training data and then compared using the validation data. The best fitted model will be re-trained on the entire non-testing set and tested on the testing set to determine, whether popularity can be predicted using a linear regression model.</p>
+<p>Second, all numerical variables in the data set are extremely rightward skewed. This makes sense intuitively, as one can assume languages like Python and R will be very popular and thus with people posting and sharing about it on social media. Most other languages will remain unknown to the vast majority of people. If we attempt to fit a linear regression model directly, the distribution of the residual will not be heteroscedastic or normally distributed. To linearize the relationship the log transformation of all the numerical variables are taken and are seen as equivalent to the original variable in relation to the rest of the paper.</p>
+<p><strong>Analytic methods</strong> To explore the first idea, what technical features drives the popularity of the programming languages, we decided to do a multiple hypothesis testing for independence using the chi-squared test, between the programming feature and popularity. First each programming language feature will be checked against the conditions of the chi-squared test. The null distribution will be generated assuming the independence between whether the PL (programming language) have the feature or not and its popularity. The observed statistics will then be calculated using the data set. Then the probability of the observation under the null distribution will be calculated. With multiple programming features, the chi-squared test will be repeated for every feature that satisfies the the chi-squared test assumptions. Finally, since multiple hypothesis testing is conducted and to avoid p-hacking, the alpha value (0.05) will be divided by the number of tests. The p-value of all the significant results will be compared against each other to create a ranked list of programming features that directly impacts popularity.</p>
+<p>To explore the second idea, what drives the popularity of a languages in general, a multiple linear regression will be used with popularity as the response variable (y). The possible numerical predictors are the number of stack overflow posts, Linkdin profile mentions and github hits. The possible categorical predictors will be the top three programming features returned from the multiple hypothesis testing.</p>
+<p>Each model will be trained and tested, by splitting the existing data set in to a testing set (20%) and a non-testing set (80%). The non-testing set will be further divided into a training (75%) and a validation set. The hypothesized models will first be fitted against the training data and then compared using the validation data. The best fitted model will be re-trained on the entire non-testing set and tested on the testing set to determine, whether popularity can be predicted using a linear regression model.</p>
 <p>With the result from the chisq test and linear regression model, we can hopefully discover some insights on what drives the popularity of a programming language.</p>
 </section>
 <section id="results" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Results</h1>
-<p>The results from multiple hypothesis testing is disappointing. Out of all 21 programming features provided by the data set, only 5 passes the assumption for the chisq test. 15 out of the 16 test cases, either the feature is unique (only one programming language have that feature) or a total of less than 30 languages have that feature. This is a direct result of the data set being web-scrapped. Developers are known for terrible documentation, so a lot of one off or non-rigorous features are listed and scrapped, which caused significant bloat to the data set. The special case dropped from testing is due to an obvious mismatch between the feature and the language, so the entire feature is dropped. Below shows the results from the 5 test cases used in hypothesis testing.</p>
+<p>The results from multiple hypothesis testing is disappointing. Out of all 21 programming features provided by the data set, only 5 passes the assumption for the chi-squared test. 15 out of the 16 test cases, either the feature is unique (only one programming language have that feature) or a total of less than 30 languages have that feature. This is a direct result of the data set being web-scrapped. Developers are known for terrible documentation, so a lot of one off or non-rigorous features are listed and scrapped, which caused significant bloat to the data set. The special case dropped from testing is due to an obvious mismatch between the feature and the language, so the entire feature is dropped. Below shows the results from the 5 test cases used in hypothesis testing.</p>
 <table class="table">
 <tbody>
 <tr class="odd">
@@ -249,8 +248,8 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>In relation to the adjust alpha value <span class="math inline">\(alpha = 0.05 / 5 = 0.01\)</span>, only one programming feature showed statistically significant evidence that the null hypothesis the popularity of the languages and whether language is functional are independent can be rejected (highlighted by the graph below). And we can conclude a programming language being functional have an impact on its popularity.</p>
-<div class="cell" data-hash="math_254_project_cache/html/unnamed-chunk-1_6e56befe0835fd074dc2561a437b6cc6">
+<p>In relation to the adjust alpha value <span class="math inline">\(alpha = 0.05 / 5 = 0.01\)</span>, only one programming feature showed statistically significant evidence that the null hypothesis the popularity of the languages and whether language is functional are independent can be rejected (highlighted by the Null distribution below). And we can conclude a programming language being functional have an impact on its popularity.</p>
+<div class="cell" data-hash="math_254_project_cache/html/unnamed-chunk-1_ec2417aeef79264964793e95a515bd17">
 
 </div>
 <div class="cell" data-hash="math_254_project_cache/html/unnamed-chunk-2_70d73157e4e5193f7c7032ba8144c13d">
@@ -258,7 +257,7 @@ div.csl-indent {
 <p><img src="math_254_project_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The results from the multiple linear regression model is equally as disappointing. 8 models are tested with its results shown below:</p>
+<p>The results from the multiple linear regression model is equally as disappointing. 8 models are tested with their validation set results are shown below:</p>
 <table class="table">
 <colgroup>
 <col style="width: 72%">
@@ -325,12 +324,14 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>The models that minimized rmse and mae while maximizeing rsq is using predictor github hits and stack overflow. Finally by refitting the model using the not-testing data, the following model is returned with <span class="math inline">\(y = 11.6 + 0.627x_1 + 0.125x_2\)</span> with a rmse of 2.75, rsq of 0.334 and mae of 1.95.</p>
+<p>The models that minimized <code>rmse</code> and <code>mae</code> while maximizing <code>rsq</code> is using predictor github hits and stack overflow. Finally by refitting the model using the not-testing data, the following model is returned</p>
+<p><span class="math display">\[y = 11.6 + 0.627x_1 + 0.125x_2\]</span></p>
+<p>with testing <code>rmse</code> of 2.75, <code>rsq</code> of 0.334 and <code>mae</code> of 1.95. Here <span class="math inline">\(x_1\)</span> is the log-transformed GitHub hit (<span class="math inline">\(log(GH)\)</span>), <span class="math inline">\(x_2\)</span> is the log-transformed stack-overflow (<span class="math inline">\(log(SO)\)</span>) and <span class="math inline">\(y\)</span> is the log-transformed Google hits (<span class="math inline">\(log(GG)\)</span>). One could obtain then <span class="math display">\[\hat{GG} = (109097.8) GH^{0.627} SO^{0.125}.\]</span></p>
 </section>
 <section id="discussionconclusions" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Discussion/Conclusions</h1>
-<p>In conclusion, due to the server limitation of the data set, we didn’t receive a definite result that a programming feature influence a langue’s popularity. [Although one feature is statistically significant, but it doesn’t make sense only one feature by it self determines the popularity] Even thou, the paper can’t reject the null hypothesis that features and popularity is independent, it doesn’t disprove there dependency.</p>
-<p>The results from the linear regression model is not any better. Only 33.4% of the variance in the observed data can be explained model, indicating a bad fit. Once again, this doesn’t deny the relationship between popularity and social media activity, but the paper indicates it is weakly correlated.</p>
+<p>In conclusion, due to the server limitation of the data set, we didn’t receive a definite result that a programming feature influence a langue’s popularity. [Although one feature is statistically significant, but it doesn’t make sense only one feature by it self determines the popularity] Even though, the paper can’t reject the null hypothesis that features and popularity is independent, it doesn’t disprove there dependency.</p>
+<p>The results from the linear regression model is not any better. Only 33.4% of the variance in the observed popularity (to be precise, logarithm of the Google hits) can be explained model, indicating a bad fit. Once again, this doesn’t deny the relationship between popularity and social media activity, but the paper indicates it is weakly correlated.</p>
 <p>This analysis has some major limitations, the data being scrapped directly from the internet and the time sensitive nature of some data. Programming features are scrapped from its official documentation, however more obscure or less popular languages might have incomplete documentation. The potential missing data from this data set is treated as the programming language is missing that feature. Second it is natural to assume a more recent programming language will have a lower adoption rate than an older language, this gives an implicit lower weight to newly released languages.</p>
 <p>Future research may take into account expert opinions or the number of industry project that uses the programming language to produce a more accurate model. Future work might also attempt to create a less region specific data set, as all the social media platforms used are US specific.</p>
 </section>
@@ -944,80 +945,84 @@ div.csl-indent {
 <p><img src="math_254_project_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="math_254_project_cache/html/unnamed-chunk-13_3079837bfd2e5bd541bcad4b698dd61e">
+<div class="cell" data-hash="math_254_project_cache/html/unnamed-chunk-13_31fa09ec0cf15242ac669599659998f7">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df, <span class="at">prop =</span> <span class="fl">0.80</span>, <span class="at">strata =</span> log_google_hits)</span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>df_not_testing <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>df_testing <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a><span class="co"># split the data into training and validation</span></span>
-<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>df_split_2 <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df_not_testing, <span class="at">prop =</span> .<span class="dv">75</span>, <span class="at">strata =</span> log_google_hits)</span>
-<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>df_training <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split_2)</span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>df_validation <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split_2)</span>
-<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a><span class="co"># model specifications</span></span>
-<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>model_specs <span class="ot">&lt;-</span> </span>
-<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) </span>
-<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a><span class="co"># fir various models</span></span>
-<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
-<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
-<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>df_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df, </span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">prop =</span> <span class="fl">0.80</span>, </span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata =</span> log_google_hits)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>df_not_testing <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split)</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>df_testing <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split)</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="co"># split the data into training and validation</span></span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>df_split_2 <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> df_not_testing, </span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">prop =</span> .<span class="dv">75</span>, </span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">strata =</span> log_google_hits)</span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>df_training <span class="ot">&lt;-</span> <span class="fu">training</span>(df_split_2)</span>
+<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>df_validation <span class="ot">&lt;-</span> <span class="fu">testing</span>(df_split_2)</span>
+<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a><span class="co"># model specifications</span></span>
+<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>model_specs <span class="ot">&lt;-</span> </span>
+<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">'lm'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>) </span>
+<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a><span class="co"># fir various models</span></span>
+<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
 <span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in, <span class="at">data =</span> df_training)</span>
+<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
 <span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> </span>
+<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> </span>
 <span id="cb92-29"><a href="#cb92-29" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-30"><a href="#cb92-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits, <span class="at">data =</span> df_training)</span>
+<span id="cb92-30"><a href="#cb92-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in, <span class="at">data =</span> df_training)</span>
 <span id="cb92-31"><a href="#cb92-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-32"><a href="#cb92-32" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span> </span>
+<span id="cb92-32"><a href="#cb92-32" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> </span>
 <span id="cb92-33"><a href="#cb92-33" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits <span class="sc">+</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
+<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits, <span class="at">data =</span> df_training)</span>
 <span id="cb92-35"><a href="#cb92-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-36"><a href="#cb92-36" aria-hidden="true" tabindex="-1"></a>model_5 <span class="ot">&lt;-</span> </span>
+<span id="cb92-36"><a href="#cb92-36" aria-hidden="true" tabindex="-1"></a>model_4 <span class="ot">&lt;-</span> </span>
 <span id="cb92-37"><a href="#cb92-37" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits <span class="sc">+</span> log_linked_in, <span class="at">data =</span> df_training)</span>
+<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits <span class="sc">+</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
 <span id="cb92-39"><a href="#cb92-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>model_6 <span class="ot">&lt;-</span> </span>
+<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>model_5 <span class="ot">&lt;-</span> </span>
 <span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
+<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_git_hub_hits <span class="sc">+</span> log_linked_in, <span class="at">data =</span> df_training)</span>
 <span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>model_7 <span class="ot">&lt;-</span> </span>
+<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>model_6 <span class="ot">&lt;-</span> </span>
 <span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow <span class="sc">+</span> log_git_hub_hits, <span class="at">data =</span> df_training)</span>
+<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow, <span class="at">data =</span> df_training)</span>
 <span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>model_8 <span class="ot">&lt;-</span> </span>
+<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>model_7 <span class="ot">&lt;-</span> </span>
 <span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
-<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow <span class="sc">+</span> log_git_hub_hits <span class="sc">+</span> functional , <span class="at">data =</span> df_training)</span>
+<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow <span class="sc">+</span> log_git_hub_hits, <span class="at">data =</span> df_training)</span>
 <span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a><span class="co"># put all objects together</span></span>
-<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>fitted_models <span class="ot">&lt;-</span> <span class="fu">list</span>(model_1, model_2, model_3,</span>
-<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>                      model_4, model_5, model_6,</span>
-<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a>                      model_7, model_8)</span>
-<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a><span class="co"># function for validation performance</span></span>
-<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>validation_performance <span class="ot">&lt;-</span> <span class="cf">function</span>(model){</span>
-<span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a>  model_results <span class="ot">&lt;-</span> </span>
-<span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a>    df_validation <span class="sc">%&gt;%</span> </span>
-<span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(model, df_validation)) <span class="sc">%&gt;%</span> </span>
-<span id="cb92-63"><a href="#cb92-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(log_google_hits, .pred)</span>
-<span id="cb92-64"><a href="#cb92-64" aria-hidden="true" tabindex="-1"></a>  my_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
-<span id="cb92-65"><a href="#cb92-65" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> </span>
-<span id="cb92-66"><a href="#cb92-66" aria-hidden="true" tabindex="-1"></a>    model_results <span class="sc">%&gt;%</span> </span>
-<span id="cb92-67"><a href="#cb92-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_metrics</span>(log_google_hits, .pred) <span class="sc">%&gt;%</span> </span>
-<span id="cb92-68"><a href="#cb92-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span> </span>
-<span id="cb92-69"><a href="#cb92-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> .metric, <span class="at">values_from =</span> .estimate)</span>
-<span id="cb92-70"><a href="#cb92-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb92-71"><a href="#cb92-71" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb92-72"><a href="#cb92-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb92-73"><a href="#cb92-73" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a>model_8 <span class="ot">&lt;-</span> </span>
+<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>  model_specs <span class="sc">%&gt;%</span> </span>
+<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(log_google_hits <span class="sc">~</span> log_linked_in <span class="sc">+</span> log_stackoverflow <span class="sc">+</span> log_git_hub_hits <span class="sc">+</span> functional , <span class="at">data =</span> df_training)</span>
+<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a><span class="co"># put all objects together</span></span>
+<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>fitted_models <span class="ot">&lt;-</span> <span class="fu">list</span>(model_1, model_2, model_3,</span>
+<span id="cb92-58"><a href="#cb92-58" aria-hidden="true" tabindex="-1"></a>                      model_4, model_5, model_6,</span>
+<span id="cb92-59"><a href="#cb92-59" aria-hidden="true" tabindex="-1"></a>                      model_7, model_8)</span>
+<span id="cb92-60"><a href="#cb92-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-61"><a href="#cb92-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-62"><a href="#cb92-62" aria-hidden="true" tabindex="-1"></a><span class="co"># function for validation performance</span></span>
+<span id="cb92-63"><a href="#cb92-63" aria-hidden="true" tabindex="-1"></a>validation_performance <span class="ot">&lt;-</span> <span class="cf">function</span>(model){</span>
+<span id="cb92-64"><a href="#cb92-64" aria-hidden="true" tabindex="-1"></a>  model_results <span class="ot">&lt;-</span> </span>
+<span id="cb92-65"><a href="#cb92-65" aria-hidden="true" tabindex="-1"></a>    df_validation <span class="sc">%&gt;%</span> </span>
+<span id="cb92-66"><a href="#cb92-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(model, df_validation)) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-67"><a href="#cb92-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(log_google_hits, .pred)</span>
+<span id="cb92-68"><a href="#cb92-68" aria-hidden="true" tabindex="-1"></a>  my_metrics <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(rmse, rsq, mae)</span>
+<span id="cb92-69"><a href="#cb92-69" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> </span>
+<span id="cb92-70"><a href="#cb92-70" aria-hidden="true" tabindex="-1"></a>    model_results <span class="sc">%&gt;%</span> </span>
+<span id="cb92-71"><a href="#cb92-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">my_metrics</span>(log_google_hits, .pred) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-72"><a href="#cb92-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>.estimator) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-73"><a href="#cb92-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> .metric, <span class="at">values_from =</span> .estimate)</span>
+<span id="cb92-74"><a href="#cb92-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb92-75"><a href="#cb92-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb92-76"><a href="#cb92-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-77"><a href="#cb92-77" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="math_254_project_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1120,9 +1125,23 @@ div.csl-indent {
 3 mae     standard       1.95 </code></pre>
 </div>
 </div>
-</section>
-<section id="links" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> links</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-farshidi2020" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Farshidi</span>, S. (2020). <a href="https://doi.org/10.17632/5TC6V6ZKZF.1">A decision model for programming LanguageEcosystem selection: Seven industry case studies</a>.</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-janitor" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Firke</span>, S. (2021). <a href="https://CRAN.R-project.org/package=janitor">Janitor: Simple tools for examining and cleaning dirty data</a>.</div>
+</div>
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Kuhn</span>, M. and <span class="smallcaps">Wickham</span>, H. (2020). <a href="https://www.tidymodels.org">Tidymodels: A collection of packages for modeling and machine learning using tidyverse principles.</a></div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661"><span></span>Infer<span></span>: An <span></span>r<span></span> package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
+</div>
+</div>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
