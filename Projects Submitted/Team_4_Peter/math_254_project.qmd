@@ -1,5 +1,5 @@
 ---
-title: "An analysis on what drives the popularity of a programming language: Does social media or technical features have a greater impact "
+title: "An analysis on what drives the popularity of a programming language: Does social media or technical features have a greater impact?"
 author:
   - name: Zichu Pan
     email: zpan@hamilton.edu
@@ -22,9 +22,9 @@ abstract: Programming languages have become a key tool for almost all areas of s
 format: 
     html:
       theme: 
-        light: united
-        dark: darkly
-title-block-banner: darkblue
+        light: yeti
+        dark: superhero
+title-block-banner: darkyellow
 date: October 17, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -48,6 +48,7 @@ execute:
   out.width: "100%"
   cache: true
 bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
 editor_options: 
   chunk_output_type: console
 ---
@@ -244,15 +245,10 @@ Future research may take into account expert opinions or the number of industry 
 
 # References (links after appendix)
 
--   [@tidyverse]
+[@farshidi2020], [@tidyverse], [@janitor], [@tidymodels], [@infer]
 
--   [@janitor]
-
--   [@tidymodels]
-
--   [@infer]
-
--   [@farshidi2020]
+::: {#refs}
+:::
 
 # Appendix
 
