@@ -53,8 +53,8 @@ execute:
   cache: true
 editor_options: 
   chunk_output_type: console
-# csl: electronic-journal-of-statistics.csl
-#bibliography: references.bib
+csl: electronic-journal-of-statistics.csl
+bibliography: references.bib
 ---
 
 # Background and Significance
@@ -91,31 +91,8 @@ The objective of this study was to look at gross income as a response variable t
 
 Our p-value for Model 18, 1.98e-40 \<\< $\alpha = 0.005$, suggests that this model is statistically significant, even though it only achieved a relatively low R-squared value of 0.641 (with an adjusted-R-squared value of 0.565). As prescribed by the p-value, we reject our null hypothesis that gross income is not correlated to any of the predictors the predictor set of variables with a p-value of 1.98e-40. However these results for correlation may be too low to be used in an investment setting, which may desire a much stronger correlation to ensure the most profit from their film. Still, all of this suggests that there is a relationship between the gross income of a film and the metadata included in our final model. Previous research consulted has reviewed individual metadata and their correlation to the revenue of the films in their data, but they didn't use multiple predictors or feature engineering, an expansion that this project attempts to provide. Our results suggest that this approach, using many predictors, including qualitative information like film genre, to predict gross income, can go further in the film industry. Despite the fact that much of the "buzz" surrounding the film industry and the films they produce appears to be qualitative, it is possible to examine it in a quantitative sense using multiple linear regression modeling. If this process were continued with more data, with a greater focus on metadata on each film, possible investors could be given predictions based on preliminary information on a film and make an informed decision to fund a project.
 
-# Reference
 
-1.  [@wickham2019]
-
-2.  [@couch2021]
-
-3.  [@rstudioapi]
-
-4.  [@tidyverse]
-
-5.  [@tidymodels]
-
-6.  [@infer]
-
-7.  [@GGally]
-
-8.  [@ggfortify]
-
-9.  [@knitr]
-
-10. [@corrplot]
-
-11. [@chen2018]
-
-12. [@james2013]
+[@wickham2019], [@couch2021], [@rstudioapi], [@tidyverse], [@tidymodels], [@infer], [@GGally], [@ggfortify], [@knitr], [@corrplot], [@chen2018], [@james2013]
 
 # References:
 

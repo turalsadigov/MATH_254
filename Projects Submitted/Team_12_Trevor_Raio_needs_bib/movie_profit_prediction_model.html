@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-0.9.649">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -15,15 +15,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -62,7 +57,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
+code span.bu { } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -75,7 +70,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,8 +114,8 @@ div.csl-indent {
 <link href="movie_profit_prediction_model_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="movie_profit_prediction_model_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="movie_profit_prediction_model_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="movie_profit_prediction_model_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="movie_profit_prediction_model_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="movie_profit_prediction_model_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="movie_profit_prediction_model_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
 <style>
     .quarto-title-block .quarto-title-banner {
       background: lightblue;
@@ -191,36 +186,35 @@ div.csl-indent {
   
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"><span class="toc-section-number">1</span>  Background and Significance</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">2</span>  Methods</a>
+  <li><a href="#background-and-significance" id="toc-background-and-significance" class="nav-link active" data-scroll-target="#background-and-significance"> <span class="header-section-number">1</span> Background and Significance</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"> <span class="header-section-number">2</span> Methods</a>
   <ul class="collapse">
-  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection"><span class="toc-section-number">2.1</span>  Data Collection</a></li>
-  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation"><span class="toc-section-number">2.2</span>  Variable Creation</a></li>
-  <li><a href="#analytic-methods" id="toc-analytic-methods" class="nav-link" data-scroll-target="#analytic-methods"><span class="toc-section-number">2.3</span>  Analytic Methods</a></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection"> <span class="header-section-number">2.1</span> Data Collection</a></li>
+  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation"> <span class="header-section-number">2.2</span> Variable Creation</a></li>
+  <li><a href="#analytic-methods" id="toc-analytic-methods" class="nav-link" data-scroll-target="#analytic-methods"> <span class="header-section-number">2.3</span> Analytic Methods</a></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="toc-section-number">3</span>  Results</a></li>
-  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"><span class="toc-section-number">4</span>  Discussion/Conclusions</a></li>
-  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference"><span class="toc-section-number">5</span>  Reference</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">6</span>  References:</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="toc-section-number">7</span>  Appendix</a>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"> <span class="header-section-number">3</span> Results</a></li>
+  <li><a href="#discussionconclusions" id="toc-discussionconclusions" class="nav-link" data-scroll-target="#discussionconclusions"> <span class="header-section-number">4</span> Discussion/Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"> <span class="header-section-number">5</span> References:</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"> <span class="header-section-number">6</span> Appendix</a>
   <ul class="collapse">
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="toc-section-number">7.1</span>  Libraries</a></li>
-  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset"><span class="toc-section-number">7.2</span>  Dataset</a></li>
-  <li><a href="#table-of-variables-in-dataset" id="toc-table-of-variables-in-dataset" class="nav-link" data-scroll-target="#table-of-variables-in-dataset"><span class="toc-section-number">7.3</span>  Table of Variables in Dataset</a></li>
-  <li><a href="#cleaning" id="toc-cleaning" class="nav-link" data-scroll-target="#cleaning"><span class="toc-section-number">7.4</span>  Cleaning</a></li>
-  <li><a href="#preliminary-visualizations" id="toc-preliminary-visualizations" class="nav-link" data-scroll-target="#preliminary-visualizations"><span class="toc-section-number">7.5</span>  Preliminary Visualizations</a></li>
-  <li><a href="#machine-learninglinear-regression-first-results-wo-genre-variable" id="toc-machine-learninglinear-regression-first-results-wo-genre-variable" class="nav-link" data-scroll-target="#machine-learninglinear-regression-first-results-wo-genre-variable"><span class="toc-section-number">7.6</span>  Machine Learning/Linear Regression (First Results w/o Genre Variable)</a></li>
-  <li><a href="#split-the-data" id="toc-split-the-data" class="nav-link" data-scroll-target="#split-the-data"><span class="toc-section-number">7.7</span>  Split the data</a></li>
-  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"><span class="toc-section-number">7.8</span>  Model specification</a></li>
-  <li><a href="#check-correlation-between-specific-genres" id="toc-check-correlation-between-specific-genres" class="nav-link" data-scroll-target="#check-correlation-between-specific-genres"><span class="toc-section-number">7.9</span>  Check correlation between specific genres</a></li>
-  <li><a href="#fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" id="toc-fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" class="nav-link" data-scroll-target="#fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data"><span class="toc-section-number">7.10</span>  Fit various models to training data (movie_training), evaluate them for validation data</a></li>
-  <li><a href="#put-models-together" id="toc-put-models-together" class="nav-link" data-scroll-target="#put-models-together"><span class="toc-section-number">7.11</span>  Put models together</a></li>
-  <li><a href="#pull-out-metrics-for-comparison-and-more-wrangling" id="toc-pull-out-metrics-for-comparison-and-more-wrangling" class="nav-link" data-scroll-target="#pull-out-metrics-for-comparison-and-more-wrangling"><span class="toc-section-number">7.12</span>  Pull out metrics for comparison and more wrangling</a></li>
-  <li><a href="#use-model-on-testing-data" id="toc-use-model-on-testing-data" class="nav-link" data-scroll-target="#use-model-on-testing-data"><span class="toc-section-number">7.13</span>  Use model on testing data</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"> <span class="header-section-number">6.1</span> Libraries</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset"> <span class="header-section-number">6.2</span> Dataset</a></li>
+  <li><a href="#table-of-variables-in-dataset" id="toc-table-of-variables-in-dataset" class="nav-link" data-scroll-target="#table-of-variables-in-dataset"> <span class="header-section-number">6.3</span> Table of Variables in Dataset</a></li>
+  <li><a href="#cleaning" id="toc-cleaning" class="nav-link" data-scroll-target="#cleaning"> <span class="header-section-number">6.4</span> Cleaning</a></li>
+  <li><a href="#preliminary-visualizations" id="toc-preliminary-visualizations" class="nav-link" data-scroll-target="#preliminary-visualizations"> <span class="header-section-number">6.5</span> Preliminary Visualizations</a></li>
+  <li><a href="#machine-learninglinear-regression-first-results-wo-genre-variable" id="toc-machine-learninglinear-regression-first-results-wo-genre-variable" class="nav-link" data-scroll-target="#machine-learninglinear-regression-first-results-wo-genre-variable"> <span class="header-section-number">6.6</span> Machine Learning/Linear Regression (First Results w/o Genre Variable)</a></li>
+  <li><a href="#split-the-data" id="toc-split-the-data" class="nav-link" data-scroll-target="#split-the-data"> <span class="header-section-number">6.7</span> Split the data</a></li>
+  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"> <span class="header-section-number">6.8</span> Model specification</a></li>
+  <li><a href="#check-correlation-between-specific-genres" id="toc-check-correlation-between-specific-genres" class="nav-link" data-scroll-target="#check-correlation-between-specific-genres"> <span class="header-section-number">6.9</span> Check correlation between specific genres</a></li>
+  <li><a href="#fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" id="toc-fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" class="nav-link" data-scroll-target="#fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data"> <span class="header-section-number">6.10</span> Fit various models to training data (movie_training), evaluate them for validation data</a></li>
+  <li><a href="#put-models-together" id="toc-put-models-together" class="nav-link" data-scroll-target="#put-models-together"> <span class="header-section-number">6.11</span> Put models together</a></li>
+  <li><a href="#pull-out-metrics-for-comparison-and-more-wrangling" id="toc-pull-out-metrics-for-comparison-and-more-wrangling" class="nav-link" data-scroll-target="#pull-out-metrics-for-comparison-and-more-wrangling"> <span class="header-section-number">6.12</span> Pull out metrics for comparison and more wrangling</a></li>
+  <li><a href="#use-model-on-testing-data" id="toc-use-model-on-testing-data" class="nav-link" data-scroll-target="#use-model-on-testing-data"> <span class="header-section-number">6.13</span> Use model on testing data</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -260,32 +254,53 @@ div.csl-indent {
 <h1 data-number="4"><span class="header-section-number">4</span> Discussion/Conclusions</h1>
 <p>The objective of this study was to look at gross income as a response variable to the budget for the film, to the IMDB rating of the film, the duration of the film, and the genre tag of the film. The final model fit to this dataset incorporated these predictors, but used many more in addition to these initial predictors thought to be significant at the start of this project. Since the response variable in question was gross income, since the concern is just on how much the film makes from box office proceedings, the use of feature engineering was chosen to have the best predictive power for the training data, as well as the testing data. The only caveat to this process is that the specific sums and products used to create our final model (Model 18) are uninterpretable. However, since this feature engineering facilitated a more desirable R-squared value in our training and testing sets, this process was valid in our analysis of gross income.</p>
 <p>Our p-value for Model 18, 1.98e-40 &lt;&lt; <span class="math inline">\(\alpha = 0.005\)</span>, suggests that this model is statistically significant, even though it only achieved a relatively low R-squared value of 0.641 (with an adjusted-R-squared value of 0.565). As prescribed by the p-value, we reject our null hypothesis that gross income is not correlated to any of the predictors the predictor set of variables with a p-value of 1.98e-40. However these results for correlation may be too low to be used in an investment setting, which may desire a much stronger correlation to ensure the most profit from their film. Still, all of this suggests that there is a relationship between the gross income of a film and the metadata included in our final model. Previous research consulted has reviewed individual metadata and their correlation to the revenue of the films in their data, but they didn’t use multiple predictors or feature engineering, an expansion that this project attempts to provide. Our results suggest that this approach, using many predictors, including qualitative information like film genre, to predict gross income, can go further in the film industry. Despite the fact that much of the “buzz” surrounding the film industry and the films they produce appears to be qualitative, it is possible to examine it in a quantitative sense using multiple linear regression modeling. If this process were continued with more data, with a greater focus on metadata on each film, possible investors could be given predictions based on preliminary information on a film and make an informed decision to fund a project.</p>
+<p><span class="citation" data-cites="wickham2019">[<a href="#ref-wickham2019" role="doc-biblioref">1</a>]</span>, <span class="citation" data-cites="couch2021">[<a href="#ref-couch2021" role="doc-biblioref">2</a>]</span>, <span class="citation" data-cites="rstudioapi">[<a href="#ref-rstudioapi" role="doc-biblioref">3</a>]</span>, <span class="citation" data-cites="tidyverse">[<a href="#ref-tidyverse" role="doc-biblioref">4</a>]</span>, <span class="citation" data-cites="tidymodels">[<a href="#ref-tidymodels" role="doc-biblioref">5</a>]</span>, <span class="citation" data-cites="infer">[<a href="#ref-infer" role="doc-biblioref">6</a>]</span>, <span class="citation" data-cites="GGally">[<a href="#ref-GGally" role="doc-biblioref">7</a>]</span>, <span class="citation" data-cites="ggfortify">[<a href="#ref-ggfortify" role="doc-biblioref">8</a>]</span>, <span class="citation" data-cites="knitr">[<a href="#ref-knitr" role="doc-biblioref">9</a>]</span>, <span class="citation" data-cites="corrplot">[<a href="#ref-corrplot" role="doc-biblioref">10</a>]</span>, <span class="citation" data-cites="chen2018">[<a href="#ref-chen2018" role="doc-biblioref">11</a>]</span>, <span class="citation" data-cites="james2013">[<a href="#ref-james2013" role="doc-biblioref">12</a>]</span></p>
 </section>
-<section id="reference" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Reference</h1>
-<ol type="1">
-<li><p><span class="citation" data-cites="wickham2019">[@wickham2019]</span></p></li>
-<li><p><span class="citation" data-cites="couch2021">[@couch2021]</span></p></li>
-<li><p><span class="citation" data-cites="rstudioapi">[@rstudioapi]</span></p></li>
-<li><p><span class="citation" data-cites="tidyverse">[@tidyverse]</span></p></li>
-<li><p><span class="citation" data-cites="tidymodels">[@tidymodels]</span></p></li>
-<li><p><span class="citation" data-cites="infer">[@infer]</span></p></li>
-<li><p><span class="citation" data-cites="GGally">[@GGally]</span></p></li>
-<li><p><span class="citation" data-cites="ggfortify">[@ggfortify]</span></p></li>
-<li><p><span class="citation" data-cites="knitr">[@knitr]</span></p></li>
-<li><p><span class="citation" data-cites="corrplot">[@corrplot]</span></p></li>
-<li><p><span class="citation" data-cites="chen2018">[@chen2018]</span></p></li>
-<li><p><span class="citation" data-cites="james2013">[@james2013]</span></p></li>
-</ol>
+<section id="references" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> References:</h1>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-wickham2019" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the tidyverse</a>. <em>Journal of Open Source Software</em> <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-couch2021" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S., <span class="smallcaps">Bray</span>, A., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661">Infer: An r package for tidyverse-friendly statistical inference</a>. <em>Journal of Open Source Software</em> <strong>6</strong> 3661.</div>
+</div>
+<div id="ref-rstudioapi" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline"><span class="smallcaps">Ushey</span>, K., <span class="smallcaps">Allaire</span>, J., <span class="smallcaps">Wickham</span>, H. and <span class="smallcaps">Ritchie</span>, G. (2022). <a href="https://CRAN.R-project.org/package=rstudioapi">Rstudioapi: Safely access the RStudio API</a>.</div>
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline"><span class="smallcaps">Wickham</span>, H., <span class="smallcaps">Averick</span>, M., <span class="smallcaps">Bryan</span>, J., <span class="smallcaps">Chang</span>, W., <span class="smallcaps">McGowan</span>, L. D., <span class="smallcaps">François</span>, R., <span class="smallcaps">Grolemund</span>, G., <span class="smallcaps">Hayes</span>, A., <span class="smallcaps">Henry</span>, L., <span class="smallcaps">Hester</span>, J., <span class="smallcaps">Kuhn</span>, M., <span class="smallcaps">Pedersen</span>, T. L., <span class="smallcaps">Miller</span>, E., <span class="smallcaps">Bache</span>, S. M., <span class="smallcaps">Müller</span>, K., <span class="smallcaps">Ooms</span>, J., <span class="smallcaps">Robinson</span>, D., <span class="smallcaps">Seidel</span>, D. P., <span class="smallcaps">Spinu</span>, V., <span class="smallcaps">Takahashi</span>, K., <span class="smallcaps">Vaughan</span>, D., <span class="smallcaps">Wilke</span>, C., <span class="smallcaps">Woo</span>, K. and <span class="smallcaps">Yutani</span>, H. (2019). <a href="https://doi.org/10.21105/joss.01686">Welcome to the <span></span>tidyverse<span></span></a>. <strong>4</strong> 1686.</div>
+</div>
+<div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline"><span class="smallcaps">Kuhn</span>, M. and <span class="smallcaps">Wickham</span>, H. (2020). <a href="https://www.tidymodels.org">Tidymodels: A collection of packages for modeling and machine learning using tidyverse principles.</a></div>
+</div>
+<div id="ref-infer" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline"><span class="smallcaps">Couch</span>, S. P., <span class="smallcaps">Bray</span>, A. P., <span class="smallcaps">Ismay</span>, C., <span class="smallcaps">Chasnovski</span>, E., <span class="smallcaps">Baumer</span>, B. S. and <span class="smallcaps">Çetinkaya-Rundel</span>, M. (2021). <a href="https://doi.org/10.21105/joss.03661"><span></span>Infer<span></span>: An <span></span>r<span></span> package for tidyverse-friendly statistical inference</a>. <strong>6</strong> 3661.</div>
+</div>
+<div id="ref-GGally" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline"><span class="smallcaps">Schloerke</span>, B., <span class="smallcaps">Cook</span>, D., <span class="smallcaps">Larmarange</span>, J., <span class="smallcaps">Briatte</span>, F., <span class="smallcaps">Marbach</span>, M., <span class="smallcaps">Thoen</span>, E., <span class="smallcaps">Elberg</span>, A. and <span class="smallcaps">Crowley</span>, J. (2021). <a href="https://CRAN.R-project.org/package=GGally">GGally: Extension to ’ggplot2’</a>.</div>
+</div>
+<div id="ref-ggfortify" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline"><span class="smallcaps">Tang</span>, Y., <span class="smallcaps">Horikoshi</span>, M. and <span class="smallcaps">Li</span>, W. (2016). <a href="https://doi.org/10.32614/RJ-2016-060">Ggfortify: Unified interface to visualize statistical result of popular r packages</a>. <strong>8</strong>.</div>
+</div>
+<div id="ref-knitr" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline"><span class="smallcaps">Xie</span>, Y. (2022). <a href="https://yihui.org/knitr/">Knitr: A general-purpose package for dynamic report generation in r</a>.</div>
+</div>
+<div id="ref-corrplot" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline"><span class="smallcaps">Wei</span>, T. and <span class="smallcaps">Simko</span>, V. (2021). <a href="https://github.com/taiyun/corrplot">R package ’corrplot’: Visualization of a correlation matrix</a>.</div>
+</div>
+<div id="ref-chen2018" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline"><span class="smallcaps">Chen</span>, A. W. (2018). <a href="http://www.ijbmer.com/docs/volumes/vol9issue3/ijbmer2018090303.pdf">A statistical analysis of gross revenue in movie industry</a>.</div>
+</div>
+<div id="ref-james2013" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline"><span class="smallcaps">James</span>, G., <span class="smallcaps">Witten</span>, D., <span class="smallcaps">Hastie</span>, T. and <span class="smallcaps">Tibshirani</span>, R. (2013). <em><a href="https://doi.org/10.1007/978-1-4614-7138-7">An introduction to statistical learning</a></em>. Springer New York.</div>
+</div>
+</div>
 </section>
-<section id="references" class="level1" data-number="6">
-
-
-</section>
-<section id="appendix" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Appendix</h1>
-<section id="libraries" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="libraries"><span class="header-section-number">7.1</span> Libraries</h2>
+<section id="appendix" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Appendix</h1>
+<section id="libraries" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="libraries"><span class="header-section-number">6.1</span> Libraries</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-1_d60007359c5aaf170506e3dc4f947520">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
@@ -297,21 +312,21 @@ div.csl-indent {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="dataset" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="dataset"><span class="header-section-number">7.2</span> Dataset</h2>
+<section id="dataset" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="dataset"><span class="header-section-number">6.2</span> Dataset</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-2_70839313600d5ac4acf416f1627b126f">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># movie_raw_data &lt;- read_csv('movie_metadata.csv')</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>movie_raw_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/movie_metadata_trevor_raio.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="table-of-variables-in-dataset" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="table-of-variables-in-dataset"><span class="header-section-number">7.3</span> Table of Variables in Dataset</h2>
+<section id="table-of-variables-in-dataset" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="table-of-variables-in-dataset"><span class="header-section-number">6.3</span> Table of Variables in Dataset</h2>
 <table class="table">
 <colgroup>
 <col style="width: 24%">
 <col style="width: 3%">
-<col style="width: 71%">
+<col style="width: 72%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -420,8 +435,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="cleaning" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="cleaning"><span class="header-section-number">7.4</span> Cleaning</h2>
+<section id="cleaning" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="cleaning"><span class="header-section-number">6.4</span> Cleaning</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-3_98ca4d572d62a80ee70e5869fde9e711">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set so that long lines in R will be wrapped:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy.opts=</span><span class="fu">list</span>(<span class="at">width.cutoff=</span><span class="dv">80</span>), <span class="at">tidy=</span><span class="cn">TRUE</span>)</span>
@@ -483,8 +498,8 @@ div.csl-indent {
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">15</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">22</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="preliminary-visualizations" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="preliminary-visualizations"><span class="header-section-number">7.5</span> Preliminary Visualizations</h2>
+<section id="preliminary-visualizations" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="preliminary-visualizations"><span class="header-section-number">6.5</span> Preliminary Visualizations</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-4_37f991c5ed66aa79679f63a867256096">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>movie_data <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(duration, imdb_score) <span class="sc">%&gt;%</span> </span>
@@ -530,8 +545,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="machine-learninglinear-regression-first-results-wo-genre-variable" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="machine-learninglinear-regression-first-results-wo-genre-variable"><span class="header-section-number">7.6</span> Machine Learning/Linear Regression (First Results w/o Genre Variable)</h2>
+<section id="machine-learninglinear-regression-first-results-wo-genre-variable" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="machine-learninglinear-regression-first-results-wo-genre-variable"><span class="header-section-number">6.6</span> Machine Learning/Linear Regression (First Results w/o Genre Variable)</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-8_da4570c98e1dde8c5310795c9ddec3d1">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
@@ -601,8 +616,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="split-the-data" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="split-the-data"><span class="header-section-number">7.7</span> Split the data</h2>
+<section id="split-the-data" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="split-the-data"><span class="header-section-number">6.7</span> Split the data</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-9_5e5741b94001e12252cbfaab6fded8bc">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>movie_data_test <span class="ot">&lt;-</span> movie_data</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>comedy <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(movie_data<span class="sc">$</span>genres, <span class="st">'Comedy'</span>)</span>
@@ -658,8 +673,8 @@ div.csl-indent {
 <span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">strata =</span> gross)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-specification" class="level2" data-number="7.8">
-<h2 data-number="7.8" class="anchored" data-anchor-id="model-specification"><span class="header-section-number">7.8</span> Model specification</h2>
+<section id="model-specification" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="model-specification"><span class="header-section-number">6.8</span> Model specification</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-10_9d58e68fd862e2855be3d5bc6dcf55a6">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lm_specs <span class="ot">&lt;-</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> </span>
@@ -667,8 +682,8 @@ div.csl-indent {
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">'regression'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="check-correlation-between-specific-genres" class="level2" data-number="7.9">
-<h2 data-number="7.9" class="anchored" data-anchor-id="check-correlation-between-specific-genres"><span class="header-section-number">7.9</span> Check correlation between specific genres</h2>
+<section id="check-correlation-between-specific-genres" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="check-correlation-between-specific-genres"><span class="header-section-number">6.9</span> Check correlation between specific genres</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-11_2370fcdeeddbb0b488e1fb6244d9cd78">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cor_variable <span class="ot">&lt;-</span> movie_data_test <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>color, <span class="sc">-</span> genres, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">19</span><span class="sc">:</span><span class="dv">37</span>), <span class="sc">-</span> aspect_ratio, <span class="sc">-</span>facenumber_in_poster) <span class="sc">%&gt;%</span> </span>
@@ -687,8 +702,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" class="level2" data-number="7.10">
-<h2 data-number="7.10" class="anchored" data-anchor-id="fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data"><span class="header-section-number">7.10</span> Fit various models to training data (movie_training), evaluate them for validation data</h2>
+<section id="fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="fit-various-models-to-training-data-movie_training-evaluate-them-for-validation-data"><span class="header-section-number">6.10</span> Fit various models to training data (movie_training), evaluate them for validation data</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-12_d9e5d437b253d6608ee7a058d0d42fb5">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy.opts=</span><span class="fu">list</span>(<span class="at">width.cutoff=</span><span class="dv">80</span>), <span class="at">tidy=</span><span class="cn">TRUE</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -928,8 +943,8 @@ div.csl-indent {
 <span id="cb21-236"><a href="#cb21-236" aria-hidden="true" tabindex="-1"></a>                <span class="at">metrics =</span> <span class="fu">metric_set</span>(rsq, rmse, mae))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="put-models-together" class="level2" data-number="7.11">
-<h2 data-number="7.11" class="anchored" data-anchor-id="put-models-together"><span class="header-section-number">7.11</span> Put models together</h2>
+<section id="put-models-together" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="put-models-together"><span class="header-section-number">6.11</span> Put models together</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-13_1dc25d845264311564d88a24600d6f94">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">tidy.opts=</span><span class="fu">list</span>(<span class="at">width.cutoff=</span><span class="dv">80</span>), <span class="at">tidy=</span><span class="cn">TRUE</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -939,8 +954,8 @@ div.csl-indent {
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                      model_16, model_17, model_18)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="pull-out-metrics-for-comparison-and-more-wrangling" class="level2" data-number="7.12">
-<h2 data-number="7.12" class="anchored" data-anchor-id="pull-out-metrics-for-comparison-and-more-wrangling"><span class="header-section-number">7.12</span> Pull out metrics for comparison and more wrangling</h2>
+<section id="pull-out-metrics-for-comparison-and-more-wrangling" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="pull-out-metrics-for-comparison-and-more-wrangling"><span class="header-section-number">6.12</span> Pull out metrics for comparison and more wrangling</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-14_867776db6ff803b53c46564df1e8f706">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>validation_result <span class="ot">&lt;-</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(fitted_models) <span class="sc">%&gt;%</span></span>
@@ -978,8 +993,8 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="use-model-on-testing-data" class="level2" data-number="7.13">
-<h2 data-number="7.13" class="anchored" data-anchor-id="use-model-on-testing-data"><span class="header-section-number">7.13</span> Use model on testing data</h2>
+<section id="use-model-on-testing-data" class="level2" data-number="6.13">
+<h2 data-number="6.13" class="anchored" data-anchor-id="use-model-on-testing-data"><span class="header-section-number">6.13</span> Use model on testing data</h2>
 <div class="cell" data-hash="movie_profit_prediction_model_cache/html/unnamed-chunk-15_f0cc9cd05971b20070bdef8291fbc85e">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  lm_specs <span class="sc">%&gt;%</span> </span>
@@ -1017,30 +1032,10 @@ div.csl-indent {
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">6 References:</h2><div id="refs" role="doc-bibliography">
-
-</div></section></div></main>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
   const disableStylesheet = (stylesheets) => {
     for (let i=0; i < stylesheets.length; i++) {
       const stylesheet = stylesheets[i];
@@ -1070,14 +1065,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     manageTransitions('#quarto-margin-sidebar .nav-link', false);
     if (alternate) {
       enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
     } else {
       disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
     }
     manageTransitions('#quarto-margin-sidebar .nav-link', true);
     // Switch the toggles
@@ -1091,16 +1080,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           toggle.classList.remove("alternate");
         }
       }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
     }
   }
   const isFileUrl = () => { 
@@ -1203,8 +1182,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
