@@ -34,9 +34,9 @@ abstract: Recent research has found consistent and significant increases
 format: 
     html:
       theme: 
-        light: united
+        light: zephyr
         dark: darkly
-title-block-banner: darkblue
+title-block-banner: darkgray
 date: November 16, 2022
 highlight-style: pygments
 chunk_output_type: console
@@ -377,14 +377,15 @@ tests below.
 We want to test the following hypotheses at the alpha = 0.0001
 significance level.
 
-H~0~: The distribution of "1"s in question 9 (meaning qualifying for of
-concern for autism screening) is independent of the distribution of "1"s
-in question 6. Positive and negative results for screening in question 6
-and question 9 do not have a statistically significant relationship.
+-   H~0~: The distribution of "1"s in question 9 (meaning qualifying for
+    of concern for autism screening) is independent of the distribution
+    of "1"s in question 6. Positive and negative results for screening
+    in question 6 and question 9 do not have a statistically significant
+    relationship.
 
-H~A~: The distribution of "1"s in question 9 is dependent on the
-distribution of "1"s in question 6. More "1"s in question 6 are
-correlated with more "1"s in question 9.
+-   H~A~: The distribution of "1"s in question 9 is dependent on the
+    distribution of "1"s in question 6. More "1"s in question 6 are
+    correlated with more "1"s in question 9.
 
 We can assume the data was taken through simple random sample (IID -
 Data is independently, identically distributed) taken by the data
@@ -417,14 +418,15 @@ with a high proportions of "1"s in question 6.
 We want to test the following hypotheses at the alpha = 0.0001
 significance level.
 
-H~0~: The distribution of "1"s in question 7 (meaning qualifying for of
-concern for autism screening) is independent of the distribution of "1"s
-in question 5. Positive and negative results for screening in question 5
-and question 7 do not have a statistically significant relationship.
+-   H~0~: The distribution of "1"s in question 7 (meaning qualifying for
+    of concern for autism screening) is independent of the distribution
+    of "1"s in question 5. Positive and negative results for screening
+    in question 5 and question 7 do not have a statistically significant
+    relationship.
 
-H~A~: The distribution of "1"s in question 7 is dependent on the
-distribution of "1"s in question 5. More "1"s in question 5 are
-correlated with more "1"s in question 7.
+-   H~A~: The distribution of "1"s in question 7 is dependent on the
+    distribution of "1"s in question 5. More "1"s in question 5 are
+    correlated with more "1"s in question 7.
 
 We can assume the data was taken through simple random sample (IID -
 Data is independently, identically distributed) taken by the data
@@ -455,16 +457,17 @@ question 7 are highly correlated. A high proportion of "1"s in question
 We want to test the following hypotheses at the alpha = 0.0001
 significance level.
 
-H~0~: The distribution of "1"s (meaning qualifying for of concern for
-autism screening) in the top-ranked group is independent of the
-distribution of "1"s in the bottom-ranked Group. Positive and negative
-results for screening in the top-ranked group and the bottom-ranked
-group do not have a statistically significant relationship.
+-   H~0~: The distribution of "1"s (meaning qualifying for of concern
+    for autism screening) in the top-ranked group is independent of the
+    distribution of "1"s in the bottom-ranked Group. Positive and
+    negative results for screening in the top-ranked group and the
+    bottom-ranked group do not have a statistically significant
+    relationship.
 
-H~A~: The distribution of "1"s in the top-ranked group is dependent on
-the distribution of "1"s in the bottom-ranked Group. Positive and
-negative results for screening in the top-ranked group and the
-bottom-ranked group have a statistically significant relationship.
+-   H~A~: The distribution of "1"s in the top-ranked group is dependent
+    on the distribution of "1"s in the bottom-ranked Group. Positive and
+    negative results for screening in the top-ranked group and the
+    bottom-ranked group have a statistically significant relationship.
 
 We can assume the data was taken through simple random sample (IID -
 Data is independently, identically distributed) taken by the data
@@ -521,29 +524,30 @@ between top questions.
 **Below are the importance ranking of the top questions from our tuned
 random forest model:**
 
-6: Does your child follow where you're looking?
+-   6: Does your child follow where you're looking?
 
-9: Does your child use simple gestures (e.g. wave goodbye)?
+-   9: Does your child use simple gestures (e.g. wave goodbye)?
 
-5: Does your child pretend (egg care for dolls, talk on a toy phone)?
+-   5: Does your child pretend (egg care for dolls, talk on a toy
+    phone)?
 
-7: If you or someone else in the family is visibly upset, does your
-child show signs of wanting to comfort them (e.g. stroking their hair,
-hugging them)?
+-   7: If you or someone else in the family is visibly upset, does your
+    child show signs of wanting to comfort them (e.g. stroking their
+    hair, hugging them)?
 
-1: Does your child look at you when you call his/her name?
+-   1: Does your child look at you when you call his/her name?
 
-4: Does your child point to share interest with you (e.g. pointing at an
-interesting sight)?
+-   4: Does your child point to share interest with you (e.g. pointing
+    at an interesting sight)?
 
-2: How easy is it for you to get eye contact with your child?
+-   2: How easy is it for you to get eye contact with your child?
 
-8: Would you describe your child's first words as:
+-   8: Would you describe your child's first words as:
 
-3: Does your child point to indicate that s/he wants something (e.g. a
-toy that is out of reach)?
+-   3: Does your child point to indicate that s/he wants something (e.g.
+    a toy that is out of reach)?
 
-10: Does your child stare at nothing with no apparent purpose?
+-   10: Does your child stare at nothing with no apparent purpose?
 
 Within our results, we observed a statistically significant relationship
 between top questions, particularly question 9 \~ question 6 (p =
@@ -670,8 +674,16 @@ account <- 'benz3927/Data/main/'
 folder <- 'Toddler%20Autism%20dataset%20July%'
 file <- '202018.csv'
 url <- str_c(remote, account, folder, file)
-raw_screening = tibble(read.csv(file = url))
-# raw_screening <- read_csv('https://raw.githubusercontent.com/turalsadigov/MATH_254/main/Datasets%20for%20projects/Toddler_Autism_dataset_July_2018_Drake_Ben.csv')
+raw_screening <-  tibble(read.csv(file = url))
+
+
+# remote <- "https://media.githubusercontent.com/media/"
+# account <- "turalsadigov/"
+# folder <- "MATH_254/main/Datasets%20for%20projects/"
+# file <- "Toddler_Autism_dataset_July_2018_Drake_Ben.csv"
+# url <- str_c(remote, account, folder, file)
+# raw_screening <- read_csv(url)
+
 
 screening <-
   raw_screening %>% 
@@ -793,8 +805,11 @@ cores <- parallel::detectCores()
 cores
 
 rf_mod <-
-  rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>%
-  set_engine("ranger", num.threads = cores) %>%
+  rand_forest(mtry = tune(), 
+              min_n = tune(), 
+              trees = 1000) %>%
+  set_engine("ranger", 
+             num.threads = cores) %>%
   set_mode("classification")
 
 
@@ -860,8 +875,12 @@ autoplot(rf_auc) +
 ```{r}
 set.seed(2022)
 last_rf_mod <-
-  rand_forest(mtry = 4, min_n = 7, trees = 1000) %>%
-  set_engine("ranger", num.threads = cores, importance = "impurity") %>%
+  rand_forest(mtry = 1, 
+              min_n = 26, 
+              trees = 1000) %>%
+  set_engine("ranger", 
+             num.threads = cores, 
+             importance = "impurity") %>%
   set_mode("classification")
 
 last_rf_workflow <- 
